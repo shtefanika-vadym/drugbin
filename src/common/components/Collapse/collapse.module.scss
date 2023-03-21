@@ -1,0 +1,32 @@
+.parent {
+  &Summary {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--color-dark-05);
+    list-style-type: none;
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding: 0 0 16px 0;
+
+    font-size: 24px;
+    line-height: 32px;
+  }
+
+  &Summary::before {
+    content: url('../../assets/icons/right.svg');
+    transform: rotate(90deg);
+    transform-origin: center;
+  }
+
+  [open] &Summary::before {
+    transform: rotate(-90deg);
+  }
+}
+
+.parentDisabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
