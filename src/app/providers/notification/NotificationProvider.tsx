@@ -5,9 +5,9 @@ import { notification as antNotification } from 'antd'
 import classNames from 'classnames'
 import { nanoid } from 'nanoid'
 
-import closeIcon from 'common/assets/icons/close-notification.svg'
-import errorIcon from 'common/assets/icons/info-white.svg'
-import successIcon from 'common/assets/icons/success-notification.svg'
+import closeIcon from 'common/assets/icons/close.svg'
+import errorIcon from 'common/assets/icons/error.svg'
+import successIcon from 'common/assets/icons/success.svg'
 
 import { ALERT_CONSTANTS } from 'common/constants/alertConstants'
 import { ALT_CONSTANTS } from 'common/constants/altConstants'
