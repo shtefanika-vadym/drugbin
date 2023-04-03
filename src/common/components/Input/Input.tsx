@@ -1,32 +1,23 @@
-import type { InputHTMLAttributes } from 'react'
-import React, { useCallback, useState } from 'react'
+import React from 'react'
 
 import eyeDisableIcom from 'common/assets/icons/eye-disable.svg'
 import eyeIcon from 'common/assets/icons/eye.svg'
 import minusIcon from 'common/assets/icons/minus.svg'
 import plusIcon from 'common/assets/icons/plus-add.svg'
 
+import { Button } from 'common/components/Button/Button'
+import useToggle from 'common/hooks/useToggle'
+
 import {
   Container,
   ContainerWrapper,
   CustomButton,
   Icon,
-  IconButton,
   ShowPasswordButton,
   StyledInput,
   StyledLabel,
 } from './Input.styled'
-
-export interface LabeledInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label?: string
-  valid?: boolean
-}
-
-const useToggle = (initialState: boolean = false): [boolean, any] => {
-  const [state, setState] = useState<boolean>(initialState)
-  const toggle = useCallback((): void => setState((state) => !state), [])
-  return [state, toggle]
-}
+import type { LabeledInputProps } from './Input.type'
 
 export const Input = React.forwardRef<HTMLInputElement, LabeledInputProps>((props, ref) => {
   const { valid = true, label = '', type = 'text', disabled = false, placeholder, ...rest } = props
@@ -53,12 +44,12 @@ export const Input = React.forwardRef<HTMLInputElement, LabeledInputProps>((prop
         </Container>
         {type === 'number' && (
           <CustomButton>
-            <IconButton>
+            <Button variant='empty' size='S-square'>
               <Icon src={minusIcon} />
-            </IconButton>
-            <IconButton>
+            </Button>
+            <Button variant='empty' size='S-square'>
               <Icon src={plusIcon} />
-            </IconButton>
+            </Button>
           </CustomButton>
         )}
       </ContainerWrapper>
