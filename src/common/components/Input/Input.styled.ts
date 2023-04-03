@@ -1,23 +1,43 @@
 import styled, { css } from 'styled-components'
 
+import {
+  WDS_COLOR_BLACK,
+  WDS_COLOR_BLUE_200,
+  WDS_COLOR_BLUE_700,
+  WDS_COLOR_GREY,
+  WDS_COLOR_RED,
+} from 'common/style/colors'
+import { border } from 'common/style/mixins/border.mixin'
+import { flex } from 'common/style/mixins/flex.mixin'
+import { textVariant } from 'common/style/mixins/typography.mixin'
+import {
+  WDS_SIZE_008_PX,
+  WDS_SIZE_010_PX,
+  WDS_SIZE_014_PX,
+  WDS_SIZE_016_PX,
+  WDS_SIZE_037_PX,
+  WDS_SIZE_040_PX,
+  WDS_SIZE_074_PX,
+  WDS_SIZE_400_PX,
+} from 'common/style/size'
+
 export const Container = styled.div<{ valid: boolean }>`
-  display: flex;
   width: 100%;
-  justify-content: space-between;
-  height: 40px;
-  border: 1px solid ${(props) => (props.valid ? '#A3A6AD' : 'red')};
-  border-radius: 8px;
+  height: ${WDS_SIZE_040_PX};
+  ${flex({ justifyContent: 'space-between' })};
+  border: 1px solid ${(props) => (props.valid ? WDS_COLOR_GREY : WDS_COLOR_RED)};
+  border-radius: ${WDS_SIZE_008_PX};
 `
 
 export const StyledInput = styled.input<{ valid: boolean }>`
-  background-color: transparent;
-  flex-grow: 1;
-  padding: 11px 10px;
   border: none;
   outline: none;
-  color: ${(props) => (props.valid ? '#000611' : 'red')};
-  font-size: 16px;
-  caret-color: #a3a6ad;
+  background-color: transparent;
+  flex-grow: 1;
+  padding: ${WDS_SIZE_010_PX};
+  color: ${(props) => (props.valid ? WDS_COLOR_BLACK : WDS_COLOR_RED)};
+  caret-color: ${WDS_COLOR_GREY};
+  font-size: ${WDS_SIZE_016_PX};
 
   ${({ type }) =>
     type === 'number' &&
@@ -30,7 +50,7 @@ export const StyledInput = styled.input<{ valid: boolean }>`
     `}
 
   &::placeholder {
-    color: #a3a6ad;
+    color: ${WDS_COLOR_GREY};
   }
 
   &[disabled] {
@@ -39,46 +59,40 @@ export const StyledInput = styled.input<{ valid: boolean }>`
 `
 
 export const StyledLabel = styled.label`
-  font-style: normal;
-  font-weight: 400;
-  font-size: 13px;
-  line-height: 18px;
-  color: #01102e;
+  ${textVariant('bodyS')};
+  color: ${WDS_COLOR_BLUE_700};
 `
 
 export const ShowPasswordButton = styled.button.attrs({ type: 'button', tabIndex: -1 })`
   all: unset;
-  padding: 0 14px;
+  padding: 0 ${WDS_SIZE_014_PX};
+  color: ${WDS_COLOR_RED};
   cursor: pointer;
-  color: red;
 `
 
 export const IconButton = styled.button.attrs({ type: 'button' })`
   all: unset;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 37px;
+  width: ${WDS_SIZE_037_PX};
+  ${flex({ alignItems: 'center', justifyContent: 'center' })}
   cursor: pointer;
 
   :hover {
-    background-color: #aec5f2;
-    border-radius: 8px;
+    background-color: ${WDS_COLOR_BLUE_200};
+    border-radius: ${WDS_SIZE_008_PX};
   }
 `
 
 export const Icon = styled.img``
 
 export const CustomButton = styled.div`
-  display: flex;
-  border: 1px solid #a3a6ad;
-  border-radius: 8px;
-  width: 74px;
-  height: 40px;
+  ${flex};
+  ${border({ type: 'solid', color: WDS_COLOR_GREY })}
+  border-radius: ${WDS_SIZE_008_PX};
+  width: ${WDS_SIZE_074_PX};
+  height: ${WDS_SIZE_040_PX};
 `
 
 export const ContainerWrapper = styled.div`
-  max-width: 400px;
-  display: flex;
-  gap: 8px;
+  ${flex({ gap: WDS_SIZE_008_PX })};
+  max-width: ${WDS_SIZE_400_PX};
 `
