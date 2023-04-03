@@ -61,6 +61,13 @@ export const buttonVariants = {
       transform: translateY(-1px);
     }
   `,
+  empty: css`
+    background-color: transparent;
+    border-radius: 8px;
+    &:hover {
+      background-color: ${WDS_COLOR_BLUE_200};
+    }
+  `,
 }
 
 export const buttonSizes = {
