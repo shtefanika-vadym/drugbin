@@ -1,0 +1,81 @@
+.customTable table {
+    width: 100%;
+}
+
+.ant-table-thead {
+    height: 38px;
+    border-radius: 8px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    color: #1C3375;
+
+    .ant-table-cell {   
+        background-color: #EBF0FB;
+        text-align: start;  
+    }
+    .ant-table-cell:first-child {
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+    }
+    .ant-table-cell:last-child {
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+    }
+}
+
+.ant-table-row {
+  height: 54px;
+  border-bottom: 1px solid #EBF0FB;
+  font-family: 'Montserrat';
+  font-weight: 700;
+  font-style: 'normal';
+  font-size: 16px;
+  line-height: 24px;
+  color: #011640;
+}
+
+.ant-table-cell {
+    padding: 8px 24px;
+    text-align: start;
+}
+
+.ant-table-row:last-child {
+    border: unset;
+}
+
+
+
+.ant-pagination {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    list-style-type: none;
+    float: right;
+    padding: 40px 0;
+}
+
+.ant-pagination-item-link {
+    border: none;
+    background-color: transparent;
+    border: 1px solid #A3A6AD;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.ant-pagination-item-active {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #2949A6;
+    border-radius: 4px;
+    width: 27px;
+    height: 25px;
+
+    a {
+        color: #2949A6;
+    }
+}
