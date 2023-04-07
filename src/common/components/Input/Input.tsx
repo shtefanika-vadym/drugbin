@@ -4,6 +4,7 @@ import eyeDisableIcom from 'common/assets/icons/eye-disable.svg'
 import eyeIcon from 'common/assets/icons/eye.svg'
 import minusIcon from 'common/assets/icons/minus.svg'
 import plusIcon from 'common/assets/icons/plus-add.svg'
+import searchIcon from 'common/assets/icons/search.svg'
 
 import { Button } from 'common/components/Button/Button'
 import useToggle from 'common/hooks/useToggle'
@@ -41,6 +42,7 @@ export const Input = React.forwardRef<HTMLInputElement, LabeledInputProps>((prop
               {showPassword ? <Icon src={eyeIcon} /> : <Icon src={eyeDisableIcom} />}
             </ShowPasswordButton>
           )}
+          {type === 'search' && <Icon src={searchIcon} />}
         </Container>
         {type === 'number' && (
           <CustomButton>

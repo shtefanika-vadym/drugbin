@@ -13,7 +13,6 @@ import { textVariant } from 'common/style/mixins/typography.mixin'
 import {
   WDS_SIZE_008_PX,
   WDS_SIZE_010_PX,
-  WDS_SIZE_014_PX,
   WDS_SIZE_016_PX,
   WDS_SIZE_037_PX,
   WDS_SIZE_040_PX,
@@ -24,9 +23,10 @@ import {
 export const Container = styled.div<{ valid: boolean }>`
   width: 100%;
   height: ${WDS_SIZE_040_PX};
-  ${flex({ justifyContent: 'space-between' })};
+  ${flex({ justifyContent: 'space-between', alignItems: 'center' })};
   border: 1px solid ${(props) => (props.valid ? WDS_COLOR_GREY : WDS_COLOR_RED)};
   border-radius: ${WDS_SIZE_008_PX};
+  padding: ${WDS_SIZE_010_PX};
 `
 
 export const StyledInput = styled.input<{ valid: boolean }>`
@@ -34,7 +34,6 @@ export const StyledInput = styled.input<{ valid: boolean }>`
   outline: none;
   background-color: transparent;
   flex-grow: 1;
-  padding: ${WDS_SIZE_010_PX};
   color: ${(props) => (props.valid ? WDS_COLOR_BLACK : WDS_COLOR_RED)};
   caret-color: ${WDS_COLOR_GREY};
   font-size: ${WDS_SIZE_016_PX};
@@ -65,7 +64,6 @@ export const StyledLabel = styled.label`
 
 export const ShowPasswordButton = styled.button.attrs({ type: 'button', tabIndex: -1 })`
   all: unset;
-  padding: 0 ${WDS_SIZE_014_PX};
   color: ${WDS_COLOR_RED};
   cursor: pointer;
 `
