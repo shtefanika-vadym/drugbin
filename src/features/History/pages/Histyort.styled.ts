@@ -19,3 +19,7 @@ export const TitleWrapper = styled.div`
 export const Title = styled.p`
   ${textVariant('titleH4')};
 `
+
+export const InputWrapper = styled.div`
+  ${flex({ gap: '8px' })}
+`
