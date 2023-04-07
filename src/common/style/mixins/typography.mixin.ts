@@ -112,6 +112,7 @@ export const textVariant = (variantName: TextVariantType) => {
       line-height: ${variant.lineHeight};
       text-transform: ${variant.textTransform};
       letter-spacing: ${variant.letterSpacing};
+      margin: 0;
       `
     : `
       /* DEBUG */

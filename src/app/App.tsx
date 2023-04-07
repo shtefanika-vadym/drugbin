@@ -4,12 +4,15 @@ import { Routes } from 'routes'
 import { withProviders } from 'app/hocs'
 
 import 'common/style/index.scss'
+import { Content } from './App,styled'
 
 const App = () => (
-  <main className='application-layout'>
+  <>
     <Header />
-    <Routes />
-  </main>
+    <Content>
+      <Routes />
+    </Content>
+  </>
 )
 
 export default withProviders(App)

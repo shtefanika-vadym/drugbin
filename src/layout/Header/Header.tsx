@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import type { INavigation } from 'layout/Paths/Paths'
 import { NAVIGATION_ITEMS } from 'layout/Paths/Paths'
 
+import logo from 'common/assets/icons/logo.svg'
 import userIcon from 'common/assets/images/User.png'
 
 import {
@@ -34,7 +35,7 @@ export const Header = () => {
             </NavLink>
           ))}
         </Navigation>
-        <Logo>DrugBin</Logo>
+        <Logo src={logo} />
         <UserIcon src={userIcon} alt='user' />
       </Container>
     </ContainerWrapper>

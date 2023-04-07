@@ -21,13 +21,13 @@ import {
 export const ContainerWrapper = styled.div`
   background: ${WDS_COLOR_WHITE};
   border-bottom: 1px solid ${WDS_COLOR_BLUE_100};
+  padding: ${WDS_SIZE_022_PX} ${WDS_SIZE_080_PX};
 `
 
 export const Container = styled.div`
   ${flex({ direction: 'row', alignItems: 'center', justifyContent: 'space-between' })}
   position: relative;
   max-width: 100rem;
-  padding: ${WDS_SIZE_022_PX} ${WDS_SIZE_080_PX};
   margin: 0px auto;
 `
 
@@ -52,7 +52,7 @@ export const Dot = styled.div<{ isActive: boolean }>`
   background-color: ${({ isActive }) => (isActive ? WDS_COLOR_BLUE_300 : 'transparent')};
 `
 
-export const Logo = styled.div`
+export const Logo = styled.img`
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0);

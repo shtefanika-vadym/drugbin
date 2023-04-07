@@ -1,6 +1,7 @@
 import type { RouteProps } from 'react-router-dom'
 import { Navigate } from 'react-router-dom'
 
+import { History } from 'features/History/pages/History'
 import { Home } from 'features/Home'
 
 enum UNCONFIRMED_ROUTES {
@@ -24,7 +25,7 @@ export const UNCONFIRMED_ROUTE_CONFIG: RouteProps[] = [
   },
   {
     path: UNCONFIRMED_PATHS.HISTORY,
-    element: <Home />,
+    element: <History />,
   },
   {
     path: UNCONFIRMED_PATHS.DOCUMENTS,
