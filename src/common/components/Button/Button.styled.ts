@@ -35,14 +35,14 @@ export const buttonVariants = {
   secondary: css`
     color: ${WDS_COLOR_BLUE_300};
     background-color: transparent;
-    ${border({ type: 'solid', color: WDS_COLOR_BLUE_300 })}
+    ${border({ type: 'solid', color: WDS_COLOR_BLUE_300 })};
     border-radius: ${WDS_SIZE_008_PX};
     &:hover {
       background-color: ${WDS_COLOR_BLUE_300};
       color: ${WDS_COLOR_WHITE};
     }
     &:disabled {
-      ${border({ type: 'solid', color: WDS_COLOR_BLUE_300 })}
+      ${border({ type: 'solid', color: WDS_COLOR_BLUE_300 })};
     }
   `,
   square: css`
@@ -86,9 +86,9 @@ export const buttonSizes = {
 
 export const StyledButton = styled.button<StyledButtonProps>`
   all: unset;
-  ${flex({ direction: 'row', justifyContent: 'center', alignItems: 'center' })}
-  ${({ variant }) => buttonVariants[variant]}
-  ${({ size }) => buttonSizes[size]}
+  ${flex({ direction: 'row', justifyContent: 'center', alignItems: 'center' })};
+  ${({ variant }) => buttonVariants[variant]};
+  ${({ size }) => buttonSizes[size]};
   transition-property: background-color, border-color;
   transition-duration: 0.2s;
   box-sizing: border-box;
