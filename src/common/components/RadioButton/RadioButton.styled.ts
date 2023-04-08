@@ -6,7 +6,7 @@ import { flex } from 'common/style/mixins/flex.mixin'
 import { WDS_SIZE_008_PX, WDS_SIZE_028_PX } from 'common/style/size'
 
 export const Container = styled.div`
-  ${flex}
+  ${flex};
   gap: 0 ${WDS_SIZE_008_PX};
 `
 
@@ -20,10 +20,11 @@ export const RadioInput = styled.input`
   flex-shrink: 0;
   cursor: pointer;
   box-shadow: inset 0px 1px 2px 1px rgba(38, 39, 40, 0.2);
-  ${border({ type: 'solid', color: WDS_COLOR_GREY })}
+  ${border({ type: 'solid', color: WDS_COLOR_GREY })};
 
   &:checked {
-    ${border({ width: WDS_SIZE_008_PX, type: 'solid', color: WDS_COLOR_BLUE_300 })}
+    ${border({ width: WDS_SIZE_008_PX, type: 'solid', color: WDS_COLOR_BLUE_300 })};
+    /* box-shadow: unset; */
   }
 `
 

@@ -25,7 +25,7 @@ export const Input = React.forwardRef<HTMLInputElement, LabeledInputProps>((prop
   const [showPassword, toggleShowPassword] = useToggle(false)
 
   return (
-    <>
+    <div>
       <StyledLabel>{label}</StyledLabel>
       <ContainerWrapper>
         <Container valid={valid}>
@@ -55,6 +55,6 @@ export const Input = React.forwardRef<HTMLInputElement, LabeledInputProps>((prop
           </CustomButton>
         )}
       </ContainerWrapper>
-    </>
+    </div>
   )
 })
