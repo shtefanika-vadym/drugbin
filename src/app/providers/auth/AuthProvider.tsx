@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       navigate('/home')
     }
   }
-
+  // https://drugbin-backend-nestjs-production.up.railway.app/auth/login
   const register = async (registerData: IAuthRegister): Promise<boolean> => {
     const response = await doRegister(registerData)
     if (response.hasOwnProperty(RESPONSE_PROPERTY_CONSTANTS.ERROR)) {

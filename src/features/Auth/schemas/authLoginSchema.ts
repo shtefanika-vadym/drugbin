@@ -8,5 +8,5 @@ export const AUTH_LOGIN_SCHEMA = Yup.object().shape({
     .matches(RegexService.email(), 'Please enter valid email.'),
   password: Yup.string()
     .required('Please enter your password.')
-    .min(8, 'Please enter valid password.'),
+    .min(3, 'Please enter valid password.'),
 })

@@ -1,5 +1,7 @@
 import { Formik } from 'formik'
 
+import { useAuth } from 'app/providers'
+
 import loginImg from 'common/assets/images/login.png'
 
 import { Button } from 'common/components/Button/Button'
@@ -21,8 +23,12 @@ import {
 } from './AuthLogin.styled'
 
 const AuthLogin = () => {
+  const { login, error } = useAuth()
   const handleSubmit = (values: any) => {
-    console.log('value', values)
+    console.log('value', error)
+    const email = values.email
+    const password = values.password
+    login({ email, password })
   }
   return (
     <Formik
