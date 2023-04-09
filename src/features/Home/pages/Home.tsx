@@ -1,11 +1,11 @@
+import { HeaderWrapper } from 'layout/Header/HeaderWrapper'
+
 import { HomeOngoing } from 'features/Home/components/HomeOngoing'
 
-import styles from './home.module.scss'
-
 const Home = () => (
-  <div className={styles.parent}>
+  <HeaderWrapper>
     <HomeOngoing />
-  </div>
+  </HeaderWrapper>
 )
 
 export default Home
