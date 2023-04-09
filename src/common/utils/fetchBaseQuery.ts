@@ -24,7 +24,7 @@ export const baseQuery =
 
       const result = await axios({
         ...param,
-        baseURL: process.env.REACT_APP_RESIDEN_API_BASE_URL,
+        baseURL: process.env.REACT_APP_DRUGBIN_API_BASE_URL,
         headers: {
           ...param?.headers,
           Authorization: user ? `Bearer ${user.token}` : null,
@@ -35,7 +35,7 @@ export const baseQuery =
       let err = axiosError as AxiosError
       if (err.response?.status === 401) {
         localStorage.clear()
-        window.location.assign('/login')
+        window.location.assign('/auth/login')
       }
       const errors = err.response?.data['error' as keyof unknown]
       return {
