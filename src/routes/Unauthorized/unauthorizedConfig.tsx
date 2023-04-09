@@ -2,6 +2,7 @@ import type { RouteProps } from 'react-router-dom'
 import { Navigate } from 'react-router-dom'
 
 import { AddNew } from 'features/AddNew/pages/AddNew'
+import { AuthLogin } from 'features/Auth'
 import { History } from 'features/History/pages/History'
 import { Home } from 'features/Home'
 
@@ -11,6 +12,7 @@ enum UNCONFIRMED_ROUTES {
   DOCUMENTS = 'DOCUMENTS',
   DONATIONS = 'DONATIONS',
   ADD = 'ADD',
+  LOGIN = 'LOGIN',
 }
 
 const UNCONFIRMED_PATHS: Record<UNCONFIRMED_ROUTES, string> = {
@@ -19,6 +21,7 @@ const UNCONFIRMED_PATHS: Record<UNCONFIRMED_ROUTES, string> = {
   [UNCONFIRMED_ROUTES.DOCUMENTS]: '/documents',
   [UNCONFIRMED_ROUTES.DONATIONS]: '/donations',
   [UNCONFIRMED_ROUTES.ADD]: '/add-new',
+  [UNCONFIRMED_ROUTES.LOGIN]: '/login',
 }
 
 export const UNCONFIRMED_ROUTE_CONFIG: RouteProps[] = [
@@ -41,6 +44,10 @@ export const UNCONFIRMED_ROUTE_CONFIG: RouteProps[] = [
   {
     path: UNCONFIRMED_PATHS.ADD,
     element: <AddNew />,
+  },
+  {
+    path: UNCONFIRMED_PATHS.LOGIN,
+    element: <AuthLogin />,
   },
   {
     path: '*',

@@ -6,6 +6,8 @@ import {
   WDS_SIZE_020_PX,
   WDS_SIZE_024_PX,
   WDS_SIZE_032_PX,
+  WDS_SIZE_048_PX,
+  WDS_SIZE_064_PX,
 } from 'common/style/size'
 import {
   WDS_TEXT_FAMILY_BASE,
@@ -22,6 +24,7 @@ export const TEXT_VARIANT_NAMES = [
   'bodyXS',
   'bodyS',
   'bodyM',
+  'titleH1',
   'titleH5',
   'titleH4',
   'subheading',
@@ -69,6 +72,15 @@ export const TEXT_VARIANTS: Dictionary<TextVariant> = {
     letterSpacing: 'normal',
   },
 
+  titleH1: {
+    family: WDS_TEXT_FAMILY_BASE,
+    weight: WDS_TEXT_WEIGHT_BOLD,
+    style: 'normal',
+    size: WDS_SIZE_048_PX,
+    lineHeight: WDS_SIZE_064_PX,
+    textTransform: 'none',
+    letterSpacing: 'normal',
+  },
   titleH5: {
     family: WDS_TEXT_FAMILY_BASE,
     weight: WDS_TEXT_WEIGHT_BOLD,
@@ -78,7 +90,6 @@ export const TEXT_VARIANTS: Dictionary<TextVariant> = {
     textTransform: 'none',
     letterSpacing: 'normal',
   },
-
   titleH4: {
     family: WDS_TEXT_FAMILY_BASE,
     weight: WDS_TEXT_WEIGHT_BOLD,

@@ -4,6 +4,7 @@ export enum ADD_NEW_LABEL {
   NAME = 'Name or ID',
   BRAND = 'Brand name',
   PACK = 'Package type',
+  QUANTITY = 'Quantity',
 }
 
 export enum ADD_NEW_PLACEHOLDER {

@@ -2,17 +2,16 @@ import React from 'react'
 
 import eyeDisableIcom from 'common/assets/icons/eye-disable.svg'
 import eyeIcon from 'common/assets/icons/eye.svg'
-import minusIcon from 'common/assets/icons/minus.svg'
-import plusIcon from 'common/assets/icons/plus-add.svg'
+// import minusIcon from 'common/assets/icons/minus.svg'
+// import plusIcon from 'common/assets/icons/plus-add.svg'
 import searchIcon from 'common/assets/icons/search.svg'
 
-import { Button } from 'common/components/Button/Button'
+// import { Button } from 'common/components/Button/Button'
 import useToggle from 'common/hooks/useToggle'
 
 import {
   Container,
   ContainerWrapper,
-  CustomButton,
   Icon,
   ShowPasswordButton,
   StyledInput,
@@ -23,6 +22,8 @@ import type { LabeledInputProps } from './Input.type'
 export const Input = React.forwardRef<HTMLInputElement, LabeledInputProps>((props, ref) => {
   const { valid = true, label = '', type = 'text', disabled = false, placeholder, ...rest } = props
   const [showPassword, toggleShowPassword] = useToggle(false)
+
+  // console.log('value', value)
 
   return (
     <div>
@@ -44,7 +45,7 @@ export const Input = React.forwardRef<HTMLInputElement, LabeledInputProps>((prop
           )}
           {type === 'search' && <Icon src={searchIcon} />}
         </Container>
-        {type === 'number' && (
+        {/* {type === 'number' && (
           <CustomButton>
             <Button variant='empty' size='S-square'>
               <Icon src={minusIcon} />
@@ -53,7 +54,7 @@ export const Input = React.forwardRef<HTMLInputElement, LabeledInputProps>((prop
               <Icon src={plusIcon} />
             </Button>
           </CustomButton>
-        )}
+        )} */}
       </ContainerWrapper>
     </div>
   )

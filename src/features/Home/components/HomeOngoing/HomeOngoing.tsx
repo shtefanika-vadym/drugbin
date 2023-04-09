@@ -1,7 +1,5 @@
-import styles from './homeOngoing.module.scss'
-
 const HomeOngoing = () => {
-  return <div className={styles.parent} />
+  return <div />
 }
 
 export default HomeOngoing

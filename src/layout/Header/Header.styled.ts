@@ -65,3 +65,8 @@ export const UserIcon = styled.img`
   width: ${WDS_SIZE_040_PX};
   height: ${WDS_SIZE_040_PX};
 `
+
+export const Content = styled.div`
+  ${flex({ justifyContent: 'center' })};
+  padding: ${WDS_SIZE_040_PX} ${WDS_SIZE_080_PX};
+`

@@ -23,14 +23,22 @@ const fontNormal = css`
   ${textVariant('subheading')};
 `
 
+const primaryStyles = css`
+  color: ${WDS_COLOR_WHITE};
+  background-color: ${WDS_COLOR_BLUE_300};
+  border-radius: ${WDS_SIZE_008_PX};
+  &:hover {
+    background-color: ${WDS_COLOR_BLUE_400};
+  }
+`
+
 export const buttonVariants = {
   primary: css`
-    color: ${WDS_COLOR_WHITE};
-    background-color: ${WDS_COLOR_BLUE_300};
-    border-radius: ${WDS_SIZE_008_PX};
-    &:hover {
-      background-color: ${WDS_COLOR_BLUE_400};
-    }
+    ${primaryStyles}
+  `,
+  primaryFull: css`
+    ${primaryStyles};
+    width: 100%;
   `,
   secondary: css`
     color: ${WDS_COLOR_BLUE_300};

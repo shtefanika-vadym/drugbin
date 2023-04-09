@@ -84,7 +84,7 @@ export const Icon = styled.img``
 
 export const CustomButton = styled.div`
   ${flex};
-  ${border({ type: 'solid', color: WDS_COLOR_GREY })}
+  ${border({ type: 'solid', color: WDS_COLOR_GREY })};
   border-radius: ${WDS_SIZE_008_PX};
   width: ${WDS_SIZE_074_PX};
   height: ${WDS_SIZE_040_PX};
