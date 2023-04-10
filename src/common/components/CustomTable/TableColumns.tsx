@@ -55,6 +55,6 @@ export const columns: ColumnsType<any> = [
   {
     title: 'Action',
     key: 'action',
-    render: () => <QuickActions />,
+    render: (id: string) => <QuickActions id={id} />,
   },
 ]

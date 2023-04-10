@@ -15,11 +15,10 @@ enum AUTHORIZED_PATH {
 
 const AUTHORIZED_PATHS: Record<AUTHORIZED_PATH, string> = {
   [AUTHORIZED_PATH.HOME]: '/home',
-  [AUTHORIZED_PATH.HOME]: '/home',
   [AUTHORIZED_PATH.HISTORY]: '/history',
   [AUTHORIZED_PATH.DOCUMENTS]: '/documents',
   [AUTHORIZED_PATH.DONATIONS]: '/donations',
-  [AUTHORIZED_PATH.ADD]: '/add-new',
+  [AUTHORIZED_PATH.ADD]: '/add',
 }
 
 export const AUTHORIZED_ROUTE_CONFIG: RouteProps[] = [
