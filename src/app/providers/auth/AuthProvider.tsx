@@ -14,6 +14,7 @@ import type { IAuthLogin, IAuthRegister } from 'features/Auth/interfaces/IAuth'
 interface IProps {
   user: IUser | null
   error: string | null
+  logout: () => void
   login: (data: IAuthLogin) => Promise<void>
   register: (data: IAuthRegister) => Promise<boolean>
 }
@@ -33,13 +34,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     else {
       const { data } = response
       setUser({
-        ...data.profile,
-        token: data.access_token,
+        role: data.role,
+        token: data.token,
       })
       navigate('/home')
     }
   }
-  // https://drugbin-backend-nestjs-production.up.railway.app/auth/login
   const register = async (registerData: IAuthRegister): Promise<boolean> => {
     const response = await doRegister(registerData)
     if (response.hasOwnProperty(RESPONSE_PROPERTY_CONSTANTS.ERROR)) {
@@ -49,10 +49,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return true
   }
 
+  const logout = () => {}
+
   const value = useMemo(
     () => ({
       user,
       error,
+      logout,
       login,
       register,
     }),
