@@ -2,7 +2,6 @@ import type { BaseQueryFn } from '@reduxjs/toolkit/query'
 import type { AxiosError, AxiosRequestConfig } from 'axios'
 import axios from 'axios'
 
-import { LOCALE_STORAGE_KEYS } from 'common/constants/localeStorageConstants'
 import type { IUser } from 'common/interfaces/IUser'
 
 export const baseQuery =
@@ -18,8 +17,8 @@ export const baseQuery =
   > =>
   async (param) => {
     try {
-      const user: IUser | null = localStorage.getItem(LOCALE_STORAGE_KEYS.USER)
-        ? JSON.parse(localStorage.getItem(LOCALE_STORAGE_KEYS.USER))
+      const user: IUser | null = localStorage.getItem('user')
+        ? JSON.parse(localStorage.getItem('user'))
         : null
 
       const result = await axios({
