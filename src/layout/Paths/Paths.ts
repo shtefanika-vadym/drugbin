@@ -29,3 +29,10 @@ export const NAVIGATION_ITEMS: INavigation[] = [
     title: 'Donation',
   },
 ]
+
+export const NAVIGATION_ITEMS_RECYCLE: INavigation[] = [
+  {
+    route: PathsEnum.home,
+    title: 'Home',
+  },
+]

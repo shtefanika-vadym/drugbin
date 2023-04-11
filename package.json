@@ -21,6 +21,7 @@
     "formik": "^2.2.9",
     "framer-motion": "^9.0.1",
     "i": "^0.3.7",
+    "lodash-es": "^4.17.21",
     "module-name": "^0.0.1-security",
     "nanoid": "^4.0.0",
     "npm": "^8.19.4",
@@ -65,6 +66,7 @@
   },
   "devDependencies": {
     "@types/compose-function": "^0.0.30",
+    "@types/lodash-es": "^4.17.7",
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.26",
     "@types/validator": "^13.7.10",

@@ -11,7 +11,7 @@ export const Routes = () => {
   return (
     <ReactRoutes>
       <Route element={<AuthorizedRoutes />}>
-        {AUTHORIZED_ROUTE_CONFIG.map(
+        {AUTHORIZED_ROUTE_CONFIG().map(
           (route: RouteProps, index: number): JSX.Element => (
             <Route key={index} {...route} />
           ),
