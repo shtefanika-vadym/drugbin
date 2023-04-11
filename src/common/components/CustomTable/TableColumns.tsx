@@ -58,3 +58,46 @@ export const columns: ColumnsType<any> = [
     render: (id: string) => <QuickActions id={id} />,
   },
 ]
+
+export const columnsRecycle: ColumnsType<any> = [
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    key: 'name',
+    render: ({ name, id }) => (
+      <NameWrapper>
+        {name} <SubtitleWrapper>{id}</SubtitleWrapper>
+      </NameWrapper>
+    ),
+  },
+  {
+    title: 'Recycle time',
+    dataIndex: 'recycle',
+    key: 'recycle',
+    render: ({ data, time }) => (
+      <NameWrapper>
+        {data} <SubtitleWrapper>{time}</SubtitleWrapper>
+      </NameWrapper>
+    ),
+  },
+  {
+    title: 'Brand',
+    key: 'brand',
+    dataIndex: 'brand',
+  },
+  {
+    title: 'Type',
+    dataIndex: 'type',
+    key: 'type',
+  },
+  {
+    title: 'Pack',
+    dataIndex: 'pack',
+    key: 'pack',
+  },
+  {
+    title: 'Quantity',
+    dataIndex: 'quantity',
+    key: 'quantity',
+  },
+]

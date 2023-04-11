@@ -18,7 +18,7 @@ export const tagVariants = {
 }
 
 export const StyledTag = styled.div<TagProps>`
-  width: min-content;
+  width: max-content;
   ${({ variant }) => tagVariants[variant]};
   ${textVariant('bodyXS')};
   padding: ${WDS_SIZE_006_PX} ${WDS_SIZE_016_PX};
