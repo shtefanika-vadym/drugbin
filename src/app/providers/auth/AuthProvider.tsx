@@ -49,7 +49,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return true
   }
 
-  const logout = () => {}
+  const logout = () => {
+    setUser(null)
+    navigate('/login')
+  }
 
   const value = useMemo(
     () => ({

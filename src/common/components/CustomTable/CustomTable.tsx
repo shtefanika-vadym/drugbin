@@ -12,7 +12,12 @@ export const CustomTable: FC<CustomTableProps> = ({ columns, dataSource, isLoadi
   return (
     <>
       {!isLoading ? (
-        <Table columns={columns} dataSource={dataSource} className='customTable' />
+        <Table
+          columns={columns}
+          dataSource={dataSource}
+          className='customTable'
+          pagination={false}
+        />
       ) : (
         <Spinner isLoading={isLoading} />
       )}

@@ -4,8 +4,10 @@ import type { INavigation } from 'layout/Paths/Paths'
 import { NAVIGATION_ITEMS_RECYCLE } from 'layout/Paths/Paths'
 import { NAVIGATION_ITEMS } from 'layout/Paths/Paths'
 
+import { useAuth } from 'app/providers'
+
 import logo from 'common/assets/icons/logo.svg'
-import userIcon from 'common/assets/images/User.png'
+import userIcon from 'common/assets/icons/user.svg'
 
 import useUserRole from 'common/hooks/useGetUserRole'
 
@@ -14,13 +16,16 @@ import {
   ContainerWrapper,
   Dot,
   Logo,
+  Name,
   Navigation,
   NavLink,
   UserIcon,
+  UserWrapper,
 } from './Header.styled'
 
 export const Header = () => {
   const { userRole } = useUserRole()
+  const { logout } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
   const handleNavigate = (link: string) => {
@@ -43,8 +48,11 @@ export const Header = () => {
             </NavLink>
           ))}
         </Navigation>
-        <Logo src={logo} />
-        <UserIcon src={userIcon} alt='user' />
+        <Logo src={logo} onClick={() => navigate('/')} />
+        <UserWrapper onClick={() => logout()}>
+          <Name>DrugBin Solution</Name>
+          <UserIcon src={userIcon} alt='user' />
+        </UserWrapper>
       </Container>
     </ContainerWrapper>
   )
