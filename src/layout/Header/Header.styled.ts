@@ -61,12 +61,19 @@ export const Logo = styled.img`
   cursor: pointer;
 `
 
-export const UserIcon = styled.img`
-  width: ${WDS_SIZE_040_PX};
-  height: ${WDS_SIZE_040_PX};
-`
+export const UserIcon = styled.img``
 
 export const Content = styled.div`
   ${flex({ justifyContent: 'center' })};
   padding: ${WDS_SIZE_040_PX} ${WDS_SIZE_080_PX};
+`
+
+export const Name = styled.p`
+  ${textVariant('bodyXS')};
+  color: #01102e;
+`
+
+export const UserWrapper = styled.div`
+  ${flex({ gap: '10px' })};
+  cursor: pointer;
 `

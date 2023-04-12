@@ -16,7 +16,19 @@ export const addApi = createApi({
         method: HTTP_METHODS.POST,
       }),
     }),
+    drug: build.query({
+      query: (props) => ({
+        url: `/drug-stock/${props}`,
+      }),
+    }),
+    createDrug: build.mutation({
+      query: (product) => ({
+        url: '/drug-stock',
+        data: product,
+        method: HTTP_METHODS.POST,
+      }),
+    }),
   }),
 })
 
-export const { useCreateProductMutation }: any = addApi
+export const { useCreateProductMutation, useDrugQuery, useCreateDrugMutation }: any = addApi

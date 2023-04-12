@@ -12,7 +12,7 @@ import { RadioButton } from 'common/components/RadioButton/RadioButton'
 
 import { ADD_NEW_LABEL, ADD_NEW_PLACEHOLDER } from 'features/AddNew/constants/constatns'
 import { DROPDOWN_VALUES, RADIO_BUTTON_VALUE } from 'features/AddNew/constants/mockData'
-import { useCreateProductMutation } from 'features/AddNew/store/api/addApi'
+import { useCreateProductMutation, useDrugQuery } from 'features/AddNew/store/api/addApi'
 import { validationSchema } from 'features/AddNew/validation/validationSchema'
 
 import {
@@ -29,10 +29,12 @@ import type { IForm } from './AddNew.type'
 export const AddNew = () => {
   const navigate = useNavigate()
 
-  const [addNewProduct]: any = useCreateProductMutation()
+  const [addNewProduct] = useCreateProductMutation()
+  const { data } = useDrugQuery('67')
+
+  console.log('drug', data)
 
   const handleSubmit = async (values: IForm, { resetForm }: FormikHelpers<IForm>) => {
-    console.log('value', values)
     await addNewProduct(values)
     resetForm()
   }
