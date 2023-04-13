@@ -4,11 +4,11 @@ import { flex } from 'common/style/mixins/flex.mixin'
 import { textVariant } from 'common/style/mixins/typography.mixin'
 
 export const ContentDelete = styled.div`
-  ${flex({ direction: 'column', gap: '24px' })}
+  ${flex({ direction: 'column', gap: '24px' })};
 `
 
 export const HeaderDelete = styled.div`
-  ${flex({ gap: '24px' })}
+  ${flex({ gap: '24px' })};
 `
 
 export const Icon = styled.img``

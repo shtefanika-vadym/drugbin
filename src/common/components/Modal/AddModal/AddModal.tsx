@@ -24,7 +24,16 @@ export const AddModal = () => {
   const handleClose = () => {}
   const [addNewDrug] = useCreateDrugMutation()
   const handleSubmit = async (values: any, { resetForm }: FormikHelpers<any>) => {
-    await addNewDrug(values)
+    const test = {
+      name: 'Hidrocortizone pulbere',
+      package: 'Pack',
+      package_total: 1,
+      strength: 0,
+      weight: 12,
+      type: 'RX',
+      barcode: '6220132311528',
+    }
+    await addNewDrug(test)
     resetForm()
   }
   return (

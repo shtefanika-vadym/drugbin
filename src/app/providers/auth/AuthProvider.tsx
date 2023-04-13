@@ -3,18 +3,21 @@ import { createContext, useContext, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useLocalStorage } from 'react-use'
 
+import { useAppDispatch } from 'store/hooks'
+
 import { LOCALE_STORAGE_KEYS } from 'common/constants/localeStorageConstants'
 import { RESPONSE_PROPERTY_CONSTANTS } from 'common/constants/reponsePropertyConstants'
 import type { ITriggerRequest } from 'common/interfaces/IRequestResponse'
 import type { IUser } from 'common/interfaces/IUser'
 
-import { useLoginMutation, useRegisterMutation } from 'features/Auth'
+import { authApi, useLoginMutation, useRegisterMutation } from 'features/Auth'
 import type { IAuthLogin, IAuthRegister } from 'features/Auth/interfaces/IAuth'
 
 interface IProps {
   user: IUser | null
   error: string | null
   logout: () => void
+  isPharmacy: boolean
   login: (data: IAuthLogin) => Promise<void>
   register: (data: IAuthRegister) => Promise<boolean>
 }
@@ -23,6 +26,7 @@ const AuthContext = createContext<IProps>(null)
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
   const [doLogin]: ITriggerRequest = useLoginMutation()
   const [doRegister]: ITriggerRequest = useRegisterMutation()
   const [error, setError] = useState<string | null>(null)
@@ -52,6 +56,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => {
     setUser(null)
     navigate('/login')
+    dispatch(authApi.util.resetApiState())
   }
 
   const value = useMemo(
@@ -61,6 +66,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       logout,
       login,
       register,
+      isPharmacy: user?.role === 'pharmacy',
     }),
     [user, error],
   )

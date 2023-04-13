@@ -12,7 +12,7 @@ const useUserRole = () => {
     setUserRole(user?.role)
   }, [])
 
-  return { userRole }
+  return { userRole, isPharmacy: userRole === 'pharmacy' }
 }
 
 export default useUserRole

@@ -21,7 +21,12 @@ export const historyApi = createApi({
         method: HTTP_METHODS.DELETE,
       }),
     }),
+    companies: build.query({
+      query: () => ({
+        url: `/companies/pharmacies`,
+      }),
+    }),
   }),
 })
 
-export const { useProductQuery, useDeleteProductMutation }: any = historyApi
+export const { useProductQuery, useDeleteProductMutation, useCompaniesQuery }: any = historyApi

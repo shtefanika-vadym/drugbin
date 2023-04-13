@@ -2,32 +2,12 @@ import { useNavigate } from 'react-router-dom'
 
 import { HeaderWrapper } from 'layout/Header/HeaderWrapper'
 
+import { useCompaniesQuery } from 'features/History/store/api/productApi'
 import { RecycleBox } from 'features/Home/components/RecycleBox/RecycleBox'
 import { CotentWrapper } from 'features/Home/components/RecycleBox/RecycleBox.styled'
 import type { IRecycleBoxProps } from 'features/Home/components/RecycleBox/RecycleBox.type'
 
 import { ContentHome, Title } from './HomeRecycle.styled'
-
-const RECYCLE_BOX = [
-  {
-    id: 'aaa',
-    pharma: 'Farmacia Ropharma',
-    quantity: '6 kg',
-    status: 'In Progress',
-  },
-  {
-    id: '2',
-    pharma: 'Farmacia Ropharma',
-    quantity: '6 kg',
-    status: 'In Progress',
-  },
-  {
-    id: '3',
-    pharma: 'Farmacia Ropharma',
-    quantity: '6 kg',
-    status: 'In Progress',
-  },
-]
 
 export const HomeRecycle = () => {
   const navigate = useNavigate()
@@ -35,12 +15,25 @@ export const HomeRecycle = () => {
     navigate(`/status/${id}`)
   }
 
+  const { data } = useCompaniesQuery()
+
+  const convertData = () => {
+    return data?.map((element: any) => {
+      return {
+        id: element.id,
+        pharma: element.name,
+        quantity: '6 kg',
+        status: 'In Progress',
+      }
+    })
+  }
+
   return (
     <HeaderWrapper>
       <ContentHome>
         <Title>Recent Tasks</Title>
         <CotentWrapper>
-          {RECYCLE_BOX.map((element: IRecycleBoxProps) => {
+          {convertData()?.map((element: IRecycleBoxProps) => {
             return (
               <RecycleBox
                 pharma={element.pharma}
