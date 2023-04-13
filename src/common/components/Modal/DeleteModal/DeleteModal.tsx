@@ -1,3 +1,5 @@
+import type { FC } from 'react'
+
 import deleteIcon from 'common/assets/icons/modalDelete.png'
 
 import { Button } from 'common/components/Button/Button'
@@ -14,10 +16,15 @@ import {
   WrapperText,
 } from './DeleteModal.styled'
 
-export const DeleteModal = () => {
-  const handleClose = () => {}
+interface IDeleteModal {
+  id: string
+  handleCloseModal: any
+}
+
+export const DeleteModal: FC<IDeleteModal> = ({ handleCloseModal, id }) => {
+  console.log('id', id)
   return (
-    <Modal callbackOnClose={handleClose}>
+    <Modal callbackOnClose={handleCloseModal}>
       <ContentDelete>
         <HeaderDelete>
           <IconWrapper>

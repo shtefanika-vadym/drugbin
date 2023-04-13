@@ -1,16 +1,16 @@
 export const RADIO_BUTTON_VALUE = [
   {
-    id: 'RX',
-    value: 'RX',
+    id: 'rx',
+    value: 'rx',
   },
   {
-    id: 'OTX',
-    value: 'OTX',
+    id: 'otx',
+    value: 'otx',
   },
   {
-    id: 'Supplement',
-    value: 'Supplement',
+    id: 'supplement',
+    value: 'supplement',
   },
 ]
 
-export const DROPDOWN_VALUES = ['Pack', 'Blister', 'Pastila']
+export const DROPDOWN_VALUES = ['pack', 'blister', 'pill']

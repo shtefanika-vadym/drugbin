@@ -27,11 +27,6 @@ export const columns: ColumnsType<any> = [
     ),
   },
   {
-    title: 'Brand',
-    key: 'brand',
-    dataIndex: 'brand',
-  },
-  {
     title: 'Type',
     dataIndex: 'type',
     key: 'type',
@@ -79,11 +74,6 @@ export const columnsRecycle: ColumnsType<any> = [
         {data} <SubtitleWrapper>{time}</SubtitleWrapper>
       </NameWrapper>
     ),
-  },
-  {
-    title: 'Brand',
-    key: 'brand',
-    dataIndex: 'brand',
   },
   {
     title: 'Type',

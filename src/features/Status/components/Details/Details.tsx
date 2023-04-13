@@ -1,39 +1,61 @@
+import type { FC } from 'react'
+
 import { ContentDetails, DetailsText, DetailsTitle, DetailsWrapper } from './Details.styled'
 
-export const Details = () => {
+interface IDetails {
+  name: string
+  location: string
+  schedule: string
+  phone: string
+  total: number
+  rx: number
+  otc: number
+  supplement: number
+}
+
+export const Details: FC<IDetails> = ({
+  name,
+  location,
+  schedule,
+  phone,
+  total,
+  rx,
+  otc,
+  supplement,
+}) => {
   return (
     <ContentDetails>
       <DetailsWrapper>
         <DetailsTitle>Name</DetailsTitle>
-        <DetailsText>Farmacia Ropharma</DetailsText>
+        <DetailsText>{name}</DetailsText>
       </DetailsWrapper>
       <DetailsWrapper>
         <DetailsTitle>Location</DetailsTitle>
-        <DetailsText>Strada Alexandru Cel Bun</DetailsText>
+        <DetailsText>{location}</DetailsText>
       </DetailsWrapper>
       <DetailsWrapper>
         <DetailsTitle>Schedule</DetailsTitle>
-        <DetailsText>08:00-21:00</DetailsText>
+        <DetailsText>{schedule}</DetailsText>
       </DetailsWrapper>
       <DetailsWrapper>
         <DetailsTitle>Phone</DetailsTitle>
-        <DetailsText>(0230) 521 754</DetailsText>
+        <DetailsText>{phone}</DetailsText>
       </DetailsWrapper>
       <DetailsWrapper>
         <DetailsTitle>Total Quantity</DetailsTitle>
-        <DetailsText>6 kg</DetailsText>
+        <DetailsText>{`${total} g`}</DetailsText>
       </DetailsWrapper>
       <DetailsWrapper>
         <DetailsTitle>RX</DetailsTitle>
-        <DetailsText>2 kg</DetailsText>
+        <DetailsText>{`${rx} kg`}</DetailsText>
       </DetailsWrapper>
       <DetailsWrapper>
         <DetailsTitle>OTC</DetailsTitle>
-        <DetailsText>1 kg</DetailsText>
+        <DetailsText>{`${otc} kg`}</DetailsText>
       </DetailsWrapper>
       <DetailsWrapper>
         <DetailsTitle>Supplement</DetailsTitle>
-        <DetailsText>3 kg</DetailsText>
+        <DetailsText>{`${supplement} kg`}</DetailsText>
       </DetailsWrapper>
     </ContentDetails>
   )
