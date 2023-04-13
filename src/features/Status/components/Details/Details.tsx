@@ -43,7 +43,7 @@ export const Details: FC<IDetails> = ({
       </DetailsWrapper>
       <DetailsWrapper>
         <DetailsTitle>Total Quantity</DetailsTitle>
-        <DetailsText>{`${total} g`}</DetailsText>
+        <DetailsText>{`${total} mg`}</DetailsText>
       </DetailsWrapper>
       <DetailsWrapper>
         <DetailsTitle>RX</DetailsTitle>
