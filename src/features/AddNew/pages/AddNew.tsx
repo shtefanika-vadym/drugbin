@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import type { FormikHelpers } from 'formik'
@@ -5,7 +6,7 @@ import { Formik } from 'formik'
 
 import { HeaderWrapper } from 'layout/Header/HeaderWrapper'
 
-import AutocompleteInput from 'common/components/AutoComplete/AutoComplete'
+import { AutocompleteInput } from 'common/components/AutocompleteInput/AutocompleteInput'
 import { Button } from 'common/components/Button/Button'
 import { Dropdown } from 'common/components/Dropdown/Dropdown'
 import { Input } from 'common/components/Input/Input'
@@ -30,11 +31,19 @@ import type { IForm } from './AddNew.type'
 export const AddNew = () => {
   const navigate = useNavigate()
 
+  const [drugId, setDrugId] = useState<number>()
+
   const [addNewProduct] = useCreateProductMutation()
 
   const handleSubmit = async (values: IForm, { resetForm }: FormikHelpers<IForm>) => {
-    await addNewProduct({ ...values, drugId: 1 })
-    console.log('values', values)
+    const productDetails = {
+      name: values.name,
+      type: values.type.toLowerCase(),
+      quantity: values.quantity,
+      pack: values.pack.toLowerCase(),
+      drugId: drugId,
+    }
+    await addNewProduct(productDetails)
     resetForm()
   }
 
@@ -45,13 +54,12 @@ export const AddNew = () => {
   return (
     <HeaderWrapper>
       <Formik
-        initialValues={{ type: 'rx', name: '', quantity: 1, pack: 'pack' }}
+        initialValues={{ type: 'RX', name: '', quantity: 1, pack: 'Pack' }}
         onSubmit={handleSubmit}
         validateOnChange={false}
         validateOnBlur={false}
         validationSchema={validationSchema}>
         {({ values, handleChange, handleSubmit, setFieldValue, errors }) => {
-          console.log(errors)
           return (
             <ContentAddNew onSubmit={handleSubmit}>
               <Title>{ADD_NEW_LABEL.TITLE}</Title>
@@ -73,10 +81,12 @@ export const AddNew = () => {
               <InputWrapper>
                 <AutocompleteInput
                   name='name'
+                  type={values.type}
                   placeholder={ADD_NEW_PLACEHOLDER.NAME}
-                  label={ADD_NEW_LABEL.NAME}
+                  label='Name or ID'
                   onSelect={(value) => {
-                    setFieldValue('name', value)
+                    setDrugId(value.id)
+                    setFieldValue('name', value.name)
                   }}
                 />
                 {errors.name && <Error>{errors.name}</Error>}

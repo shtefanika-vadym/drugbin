@@ -18,7 +18,7 @@ export const addApi = createApi({
     }),
     drug: build.query({
       query: (props) => ({
-        url: `/drug-stock/${props}`,
+        url: `/drug-stock/${props.type}/${props.query}`,
       }),
     }),
     createDrug: build.mutation({

@@ -1,5 +1,7 @@
 import type { FC } from 'react'
 
+import { UtilService } from 'common/services/utilService'
+
 import { ContentDetails, DetailsText, DetailsTitle, DetailsWrapper } from './Details.styled'
 
 interface IDetails {
@@ -43,19 +45,19 @@ export const Details: FC<IDetails> = ({
       </DetailsWrapper>
       <DetailsWrapper>
         <DetailsTitle>Total Quantity</DetailsTitle>
-        <DetailsText>{`${total} mg`}</DetailsText>
+        <DetailsText>{UtilService.formatWeight(total)}</DetailsText>
       </DetailsWrapper>
       <DetailsWrapper>
         <DetailsTitle>RX</DetailsTitle>
-        <DetailsText>{`${rx} kg`}</DetailsText>
+        <DetailsText>{UtilService.formatWeight(rx)}</DetailsText>
       </DetailsWrapper>
       <DetailsWrapper>
         <DetailsTitle>OTC</DetailsTitle>
-        <DetailsText>{`${otc} kg`}</DetailsText>
+        <DetailsText>{UtilService.formatWeight(otc)}</DetailsText>
       </DetailsWrapper>
       <DetailsWrapper>
         <DetailsTitle>Supplement</DetailsTitle>
-        <DetailsText>{`${supplement} kg`}</DetailsText>
+        <DetailsText>{UtilService.formatWeight(supplement)}</DetailsText>
       </DetailsWrapper>
     </ContentDetails>
   )

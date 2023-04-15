@@ -2,6 +2,7 @@ import type { ColumnsType } from 'antd/lib/table'
 
 import { QuickActions } from 'common/components/QuickActions/QuickActions'
 import { Tag } from 'common/components/Tag/Tag'
+import { UtilService } from 'common/services/utilService'
 
 import { SubtitleWrapper, NameWrapper } from './CustomTable.styled'
 
@@ -45,7 +46,7 @@ export const columns: ColumnsType<any> = [
     title: 'Status',
     dataIndex: 'status',
     key: 'status',
-    render: (status) => <Tag variant={status}>{status}</Tag>,
+    render: (status) => <Tag variant={status}>{UtilService.transformText(status)}</Tag>,
   },
   {
     title: 'Action',

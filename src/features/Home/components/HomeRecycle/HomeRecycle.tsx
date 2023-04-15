@@ -22,7 +22,7 @@ export const HomeRecycle = () => {
       return {
         id: element.id,
         pharma: element.name,
-        quantity: '6 kg',
+        quantity: element.weight,
         status: 'In Progress',
       }
     })
