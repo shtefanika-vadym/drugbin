@@ -10,7 +10,7 @@ export const RecycleBox: FC<IRecycleBoxProps> = ({ pharma, quantity, status, cal
   return (
     <ContentRecycleBox onClick={callbackOnClick}>
       <Name>{pharma}</Name>
-      <Text>{quantity}</Text>
+      <Text>{quantity} g</Text>
       <Tag variant='pending'>{status}</Tag>
       <QuickActions id='1' variant='recycle' />
     </ContentRecycleBox>

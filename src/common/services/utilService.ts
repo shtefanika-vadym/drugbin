@@ -56,6 +56,28 @@ const formatTime = (props: string) => {
   return formattedTime
 }
 
+const transformText = (props: string) => {
+  const capitalizeFirstLetter = (props: string) => {
+    return props.charAt(0).toUpperCase() + props.slice(1)
+  }
+  switch (props) {
+    case 'rx':
+      return 'RX'
+    case 'otc':
+      return 'OTC'
+    default:
+      return capitalizeFirstLetter(props)
+  }
+}
+
+const formatWeight = (weightInGrams: number): string => {
+  if (weightInGrams >= 1000) {
+    return (weightInGrams / 1000).toFixed(1) + ' kg'
+  } else {
+    return weightInGrams + ' g'
+  }
+}
+
 export const UtilService = {
   getFilledArray,
   deepEqual,
@@ -64,4 +86,6 @@ export const UtilService = {
   capitalizeFirstLetter,
   formatDate,
   formatTime,
+  transformText,
+  formatWeight,
 }

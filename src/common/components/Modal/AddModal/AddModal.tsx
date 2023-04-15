@@ -1,44 +1,42 @@
-import type { FormikHelpers } from 'formik'
-import { Formik } from 'formik'
+// import { Formik } from 'formik'
 
 import { Button } from 'common/components/Button/Button'
-import { Dropdown } from 'common/components/Dropdown/Dropdown'
-import { Input } from 'common/components/Input/Input'
+// import { Dropdown } from 'common/components/Dropdown/Dropdown'
+// import { Input } from 'common/components/Input/Input'
 import Modal from 'common/components/Modal/Modal'
-import { RadioButton } from 'common/components/RadioButton/RadioButton'
+// import { RadioButton } from 'common/components/RadioButton/RadioButton'
 
-import { ADD_NEW_LABEL, ADD_NEW_PLACEHOLDER } from 'features/AddNew/constants/constatns'
-import { DROPDOWN_VALUES, RADIO_BUTTON_VALUE } from 'features/AddNew/constants/mockData'
+// import { ADD_NEW_LABEL, ADD_NEW_PLACEHOLDER } from 'features/AddNew/constants/constatns'
+// import { DROPDOWN_VALUES, RADIO_BUTTON_VALUE } from 'features/AddNew/constants/mockData'
 import { useCreateDrugMutation } from 'features/AddNew/store/api/addApi'
 
 import {
   ButtonWrapper,
-  ContentAdd,
-  ContentGrid,
-  LabelRadio,
-  RadioPosition,
-  Title,
+  // ContentAdd,
+  // ContentGrid,
+  // LabelRadio,
+  // RadioPosition,
+  // Title,
 } from './AddModal.styled'
 
 export const AddModal = () => {
   const handleClose = () => {}
   const [addNewDrug] = useCreateDrugMutation()
-  const handleSubmit = async (values: any, { resetForm }: FormikHelpers<any>) => {
+  const handleSubmit = async () => {
     const test = {
-      name: 'Hidrocortizone pulbere',
-      package: 'Pack',
-      package_total: 1,
-      strength: 0,
-      weight: 12,
-      type: 'RX',
-      barcode: '6220132311528',
+      name: 'Azitrox 500mg',
+      package: 'pack',
+      packageTotal: 3,
+      strength: 500,
+      weight: 1.5,
+      type: 'rx',
+      barcode: '8594739229914',
     }
     await addNewDrug(test)
-    resetForm()
   }
   return (
     <Modal callbackOnClose={handleClose}>
-      <Formik
+      {/* <Formik
         initialValues={{
           type: 'RX',
           name: '',
@@ -100,13 +98,13 @@ export const AddModal = () => {
                 }}
               />
             </ContentGrid>
-            <ButtonWrapper>
-              <Button type='submit'>Add New</Button>
-              <Button variant='secondary'>Back</Button>
-            </ButtonWrapper>
-          </ContentAdd>
-        )}
-      </Formik>
+            </ContentAdd>
+            )}
+          </Formik> */}
+      <ButtonWrapper>
+        <Button onClick={handleSubmit}>Add New</Button>
+        <Button variant='secondary'>Back</Button>
+      </ButtonWrapper>
     </Modal>
   )
 }

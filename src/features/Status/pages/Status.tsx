@@ -39,9 +39,9 @@ export const Status = () => {
             data: UtilService.formatDate(element.createdAt),
             time: UtilService.formatTime(element.createdAt),
           },
-          type: element.type,
+          type: UtilService.transformText(element.type),
           quantity: element.quantity,
-          pack: element.pack,
+          pack: UtilService.transformText(element.pack),
           status: element.status,
           action: 'icon',
         }
@@ -64,10 +64,10 @@ export const Status = () => {
             location={data?.location}
             schedule={data?.schedule}
             phone={data?.phone}
-            total={data?.total}
-            rx={0}
-            otc={0}
-            supplement={0}
+            total={data?.weight}
+            rx={data.weightRx}
+            otc={data.weightOtc}
+            supplement={data.weightSupplement}
           />
           <BorderStyle />
           <div>

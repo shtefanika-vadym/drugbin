@@ -30,9 +30,9 @@ export const History = () => {
             data: UtilService.formatDate(element.createdAt),
             time: UtilService.formatTime(element.createdAt),
           },
-          type: element.type,
+          type: UtilService.transformText(element.type),
           quantity: element.quantity,
-          pack: element.pack,
+          pack: UtilService.transformText(element.pack),
           status: element.status,
           action: 'icon',
         }
