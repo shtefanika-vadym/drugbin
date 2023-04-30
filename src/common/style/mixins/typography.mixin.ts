@@ -6,6 +6,7 @@ import {
   WDS_SIZE_020_PX,
   WDS_SIZE_024_PX,
   WDS_SIZE_032_PX,
+  WDS_SIZE_040_PX,
   WDS_SIZE_048_PX,
   WDS_SIZE_064_PX,
 } from 'common/style/size'
@@ -24,9 +25,11 @@ export const TEXT_VARIANT_NAMES = [
   'bodyXS',
   'bodyS',
   'bodyM',
+  'bodyL',
   'titleH1',
   'titleH5',
   'titleH4',
+  'titleH3',
   'subheading',
 ] as const
 
@@ -72,6 +75,16 @@ export const TEXT_VARIANTS: Dictionary<TextVariant> = {
     letterSpacing: 'normal',
   },
 
+  bodyL: {
+    family: WDS_TEXT_FAMILY_BASE,
+    weight: WDS_TEXT_WEIGHT_REGULAR,
+    style: 'normal',
+    size: WDS_SIZE_018_PX,
+    lineHeight: WDS_SIZE_024_PX,
+    textTransform: 'none',
+    letterSpacing: 'normal',
+  },
+
   titleH1: {
     family: WDS_TEXT_FAMILY_BASE,
     weight: WDS_TEXT_WEIGHT_BOLD,
@@ -96,6 +109,15 @@ export const TEXT_VARIANTS: Dictionary<TextVariant> = {
     style: 'normal',
     size: WDS_SIZE_024_PX,
     lineHeight: WDS_SIZE_032_PX,
+    textTransform: 'none',
+    letterSpacing: 'normal',
+  },
+  titleH3: {
+    family: WDS_TEXT_FAMILY_BASE,
+    weight: WDS_TEXT_WEIGHT_BOLD,
+    style: 'normal',
+    size: WDS_SIZE_032_PX,
+    lineHeight: WDS_SIZE_040_PX,
     textTransform: 'none',
     letterSpacing: 'normal',
   },

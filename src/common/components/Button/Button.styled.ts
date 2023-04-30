@@ -5,6 +5,7 @@ import {
   WDS_COLOR_BLUE_300,
   WDS_COLOR_BLUE_400,
   WDS_COLOR_WHITE,
+  WDS_COLOR_WHITE_100,
 } from 'common/style/colors'
 import { border } from 'common/style/mixins/border.mixin'
 import { flex } from 'common/style/mixins/flex.mixin'
@@ -35,6 +36,14 @@ const primaryStyles = css`
 export const buttonVariants = {
   primary: css`
     ${primaryStyles}
+  `,
+  white: css`
+    ${primaryStyles};
+    background-color: ${WDS_COLOR_WHITE};
+    color: ${WDS_COLOR_BLUE_300};
+    &:hover {
+      background-color: ${WDS_COLOR_WHITE_100};
+    }
   `,
   primaryFull: css`
     ${primaryStyles};
