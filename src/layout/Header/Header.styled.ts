@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 
+import { WDS_BREAKPOINT_TABLET_UP_TO } from 'common/constants/breakpoint'
 import {
   WDS_COLOR_BLUE_100,
   WDS_COLOR_BLUE_300,
@@ -10,24 +11,34 @@ import {
 import { flex } from 'common/style/mixins/flex.mixin'
 import { textVariant } from 'common/style/mixins/typography.mixin'
 import {
-  WDS_SIZE_022_PX,
-  WDS_SIZE_009_PX,
   WDS_SIZE_002_PX,
+  WDS_SIZE_009_PX,
+  WDS_SIZE_016_PX,
+  WDS_SIZE_022_PX,
+  WDS_SIZE_024_PX,
   WDS_SIZE_032_PX,
-  WDS_SIZE_080_PX,
   WDS_SIZE_040_PX,
+  WDS_SIZE_080_PX,
+  WDS_SIZE_128_PX,
 } from 'common/style/size'
 
 export const ContainerWrapper = styled.div`
   background: ${WDS_COLOR_WHITE};
   border-bottom: 1px solid ${WDS_COLOR_BLUE_100};
   padding: ${WDS_SIZE_022_PX} ${WDS_SIZE_080_PX};
+
+  @media (max-width: ${WDS_BREAKPOINT_TABLET_UP_TO}) {
+    padding: ${WDS_SIZE_024_PX} ${WDS_SIZE_016_PX};
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
 `
 
 export const Container = styled.div`
   ${flex({ direction: 'row', alignItems: 'center', justifyContent: 'space-between' })}
   position: relative;
-  max-width: 100rem;
+  max-width: 1311px;
   margin: 0px auto;
 `
 
@@ -61,11 +72,17 @@ export const Logo = styled.img`
   cursor: pointer;
 `
 
-export const UserIcon = styled.img``
+export const UserIcon = styled.img`
+  cursor: pointer;
+`
 
 export const Content = styled.div`
   ${flex({ justifyContent: 'center' })};
   padding: ${WDS_SIZE_040_PX} ${WDS_SIZE_080_PX};
+
+  @media (max-width: ${WDS_BREAKPOINT_TABLET_UP_TO}) {
+    padding: ${WDS_SIZE_128_PX} ${WDS_SIZE_016_PX};
+  }
 `
 
 export const Name = styled.p`
