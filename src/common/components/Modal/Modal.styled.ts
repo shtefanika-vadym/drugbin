@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import { WDS_BREAKPOINT_TABLET_UP_TO } from 'common/constants/breakpoint'
+
 export const ContentModal = styled.div`
   position: fixed;
   display: flex;
@@ -36,6 +38,11 @@ export const ModalWrapper = styled.div`
   align-items: flex-end;
   justify-content: center;
   flex-direction: column;
+
+  @media (max-width: ${WDS_BREAKPOINT_TABLET_UP_TO}) {
+    padding: 24px 16px;
+    margin: 0 16px;
+  }
 `
 
 export const Icon = styled.img``

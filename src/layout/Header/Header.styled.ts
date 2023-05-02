@@ -94,3 +94,8 @@ export const UserWrapper = styled.div`
   ${flex({ gap: '10px' })};
   cursor: pointer;
 `
+export const Icon = styled.img``
+
+export const ContainerWrapperRecycle = styled(ContainerWrapper)`
+  ${flex({ justifyContent: 'space-between' })};
+`

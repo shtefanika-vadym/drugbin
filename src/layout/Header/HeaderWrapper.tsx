@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 import { Header } from './Header'
 import { Content } from './Header.styled'
 
-interface HeaderProps {
+export interface HeaderProps {
   children?: ReactNode
 }
 
