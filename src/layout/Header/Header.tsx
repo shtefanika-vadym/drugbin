@@ -11,12 +11,12 @@ import {
 } from 'layout/Paths/Paths'
 import { useLockedBody } from 'usehooks-ts'
 
-import { useAuth } from 'app/providers'
+// import { useAuth } from 'app/providers'
 
 import logoS from 'common/assets/icons/logo-s.svg'
 import logo from 'common/assets/icons/logo.svg'
 import menuMobile from 'common/assets/icons/menu-2-fill.svg'
-import userIcon from 'common/assets/icons/user.svg'
+// import userIcon from 'common/assets/icons/user.svg'
 
 import useBreakpoints from 'common/hooks/useBreakpoints'
 import useUserRole from 'common/hooks/useGetUserRole'
@@ -26,17 +26,15 @@ import {
   ContainerWrapper,
   Dot,
   Logo,
-  Name,
   Navigation,
   NavLink,
   UserIcon,
-  UserWrapper,
 } from './Header.styled'
 
 export const Header = () => {
   const { isBelowDesktop } = useBreakpoints()
   const { userRole } = useUserRole()
-  const { logout } = useAuth()
+  // const { logout } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
   const handleNavigate = (link: string) => {
@@ -81,12 +79,12 @@ export const Header = () => {
         )}
 
         <Logo src={!isBelowDesktop ? logo : logoS} onClick={() => navigate('/')} />
-        {!isBelowDesktop && (
+        {/* {!isBelowDesktop && (
           <UserWrapper onClick={() => logout()}>
             <Name>DrugBin Solution</Name>
             <UserIcon src={userIcon} alt='user' />
           </UserWrapper>
-        )}
+        )} */}
       </Container>
       {isMenuOpen && <MobileMenu isOpen={isMenuOpen} handleOpen={setIsMenuOpen} />}
     </ContainerWrapper>

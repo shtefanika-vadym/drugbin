@@ -1,30 +1,30 @@
 export const LIST_SECTION_1 = {
   tag: 'Services',
-  title: 'Simple and Easy-to-Use the expired drugs return Process',
+  title: 'Simple and easy-to-use expired drugs return process',
   subTitle:
-    'Our website provides a user-friendly interface to make drug donation simple and easy for anyone. We ensure the safe collection and distribution of unused and expired medications.',
+    'Our website provides a user-friendly interface to make drug donation simple and easy for anyone. We ensure the safe collection of unused and expired medications.',
   list: [
-    'Quick and easy online donation process',
+    'Quick and easy online collecting process',
     'Secure and confidential handling of your personal information',
-    'Peace of mind knowing youre making a positive impact on society and the environment',
+    `Peace of mind knowing you're making a positive impact on society and the environment`,
   ],
 }
 
 export const LIST_SECTION_2 = {
   title: 'Comprehensive Drug Information Database',
   subTitle:
-    'Our website provides a comprehensive database of prescription drugs to help users make informed decisions about their medications. By using our database, you can be confident in the safety and efficacy of your medication.',
+    'Our website provides a real-time database of expired medications and connects you with nearby pharmacies that collect them. By using our database, you can be confident in the safety of your expired and unused medication.',
   list: [
-    'Comprehensive information on all types of prescription drugs',
-    'Regularly updated and verified by medical professionals',
-    'Easy to navigate and search for specific drug information',
+    'Comprehensive information about the expired medications that pharmacies collect',
+    'You can find out who the ambassadors of collection program are',
+    'Easy to navigate and access important environmental data',
   ],
 }
 
 export const LIST_SECTION_3 = {
   title: 'Community Outreach and Education Programs',
   subTitle:
-    'By partnering with us, you can help spread awareness and promote positive change in your community.',
+    'By partnering with us, you can help raise awareness and promote positive change in your community.',
   list: [
     'Resources and tools to help people make informed decisions about their healthcare',
     'Collaborative partnerships with other organizations dedicated to promoting sustainable healthcare',
@@ -32,16 +32,16 @@ export const LIST_SECTION_3 = {
 }
 
 export enum RECYCLE_SECTION {
-  TITLE = 'Recycle Your Unused Medications Today',
-  SUB_TITLE = 'Help us make a positive impact on the world by recycling your unused medications today. By participating in our drug recycling program, you can help reduce drug waste, promote sustainable healthcare practices, and save lives.',
-  BUTTON = 'Recycle',
+  TITLE = 'Collect Your Unused Medications Today',
+  SUB_TITLE = 'Help us make a positive impact on the world by collecting your unused medications today. By participating in our drug recycling program, you can help reduce drug waste, promote sustainable healthcare practices, and save lives.',
+  BUTTON = 'Collect',
 }
 
 export enum LANDING_SECTION {
-  TITLE = 'Help Save Lives and the Environment by Recycling Your Unused Medications',
-  SUB_TITLE = 'At DrugBin, we believe in a better way. Our drug recycling program collects unused and expired medications, tests them for safety and quality, and redistributes them to people in need. By participating in our program, you can help us reduce drug waste, save lives, and protect the environment.',
+  TITLE = 'Help Save Lives and the Environment by Collecting Your Unused and Expired Medications',
+  SUB_TITLE = 'At DrugBin, we believe in a better way. Our drug collection program teaches you how to identify and sort packaging, and how to deliver them to the pharmacy. By participating in our program, you can help us reduce drug waste, save lives, and protect the environment.',
   JOIN = 'Join us today and make a difference in the world.',
-  BUTTON = 'Recycle',
+  BUTTON = 'Collect',
 }
 
 export enum CONTACT_SECTION {

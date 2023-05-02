@@ -99,6 +99,9 @@ export const buttonSizes = {
   'S-round': css`
     padding: ${WDS_SIZE_006_PX};
   `,
+  None: css`
+    padding: ${WDS_SIZE_006_PX};
+  `,
 }
 
 export const StyledButton = styled.button<StyledButtonProps>`

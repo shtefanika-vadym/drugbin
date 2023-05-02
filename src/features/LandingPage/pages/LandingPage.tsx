@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom'
+
 import { HeaderWrapper } from 'layout/Header/HeaderWrapper'
 
 import first from 'features/LandingPage/assets/first.jpg'
@@ -12,6 +14,7 @@ import { LANDING_SECTION } from 'features/LandingPage/constants/constants'
 import { Icon, Join, Section, SubTitle, Title, Wrapper } from './LandingPage.styled'
 
 export const LandingPage = () => {
+  const navigate = useNavigate()
   return (
     <HeaderWrapper>
       <Wrapper>
@@ -19,7 +22,7 @@ export const LandingPage = () => {
           <Title>{LANDING_SECTION.TITLE}</Title>
           <SubTitle>{LANDING_SECTION.SUB_TITLE}</SubTitle>
           <Join>{LANDING_SECTION.JOIN}</Join>
-          <Button>{LANDING_SECTION.BUTTON}</Button>
+          <Button onClick={() => navigate('/collect')}>{LANDING_SECTION.BUTTON}</Button>
           <Icon src={first} />
         </Section>
         <Services id='services' />

@@ -1,5 +1,6 @@
 import type { FC } from 'react'
 import { useCallback, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { animateScroll } from 'react-scroll'
 
 import { useOnClickOutside } from 'usehooks-ts'
@@ -28,6 +29,7 @@ export interface MobileMenuProps {
 
 export const MobileMenu: FC<MobileMenuProps> = ({ isOpen, handleOpen }) => {
   const topNavRef = useRef<HTMLElement | null>(null)
+  const navigate = useNavigate()
 
   const handleDropdown = useCallback(() => {
     handleOpen(!isOpen)
@@ -44,9 +46,9 @@ export const MobileMenu: FC<MobileMenuProps> = ({ isOpen, handleOpen }) => {
     <MenuWrapper>
       <MenuContent ref={topNavRef}>
         <Title>Menu</Title>
-        <ItemWrapper onClick={() => handleNavigate('recycle')}>
+        <ItemWrapper onClick={() => navigate('/collect')}>
           <Icon src={recycleIcon} />
-          <Text>Recycle</Text>
+          <Text>Collect</Text>
         </ItemWrapper>
         <ItemWrapper onClick={() => handleNavigate('about-us')}>
           <Icon src={aboutIcon} />
