@@ -52,7 +52,6 @@ export const Dropdown: FC<DropdownProps> = ({
             {options.map((option: string) => (
               <Option
                 key={option}
-                value={option}
                 onClick={() => handleChange(option)}
                 isActive={selectedOptions === option}>
                 {option}

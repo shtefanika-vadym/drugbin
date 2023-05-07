@@ -20,7 +20,9 @@ import { ButtonWrapper, RecycleWrapper } from './Recycle.styled'
 
 export const Recycle = () => {
   const [activeStep, setActiveStep] = useState(1)
-  const { isVerbalProcessOpen, collectData } = useAppSelector((state) => state.recycleReducer)
+  const { isVerbalProcessOpen, collectData, drugsSize } = useAppSelector(
+    (state) => state.recycleReducer,
+  )
 
   const dispatch = useAppDispatch()
 
@@ -83,7 +85,10 @@ export const Recycle = () => {
         if (collectData.firstName === '' || collectData.lastName === '') return null
         break
       case 2:
-        if (collectData.drugList[0].drugName.name === '' || collectData.drugList[0].quantity <= 0)
+        if (
+          collectData.drugList[drugsSize - 1].drugName.name === '' ||
+          collectData.drugList[drugsSize - 1].quantity <= 0
+        )
           return null
         break
       case 3:

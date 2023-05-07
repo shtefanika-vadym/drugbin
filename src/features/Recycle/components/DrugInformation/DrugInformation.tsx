@@ -41,7 +41,7 @@ export const DrugInformation = () => {
   const handleAddNewDrugForm = () => {
     const lastDrug = collectData.drugList[drugsSize - 1]
 
-    if (lastDrug.name && lastDrug.quantity > 0) {
+    if (lastDrug.drugName.name && lastDrug.quantity > 0) {
       dispatch(SET_DRUGS_SIZE(drugsSize + 1))
       dispatch(SET_NEW_DRUG())
     }
