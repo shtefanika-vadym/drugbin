@@ -18,6 +18,7 @@ export const customStyles = {
     cursor: 'pointer',
     borderRadius: '8px',
     border: `1px solid ${WDS_COLOR_GREY}`,
+    backgroundColor: 'white',
     display: 'flex',
     boxShadow: 'none',
   }),
@@ -38,6 +39,7 @@ export const customStyles = {
   menu: () => ({
     maxWidth: 400,
     border: `1px solid ${WDS_COLOR_GREY}`,
+    backgroundColor: 'white',
     borderRadius: 8,
     margin: '4px 0 0 0',
     maxHeight: 224,

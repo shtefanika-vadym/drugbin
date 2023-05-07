@@ -8,12 +8,13 @@ export const StepperWrapper = styled.div`
 `
 
 export const StepperHeader = styled.div`
-  ${flex({ direction: 'column', gap: '16px' })};
+  ${flex({ direction: 'column', gap: '16px', alignItems: 'center' })};
 `
 
 export const Title = styled.h1`
   ${textVariant('titleH3')};
   text-align: center;
+  padding-top: 12px;
 `
 
 export const Description = styled.p`

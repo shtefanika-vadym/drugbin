@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 import { WDS_BREAKPOINT_TABLET_UP_TO } from 'common/constants/breakpoint'
 
-export const ContentModal = styled.div`
+export const ContentModal = styled.nav`
   position: fixed;
   display: flex;
   align-items: center;
@@ -14,18 +14,11 @@ export const ContentModal = styled.div`
   z-index: 100;
   overflow-x: hidden;
   transition: opacity 150ms 300ms ease;
-  pointer-events: auto;
+  z-index: 999;
+  background-color: rgba(44, 43, 43, 0.3);
 `
 
-export const BackModal = styled.div`
-  background-color: #2c2b2b;
-  position: absolute;
-  opacity: 0.3;
-  width: 100vw;
-  height: 100vh;
-`
-
-export const ModalWrapper = styled.div`
+export const ModalWrapper = styled.nav`
   position: relative;
   min-width: min-content;
   height: auto;

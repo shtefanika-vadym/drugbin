@@ -9,7 +9,9 @@ import { authApi } from 'features/Auth'
 import { historyApi } from 'features/History/store/api/productApi'
 import { homeApi } from 'features/Home'
 import { homeSlice } from 'features/Home/state/slices/homeSlice'
+import { landingApi } from 'features/LandingPage/store/api/landingApi'
 import { recycleSlice } from 'features/Recycle/slices/recycleSlice'
+import { recycleApi } from 'features/Recycle/store/api/recycleApi'
 import { statusApi } from 'features/Status/state/api/statusApi'
 
 const rootReducer = combineReducers({
@@ -21,6 +23,8 @@ const rootReducer = combineReducers({
   [historyApi.reducerPath as keyof object]: historyApi.reducer,
   [addApi.reducerPath as keyof object]: addApi.reducer,
   [statusApi.reducerPath as keyof object]: statusApi.reducer,
+  [recycleApi.reducerPath as keyof object]: recycleApi.reducer,
+  [landingApi.reducerPath as keyof object]: landingApi.reducer,
 })
 
 export const store = configureStore({
@@ -33,7 +37,9 @@ export const store = configureStore({
       .concat(historyApi.middleware)
       .concat(addApi.middleware)
       .concat(homeApi.middleware)
-      .concat(statusApi.middleware),
+      .concat(statusApi.middleware)
+      .concat(recycleApi.middleware)
+      .concat(landingApi.middleware),
 })
 
 setupListeners(store.dispatch)

@@ -1,20 +1,19 @@
-import React from 'react'
-import type { InputHTMLAttributes } from 'react'
+import type { TextareaHTMLAttributes } from 'react'
+import React, { forwardRef } from 'react'
 
 import { Label, TextareaWrapper, TextareaStyle } from './Textarea.styled'
 
-export interface LabeledInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label?: string
-  valid?: boolean
+interface LabeledTextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  label: string
 }
 
-export const Textarea = React.forwardRef<HTMLInputElement, LabeledInputProps>((props, ref) => {
-  const { label = '' } = props
-  console.log('a', props, ref)
-  return (
-    <TextareaWrapper>
-      <Label>{label}</Label>
-      <TextareaStyle />
-    </TextareaWrapper>
-  )
-})
+export const Textarea = forwardRef<HTMLTextAreaElement, LabeledTextareaProps>(
+  ({ label, value, name, ...rest }, ref) => {
+    return (
+      <TextareaWrapper>
+        <Label>{label}</Label>
+        <TextareaStyle ref={ref} value={value} name={name} {...rest} />
+      </TextareaWrapper>
+    )
+  },
+)

@@ -27,6 +27,7 @@ export const Container = styled.div<{ valid: boolean }>`
   border: 1px solid ${(props) => (props.valid ? WDS_COLOR_GREY : WDS_COLOR_RED)};
   border-radius: ${WDS_SIZE_008_PX};
   padding: ${WDS_SIZE_010_PX};
+  background-color: white;
 `
 
 export const StyledInput = styled.input<{ valid: boolean }>`
