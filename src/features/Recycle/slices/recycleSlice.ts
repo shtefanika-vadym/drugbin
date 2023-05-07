@@ -7,7 +7,7 @@ interface IRecycleSlice {
   collectData: {
     firstName: string
     lastName: string
-    email: string
+    email: string | null
     pharmacyId: number
     drugList: {
       drugName: {
@@ -29,7 +29,7 @@ const initialState: IRecycleSlice = {
   collectData: {
     firstName: '',
     lastName: '',
-    email: '',
+    email: null,
     pharmacyId: 1,
     drugList: [
       {
