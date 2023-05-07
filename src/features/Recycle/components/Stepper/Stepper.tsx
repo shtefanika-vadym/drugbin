@@ -2,6 +2,8 @@ import type { FC, ReactNode } from 'react'
 
 import { useAppSelector } from 'store/hooks'
 
+import { MultiStep } from 'common/components/MultiStep/MultiStep'
+
 import {
   Description,
   StepperHeader,
@@ -19,9 +21,10 @@ interface IStepper {
   description?: string
   tag: string
   children: ReactNode
+  activeStep: number
 }
 
-export const Stepper: FC<IStepper> = ({ title, description, tag, children }) => {
+export const Stepper: FC<IStepper> = ({ title, description, tag, children, activeStep }) => {
   const { isVerbalProcessOpen } = useAppSelector((state) => state.recycleReducer)
 
   return (
@@ -54,6 +57,7 @@ export const Stepper: FC<IStepper> = ({ title, description, tag, children }) => 
       ) : (
         <>
           <StepperHeader>
+            <MultiStep activeStep={activeStep} />
             <Title>{title}</Title>
             <Description>{description}</Description>
             <Tag>{tag}</Tag>

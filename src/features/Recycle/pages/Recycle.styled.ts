@@ -8,5 +8,6 @@ export const ButtonWrapper = styled.div`
 `
 
 export const RecycleWrapper = styled.div`
+  width: 100%;
   ${flex({ direction: 'column', gap: '24px' })};
 `

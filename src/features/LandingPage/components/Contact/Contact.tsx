@@ -1,19 +1,27 @@
 import type { FC } from 'react'
 
+import { Formik } from 'formik'
+
 import location from 'features/LandingPage/assets/location.svg'
 import email from 'features/LandingPage/assets/mail.svg'
 import phone from 'features/LandingPage/assets/phone.svg'
 
 import { Button } from 'common/components/Button/Button'
 import { Input } from 'common/components/Input/Input'
+import { Spinner } from 'common/components/Spinner'
 import { Textarea } from 'common/components/Textarea/Textarea'
 
+import { validationSchema } from 'features/AddNew/validation/validationSchema'
 import { CONTACT_SECTION } from 'features/LandingPage/constants/constants'
+import { useContactMutation } from 'features/LandingPage/store/api/landingApi'
 
 import {
   ContactDetails,
   ContactWrapper,
+  Error,
+  FormContact,
   Icon,
+  InputWrapper,
   LeftSide,
   RightSide,
   SubTitle,
@@ -25,6 +33,12 @@ interface IContact {
 }
 
 export const Contact: FC<IContact> = ({ id }) => {
+  const [contact, { isLoading }] = useContactMutation()
+
+  const handleSubmit = (values: any, { resetForm }: any) => {
+    contact(values)
+    resetForm()
+  }
   return (
     <ContactWrapper id={id}>
       <LeftSide>
@@ -43,12 +57,50 @@ export const Contact: FC<IContact> = ({ id }) => {
         </ContactDetails>
       </LeftSide>
       <RightSide>
-        <Input placeholder='EX: John Doe' label='Name' />
-        <Input placeholder='EX: johndoe@gmail.com' label='Email' />
-        <Textarea label='Message' />
-        <div>
-          <Button>Send</Button>
-        </div>
+        <Formik
+          initialValues={{ name: '', email: '', message: '' }}
+          onSubmit={handleSubmit}
+          validateOnChange={false}
+          validateOnBlur={false}
+          validationSchema={validationSchema}>
+          {({ values, handleChange, handleSubmit, errors }) => {
+            return (
+              <FormContact onSubmit={handleSubmit}>
+                <InputWrapper>
+                  <Input
+                    name='name'
+                    placeholder='EX: John Doe'
+                    label='Name'
+                    value={values.name}
+                    onChange={handleChange}
+                  />
+                  {errors.name && <Error>{errors.name}</Error>}
+                </InputWrapper>
+                <InputWrapper>
+                  <Input
+                    name='email'
+                    placeholder='EX: johndoe@gmail.com'
+                    label='Email'
+                    value={values.email}
+                    onChange={handleChange}
+                  />
+                  {errors.email && <Error>{errors.email}</Error>}
+                </InputWrapper>
+                <Textarea
+                  name='message'
+                  value={values.message}
+                  onChange={handleChange}
+                  label='Message'
+                />
+                <div>
+                  <Button type='submit'>
+                    {isLoading ? <Spinner isLoading={isLoading} /> : 'Send'}
+                  </Button>
+                </div>
+              </FormContact>
+            )
+          }}
+        </Formik>
       </RightSide>
     </ContactWrapper>
   )

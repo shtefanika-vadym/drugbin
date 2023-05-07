@@ -10,18 +10,22 @@ import { Content, Label, customStyles } from './AutoComplete.styled'
 
 interface AutocompleteInputProps {
   name: string
-  type: string
+  type?: string
   placeholder: string
   label?: string
+  value?: {
+    name: string
+    drugId: number
+  }
   onSelect?: (selectedOption: any) => void
 }
 
 export const AutocompleteInput: FC<AutocompleteInputProps> = ({
   name,
   placeholder,
-  type,
   label,
   onSelect,
+  value,
 }) => {
   const [inputValue, setInputValue] = useState<string>('')
 
@@ -31,17 +35,15 @@ export const AutocompleteInput: FC<AutocompleteInputProps> = ({
     setInputValue(props)
   }
 
-  const { data } = useDrugQuery({ type: type.toLowerCase(), query: debouncedValue.toLowerCase() })
+  const { data } = useDrugQuery(debouncedValue.toLowerCase())
 
   const options = useMemo(
     () =>
       data?.map((element: any) => {
         return {
-          label: `${element.name} (${element.barcode})`,
-          value: `${element.name} (${element.barcode})`,
-          name: element.name,
-          id: element.id,
-          barcode: element.barcode,
+          value: element?.name,
+          name: element?.name,
+          drugId: element?.id,
         }
       }),
     [data],
@@ -55,11 +57,18 @@ export const AutocompleteInput: FC<AutocompleteInputProps> = ({
     onSelect(props)
   }
 
+  const valueObj = {
+    value: value?.name,
+    name: value?.name,
+    drugId: value?.drugId,
+  }
+
   return (
     <Content>
       <Label>{label}</Label>
       <Select
         name={name}
+        value={valueObj.name && valueObj}
         placeholder={placeholder}
         styles={customStyles}
         options={options}

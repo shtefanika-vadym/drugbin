@@ -1,3 +1,4 @@
+import type { ChangeEvent } from 'react'
 import { useState } from 'react'
 
 import mapImg from 'common/assets/icons/MAP.png'
@@ -16,7 +17,8 @@ import {
 export const LocationInformation = () => {
   const [search, setSearch] = useState<string>('')
 
-  const handleChange = (value: string) => {
+  const handleChange = (values: ChangeEvent<HTMLInputElement>) => {
+    const { value } = values.target
     setSearch(value)
   }
 
@@ -26,7 +28,7 @@ export const LocationInformation = () => {
         type='search'
         label='Search location/ address'
         value={search}
-        onChange={(e: any) => handleChange(e)}
+        onChange={(e) => handleChange(e)}
         placeholder='EX: Tipografiei 1'
       />
       <div>

@@ -97,5 +97,6 @@ export const UserWrapper = styled.div`
 export const Icon = styled.img``
 
 export const ContainerWrapperRecycle = styled(ContainerWrapper)`
+  z-index: 100;
   ${flex({ justifyContent: 'space-between' })};
 `

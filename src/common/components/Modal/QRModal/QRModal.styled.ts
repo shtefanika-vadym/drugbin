@@ -19,3 +19,7 @@ export const QRCodeWrapper = styled.div`
 `
 
 export const QRCode = styled.img``
+
+export const BorderCorner = styled.div`
+  padding: 12px;
+`

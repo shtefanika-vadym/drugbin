@@ -39,6 +39,7 @@ export const DropdownWrapper = styled.div`
   height: ${WDS_SIZE_040_PX};
   border-radius: ${WDS_SIZE_008_PX};
   padding: ${WDS_SIZE_008_PX} ${WDS_SIZE_010_PX};
+  background-color: white;
 `
 
 export const DropdownList = styled.div`

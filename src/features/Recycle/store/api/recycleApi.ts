@@ -5,25 +5,13 @@ import type { EndpointBuilder } from '@reduxjs/toolkit/src/query/endpointDefinit
 import { HTTP_METHODS } from 'common/constants/httpMethodsConstants'
 import { baseQuery } from 'common/utils/fetchBaseQuery'
 
-export const addApi = createApi({
-  reducerPath: 'add',
+export const recycleApi = createApi({
+  reducerPath: 'recycle',
   baseQuery: baseQuery(),
   endpoints: (build: EndpointBuilder<BaseQueryFn, string, string>) => ({
-    createProduct: build.mutation({
+    recycleDrug: build.mutation({
       query: (product) => ({
-        url: '/expired-products',
-        data: product,
-        method: HTTP_METHODS.POST,
-      }),
-    }),
-    drug: build.query({
-      query: (query) => ({
-        url: `/drugs/${query}`,
-      }),
-    }),
-    createDrug: build.mutation({
-      query: (product) => ({
-        url: '/drug-stock',
+        url: '/recycle-drug',
         data: product,
         method: HTTP_METHODS.POST,
       }),
@@ -31,4 +19,4 @@ export const addApi = createApi({
   }),
 })
 
-export const { useCreateProductMutation, useDrugQuery, useCreateDrugMutation }: any = addApi
+export const { useRecycleDrugMutation }: any = recycleApi

@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 import { WDS_BREAKPOINT_TABLET_UP_TO } from 'common/constants/breakpoint'
-import { WDS_COLOR_WHITE } from 'common/style/colors'
+import { WDS_COLOR_RED, WDS_COLOR_WHITE } from 'common/style/colors'
 import { flex } from 'common/style/mixins/flex.mixin'
 import { grid } from 'common/style/mixins/grid.mixin'
 import { textVariant } from 'common/style/mixins/typography.mixin'
@@ -39,4 +39,16 @@ export const LeftSide = styled.div`
 `
 export const RightSide = styled.div`
   ${flex({ direction: 'column', gap: '24px' })}
+`
+
+export const InputWrapper = styled.div`
+  ${flex({ direction: 'column' })};
+  color: ${WDS_COLOR_RED};
+`
+
+export const Error = styled.p`
+  ${textVariant('bodyXS')};
+`
+export const FormContact = styled.form`
+  ${flex({ direction: 'column', gap: '24px' })};
 `

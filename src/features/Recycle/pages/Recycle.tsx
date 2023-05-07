@@ -14,39 +14,15 @@ import { PersonalInfromation } from 'features/Recycle/components/PersonalInfroma
 import { Stepper } from 'features/Recycle/components/Stepper/Stepper'
 import { STEP_1, STEP_2, STEP_3 } from 'features/Recycle/constatnts/constants'
 import { SET_OPEN_VERBAL_PROCESS } from 'features/Recycle/slices/recycleSlice'
+import { transformData } from 'features/Recycle/utils/utils'
 
 import { ButtonWrapper, RecycleWrapper } from './Recycle.styled'
 
 export const Recycle = () => {
   const [activeStep, setActiveStep] = useState(1)
-  const { isVerbalProcessOpen } = useAppSelector((state) => state.recycleReducer)
+  const { isVerbalProcessOpen, collectData } = useAppSelector((state) => state.recycleReducer)
 
   const dispatch = useAppDispatch()
-
-  const recycleSteps = useMemo(() => {
-    switch (activeStep) {
-      case 1:
-        return (
-          <Stepper title={STEP_1.TITLE} description={STEP_1.DESCRIPTION} tag={STEP_1.TAG}>
-            <PersonalInfromation />
-          </Stepper>
-        )
-      case 2:
-        return (
-          <Stepper title={STEP_2.TITLE} tag={STEP_2.TAG}>
-            <DrugInformation />
-          </Stepper>
-        )
-      case 3:
-        return (
-          <Stepper title={STEP_3.TITLE} tag={STEP_3.TAG}>
-            <LocationInformation />
-          </Stepper>
-        )
-      default:
-        return '0'
-    }
-  }, [activeStep])
 
   const handleCloseModal = () => {
     dispatch(SET_SHOW_MODAL({ isOpenModal: false, childModal: null }))
@@ -61,38 +37,75 @@ export const Recycle = () => {
     )
   }
 
-  const callbackOnClickAgree = () => {
+  const callbackOnClickAgree = async () => {
     dispatch(SET_OPEN_VERBAL_PROCESS(false))
+    const data = transformData(collectData)
     dispatch(
       SET_SHOW_MODAL({
         isOpenModal: true,
-        childModal: <QRModal handleCloseModal={handleCloseModal} />,
+        childModal: <QRModal handleCloseModal={handleCloseModal} drugs={data} />,
       }),
     )
   }
 
-  const handleNext = () => {
-    if (isVerbalProcessOpen && activeStep === 3) {
-      callbackOnClickAgree()
-    } else if (!isVerbalProcessOpen && activeStep === 3) {
-      return callbackOnClickFinish()
-    } else {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1)
+  const recycleSteps = useMemo(() => {
+    switch (activeStep) {
+      case 1:
+        return (
+          <Stepper
+            title={STEP_1.TITLE}
+            description={STEP_1.DESCRIPTION}
+            tag={STEP_1.TAG}
+            activeStep={activeStep}>
+            <PersonalInfromation />
+          </Stepper>
+        )
+      case 2:
+        return (
+          <Stepper title={STEP_2.TITLE} tag={STEP_2.TAG} activeStep={activeStep}>
+            <DrugInformation />
+          </Stepper>
+        )
+      case 3:
+        return (
+          <Stepper title={STEP_3.TITLE} tag={STEP_3.TAG} activeStep={activeStep}>
+            <LocationInformation />
+          </Stepper>
+        )
+      default:
+        return '0'
     }
+  }, [activeStep])
+
+  const handleNext = () => {
+    switch (activeStep) {
+      case 1:
+        if (collectData.firstName === '' || collectData.lastName === '') return null
+        break
+      case 2:
+        if (collectData.drugList[0].drugName.name === '' || collectData.drugList[0].quantity <= 0)
+          return null
+        break
+      case 3:
+        if (isVerbalProcessOpen) return callbackOnClickAgree()
+        if (!isVerbalProcessOpen) return callbackOnClickFinish()
+    }
+    setActiveStep((prevActiveStep) => prevActiveStep + 1)
   }
 
   const handleBack = () => {
-    if (isVerbalProcessOpen && activeStep === 3) {
-      dispatch(SET_OPEN_VERBAL_PROCESS(false))
-    } else {
-      setActiveStep((prevActiveStep) => prevActiveStep - 1)
-    }
+    setActiveStep((prevActiveStep) => {
+      if (prevActiveStep === 3 && isVerbalProcessOpen) {
+        dispatch(SET_OPEN_VERBAL_PROCESS(false))
+      }
+      return prevActiveStep - 1
+    })
   }
 
   return (
     <RecycleHeader>
       <RecycleWrapper>
-        <div>{recycleSteps}</div>
+        <>{recycleSteps}</>
         <ButtonWrapper>
           {activeStep !== 1 && (
             <Button
