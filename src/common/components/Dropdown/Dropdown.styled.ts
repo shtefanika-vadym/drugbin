@@ -55,7 +55,7 @@ export const DropdownList = styled.div`
 export const Select = styled.div`
   ${flex({ direction: 'column', gap: WDS_SIZE_020_PX })};
 `
-export const Option = styled.option<{ isActive: boolean }>`
+export const Option = styled.div<{ isActive: boolean }>`
   cursor: pointer;
   ${({ isActive }) => (isActive ? textVariant('subheading') : textVariant('bodyM'))};
   color: ${({ isActive }) => (isActive ? WDS_COLOR_BLUE_300 : WDS_COLOR_BLACK)};
