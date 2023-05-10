@@ -2,6 +2,7 @@
 import { Navigate } from 'react-router-dom'
 
 import { AddNew } from 'features/AddNew/pages/AddNew'
+import { Documents } from 'features/Documents/Documents'
 import { History } from 'features/History/pages/History'
 import { Home } from 'features/Home'
 import { Status } from 'features/Status/pages/Status'
@@ -13,6 +14,7 @@ enum AUTHORIZED_PATH {
   DONATIONS = 'DONATIONS',
   ADD = 'ADD',
   STATUS = 'STATUS',
+  COLLECT_STATUS = 'COLLECT_STATUS',
 }
 
 const AUTHORIZED_PATHS: Record<AUTHORIZED_PATH, string> = {
@@ -22,6 +24,7 @@ const AUTHORIZED_PATHS: Record<AUTHORIZED_PATH, string> = {
   [AUTHORIZED_PATH.DONATIONS]: '/donations',
   [AUTHORIZED_PATH.ADD]: '/add',
   [AUTHORIZED_PATH.STATUS]: '/status/:id',
+  [AUTHORIZED_PATH.COLLECT_STATUS]: '/collect-status/:id',
 }
 
 // Add here the restricted routes for recycle company
@@ -38,7 +41,7 @@ export const AUTHORIZED_ROUTE_CONFIG = [
   },
   {
     path: AUTHORIZED_PATHS.DOCUMENTS,
-    element: <Home />,
+    element: <Documents />,
   },
   {
     path: AUTHORIZED_PATHS.DONATIONS,
@@ -50,6 +53,10 @@ export const AUTHORIZED_ROUTE_CONFIG = [
   },
   {
     path: AUTHORIZED_PATHS.STATUS,
+    element: <Status />,
+  },
+  {
+    path: AUTHORIZED_PATHS.COLLECT_STATUS,
     element: <Status />,
   },
   {

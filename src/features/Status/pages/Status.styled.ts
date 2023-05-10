@@ -33,3 +33,10 @@ export const IconWrapper = styled.div`
 export const Icon = styled.img`
   cursor: pointer;
 `
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 40px;
+  gap: 12px;
+`

@@ -6,13 +6,20 @@ import { Tag } from 'common/components/Tag/Tag'
 import { ContentRecycleBox, Name, Text } from './RecycleBox.styled'
 import type { IRecycleBoxProps } from './RecycleBox.type'
 
-export const RecycleBox: FC<IRecycleBoxProps> = ({ pharma, quantity, status, callbackOnClick }) => {
+export const RecycleBox: FC<IRecycleBoxProps> = ({
+  pharma,
+  quantity,
+  status,
+  id,
+  refetch,
+  callbackOnClick,
+}) => {
   return (
     <ContentRecycleBox onClick={callbackOnClick}>
       <Name>{pharma}</Name>
-      <Text>{quantity} g</Text>
-      <Tag variant='pending'>{status}</Tag>
-      <QuickActions id='1' variant='recycle' />
+      <Text>{quantity}</Text>
+      <Tag variant={status}>{status === 'recycled' ? 'Approved' : 'Pending'}</Tag>
+      <QuickActions id={id} variant='recycle' refetch={refetch} />
     </ContentRecycleBox>
   )
 }
