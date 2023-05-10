@@ -5,22 +5,33 @@ import { HeaderWrapper } from 'layout/Header/HeaderWrapper'
 
 import backArrow from 'common/assets/icons/chevron-left.svg'
 
+import { Button } from 'common/components/Button/Button'
 import { CustomTable } from 'common/components/CustomTable/CustomTable'
 import { columnsRecycle } from 'common/components/CustomTable/TableColumns'
 import { Spinner } from 'common/components/Spinner'
 import { UtilService } from 'common/services/utilService'
 
+import { useRecycleQuery } from 'features/History/store/api/productApi'
 import { Details } from 'features/Status/components/Details/Details'
-import { usePharmaDetailsQuery } from 'features/Status/state/api/statusApi'
 
-import { BorderStyle, ContentStatus, Icon, IconWrapper, RecivedText, Title } from './Status.styled'
+import {
+  BorderStyle,
+  ButtonWrapper,
+  ContentStatus,
+  Icon,
+  IconWrapper,
+  RecivedText,
+  Title,
+} from './Status.styled'
 
 export const Status = () => {
   const navigate = useNavigate()
   const params = useParams()
   const idTask = params.id
 
-  const { data, isLoading } = usePharmaDetailsQuery(idTask)
+  const { data: dataRecycle, isLoading } = useRecycleQuery()
+
+  const filteredObjects = dataRecycle?.find((obj: any) => Number(obj.id) === Number(idTask))
 
   const handleNavigate = () => {
     navigate(-1)
@@ -28,25 +39,24 @@ export const Status = () => {
 
   const dataTableFormat = useMemo(
     () =>
-      data?.expiredProducts?.map((element: any) => {
+      filteredObjects?.drugList?.map((element: any) => {
         return {
-          key: element.id,
+          key: element.drugId,
           name: {
-            name: element.name,
-            id: 'W64020007',
+            name: element.drugDetails.name,
+            id: element.drugId,
           },
           recycle: {
-            data: UtilService.formatDate(element.createdAt),
-            time: UtilService.formatTime(element.createdAt),
+            data: UtilService.formatDate(element.drugDetails.updatedAt),
+            time: UtilService.formatTime(element.drugDetails.updatedAt),
           },
           type: UtilService.transformText(element.type),
           quantity: element.quantity,
           pack: UtilService.transformText(element.pack),
-          status: element.status,
           action: 'icon',
         }
       }),
-    [data],
+    [filteredObjects],
   )
 
   return (
@@ -60,20 +70,20 @@ export const Status = () => {
             <Title>Status</Title>
           </IconWrapper>
           <Details
-            name={data?.name}
-            location={data?.location}
-            schedule={data?.schedule}
-            phone={data?.phone}
-            total={data?.weight}
-            rx={data.weightRx}
-            otc={data.weightOtc}
-            supplement={data.weightSupplement}
+            name={filteredObjects?.firstName}
+            surname={filteredObjects?.lastName}
+            total={filteredObjects?.drugList?.length}
+            id={idTask}
           />
           <BorderStyle />
           <div>
             <RecivedText>Recived</RecivedText>
             <CustomTable columns={columnsRecycle} dataSource={dataTableFormat} isLoading={false} />
           </div>
+          <ButtonWrapper>
+            <Button variant='secondary'>Decline</Button>
+            <Button>Approve</Button>
+          </ButtonWrapper>
         </ContentStatus>
       )}
     </HeaderWrapper>

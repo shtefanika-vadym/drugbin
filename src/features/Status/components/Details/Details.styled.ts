@@ -22,3 +22,13 @@ export const DetailsText = styled.p`
   ${textVariant('bodyS')};
   color: #a3a6ad;
 `
+
+export const DetailsTextPDF = styled.p`
+  ${textVariant('bodyS')};
+  color: #a3a6ad;
+  cursor: pointer;
+
+  :hover {
+    color: #2949a6;
+  }
+`

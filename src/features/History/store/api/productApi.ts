@@ -15,6 +15,11 @@ export const historyApi = createApi({
         url: `/expired-products`,
       }),
     }),
+    recycle: build.query({
+      query: () => ({
+        url: `/recycle-drug`,
+      }),
+    }),
     deleteProduct: build.mutation({
       query: (productId) => ({
         url: `/expired-products/${productId}`,
@@ -29,4 +34,9 @@ export const historyApi = createApi({
   }),
 })
 
-export const { useProductQuery, useDeleteProductMutation, useCompaniesQuery }: any = historyApi
+export const {
+  useProductQuery,
+  useRecycleQuery,
+  useDeleteProductMutation,
+  useCompaniesQuery,
+}: any = historyApi

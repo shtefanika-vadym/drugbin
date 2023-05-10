@@ -58,7 +58,7 @@ const formatTime = (props: string) => {
 
 const transformText = (props: string) => {
   const capitalizeFirstLetter = (props: string) => {
-    return props.charAt(0).toUpperCase() + props.slice(1)
+    return props?.charAt(0)?.toUpperCase() + props?.slice(1)
   }
   switch (props) {
     case 'rx':

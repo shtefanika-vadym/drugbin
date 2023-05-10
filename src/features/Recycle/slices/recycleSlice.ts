@@ -17,7 +17,7 @@ interface IRecycleSlice {
       }
       pack: string
       quantity: number
-      expirationDate: string
+      expirationDate: string | null
       lot: string
     }[]
   }
@@ -40,7 +40,7 @@ const initialState: IRecycleSlice = {
         },
         pack: 'Pack',
         quantity: 1,
-        expirationDate: '',
+        expirationDate: null,
         lot: '',
       },
     ],

@@ -8,12 +8,36 @@ export const statusApi = createApi({
   reducerPath: 'status',
   baseQuery: baseQuery(),
   endpoints: (build: EndpointBuilder<BaseQueryFn, string, string>) => ({
-    pharmaDetails: build.query({
+    collectStatus: build.query<File, string>({
       query: (id: string) => ({
-        url: `/companies/pharmacies/${id}`,
+        url: `recycle-drug/verbal-process/${id}`,
+        responseType: 'arraybuffer',
+        headers: {
+          'Database-Connection': 'connection',
+          'Content-Type': 'application/pdf',
+          Accept: 'application/pdf',
+        },
+      }),
+    }),
+    documentStatus: build.query<File, string>({
+      query: () => ({
+        url: `recycle-drug/audit`,
+        responseType: 'arraybuffer',
+        headers: {
+          'Database-Connection': 'connection',
+          'Content-Type': 'application/pdf',
+          Accept: 'application/pdf',
+        },
+      }),
+    }),
+    updateStatus: build.mutation({
+      query: (id) => ({
+        url: `recycle-drug/${id}`,
+        method: 'PATCH',
       }),
     }),
   }),
 })
 
-export const { usePharmaDetailsQuery }: any = statusApi
+export const { useCollectStatusQuery, useUpdateStatusMutation, useDocumentStatusQuery }: any =
+  statusApi
