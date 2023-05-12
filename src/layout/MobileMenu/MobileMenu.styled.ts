@@ -42,3 +42,7 @@ export const Text = styled.p`
 export const BorderStyle = styled.div`
   border-bottom: 1px solid #ebf0fb;
 `
+
+export const LanguageContainer = styled.div`
+  ${flex({ justifyContent: 'space-between' })};
+`

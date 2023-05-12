@@ -1,5 +1,6 @@
 import type { FC } from 'react'
 import { useCallback, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import { animateScroll } from 'react-scroll'
 
@@ -11,11 +12,13 @@ import recycleIcon from 'common/assets/icons/recycle.svg'
 import serviceIcon from 'common/assets/icons/service.svg'
 
 import { Button } from 'common/components/Button/Button'
+import { SelectLanguage } from 'common/components/SelectLanguage/SelectLanguage'
 
 import {
   BorderStyle,
   Icon,
   ItemWrapper,
+  LanguageContainer,
   MenuContent,
   MenuWrapper,
   Text,
@@ -30,6 +33,7 @@ export interface MobileMenuProps {
 export const MobileMenu: FC<MobileMenuProps> = ({ isOpen, handleOpen }) => {
   const topNavRef = useRef<HTMLElement | null>(null)
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const handleDropdown = useCallback(() => {
     handleOpen(!isOpen)
@@ -45,26 +49,29 @@ export const MobileMenu: FC<MobileMenuProps> = ({ isOpen, handleOpen }) => {
   return (
     <MenuWrapper>
       <MenuContent ref={topNavRef}>
-        <Title>Menu</Title>
+        <LanguageContainer>
+          <Title>Menu</Title>
+          <SelectLanguage />
+        </LanguageContainer>
         <ItemWrapper onClick={() => navigate('/collect')}>
           <Icon src={recycleIcon} />
-          <Text>Collect</Text>
+          <Text>{t('navigation.collect')}</Text>
         </ItemWrapper>
         <ItemWrapper onClick={() => handleNavigate('about-us')}>
           <Icon src={aboutIcon} />
-          <Text>About us</Text>
+          <Text>{t('navigation.about')}</Text>
         </ItemWrapper>
         <ItemWrapper onClick={() => handleNavigate('services')}>
           <Icon src={serviceIcon} />
-          <Text>Services</Text>
+          <Text>{t('navigation.services')}</Text>
         </ItemWrapper>
         <ItemWrapper onClick={() => handleNavigate('contact')}>
           <Icon src={contactIcon} />
-          <Text>Contact</Text>
+          <Text>{t('navigation.contact')}</Text>
         </ItemWrapper>
         <BorderStyle />
         <Button variant='empty' onClick={handleDropdown}>
-          Cancel
+          {t('button.cancel')}
         </Button>
       </MenuContent>
     </MenuWrapper>

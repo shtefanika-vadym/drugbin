@@ -18,6 +18,7 @@ import logo from 'common/assets/icons/logo.svg'
 import menuMobile from 'common/assets/icons/menu-2-fill.svg'
 // import userIcon from 'common/assets/icons/user.svg'
 
+import { SelectLanguage } from 'common/components/SelectLanguage/SelectLanguage'
 import useBreakpoints from 'common/hooks/useBreakpoints'
 import useUserRole from 'common/hooks/useGetUserRole'
 
@@ -85,6 +86,7 @@ export const Header = () => {
             <UserIcon src={userIcon} alt='user' />
           </UserWrapper>
         )} */}
+        {!isBelowDesktop && <SelectLanguage />}
       </Container>
       {isMenuOpen && <MobileMenu isOpen={isMenuOpen} handleOpen={setIsMenuOpen} />}
     </ContainerWrapper>

@@ -1,0 +1,51 @@
+{
+  "landing_page": {
+    "about_title": "Protejeza mediul si salveaza vieti colectand medicamentele expirate sau neutilizate!",
+    "about_description": "Programul nostru de colectare iti usureaza identificarea, colectarea selectiva si procesul de predare a medicamentelor expirate sau neutilizate catre farmacii. Impreuna putem contribui la protejarea mediului prin reducerea poluarii apelor. Mai putine medicamente ajunse in ape, mai putine bacterii rezistente la antibiotice, mai multe vieti salvate!",
+    "about_join": "Alăturați-vă nouă astăzi și faceți o diferență în lume",
+    "collect_title": "Colecta medicamente neutilizate astăzi",
+    "collect_description": "Ajutați-ne să avem un impact pozitiv asupra lumii prin colectarea medicamentelor neutilizate astăzi. Prin participarea la programul nostru de colectare a medicamentelor, puteți contribui la reducerea deșeurilor de droguri, la promovarea practicilor de asistență medicală durabilă și la salvarea de vieți omenești.",
+    "contact_title": "Contact"
+  },
+  "list_section_1": {
+    "tag": "Servicii",
+    "title": "Proces de predare simplu, rapid si profesionist catre farmacii!",
+    "subTitle":
+      "Aplicatia noastra pune la dispozitie o interfata intuitiva care transforma procesul de predare a medicamentelor expirate intr-unul simplu si elegant atat pentru populatie cat si pentru farmacii.",
+    "list": [
+      "Generam informatic procesul verbal de predare in farmacii asociat cu un cod QR",
+      "Rapid si simplu de primit medicamentele expirate in farmacii prin validarea cod QR",
+      "Generare automata pentru farmacii a intregii cantitati de medicamente expirate si neutilizate atat proprii cat si colectate pentru un anumit interval de timp"
+    ]
+  },
+  "list_section_2": {
+    "title": "O baza de date completa si reala a medicamentelor scoase din uz",
+    "subTitle":
+      "Site-ul nostru oferă o bază de date în timp real a medicamentelor expirate și vă conectează cu farmaciile din apropiere care le colectează. Prin utilizarea bazei noastre de date, puteți avea încredere în siguranța medicamentelor expirate și neutilizate.",
+    "list": [
+      "Acces simplu la o baza de date reala si bine structurata pentru evidenta gestiunii deseurilor medicamentoase",
+      "Informatii concrete pentru politici de mediu coerente",
+      "Vizibilitate crescuta pentru farmaciile partenere"
+    ]
+  },
+  "list_section_3": {
+    "title": "Informatii pentru comunitate",
+    "subTitle":
+      "Prin parteneriatul cu noi, puteți contribui la creșterea gradului de conștientizare și la promovarea schimbărilor pozitive în comunitatea dvs.",
+    "list": [
+      "Informatii privind importanta valorificarii si eliminarii medicamentelor neutilizate",
+      "Articole de informare guvernamentala si europeana"
+    ]
+  },
+  "navigation": {
+    "collect": "Colectare",
+    "about": "Despre noi",
+    "services": "Servicii",
+    "contact": "Contact"
+  },
+  "button": {
+    "collect": "Coleacteaza",
+    "cancel": "Anulare",
+    "send": "Trimite"
+  }
+}
