@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Formik } from 'formik'
 
@@ -34,6 +35,7 @@ interface IContact {
 
 export const Contact: FC<IContact> = ({ id }) => {
   const [contact, { isLoading }] = useContactMutation()
+  const { t } = useTranslation()
 
   const handleSubmit = (values: any, { resetForm }: any) => {
     contact(values)
@@ -42,7 +44,7 @@ export const Contact: FC<IContact> = ({ id }) => {
   return (
     <ContactWrapper id={id}>
       <LeftSide>
-        <Title>{CONTACT_SECTION.TITLE}</Title>
+        <Title>{t('landing_page.contact_title')}</Title>
         <ContactDetails>
           <Icon src={email} />
           <SubTitle>{CONTACT_SECTION.EMAIL}</SubTitle>
@@ -94,7 +96,7 @@ export const Contact: FC<IContact> = ({ id }) => {
                 />
                 <div>
                   <Button type='submit'>
-                    {isLoading ? <Spinner isLoading={isLoading} /> : 'Send'}
+                    {isLoading ? <Spinner isLoading={isLoading} /> : t('button.send')}
                   </Button>
                 </div>
               </FormContact>

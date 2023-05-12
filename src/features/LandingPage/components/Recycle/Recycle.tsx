@@ -1,19 +1,19 @@
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { Button } from 'common/components/Button/Button'
-
-import { RECYCLE_SECTION } from 'features/LandingPage/constants/constants'
 
 import { RecycleWrapper, SubTitle, Title } from './Recycle.styled'
 
 export const Recycle = () => {
   const navigate = useNavigate()
+  const { t } = useTranslation()
   return (
     <RecycleWrapper>
-      <Title>{RECYCLE_SECTION.TITLE}</Title>
-      <SubTitle>{RECYCLE_SECTION.SUB_TITLE}</SubTitle>
+      <Title>{t('landing_page.collect_title')}</Title>
+      <SubTitle>{t('landing_page.collect_description')}</SubTitle>
       <Button variant='white' onClick={() => navigate('/collect')}>
-        {RECYCLE_SECTION.BUTTON}
+        {t('button.collect')}
       </Button>
     </RecycleWrapper>
   )
