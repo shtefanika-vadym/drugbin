@@ -6,8 +6,8 @@ import { WDS_SIZE_024_PX } from 'common/style/size'
 
 export const ContentDocuments = styled.div`
   ${flex({ direction: 'column', gap: '40px' })};
-  width: 100rem;
-  max-width: 100rem;
+  width: 1285px;
+  max-width: 1285px;
   padding: ${WDS_SIZE_024_PX};
   border-radius: 16px;
   background: white;

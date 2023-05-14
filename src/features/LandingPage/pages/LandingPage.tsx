@@ -16,13 +16,15 @@ import { Icon, Join, Section, SubTitle, Title, Wrapper } from './LandingPage.sty
 export const LandingPage = () => {
   const navigate = useNavigate()
   const { t } = useTranslation()
+  const isRO = localStorage.getItem('selectedLanguage').toString() === `"ro"`
+
   return (
     <HeaderWrapper>
       <Wrapper>
         <Section id='about-us'>
           <Title>{t('landing_page.about_title')}</Title>
           <SubTitle>{t('landing_page.about_description')}</SubTitle>
-          <Join>{t('landing_page.about_join')}</Join>
+          {!isRO ? <Join>{t('landing_page.about_join')}</Join> : null}
           <Button onClick={() => navigate('/collect')}>{t('button.collect')}</Button>
           <Icon src={first} />
         </Section>
