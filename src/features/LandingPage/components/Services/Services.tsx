@@ -15,8 +15,7 @@ interface IServices {
 
 export const Services: FC<IServices> = ({ id }) => {
   const { isBelowDesktop } = useBreakpoints()
-  const isRO = localStorage.getItem('selectedLanguage').toString() === `"ro"`
-  console.log(isRO)
+  const isRO = localStorage?.getItem('selectedLanguage') === `"ro"`
   const { t } = useTranslation()
 
   const LIST_SECTION_1 = {
