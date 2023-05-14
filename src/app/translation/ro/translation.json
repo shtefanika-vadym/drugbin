@@ -15,7 +15,7 @@
     "list": [
       "Generam informatic procesul verbal de predare in farmacii asociat cu un cod QR",
       "Rapid si simplu de primit medicamentele expirate in farmacii prin validarea cod QR",
-      "Generare automata pentru farmacii a intregii cantitati de medicamente expirate si neutilizate atat proprii cat si colectate pentru un anumit interval de timp"
+      "Program complet de gestionare a medicamentelor expirate: rapoarte de mediu reale, programare firma casare, documente, raport de activitate lunar."
     ]
   },
   "list_section_2": {
@@ -44,7 +44,7 @@
     "contact": "Contact"
   },
   "button": {
-    "collect": "Coleacteaza",
+    "collect": "Colecteaza",
     "cancel": "Anulare",
     "send": "Trimite"
   }
