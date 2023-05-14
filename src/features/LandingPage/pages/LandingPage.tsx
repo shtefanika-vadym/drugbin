@@ -16,7 +16,7 @@ import { Icon, Join, Section, SubTitle, Title, Wrapper } from './LandingPage.sty
 export const LandingPage = () => {
   const navigate = useNavigate()
   const { t } = useTranslation()
-  const isRO = localStorage.getItem('selectedLanguage').toString() === `"ro"`
+  const isRO = localStorage?.getItem('selectedLanguage') === `"ro"`
 
   return (
     <HeaderWrapper>
