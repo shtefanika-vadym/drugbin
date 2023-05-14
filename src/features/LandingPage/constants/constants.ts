@@ -13,7 +13,7 @@ export enum LANDING_SECTION {
 
 export enum CONTACT_SECTION {
   TITLE = 'Contact us',
-  EMAIL = 'hello@drugbin.com',
+  EMAIL = 'drugbin.solution@gmail.com',
   PHONE = '+40 755 493 184',
   LOCATION = 'Suceava, Romania',
 }

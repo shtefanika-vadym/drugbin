@@ -15,6 +15,8 @@ interface IServices {
 
 export const Services: FC<IServices> = ({ id }) => {
   const { isBelowDesktop } = useBreakpoints()
+  const isRO = localStorage.getItem('selectedLanguage').toString() === `"ro"`
+  console.log(isRO)
   const { t } = useTranslation()
 
   const LIST_SECTION_1 = {
@@ -26,13 +28,13 @@ export const Services: FC<IServices> = ({ id }) => {
 
   const LIST_SECTION_2 = {
     title: t('list_section_2.title'),
-    subTitle: t('list_section_2.subTitle'),
+    subTitle: !isRO ? t('list_section_2.subTitle') : '',
     list: [t('list_section_2.list.0'), t('list_section_2.list.1'), t('list_section_2.list.2')],
   }
 
   const LIST_SECTION_3 = {
     title: t('list_section_3.title'),
-    subTitle: t('list_section_3.subTitle'),
+    subTitle: !isRO ? t('list_section_3.subTitle') : '',
     list: [t('list_section_3.list.0'), t('list_section_3.list.1')],
   }
   return (
