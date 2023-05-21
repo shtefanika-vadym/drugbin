@@ -8,6 +8,7 @@ import { Dropdown } from 'common/components/Dropdown/Dropdown'
 import { Input } from 'common/components/Input/Input'
 
 import { DROPDOWN_VALUES } from 'features/AddNew/constants/mockData'
+import { Camera } from 'features/Recycle/components/Camera/Camera'
 import { SET_DATA_DRUG, SET_DRUGS_SIZE, SET_NEW_DRUG } from 'features/Recycle/slices/recycleSlice'
 
 import {
@@ -20,8 +21,6 @@ import {
 export const DrugInformation = () => {
   const dispatch = useAppDispatch()
   const { collectData, drugsSize } = useAppSelector((state) => state.recycleReducer)
-
-  console.log('collectData', collectData)
 
   const handleChangeDropdown = (value: string, key: number) => {
     const name = 'pack'
@@ -50,6 +49,7 @@ export const DrugInformation = () => {
   return (
     <DrugInformationWrapper>
       <MultiFormWrapper>
+        <Camera />
         {Array.from({ length: drugsSize }, (_, i) => (
           <FormWrapper key={i}>
             <InputWrapper>
