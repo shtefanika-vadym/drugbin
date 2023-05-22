@@ -23,7 +23,7 @@ export const recycleApi = createApi({
         },
         url: '/drugs/identify',
         data: image,
-        method: HTTP_METHODS.GET,
+        method: HTTP_METHODS.POST,
       }),
     }),
   }),

@@ -2,8 +2,6 @@ import { useRef } from 'react'
 
 import { useDrugsIdentifyMutation } from 'features/Recycle/store/api/recycleApi'
 
-import paduden from './paduden-duo-200mg-500mg-10-comprimate-filmate-terapia-3421.png'
-
 export const Camera = () => {
   const inputFileRef = useRef(null)
   //   const { data } = useDrugsIdentifyQuerry({ image: 'your-image-url' })
