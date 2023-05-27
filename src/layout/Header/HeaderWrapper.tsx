@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react'
 
+import { Footer } from 'layout/Footer/Footer'
+
 import { Header } from './Header'
 import { Content } from './Header.styled'
 
@@ -12,6 +14,7 @@ export const HeaderWrapper: React.FC<HeaderProps> = ({ children }) => {
     <div>
       <Header />
       <Content>{children}</Content>
+      <Footer />
     </div>
   )
 }

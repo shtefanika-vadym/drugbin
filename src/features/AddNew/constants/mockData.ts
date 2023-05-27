@@ -13,4 +13,4 @@ export const RADIO_BUTTON_VALUE = [
   },
 ]
 
-export const DROPDOWN_VALUES = ['Pack', 'Pill']
+export const DROPDOWN_VALUES = ['Pack', 'Blister', 'Pill']

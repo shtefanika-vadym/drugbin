@@ -60,8 +60,8 @@ export const Stepper: FC<IStepper> = ({ title, description, tag, children, activ
             <MultiStep activeStep={activeStep} />
             <Title>{title}</Title>
             <Description>{description}</Description>
-            <Tag>{tag}</Tag>
           </StepperHeader>
+          <Tag>{tag}</Tag>
           <div>{children}</div>
         </>
       )}

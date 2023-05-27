@@ -24,8 +24,6 @@ export const Recycle = () => {
     (state) => state.recycleReducer,
   )
 
-  console.log('collectData', collectData)
-
   const dispatch = useAppDispatch()
 
   const handleCloseModal = () => {
