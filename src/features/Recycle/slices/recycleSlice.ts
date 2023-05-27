@@ -4,6 +4,7 @@ import { createSlice } from '@reduxjs/toolkit'
 interface IRecycleSlice {
   isVerbalProcessOpen: boolean
   drugsSize: number
+  type: string
   collectData: {
     firstName: string
     lastName: string
@@ -26,6 +27,7 @@ interface IRecycleSlice {
 const initialState: IRecycleSlice = {
   isVerbalProcessOpen: false,
   drugsSize: 1,
+  type: 'manual',
   collectData: {
     firstName: '',
     lastName: '',
@@ -80,6 +82,12 @@ export const recycleSlice = createSlice({
       state.drugsSize = initialState.drugsSize
       state.isVerbalProcessOpen = initialState.isVerbalProcessOpen
     },
+    SET_TYPE(state, action: PayloadAction<string>) {
+      state.type = action.payload
+    },
+    SET_DRUGS_FROM_CAMERA(state, action: PayloadAction<any>) {
+      state.collectData.drugList = action.payload
+    },
   },
 })
 
@@ -90,4 +98,6 @@ export const {
   SET_DATA_DRUG,
   SET_DRUGS_SIZE,
   SET_TO_INITIAL,
+  SET_TYPE,
+  SET_DRUGS_FROM_CAMERA,
 } = recycleSlice.actions

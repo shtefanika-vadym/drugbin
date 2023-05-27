@@ -7,6 +7,7 @@ export enum STEP_1 {
 export enum STEP_2 {
   TITLE = 'Collect drug form',
   TAG = 'Now you can add the drug/s information',
+  TAG_COMPLET = 'We have filled the information using the photo taken by you. Please check the info and correct it if that is the case.',
 }
 
 export enum STEP_3 {

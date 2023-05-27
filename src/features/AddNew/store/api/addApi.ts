@@ -18,7 +18,7 @@ export const addApi = createApi({
     }),
     drug: build.query({
       query: (query) => ({
-        url: `/drugs/${query}`,
+        url: `/drugs/search/${query}`,
       }),
     }),
     createDrug: build.mutation({

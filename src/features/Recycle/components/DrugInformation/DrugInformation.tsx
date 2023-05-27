@@ -9,6 +9,7 @@ import { Input } from 'common/components/Input/Input'
 
 import { DROPDOWN_VALUES } from 'features/AddNew/constants/mockData'
 import { Camera } from 'features/Recycle/components/Camera/Camera'
+import { SwitchButton } from 'features/Recycle/components/SwitchButton/SwitchButton'
 import { SET_DATA_DRUG, SET_DRUGS_SIZE, SET_NEW_DRUG } from 'features/Recycle/slices/recycleSlice'
 
 import {
@@ -46,8 +47,11 @@ export const DrugInformation = () => {
     }
   }
 
+  console.log('collectData', collectData.drugList)
+
   return (
     <DrugInformationWrapper>
+      <SwitchButton />
       <MultiFormWrapper>
         <Camera />
         {Array.from({ length: drugsSize }, (_, i) => (

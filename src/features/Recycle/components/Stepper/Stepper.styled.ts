@@ -24,7 +24,8 @@ export const Description = styled.p`
 
 export const Tag = styled.p`
   ${textVariant('bodyM')};
-  padding: 16px 0 24px 0;
+  padding: 32px 0 16px 0;
+  text-align: start;
 `
 
 export const Text = styled.p`
