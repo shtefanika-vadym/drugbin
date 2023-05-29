@@ -16,6 +16,7 @@ export const Camera = () => {
   const [drugsIdentify, { isLoading }] = useDrugsIdentifyMutation()
 
   const formatDrugObject = (obj: any) => {
+    console.log(obj)
     const formattedObject = {
       drugName: {
         drugId: obj.id,
@@ -24,8 +25,8 @@ export const Camera = () => {
       },
       pack: 'Pack',
       quantity: 1,
-      expirationDate: '',
-      lot: '',
+      expirationDate: obj?.expirationDate || null,
+      lot: obj?.lot || null,
     }
 
     return formattedObject
