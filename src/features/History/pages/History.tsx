@@ -24,23 +24,24 @@ export const History = () => {
   const { data, isLoading } = useProductQuery()
   const { data: dataRecycle, refetch } = useRecycleQuery()
 
+  console.log('data', data)
+
   const changeData = () => {
     return (
       data?.map((element: any) => {
         return {
           key: element.id,
           name: {
-            name: element.name,
+            name: element?.drugDetails?.name,
             id: 'W64020007',
           },
           recycle: {
             data: UtilService.formatDate(element.createdAt),
             time: UtilService.formatTime(element.createdAt),
           },
-          type: UtilService.transformText(element.type),
           quantity: element.quantity,
           pack: UtilService.transformText(element.pack),
-          status: element.status,
+          status: 'collected',
           action: 'icon',
         }
       }) || []
