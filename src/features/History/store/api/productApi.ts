@@ -12,7 +12,7 @@ export const historyApi = createApi({
   endpoints: (build: EndpointBuilder<BaseQueryFn, string, string>) => ({
     product: build.query({
       query: () => ({
-        url: `/expired-products`,
+        url: `/recycle-drug/history`,
       }),
     }),
     recycle: build.query({

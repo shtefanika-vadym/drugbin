@@ -28,11 +28,6 @@ export const columns: ColumnsType<any> = [
     ),
   },
   {
-    title: 'Type',
-    dataIndex: 'type',
-    key: 'type',
-  },
-  {
     title: 'Quantity',
     dataIndex: 'quantity',
     key: 'quantity',
