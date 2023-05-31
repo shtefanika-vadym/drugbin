@@ -1,14 +1,14 @@
 import type { FC } from 'react'
 import { useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 import { animateScroll } from 'react-scroll'
 
 import { useOnClickOutside } from 'usehooks-ts'
 
 import aboutIcon from 'common/assets/icons/about.svg'
 import contactIcon from 'common/assets/icons/contact.svg'
-import recycleIcon from 'common/assets/icons/recycle.svg'
+// import recycleIcon from 'common/assets/icons/recycle.svg'
 import serviceIcon from 'common/assets/icons/service.svg'
 
 import { Button } from 'common/components/Button/Button'
@@ -32,7 +32,7 @@ export interface MobileMenuProps {
 
 export const MobileMenu: FC<MobileMenuProps> = ({ isOpen, handleOpen }) => {
   const topNavRef = useRef<HTMLElement | null>(null)
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const { t } = useTranslation()
 
   const handleDropdown = useCallback(() => {
@@ -53,10 +53,10 @@ export const MobileMenu: FC<MobileMenuProps> = ({ isOpen, handleOpen }) => {
           <Title>Menu</Title>
           <SelectLanguage />
         </LanguageContainer>
-        <ItemWrapper onClick={() => navigate('/collect')}>
+        {/* <ItemWrapper onClick={() => navigate('/collect')}>
           <Icon src={recycleIcon} />
           <Text>{t('navigation.collect')}</Text>
-        </ItemWrapper>
+        </ItemWrapper> */}
         <ItemWrapper onClick={() => handleNavigate('about-us')}>
           <Icon src={aboutIcon} />
           <Text>{t('navigation.about')}</Text>
