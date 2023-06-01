@@ -6,8 +6,8 @@ import { useAppSelector } from 'store/hooks'
 import { ProcessingModal } from 'common/components/Modal/ProcessingModal/ProcessingModal'
 import { SET_SHOW_MODAL } from 'common/state/modalSlice'
 
-import { SET_DRUGS_FROM_CAMERA, SET_DRUGS_SIZE } from 'features/Recycle/slices/recycleSlice'
-import { useDrugsIdentifyMutation } from 'features/Recycle/store/api/recycleApi'
+import { SET_DRUGS_FROM_CAMERA, SET_DRUGS_SIZE } from 'features/Collect/slices/recycleSlice'
+import { useDrugsIdentifyMutation } from 'features/Collect/store/api/recycleApi'
 
 export const Camera = () => {
   const dispatch = useDispatch()

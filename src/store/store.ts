@@ -6,12 +6,12 @@ import { modalReducer } from 'common/state/modalSlice'
 
 import { addApi } from 'features/AddNew/store/api/addApi'
 import { authApi } from 'features/Auth'
+import { recycleSlice } from 'features/Collect/slices/recycleSlice'
+import { recycleApi } from 'features/Collect/store/api/recycleApi'
 import { historyApi } from 'features/History/store/api/productApi'
 import { homeApi } from 'features/Home'
 import { homeSlice } from 'features/Home/state/slices/homeSlice'
 import { landingApi } from 'features/LandingPage/store/api/landingApi'
-import { recycleSlice } from 'features/Recycle/slices/recycleSlice'
-import { recycleApi } from 'features/Recycle/store/api/recycleApi'
 import { statusApi } from 'features/Status/state/api/statusApi'
 
 const rootReducer = combineReducers({

@@ -8,17 +8,17 @@ import { FinishModal } from 'common/components/Modal/FinishModal/FinishModal'
 import { QRModal } from 'common/components/Modal/QRModal/QRModal'
 import { SET_SHOW_MODAL } from 'common/state/modalSlice'
 
-import { DrugInformation } from 'features/Recycle/components/DrugInformation/DrugInformation'
-import { LocationInformation } from 'features/Recycle/components/LocationInformation/LocationInformation'
-import { PersonalInfromation } from 'features/Recycle/components/PersonalInfromation/PersonalInfromation'
-import { Stepper } from 'features/Recycle/components/Stepper/Stepper'
-import { STEP_1, STEP_2, STEP_3 } from 'features/Recycle/constatnts/constants'
-import { SET_OPEN_VERBAL_PROCESS } from 'features/Recycle/slices/recycleSlice'
-import { transformData } from 'features/Recycle/utils/utils'
+import { DrugInformation } from 'features/Collect/components/DrugInformation/DrugInformation'
+import { LocationInformation } from 'features/Collect/components/LocationInformation/LocationInformation'
+import { PersonalInfromation } from 'features/Collect/components/PersonalInfromation/PersonalInfromation'
+import { Stepper } from 'features/Collect/components/Stepper/Stepper'
+import { STEP_1, STEP_2, STEP_3 } from 'features/Collect/constatnts/constants'
+import { SET_OPEN_VERBAL_PROCESS } from 'features/Collect/slices/recycleSlice'
+import { transformData } from 'features/Collect/utils/utils'
 
-import { ButtonWrapper, RecycleWrapper } from './Recycle.styled'
+import { ButtonWrapper, RecycleWrapper } from './Collect.styled'
 
-export const Recycle = () => {
+export const Collect = () => {
   const [activeStep, setActiveStep] = useState(1)
   const { isVerbalProcessOpen, collectData, drugsSize } = useAppSelector(
     (state) => state.recycleReducer,

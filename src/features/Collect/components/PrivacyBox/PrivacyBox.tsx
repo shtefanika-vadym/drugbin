@@ -1,6 +1,6 @@
 import secureIcon from 'common/assets/icons/secure-payment-line.svg'
 
-import { PRIVACY_BOX } from 'features/Recycle/constatnts/constants'
+import { PRIVACY_BOX } from 'features/Collect/constatnts/constants'
 
 import { Description, Icon, PrivacyBoxWrapper } from './PrivacyBox.styled'
 

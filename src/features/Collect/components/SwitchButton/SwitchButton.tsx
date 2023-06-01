@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 
-import { SET_TYPE } from 'features/Recycle/slices/recycleSlice'
+import { SET_TYPE } from 'features/Collect/slices/recycleSlice'
 
 import { Selected, SwitchButtonContent } from './SwitchButton.styled'
 

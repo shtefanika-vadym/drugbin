@@ -5,7 +5,6 @@ import { Routes } from 'routes'
 
 import { withProviders } from 'app/hocs'
 
-import 'common/style/index.scss'
 import { AuthProvider } from './providers'
 
 // eslint-disable-next-line import-helpers/order-imports

@@ -1,10 +1,11 @@
-// import type { RouteProps } from 'react-router-dom'
 import { Navigate } from 'react-router-dom'
 
 import { AddNew } from 'features/AddNew/pages/AddNew'
+import { Collect } from 'features/Collect/pages/Collect'
 import { Documents } from 'features/Documents/Documents'
 import { History } from 'features/History/pages/History'
 import { Home } from 'features/Home'
+import { LandingPage } from 'features/LandingPage/pages/LandingPage'
 import { Status } from 'features/Status/pages/Status'
 
 enum AUTHORIZED_PATH {
@@ -15,9 +16,12 @@ enum AUTHORIZED_PATH {
   ADD = 'ADD',
   STATUS = 'STATUS',
   COLLECT_STATUS = 'COLLECT_STATUS',
+  COLLECT = 'COLLECT',
+  LANDING_PAGE = 'LANDING_PAGE',
 }
 
 const AUTHORIZED_PATHS: Record<AUTHORIZED_PATH, string> = {
+  [AUTHORIZED_PATH.LANDING_PAGE]: '/',
   [AUTHORIZED_PATH.HOME]: '/home',
   [AUTHORIZED_PATH.HISTORY]: '/history',
   [AUTHORIZED_PATH.DOCUMENTS]: '/documents',
@@ -25,12 +29,17 @@ const AUTHORIZED_PATHS: Record<AUTHORIZED_PATH, string> = {
   [AUTHORIZED_PATH.ADD]: '/add',
   [AUTHORIZED_PATH.STATUS]: '/status/:id',
   [AUTHORIZED_PATH.COLLECT_STATUS]: '/collect-status/:id',
+  [AUTHORIZED_PATH.COLLECT]: '/collect',
 }
 
 // Add here the restricted routes for recycle company
 export const RECYCLE_RESTRICTED_ROUTE = [AUTHORIZED_PATHS.HISTORY]
 
 export const AUTHORIZED_ROUTE_CONFIG = [
+  {
+    path: AUTHORIZED_PATHS.LANDING_PAGE,
+    element: <LandingPage />,
+  },
   {
     path: AUTHORIZED_PATHS.HOME,
     element: <Home />,
@@ -58,6 +67,10 @@ export const AUTHORIZED_ROUTE_CONFIG = [
   {
     path: AUTHORIZED_PATHS.COLLECT_STATUS,
     element: <Status />,
+  },
+  {
+    path: AUTHORIZED_PATHS.COLLECT,
+    element: <Collect />,
   },
   {
     path: '*',

@@ -4,8 +4,8 @@ import { useAppDispatch, useAppSelector } from 'store/hooks'
 
 import { Input } from 'common/components/Input/Input'
 
-import { PrivacyBox } from 'features/Recycle/components/PrivacyBox/PrivacyBox'
-import { SET_DATA } from 'features/Recycle/slices/recycleSlice'
+import { PrivacyBox } from 'features/Collect/components/PrivacyBox/PrivacyBox'
+import { SET_DATA } from 'features/Collect/slices/recycleSlice'
 
 import { FormWrapper, InputWrapper, PersonalInfromationWrapper } from './PersonalInfromation.styled'
 

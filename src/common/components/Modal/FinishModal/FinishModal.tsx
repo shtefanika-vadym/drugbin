@@ -5,7 +5,7 @@ import { Button } from 'common/components/Button/Button'
 import Modal from 'common/components/Modal/Modal'
 import { SET_SHOW_MODAL } from 'common/state/modalSlice'
 
-import { SET_OPEN_VERBAL_PROCESS } from 'features/Recycle/slices/recycleSlice'
+import { SET_OPEN_VERBAL_PROCESS } from 'features/Collect/slices/recycleSlice'
 
 import { ButtonWrapper, Text, Title } from './FinishModal.styled'
 
