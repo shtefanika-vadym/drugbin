@@ -9,7 +9,7 @@ import { useAppDispatch } from 'store/hooks'
 
 import { SET_SHOW_MODAL } from 'common/state/modalSlice'
 
-import { SET_TO_INITIAL } from 'features/Recycle/slices/recycleSlice'
+import { SET_TO_INITIAL } from 'features/Collect/slices/recycleSlice'
 
 import AuthorizedRoutes from './Authorized/AuthorizedRoutes'
 

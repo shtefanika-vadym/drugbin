@@ -9,7 +9,7 @@ import Modal from 'common/components/Modal/Modal'
 import { Spinner } from 'common/components/Spinner'
 import { SET_SHOW_MODAL } from 'common/state/modalSlice'
 
-import { useRecycleDrugMutation } from 'features/Recycle/store/api/recycleApi'
+import { useRecycleDrugMutation } from 'features/Collect/store/api/recycleApi'
 
 import { BorderCorner, QRCodeWrapper, Text, Title } from './QRModal.styled'
 

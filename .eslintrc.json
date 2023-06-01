@@ -66,25 +66,6 @@
         "endOfLine": "auto"
       }
     ],
-    "import-helpers/order-imports": [
-      "error",
-      {
-        "newlinesBetween": "always",
-        "groups": [
-          "/^react.*/",
-          "module",
-          "/app/",
-          "/assets/",
-          "/common/",
-          "/features/",
-          ["parent", "sibling", "index", "absolute"]
-        ],
-        "alphabetize": {
-          "order": "asc",
-          "ignoreCase": true
-        }
-      }
-    ],
     "no-relative-import-paths/no-relative-import-paths": [
       "error",
       {
