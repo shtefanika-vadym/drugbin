@@ -1,4 +1,6 @@
-import type { ChangeEvent } from 'react'
+import type { ChangeEvent, FC } from 'react'
+import { useCallback } from 'react'
+import { useState } from 'react'
 
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 
@@ -13,15 +15,23 @@ import { SwitchButton } from 'features/Collect/components/SwitchButton/SwitchBut
 import { SET_DATA_DRUG, SET_DRUGS_SIZE, SET_NEW_DRUG } from 'features/Collect/slices/recycleSlice'
 
 import {
+  AddNewWrapper,
+  ButtonWrapper,
   DrugInformationWrapper,
+  Error,
   FormWrapper,
   InputWrapper,
   MultiFormWrapper,
 } from './DrugInformation.styled'
 
-export const DrugInformation = () => {
+interface IProps {
+  setActiveStep: (step: any) => void
+}
+
+export const DrugInformation: FC<IProps> = ({ setActiveStep }) => {
   const dispatch = useAppDispatch()
   const { collectData, drugsSize } = useAppSelector((state) => state.recycleReducer)
+  const [error, setError] = useState<string>('')
 
   const handleChangeDropdown = (value: string, key: number) => {
     const name = 'pack'
@@ -45,9 +55,21 @@ export const DrugInformation = () => {
       dispatch(SET_DRUGS_SIZE(drugsSize + 1))
       dispatch(SET_NEW_DRUG())
     }
+    lastDrug.drugName.name ? setError('') : setError('Please fill the last drug name')
   }
 
-  console.log('collectData', collectData.drugList)
+  const handleGoBack = () => {
+    setActiveStep((prevActiveStep: number) => prevActiveStep - 1)
+  }
+
+  const handleSubmit = useCallback(() => {
+    const lastDrug = collectData.drugList[drugsSize - 1]
+    if (lastDrug.drugName.name !== '' && lastDrug.quantity > 0) {
+      setActiveStep((prevActiveStep: number) => prevActiveStep + 1)
+    } else {
+      setError('Please fill the last drug name')
+    }
+  }, [collectData.drugList])
 
   return (
     <DrugInformationWrapper>
@@ -61,7 +83,7 @@ export const DrugInformation = () => {
                 name='name'
                 value={collectData?.drugList[i]?.drugName}
                 placeholder='EX: Ibuprofen'
-                label='Name *'
+                label='Drug name *'
                 onSelect={(e) => handleOnSelect(e, i)}
               />
             </InputWrapper>
@@ -82,7 +104,7 @@ export const DrugInformation = () => {
                 onChange={(e) => handleChange(e, i)}
               />
             </InputWrapper>
-            <InputWrapper>
+            {/* <InputWrapper>
               <Input
                 name='expirationDate'
                 label='Expiration date'
@@ -99,13 +121,22 @@ export const DrugInformation = () => {
                 onChange={(e) => handleChange(e, i)}
                 placeholder='EX: M9080158'
               />
-            </InputWrapper>
+            </InputWrapper> */}
           </FormWrapper>
         ))}
       </MultiFormWrapper>
-      <Button variant='secondary' onClick={handleAddNewDrugForm}>
-        Add new drug
-      </Button>
+      <AddNewWrapper>
+        <Button variant='secondary' onClick={handleAddNewDrugForm}>
+          Add new drug
+        </Button>
+        {error && <Error>{error}</Error>}
+      </AddNewWrapper>
+      <ButtonWrapper>
+        <Button variant='empty' onClick={handleGoBack}>
+          Go back
+        </Button>
+        <Button onClick={handleSubmit}>Continue</Button>
+      </ButtonWrapper>
     </DrugInformationWrapper>
   )
 }

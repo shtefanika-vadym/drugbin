@@ -19,6 +19,10 @@ const UNAUTHORIZED_PATHS: Record<UNAUTHORIZED_ROUTES, string> = {
 
 export const UNAUTHORIZED_ROUTE_CONFIG: RouteProps[] = [
   {
+    path: UNAUTHORIZED_PATHS['LANDING PAGE'],
+    element: <LandingPage />,
+  },
+  {
     path: UNAUTHORIZED_PATHS.LOGIN,
     element: <AuthLogin />,
   },

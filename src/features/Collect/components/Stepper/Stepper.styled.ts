@@ -27,22 +27,3 @@ export const Tag = styled.p`
   padding: 32px 0 16px 0;
   text-align: start;
 `
-
-export const Text = styled.p`
-  ${textVariant('bodyM')};
-  color: #000611;
-`
-export const VerbalTitle = styled.h1`
-  ${textVariant('titleH3')};
-  font-weight: 700;
-`
-
-export const VerbalWrapper = styled.div`
-  ${flex({ direction: 'column', gap: '24px' })};
-`
-
-export const TextBold = styled.p`
-  ${textVariant('bodyM')};
-  font-weight: 600;
-  color: #000611;
-`
