@@ -37,3 +37,7 @@ export const Test = styled.div`
   height: auto;
   background-color: red;
 `
+
+export const ButtonWrapper = styled.div`
+  ${flex({ justifyContent: 'space-between' })}
+`

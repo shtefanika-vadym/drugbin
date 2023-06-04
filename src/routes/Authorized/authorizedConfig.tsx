@@ -5,7 +5,7 @@ import { Collect } from 'features/Collect/pages/Collect'
 import { Documents } from 'features/Documents/Documents'
 import { History } from 'features/History/pages/History'
 import { Home } from 'features/Home'
-import { LandingPage } from 'features/LandingPage/pages/LandingPage'
+// import { LandingPage } from 'features/LandingPage/pages/LandingPage'
 import { Status } from 'features/Status/pages/Status'
 
 enum AUTHORIZED_PATH {
@@ -36,10 +36,6 @@ const AUTHORIZED_PATHS: Record<AUTHORIZED_PATH, string> = {
 export const RECYCLE_RESTRICTED_ROUTE = [AUTHORIZED_PATHS.HISTORY]
 
 export const AUTHORIZED_ROUTE_CONFIG = [
-  {
-    path: AUTHORIZED_PATHS.LANDING_PAGE,
-    element: <LandingPage />,
-  },
   {
     path: AUTHORIZED_PATHS.HOME,
     element: <Home />,
