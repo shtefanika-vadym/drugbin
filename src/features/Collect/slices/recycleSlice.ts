@@ -88,6 +88,10 @@ export const recycleSlice = createSlice({
     SET_DRUGS_FROM_CAMERA(state, action: PayloadAction<any>) {
       state.collectData.drugList = action.payload
     },
+    DELETE_DRUG_BY_ID(state, action: PayloadAction<number>) {
+      state.collectData.drugList.splice(action.payload, 1)
+      state.drugsSize = state.drugsSize - 1
+    },
   },
 })
 
@@ -100,4 +104,5 @@ export const {
   SET_TO_INITIAL,
   SET_TYPE,
   SET_DRUGS_FROM_CAMERA,
+  DELETE_DRUG_BY_ID,
 } = recycleSlice.actions

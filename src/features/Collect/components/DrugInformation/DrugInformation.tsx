@@ -1,6 +1,5 @@
 import type { ChangeEvent, FC } from 'react'
-import { useCallback } from 'react'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 
@@ -12,15 +11,24 @@ import { Input } from 'common/components/Input/Input'
 import { DROPDOWN_VALUES } from 'features/AddNew/constants/mockData'
 import { Camera } from 'features/Collect/components/Camera/Camera'
 import { SwitchButton } from 'features/Collect/components/SwitchButton/SwitchButton'
-import { SET_DATA_DRUG, SET_DRUGS_SIZE, SET_NEW_DRUG } from 'features/Collect/slices/recycleSlice'
+import {
+  DELETE_DRUG_BY_ID,
+  SET_DATA_DRUG,
+  SET_DRUGS_SIZE,
+  SET_NEW_DRUG,
+} from 'features/Collect/slices/recycleSlice'
 
+import type { SelectValue } from 'features/Collect/interface/CollectInterface'
 import {
   AddNewWrapper,
   ButtonWrapper,
+  Delete,
   DrugInformationWrapper,
   Error,
   FormWrapper,
   InputWrapper,
+  Label,
+  LabelWrapper,
   MultiFormWrapper,
 } from './DrugInformation.styled'
 
@@ -33,22 +41,22 @@ export const DrugInformation: FC<IProps> = ({ setActiveStep }) => {
   const { collectData, drugsSize } = useAppSelector((state) => state.recycleReducer)
   const [error, setError] = useState<string>('')
 
-  const handleChangeDropdown = (value: string, key: number) => {
+  const handleChangeDropdown = useCallback((value: string, key: number) => {
     const name = 'pack'
     dispatch(SET_DATA_DRUG({ name, value, key }))
-  }
+  }, [])
 
-  const handleChange = (values: ChangeEvent<HTMLInputElement>, key: number) => {
+  const handleChange = useCallback((values: ChangeEvent<HTMLInputElement>, key: number) => {
     const { name, value } = values.target
     dispatch(SET_DATA_DRUG({ name, value, key }))
-  }
+  }, [])
 
-  const handleOnSelect = (value: any, key: number) => {
+  const handleOnSelect = useCallback((value: SelectValue, key: number) => {
     const name = 'drugName'
     dispatch(SET_DATA_DRUG({ name, value, key }))
-  }
+  }, [])
 
-  const handleAddNewDrugForm = () => {
+  const handleAddNewDrugForm = useCallback(() => {
     const lastDrug = collectData.drugList[drugsSize - 1]
 
     if (lastDrug.drugName.name && lastDrug.quantity > 0) {
@@ -56,11 +64,11 @@ export const DrugInformation: FC<IProps> = ({ setActiveStep }) => {
       dispatch(SET_NEW_DRUG())
     }
     lastDrug.drugName.name ? setError('') : setError('Please fill the last drug name')
-  }
+  }, [collectData])
 
-  const handleGoBack = () => {
+  const handleGoBack = useCallback(() => {
     setActiveStep((prevActiveStep: number) => prevActiveStep - 1)
-  }
+  }, [])
 
   const handleSubmit = useCallback(() => {
     const lastDrug = collectData.drugList[drugsSize - 1]
@@ -71,6 +79,10 @@ export const DrugInformation: FC<IProps> = ({ setActiveStep }) => {
     }
   }, [collectData.drugList])
 
+  const handleDeleteDrug = useCallback((id: number) => {
+    dispatch(DELETE_DRUG_BY_ID(id))
+  }, [])
+
   return (
     <DrugInformationWrapper>
       <SwitchButton />
@@ -79,11 +91,14 @@ export const DrugInformation: FC<IProps> = ({ setActiveStep }) => {
         {Array.from({ length: drugsSize }, (_, i) => (
           <FormWrapper key={i}>
             <InputWrapper>
+              <LabelWrapper>
+                <Label>Drug name *</Label>
+                {drugsSize > 1 && <Delete onClick={() => handleDeleteDrug(i)}>Delete</Delete>}
+              </LabelWrapper>
               <AutocompleteInput
                 name='name'
                 value={collectData?.drugList[i]?.drugName}
                 placeholder='EX: Ibuprofen'
-                label='Drug name *'
                 onSelect={(e) => handleOnSelect(e, i)}
               />
             </InputWrapper>
