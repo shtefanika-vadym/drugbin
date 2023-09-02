@@ -21,9 +21,8 @@ import { Input } from 'components/ui/Input/Input'
 import { Button } from 'components/ui/Button/Button'
 
 const Login = () => {
-  const { login, error } = useAuth()
+  const { login } = useAuth()
   const handleSubmit = (values: any) => {
-    console.log('value', error)
     const email = values.email
     const password = values.password
     login({ email, password })
