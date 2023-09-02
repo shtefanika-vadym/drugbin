@@ -1,6 +1,6 @@
-import { Button } from 'common/components/Button/Button'
 import type { FC } from 'react'
 import { ButtoWrapper, Text, TextBold, VerbalTitle, VerbalWrapper } from './VerbalProcess.styled'
+import { Button } from 'components/ui/Button/Button'
 
 interface IProps {
   setActiveStep: (step: any) => void

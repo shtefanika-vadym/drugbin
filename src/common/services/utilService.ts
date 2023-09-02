@@ -1,12 +1,6 @@
-const getFilledArray = (len: number) => Array(len).fill(0)
+// TODO --> MANDATORY REFACTOR
 
 const capitalizeFirstLetter = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1)
-
-const capitalizeString = (str: string): string =>
-  str
-    .split(' ')
-    .map((word: string): string => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ')
 
 const deepEqual = (object1: object, object2: object): boolean => {
   const keys1 = Object.keys(object1)
@@ -28,12 +22,6 @@ const deepEqual = (object1: object, object2: object): boolean => {
     }
   }
   return true
-}
-
-const removeFieldInObject = (obj: object, removedKey: string) => {
-  const newObj = window.structuredClone(obj)
-  delete newObj[removedKey]
-  return newObj
 }
 
 const formatDate = (props: string) => {
@@ -79,10 +67,7 @@ const formatWeight = (weightInGrams: number): string => {
 }
 
 export const UtilService = {
-  getFilledArray,
   deepEqual,
-  removeFieldInObject,
-  capitalizeString,
   capitalizeFirstLetter,
   formatDate,
   formatTime,

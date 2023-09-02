@@ -1,4 +1,4 @@
-import secureIcon from 'common/assets/icons/secure-payment-line.svg'
+import secureIcon from 'common/assets/secure-payment-line.svg'
 
 import { PRIVACY_BOX } from 'features/Collect/constatnts/constants'
 

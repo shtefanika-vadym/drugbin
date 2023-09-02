@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 
-import { useDrugsIdentifyMutation } from 'features/Collect/store/api/recycleApi'
+import { useDrugsIdentifyMutation } from 'api/recycleApi'
 
 export const Camera = () => {
   const inputFileRef = useRef(null)

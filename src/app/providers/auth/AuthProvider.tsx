@@ -9,9 +9,8 @@ import { LOCALE_STORAGE_KEYS } from 'common/constants/localeStorageConstants'
 import { RESPONSE_PROPERTY_CONSTANTS } from 'common/constants/reponsePropertyConstants'
 import type { ITriggerRequest } from 'common/interfaces/IRequestResponse'
 import type { IUser } from 'common/interfaces/IUser'
-
-import { authApi, useLoginMutation, useRegisterMutation } from 'features/Auth'
-import type { IAuthLogin, IAuthRegister } from 'features/Auth/interfaces/IAuth'
+import type { IAuthLogin, IAuthRegister } from 'components/login/interfaces/IAuth'
+import { authApi, useLoginMutation, useRegisterMutation } from 'components/login/store/api/authApi'
 
 interface IProps {
   user: IUser | null

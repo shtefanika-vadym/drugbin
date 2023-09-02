@@ -3,11 +3,11 @@ import { useDispatch } from 'react-redux'
 
 import { useAppSelector } from 'store/hooks'
 
-import { ProcessingModal } from 'common/components/Modal/ProcessingModal/ProcessingModal'
 import { SET_SHOW_MODAL } from 'common/state/modalSlice'
 
 import { SET_DRUGS_FROM_CAMERA, SET_DRUGS_SIZE } from 'features/Collect/slices/recycleSlice'
-import { useDrugsIdentifyMutation } from 'features/Collect/store/api/recycleApi'
+import { useDrugsIdentifyMutation } from 'api/recycleApi'
+import { ProcessingModal } from 'components/ui/Modal/ProcessingModal/ProcessingModal'
 
 export const Camera = () => {
   const dispatch = useDispatch()

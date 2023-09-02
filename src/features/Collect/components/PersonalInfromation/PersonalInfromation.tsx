@@ -3,12 +3,9 @@ import { useCallback, useState } from 'react'
 
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 
-import { Input } from 'common/components/Input/Input'
-
 import { PrivacyBox } from 'features/Collect/components/PrivacyBox/PrivacyBox'
 import { SET_DATA } from 'features/Collect/slices/recycleSlice'
 
-import { Button } from 'common/components/Button/Button'
 import { isEmail, isStringNotEmpty } from 'common/utils/stringUtils'
 import {
   Error,
@@ -16,6 +13,8 @@ import {
   InputWrapper,
   PersonalInfromationWrapper,
 } from './PersonalInfromation.styled'
+import { Input } from 'components/ui/Input/Input'
+import { Button } from 'components/ui/Button/Button'
 
 interface IProps {
   setActiveStep: (step: any) => void

@@ -1,10 +1,10 @@
 import type { FC } from 'react'
 
-import { QuickActions } from 'common/components/QuickActions/QuickActions'
-import { Tag } from 'common/components/Tag/Tag'
+import { QuickActions } from 'components/ui/QuickActions/QuickActions'
 
 import { ContentRecycleBox, Name, Text } from './RecycleBox.styled'
 import type { IRecycleBoxProps } from './RecycleBox.type'
+import { Tag } from 'components/ui/Tag/Tag'
 
 export const RecycleBox: FC<IRecycleBoxProps> = ({
   pharma,

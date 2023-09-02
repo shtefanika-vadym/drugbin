@@ -33,7 +33,7 @@ export const TEXT_VARIANT_NAMES = [
   'subheading',
 ] as const
 
-export type TextVariantName = typeof TEXT_VARIANT_NAMES[number]
+export type TextVariantName = (typeof TEXT_VARIANT_NAMES)[number]
 export type TextVariantType = TextVariantName
 
 export interface TextVariant {

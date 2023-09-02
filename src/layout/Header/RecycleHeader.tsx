@@ -2,8 +2,8 @@ import { useNavigate } from 'react-router-dom'
 
 import type { HeaderProps } from './HeaderWrapper'
 
-import closeIcon from 'common/assets/icons/close.svg'
-import logoS from 'common/assets/icons/logo-s.svg'
+import closeIcon from 'common/assets/close.svg'
+import logoS from 'common/assets/logo-s.svg'
 
 import { ContainerWrapperRecycle, Content, Icon } from './Header.styled'
 
