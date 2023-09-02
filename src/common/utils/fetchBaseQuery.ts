@@ -20,7 +20,6 @@ export const baseQuery =
       const user: IUser | null = localStorage.getItem('user')
         ? JSON.parse(localStorage.getItem('user'))
         : null
-      console.log('process', process)
       const result = await axios({
         ...param,
         baseURL: process.env.REACT_APP_DRUGBIN_API_BASE_URL,

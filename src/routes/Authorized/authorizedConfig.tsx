@@ -1,3 +1,10 @@
+import { Navigate } from 'react-router-dom'
+
+import { DocumentsPage } from 'pages/Documents'
+import { DrugEntryPage } from 'pages/DrugEntry'
+import { HistoryPage } from 'pages/History'
+import { HomePage } from 'pages/Home'
+
 enum AUTHORIZED_PATH {
   HOME = 'HOME',
   HISTORY = 'HISTORY',
@@ -7,12 +14,10 @@ enum AUTHORIZED_PATH {
   STATUS = 'STATUS',
   COLLECT_STATUS = 'COLLECT_STATUS',
   COLLECT = 'COLLECT',
-  LANDING_PAGE = 'LANDING_PAGE',
 }
 
 const AUTHORIZED_PATHS: Record<AUTHORIZED_PATH, string> = {
-  [AUTHORIZED_PATH.LANDING_PAGE]: '/',
-  [AUTHORIZED_PATH.HOME]: '/home',
+  [AUTHORIZED_PATH.HOME]: '/',
   [AUTHORIZED_PATH.HISTORY]: '/history',
   [AUTHORIZED_PATH.DOCUMENTS]: '/documents',
   [AUTHORIZED_PATH.DONATIONS]: '/donations',
@@ -25,4 +30,29 @@ const AUTHORIZED_PATHS: Record<AUTHORIZED_PATH, string> = {
 // Add here the restricted routes for recycle company
 export const RECYCLE_RESTRICTED_ROUTE = [AUTHORIZED_PATHS.HISTORY]
 
-export const AUTHORIZED_ROUTE_CONFIG = [{}]
+export const AUTHORIZED_ROUTE_CONFIG = [
+  {
+    path: AUTHORIZED_PATHS.HOME,
+    element: <HomePage />,
+  },
+  {
+    path: AUTHORIZED_PATHS.HISTORY,
+    element: <HistoryPage />,
+  },
+  {
+    path: AUTHORIZED_PATHS.DOCUMENTS,
+    element: <DocumentsPage />,
+  },
+  {
+    path: AUTHORIZED_PATHS.DONATIONS,
+    element: <HomePage />,
+  },
+  {
+    path: AUTHORIZED_PATHS.ADD,
+    element: <DrugEntryPage />,
+  },
+  {
+    path: '*',
+    element: <Navigate to={AUTHORIZED_PATHS.HOME} replace />,
+  },
+]
