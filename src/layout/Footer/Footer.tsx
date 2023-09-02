@@ -1,7 +1,7 @@
-import LogoIconMobile from 'common/assets/icons/footer-mobile.svg'
-import Instagram from 'common/assets/icons/instagram.svg'
-import Linkedin from 'common/assets/icons/linkedin-line.svg'
-import LogoIcon from 'common/assets/icons/logo-footer.svg'
+import LogoIconMobile from 'common/assets/footer-mobile.svg'
+import Instagram from 'common/assets/instagram.svg'
+import Linkedin from 'common/assets/linkedin-line.svg'
+import LogoIcon from 'common/assets/logo-footer.svg'
 
 import useBreakpoints from 'common/hooks/useBreakpoints'
 

@@ -1,12 +1,8 @@
 import type { ChangeEvent, FC } from 'react'
 import { useCallback, useState } from 'react'
 
-import mapImg from 'common/assets/icons/MAP.png'
+import mapImg from 'common/assets/MAP.png'
 
-import { Input } from 'common/components/Input/Input'
-
-import { Button } from 'common/components/Button/Button'
-import { FinishModal } from 'common/components/Modal/FinishModal/FinishModal'
 import { SET_SHOW_MODAL } from 'common/state/modalSlice'
 import { useAppDispatch } from 'store/hooks'
 import {
@@ -18,6 +14,9 @@ import {
   PharmaCardDetails,
   Schedule,
 } from './LocationInformation.styled'
+import { FinishModal } from 'components/ui/Modal/FinishModal/FinishModal'
+import { Input } from 'components/ui/Input/Input'
+import { Button } from 'components/ui/Button/Button'
 
 interface IProps {
   setActiveStep: (step: any) => void

@@ -1,7 +1,5 @@
 import { useMemo, useState } from 'react'
 
-import { RecycleHeader } from 'layout/Header/RecycleHeader'
-
 import { DrugInformation } from 'features/Collect/components/DrugInformation/DrugInformation'
 import { LocationInformation } from 'features/Collect/components/LocationInformation/LocationInformation'
 import { PersonalInfromation } from 'features/Collect/components/PersonalInfromation/PersonalInfromation'
@@ -52,9 +50,5 @@ export const Collect = () => {
     }
   }, [activeStep])
 
-  return (
-    <RecycleHeader>
-      <RecycleWrapper>{recycleSteps}</RecycleWrapper>
-    </RecycleHeader>
-  )
+  return <RecycleWrapper>{recycleSteps}</RecycleWrapper>
 }

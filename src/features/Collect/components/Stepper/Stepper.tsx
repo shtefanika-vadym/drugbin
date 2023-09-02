@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from 'react'
 
-import { MultiStep } from 'common/components/MultiStep/MultiStep'
+import { MultiStep } from 'components/ui/MultiStep/MultiStep'
 
 import { Description, StepperHeader, StepperWrapper, Tag, Title } from './Stepper.styled'
 

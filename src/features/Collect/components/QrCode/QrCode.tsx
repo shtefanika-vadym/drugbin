@@ -2,8 +2,8 @@ import { useRecycleDrugMutation } from 'features/Home/recycleApi'
 import { Title, Text, QRCodeWrapper, BorderCorner } from './QrCode.styled'
 import { useEffect } from 'react'
 import QRCode from 'react-qr-code'
-import { Button } from 'common/components/Button/Button'
-import { Spinner } from 'common/components/Spinner'
+import Spinner from 'components/ui/Spinner/Spinner'
+import { Button } from 'components/ui/Button/Button'
 
 export const QrCode = ({ drugs }: any) => {
   const [recycleDrug, { isLoading, data }] = useRecycleDrugMutation()

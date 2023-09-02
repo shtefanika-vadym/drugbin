@@ -2,8 +2,8 @@ import type { ReactNode } from 'react'
 
 import { Footer } from 'layout/Footer/Footer'
 
-import { Header } from './Header'
 import { Content } from './Header.styled'
+import { TopBlock } from 'components/layout/TopBlock/TopBlock'
 
 export interface HeaderProps {
   children?: ReactNode
@@ -12,7 +12,7 @@ export interface HeaderProps {
 export const HeaderWrapper: React.FC<HeaderProps> = ({ children }) => {
   return (
     <div>
-      <Header />
+      <TopBlock />
       <Content>{children}</Content>
       <Footer />
     </div>

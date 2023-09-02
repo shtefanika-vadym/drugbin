@@ -6,13 +6,10 @@ import { animateScroll } from 'react-scroll'
 
 import { useOnClickOutside } from 'usehooks-ts'
 
-import aboutIcon from 'common/assets/icons/about.svg'
-import contactIcon from 'common/assets/icons/contact.svg'
-// import recycleIcon from 'common/assets/icons/recycle.svg'
-import serviceIcon from 'common/assets/icons/service.svg'
-
-import { Button } from 'common/components/Button/Button'
-import { SelectLanguage } from 'common/components/SelectLanguage/SelectLanguage'
+import aboutIcon from 'common/assets/about.svg'
+import contactIcon from 'common/assets/contact.svg'
+// import recycleIcon from 'common/assets/recycle.svg'
+import serviceIcon from 'common/assets/service.svg'
 
 import {
   BorderStyle,
@@ -24,6 +21,8 @@ import {
   Text,
   Title,
 } from './MobileMenu.styled'
+import { SelectLanguage } from 'components/ui/SelectLanguage/SelectLanguage'
+import { Button } from 'components/ui/Button/Button'
 
 export interface MobileMenuProps {
   isOpen: boolean

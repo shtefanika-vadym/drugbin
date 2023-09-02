@@ -3,12 +3,7 @@ import { useCallback, useState } from 'react'
 
 import { useAppDispatch, useAppSelector } from 'store/hooks'
 
-import { AutocompleteInput } from 'common/components/AutocompleteInput/AutocompleteInput'
-import { Button } from 'common/components/Button/Button'
-import { Dropdown } from 'common/components/Dropdown/Dropdown'
-import { Input } from 'common/components/Input/Input'
-
-import { DROPDOWN_VALUES } from 'features/AddNew/constants/mockData'
+import { DROPDOWN_VALUES } from 'components/drugEntry/mockData'
 import { Camera } from 'features/Collect/components/Camera/Camera'
 import { SwitchButton } from 'features/Collect/components/SwitchButton/SwitchButton'
 import {
@@ -31,6 +26,10 @@ import {
   LabelWrapper,
   MultiFormWrapper,
 } from './DrugInformation.styled'
+import { AutocompleteInput } from 'components/ui/AutocompleteInput/AutocompleteInput'
+import { Dropdown } from 'components/ui/Dropdown/Dropdown'
+import { Input } from 'components/ui/Input/Input'
+import { Button } from 'components/ui/Button/Button'
 
 interface IProps {
   setActiveStep: (step: any) => void

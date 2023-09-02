@@ -5,8 +5,7 @@ import { useAppSelector } from 'store/hooks'
 
 import { withMonitorLocaleStorage } from 'app/hocs/withMonitorLocaleStorage'
 import { useAuth } from 'app/providers'
-
-import { Show } from 'common/components/Show/Show'
+import { Show } from 'components/ui/Show/Show'
 
 const AuthorizedRoutes = () => {
   const { user } = useAuth()

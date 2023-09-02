@@ -4,15 +4,15 @@ import { setupListeners } from '@reduxjs/toolkit/dist/query'
 
 import { modalReducer } from 'common/state/modalSlice'
 
-import { addApi } from 'features/AddNew/store/api/addApi'
-import { authApi } from 'features/Auth'
+import { addApi } from 'api/addApi'
 import { recycleSlice } from 'features/Collect/slices/recycleSlice'
-import { recycleApi } from 'features/Collect/store/api/recycleApi'
-import { historyApi } from 'features/History/store/api/productApi'
+import { recycleApi } from 'api/recycleApi'
+import { historyApi } from 'api/productApi'
 import { homeApi } from 'features/Home'
 import { homeSlice } from 'features/Home/state/slices/homeSlice'
 import { landingApi } from 'features/LandingPage/store/api/landingApi'
-import { statusApi } from 'features/Status/state/api/statusApi'
+import { statusApi } from 'api/statusApi'
+import { authApi } from 'components/login/store/api/authApi'
 
 const rootReducer = combineReducers({
   modal: modalReducer,

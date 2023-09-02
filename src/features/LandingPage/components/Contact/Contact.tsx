@@ -7,12 +7,7 @@ import location from 'features/LandingPage/assets/location.svg'
 import email from 'features/LandingPage/assets/mail.svg'
 import phone from 'features/LandingPage/assets/phone.svg'
 
-import { Button } from 'common/components/Button/Button'
-import { Input } from 'common/components/Input/Input'
-import { Spinner } from 'common/components/Spinner'
-import { Textarea } from 'common/components/Textarea/Textarea'
-
-import { validationSchema } from 'features/AddNew/validation/validationSchema'
+import { validationSchema } from 'schema/validationSchema'
 import { CONTACT_SECTION } from 'features/LandingPage/constants/constants'
 import { useContactMutation } from 'features/LandingPage/store/api/landingApi'
 
@@ -28,6 +23,10 @@ import {
   SubTitle,
   Title,
 } from './Contact.styled'
+import { Input } from 'components/ui/Input/Input'
+import { Textarea } from 'components/ui/Textarea/Textarea'
+import { Button } from 'components/ui/Button/Button'
+import Spinner from 'components/ui/Spinner/Spinner'
 
 interface IContact {
   id: string

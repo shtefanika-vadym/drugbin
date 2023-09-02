@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { HeaderWrapper } from 'layout/Header/HeaderWrapper'
 
-import { useCompaniesQuery } from 'features/History/store/api/productApi'
+import { useCompaniesQuery } from 'api/productApi'
 import { RecycleBox } from 'features/Home/components/RecycleBox/RecycleBox'
 import { CotentWrapper } from 'features/Home/components/RecycleBox/RecycleBox.styled'
 import type { IRecycleBoxProps } from 'features/Home/components/RecycleBox/RecycleBox.type'
