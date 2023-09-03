@@ -16,7 +16,6 @@ export const Camera = () => {
   const [drugsIdentify, { isLoading }] = useDrugsIdentifyMutation()
 
   const formatDrugObject = (obj: any) => {
-    console.log(obj)
     const formattedObject = {
       drugName: {
         drugId: obj.id,
@@ -36,10 +35,7 @@ export const Camera = () => {
     const image = event.target.files[0]
     const response = await drugsIdentify({ image })
     const { data } = response
-    console.log(data)
     const formattedResponse = data.map((obj: any) => formatDrugObject(obj))
-    // const formattedResponse = test
-    console.log('response', formattedResponse)
     dispatch(SET_DRUGS_SIZE(formattedResponse.length))
     dispatch(SET_DRUGS_FROM_CAMERA(formattedResponse))
   }

@@ -30,5 +30,28 @@ const toRecycleEntry = (input: any) => {
     quantity: input.id,
     status: input.status,
     id: input.id,
+    drugList: input.drugList,
+    firstName: input.firstName,
+    lastName: input.lastName,
   }
+}
+
+export const collectStatusTable = (input: any) => {
+  return input.map((entry: any) => {
+    return {
+      key: entry?.drugId,
+      name: {
+        name: entry?.drugDetails?.name,
+        id: entry?.drugId,
+      },
+      recycle: {
+        data: UtilService.formatDate(entry?.drugDetails?.updatedAt),
+        time: UtilService.formatTime(entry?.drugDetails?.updatedAt),
+      },
+      type: UtilService.transformText(entry?.type),
+      quantity: entry?.quantity,
+      pack: UtilService.transformText(entry?.pack),
+      action: 'icon',
+    }
+  })
 }

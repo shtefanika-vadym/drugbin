@@ -1,8 +1,12 @@
+import { useAppDispatch } from 'common/hooks/redux'
+import { SET_SHOW_MODAL } from 'common/state/modalSlice'
+import { Button } from 'components/ui/Button/Button'
 import { CustomTable } from 'components/ui/CustomTable/CustomTable'
 import { columnsDocuments } from 'components/ui/CustomTable/TableColumns'
+import { DocumentsGenModal } from 'components/ui/Modal/DocumentsGenModal/DocumentsGenModal'
 import { NavigateList } from 'components/ui/NavigateList/NavigateList'
 import { useState } from 'react'
-import { Container, Title } from './Documents.styled'
+import { Container, Title, TopContainer } from './Documents.styled'
 
 // TODO --> DELETE THIS
 const mockData = [
@@ -45,9 +49,10 @@ const mockData = [
 ]
 
 // TODO --> MOVE THIS & RENAME
-const LIST = ['Proces Verbal', 'Shared', 'Trash']
+const LIST = ['Proces Verbal', 'Psychotropic Subs', 'Shared', 'Trash']
 
 export const Documents = () => {
+  const dispatch = useAppDispatch()
   const [selectedList, setSelectedList] = useState<string>(LIST[0])
 
   // TODO --> FIND BETTER APPROACH
@@ -56,15 +61,35 @@ export const Documents = () => {
       case 'Proces Verbal':
         return <CustomTable columns={columnsDocuments} dataSource={mockData} isLoading={false} />
       case 'Shared':
-        return <p>NOT READY</p>
+        return <CustomTable columns={columnsDocuments} dataSource={[]} isLoading={false} />
       case 'Trash':
-        return <p>NOT READY</p>
+        return <CustomTable columns={columnsDocuments} dataSource={[]} isLoading={false} />
+      case 'Psychotropic Subs':
+        return <CustomTable columns={columnsDocuments} dataSource={[]} isLoading={false} />
     }
+  }
+
+  const handleCloseModal = () => {
+    dispatch(SET_SHOW_MODAL({ isOpenModal: false, childModal: null }))
+  }
+
+  const callbackOnClickGenerate = () => {
+    dispatch(
+      SET_SHOW_MODAL({
+        isOpenModal: true,
+        childModal: <DocumentsGenModal handleCloseModal={handleCloseModal} />,
+      }),
+    )
   }
 
   return (
     <Container>
-      <Title>Documents</Title>
+      <TopContainer>
+        <Title>Documents</Title>
+        {(selectedList === 'Proces Verbal' || selectedList === 'Psychotropic Subs') && (
+          <Button onClick={callbackOnClickGenerate}>Generate new</Button>
+        )}
+      </TopContainer>
       <NavigateList list={LIST} selectedList={selectedList} setSelectedList={setSelectedList} />
       <DisplayTable />
     </Container>

@@ -52,7 +52,7 @@ export const Details: FC<IDetails> = ({ name, surname, total, id }) => {
         <DetailsTextPDF
           onClick={
             callbackOpenPDF
-          }>{`${name.toLowerCase()}-${surname.toLowerCase()}.pdf`}</DetailsTextPDF>
+          }>{`${name?.toLowerCase()}-${surname?.toLowerCase()}.pdf`}</DetailsTextPDF>
       </DetailsWrapper>
     </ContentDetails>
   )
