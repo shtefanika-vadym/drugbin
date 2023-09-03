@@ -16,8 +16,6 @@ const deepEqual = (object1: object, object2: object): boolean => {
     const val2 = object2[key as keyof object]
     const areObjects = isObject(val1) && isObject(val2)
     if ((areObjects && deepEqual(val1, val2)) || (!areObjects && val1 !== val2)) {
-      // Need log for testing
-      console.log(val1, val2)
       return false
     }
   }

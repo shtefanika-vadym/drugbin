@@ -4,6 +4,7 @@ import { DocumentsPage } from 'pages/Documents'
 import { DrugEntryPage } from 'pages/DrugEntry'
 import { HistoryPage } from 'pages/History'
 import { HomePage } from 'pages/Home'
+import { StatusPage } from 'pages/Status'
 
 enum AUTHORIZED_PATH {
   HOME = 'HOME',
@@ -50,6 +51,10 @@ export const AUTHORIZED_ROUTE_CONFIG = [
   {
     path: AUTHORIZED_PATHS.ADD,
     element: <DrugEntryPage />,
+  },
+  {
+    path: AUTHORIZED_PATHS.COLLECT_STATUS,
+    element: <StatusPage />,
   },
   {
     path: '*',

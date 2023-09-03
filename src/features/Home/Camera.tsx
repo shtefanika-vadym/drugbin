@@ -7,13 +7,10 @@ export const Camera = () => {
   //   const { data } = useDrugsIdentifyQuerry({ image: 'your-image-url' })
   //   const { data, isLoading, isError } = useDrugsIdentifyQuery()
   const [drugsIdentify] = useDrugsIdentifyMutation()
-  //   console.log(data, isLoading, isError)
-
   const handleFileUpload = async (event: any) => {
     const file = event.target.files[0]
     const formData = new FormData()
     console.log('formData', formData)
-    // formData.append('photo', file)
     await drugsIdentify(file)
   }
 

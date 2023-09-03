@@ -12,3 +12,6 @@ export const Title = styled.p`
   ${textVariant('titleH4')};
   margin-bottom: ${WDS_SIZE_024_PX};
 `
+export const TopContainer = styled.div`
+  ${flex({ justifyContent: 'space-between', alignItems: 'center' })};
+`
