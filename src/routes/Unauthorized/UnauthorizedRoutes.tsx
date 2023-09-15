@@ -10,7 +10,7 @@ export const UnauthorizedRoutes = () => {
   const { user } = useAuth()
   const { isOpenModal, childModal } = useAppSelector((state) => state.modal)
 
-  if (user) return <Navigate to='/home' />
+  if (user) return <Navigate to='/' />
   return (
     <Fragment>
       <Outlet />

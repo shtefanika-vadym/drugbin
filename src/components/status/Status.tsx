@@ -1,4 +1,4 @@
-import { useRecycleQuery } from 'api/productApi'
+import { useCollectQuery } from 'api/productApi'
 import backArrow from 'common/assets/chevron-left.svg'
 import { Button } from 'components/ui/Button/Button'
 import { CustomTable } from 'components/ui/CustomTable/CustomTable'
@@ -24,8 +24,8 @@ export const Status = () => {
   const idTask = params.id
 
   // TODO --> MUST CHANGE THIS, MAKE A SEPARATE ENDPOINT
-  const { data: dataRecycle, isLoading } = useRecycleQuery()
-  const filteredObjects = dataRecycle?.find((obj: any) => Number(obj.id) === Number(idTask))
+  const { data: dataRecycle, isLoading } = useCollectQuery(1)
+  const filteredObjects = dataRecycle?.data?.find((obj: any) => Number(obj?.id) === Number(idTask))
   const dataTableFormat = useMemo(
     () => collectStatusTable(filteredObjects?.drugList || []),
     [filteredObjects],
@@ -55,7 +55,7 @@ export const Status = () => {
         <CustomTable columns={columnsRecycle} dataSource={dataTableFormat} isLoading={false} />
       </div>
       <ButtonWrapper>
-        {filteredObjects.status !== 'recycled' && (
+        {filteredObjects?.status !== 'recycled' && (
           <>
             <Button variant='secondary'>Decline</Button>
             <Button>Approve</Button>

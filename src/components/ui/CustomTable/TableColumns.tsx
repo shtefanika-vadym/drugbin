@@ -45,7 +45,7 @@ export const columns: ColumnsType<any> = [
   {
     title: 'Action',
     key: 'action',
-    render: (id: string) => <QuickActions id={id} />,
+    render: (id: number) => <QuickActions id={id} />,
   },
 ]
 
@@ -111,6 +111,6 @@ export const columnsDocuments: ColumnsType<any> = [
   {
     title: 'Action',
     key: 'action',
-    render: (id: string) => <QuickActions variant='documents' id={id} />,
+    render: (id: number) => <QuickActions variant='documents' id={id} />,
   },
 ]

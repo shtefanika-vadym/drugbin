@@ -15,7 +15,7 @@ import Modal from 'components/ui/Modal/Modal'
 import { Button } from 'components/ui/Button/Button'
 
 interface IDeleteModal {
-  id: string
+  id: number
   handleCloseModal: any
 }
 

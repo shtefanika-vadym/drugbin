@@ -19,7 +19,7 @@ import { ApproveModal } from 'components/ui/Modal/ApproveModal/ApproveModal'
 import { DocumentsModal } from 'components/ui/Modal/DocumentsModal/DocumentsModal'
 
 interface IQuickActionsProps {
-  id: string
+  id: number
   variant?: string
   refetch?: any
 }
@@ -32,7 +32,7 @@ export const QuickActions: FC<IQuickActionsProps> = ({ id, variant = 'pharmacy',
     dispatch(SET_SHOW_MODAL({ isOpenModal: false, childModal: null }))
   }
 
-  const callbackOnClickDelete = (taskId: string) => {
+  const callbackOnClickDelete = (taskId: number) => {
     dispatch(
       SET_SHOW_MODAL({
         isOpenModal: true,
@@ -41,7 +41,7 @@ export const QuickActions: FC<IQuickActionsProps> = ({ id, variant = 'pharmacy',
     )
   }
 
-  const callbackOnClickApprove = (taskId: string) => {
+  const callbackOnClickApprove = (taskId: number) => {
     dispatch(
       SET_SHOW_MODAL({
         isOpenModal: true,

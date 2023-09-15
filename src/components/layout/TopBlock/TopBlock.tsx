@@ -33,6 +33,7 @@ const NavItem: React.FC<NavItemProps> = ({ children }) => {
   const location = useLocation()
   const navigate = useNavigate()
   const link = `/${lowerCase(children)}`
+
   const handleNavigate = useCallback((link: string) => {
     navigate(link)
   }, [])

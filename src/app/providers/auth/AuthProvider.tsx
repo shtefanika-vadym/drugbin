@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         role: data.role,
         token: data.token,
       })
-      navigate('/home')
+      navigate('/')
     }
   }
   const register = async (registerData: IAuthRegister): Promise<boolean> => {
@@ -65,7 +65,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       logout,
       login,
       register,
-      isPharmacy: user?.role === 'pharmacy',
+      isPharmacy: true,
     }),
     [user, error],
   )

@@ -1,7 +1,7 @@
 export interface IRecycleBoxProps {
-  id?: string
+  id?: number
   pharma: string
-  quantity: string
+  quantity: number
   status: any
   refetch?: any
   callbackOnClick?: any

@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom'
+// import { Navigate } from 'react-router-dom'
 
 import { DocumentsPage } from 'pages/Documents'
 import { DrugEntryPage } from 'pages/DrugEntry'
@@ -55,9 +55,5 @@ export const AUTHORIZED_ROUTE_CONFIG = [
   {
     path: AUTHORIZED_PATHS.COLLECT_STATUS,
     element: <StatusPage />,
-  },
-  {
-    path: '*',
-    element: <Navigate to={AUTHORIZED_PATHS.HOME} replace />,
   },
 ]
