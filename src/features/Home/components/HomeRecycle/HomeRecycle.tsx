@@ -11,7 +11,7 @@ import { ContentHome, Title } from './HomeRecycle.styled'
 
 export const HomeRecycle = () => {
   const navigate = useNavigate()
-  const handleStatus = (id: string) => {
+  const handleStatus = (id: number) => {
     navigate(`/status/${id}`)
   }
 
@@ -36,6 +36,7 @@ export const HomeRecycle = () => {
           {convertData()?.map((element: IRecycleBoxProps) => {
             return (
               <RecycleBox
+                key={element.id}
                 pharma={element.pharma}
                 quantity={element.quantity}
                 status={element.status}

@@ -1,3 +1,4 @@
+import type { CollectDataParser, CollectParser } from 'common/interfaces/History'
 import { UtilService } from 'common/services/utilService'
 
 // TODO: --> REPLACE ANY
@@ -22,19 +23,22 @@ const toEntry = (input: any) => {
   }
 }
 
-export const recycleAllEntry = (input: any) => input.map((entry: any) => toRecycleEntry(entry))
-
-const toRecycleEntry = (input: any) => {
+export const collectAllEntry = (input: CollectParser) => {
   return {
-    pharma: `${input.firstName} ${input.lastName}`,
-    quantity: input.id,
-    status: input.status,
-    id: input.id,
-    drugList: input.drugList,
-    firstName: input.firstName,
-    lastName: input.lastName,
+    data: input.data.map((entry: CollectDataParser) => toCollectEntry(entry)),
+    totalItems: input.totalItems,
   }
 }
+
+const toCollectEntry = (input: CollectDataParser) => ({
+  pharma: `${input.firstName} ${input.lastName}`,
+  quantity: input.id,
+  status: input.status,
+  id: input.id,
+  drugList: input.drugList,
+  firstName: input.firstName,
+  lastName: input.lastName,
+})
 
 export const collectStatusTable = (input: any) => {
   return input.map((entry: any) => {

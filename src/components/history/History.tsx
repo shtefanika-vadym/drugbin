@@ -1,11 +1,14 @@
-import { useProductQuery, useRecycleQuery } from 'api/productApi'
+import { Pagination } from 'antd'
+import { useCollectQuery, useProductQuery } from 'api/productApi'
+import { DEFAULT_PAGE_SIZE } from 'common/config'
+import type { CollectData } from 'common/interfaces/History'
 import { Button } from 'components/ui/Button/Button'
 import { CustomTable } from 'components/ui/CustomTable/CustomTable'
 import { columns } from 'components/ui/CustomTable/TableColumns'
+import { DocumentsSkeleton } from 'components/ui/DocumentsSkeleton/DocumentsSkeleton'
 import { Empty } from 'components/ui/Empty/Empty'
 import { Input } from 'components/ui/Input/Input'
 import { NavigateList } from 'components/ui/NavigateList/NavigateList'
-import { DocumentsSkeleton } from 'components/ui/DocumentsSkeleton/DocumentsSkeleton'
 import { RecycleBox } from 'features/Home/components/RecycleBox/RecycleBox'
 import { isEmpty } from 'lodash'
 import { useCallback, useState } from 'react'
@@ -16,45 +19,12 @@ import { BoxWrapper, SearchWrapper, TableWrapper, Title, TitleWrapper } from './
 const LIST = ['Collect', 'All']
 
 export const History = () => {
-  const [selectedList, setSelectedList] = useState<string>(LIST[0])
-
   const navigate = useNavigate()
-  const { data, isLoading } = useProductQuery()
-  const { data: dataRecycle, isLoading: recycleLoading, refetch } = useRecycleQuery()
+  const [selectedList, setSelectedList] = useState<string>(LIST[0])
 
   const handleNavigateToAddEntry = useCallback(() => {
     navigate('/add')
   }, [])
-  const handleNavigateToStatus = useCallback((id: string) => {
-    navigate(`/collect-status/${id}`)
-  }, [])
-
-  // TODO --> FIND BETTER APPROACH
-  const DisplayTable = () => {
-    switch (selectedList) {
-      case 'All':
-        return <CustomTable columns={columns} dataSource={data} isLoading={isLoading} />
-
-      case 'Collect':
-        if (recycleLoading) return <DocumentsSkeleton />
-        if (!isEmpty(dataRecycle)) {
-          return (
-            <BoxWrapper>
-              {dataRecycle.map((entry: any) => {
-                return (
-                  <RecycleBox
-                    {...entry}
-                    callbackOnClick={() => handleNavigateToStatus(entry.id)}
-                    refetch={refetch}
-                  />
-                )
-              })}
-            </BoxWrapper>
-          )
-        }
-        return <Empty />
-    }
-  }
 
   return (
     <>
@@ -67,8 +37,73 @@ export const History = () => {
       </TitleWrapper>
       <TableWrapper>
         <NavigateList list={LIST} selectedList={selectedList} setSelectedList={setSelectedList} />
-        <DisplayTable />
+        <DisplayTable selectedList={selectedList} />
       </TableWrapper>
     </>
   )
+}
+
+// TODO --> FIND BETTER APPROACH
+const DisplayTable: React.FC<{ selectedList: string }> = ({ selectedList }) => {
+  const navigate = useNavigate()
+  const [pagination, setPagination] = useState<number>(1)
+
+  const {
+    data: dataCollect,
+    isLoading: collectLoading,
+    refetch: refetchCollect,
+  } = useCollectQuery(pagination)
+  const { data, isLoading } = useProductQuery()
+
+  const handleNavigateToStatus = useCallback((id: number) => {
+    navigate(`/collect-status/${id}`)
+  }, [])
+
+  // TODO --> MAKE REUSABLE
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+  }
+
+  const handlePagination = useCallback(
+    (value: number) => {
+      setPagination(value)
+      scrollToTop()
+    },
+    [pagination],
+  )
+
+  switch (selectedList) {
+    case 'All':
+      return <CustomTable columns={columns} dataSource={data} isLoading={isLoading} />
+
+    case 'Collect':
+      if (collectLoading) return <DocumentsSkeleton />
+      if (!isEmpty(dataCollect.data)) {
+        return (
+          <BoxWrapper>
+            {dataCollect.data.map((entry: CollectData) => {
+              return (
+                <RecycleBox
+                  {...entry}
+                  callbackOnClick={() => handleNavigateToStatus(entry.id)}
+                  refetch={refetchCollect}
+                  key={entry.id}
+                />
+              )
+            })}
+            <Pagination
+              hideOnSinglePage
+              defaultCurrent={pagination}
+              defaultPageSize={DEFAULT_PAGE_SIZE}
+              total={dataCollect.totalItems}
+              onChange={handlePagination}
+            />
+          </BoxWrapper>
+        )
+      }
+      return <Empty />
+  }
 }

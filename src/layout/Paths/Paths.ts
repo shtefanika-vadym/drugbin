@@ -4,7 +4,7 @@ export interface INavigation {
 }
 
 export enum PathsEnum {
-  home = '/home',
+  home = '/',
   history = '/history',
   documents = '/documents',
   donations = '/donations',
