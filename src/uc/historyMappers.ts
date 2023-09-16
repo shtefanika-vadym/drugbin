@@ -1,5 +1,6 @@
-import type { CollectDataParser, CollectParser } from 'common/interfaces/History'
+import type { CollectDataParser, CollectParser } from 'common/interfaces/HistoryTypes'
 import { UtilService } from 'common/services/utilService'
+import { capitalize } from 'lodash-es'
 
 // TODO: --> REPLACE ANY
 
@@ -58,4 +59,28 @@ export const collectStatusTable = (input: any) => {
       action: 'icon',
     }
   })
+}
+
+export const verbalProcessData = (input: any) => {
+  return {
+    generationDate: input.generationDate,
+    pharmaName: input.drugDetails.chain.name,
+    clientName: `${input.drugDetails.firstName}  ${input.drugDetails.lastName}`,
+    drugList: input.drugDetails.drugList.map((entry: any, key: number) =>
+      toVerbalProcesDrugList(entry, key),
+    ),
+  }
+}
+
+const toVerbalProcesDrugList = (entry: any, key: number) => {
+  return {
+    key: key + 1,
+    quantity: entry.quantity,
+    pack: capitalize(entry.pack),
+    name: {
+      name: entry.drugDetails.name,
+      drugId: entry.drugId,
+    },
+    isPsycholeptic: entry.drugDetails.isPsycholeptic,
+  }
 }

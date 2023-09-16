@@ -18,19 +18,19 @@ export const ContentModal = styled.nav`
   background-color: rgba(44, 43, 43, 0.3);
 `
 
-export const ModalWrapper = styled.nav`
+export const ModalWrapper = styled.nav<{ type: string }>`
   position: relative;
   min-width: min-content;
   height: auto;
   margin: 0 auto;
-  background: white;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  background: ${(props) => (props.type === 'pdf' ? 'transparent' : 'white')};
+  box-shadow: ${(props) => props.type !== 'pdf' && '0 4px 15px rgba(0, 0, 0, 0.08)'};
   border-radius: 10px;
-  padding: 36px 40px;
+  padding: ${(props) => props.type !== 'pdf' && '36px 40px'};
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  flex-direction: column;
+  flex-direction: ${(props) => (props.type === 'pdf' ? 'row' : 'column')};
 
   @media (max-width: ${WDS_BREAKPOINT_TABLET_UP_TO}) {
     padding: 24px 16px;

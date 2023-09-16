@@ -15,12 +15,14 @@ import { Button } from 'components/ui/Button/Button'
 
 interface IModalProps {
   children: ReactChild | ReactNode
-  callbackOnClose: () => void
+  callbackOnClose?: () => void
+  type?: string
 }
-const Modal = ({ children, callbackOnClose }: IModalProps) => {
+const Modal = ({ children, callbackOnClose, type }: IModalProps) => {
   const topNavRef = useRef<HTMLElement | null>(null)
   const [locked, setLocked] = useLockedBody(true, 'root')
   const dispatch = useAppDispatch()
+  const isPdf = Boolean(type === 'pdf')
 
   const { isBelowDesktop } = useBreakpoints()
 
@@ -34,8 +36,8 @@ const Modal = ({ children, callbackOnClose }: IModalProps) => {
   return (
     <FocusLock>
       <ContentModal>
-        <ModalWrapper ref={topNavRef}>
-          {!isBelowDesktop && (
+        <ModalWrapper type={type} ref={topNavRef}>
+          {!isBelowDesktop && !isPdf && (
             <ButtonWrapper>
               <Button variant='round' size='S-round' onClick={callbackOnClose}>
                 <Icon src={xIcon} />
@@ -43,6 +45,7 @@ const Modal = ({ children, callbackOnClose }: IModalProps) => {
             </ButtonWrapper>
           )}
           <div>{children}</div>
+          {/* <button>test</button> */}
         </ModalWrapper>
       </ContentModal>
     </FocusLock>
