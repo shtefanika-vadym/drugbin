@@ -43,3 +43,19 @@ export interface CollectData {
   firstName: string
   lastName: string
 }
+
+export interface VerbalProcesData {
+  generationDate: string
+  pharmaName: string
+  clientName: string
+  drugList: {
+    key: number
+    quantity: number
+    pack: string
+    name: {
+      name: string
+      drugId: string
+    }
+    isPsycholeptic: boolean
+  }[]
+}

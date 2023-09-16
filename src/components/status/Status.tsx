@@ -21,11 +21,11 @@ import { Details } from './components/Details'
 export const Status = () => {
   const navigate = useNavigate()
   const params = useParams()
-  const idTask = params.id
+  const idTask = Number(params.id)
 
   // TODO --> MUST CHANGE THIS, MAKE A SEPARATE ENDPOINT
   const { data: dataRecycle, isLoading } = useCollectQuery(1)
-  const filteredObjects = dataRecycle?.data?.find((obj: any) => Number(obj?.id) === Number(idTask))
+  const filteredObjects = dataRecycle?.data?.find((obj: any) => Number(obj?.id) === idTask)
   const dataTableFormat = useMemo(
     () => collectStatusTable(filteredObjects?.drugList || []),
     [filteredObjects],

@@ -1,7 +1,7 @@
 import { Pagination } from 'antd'
 import { useCollectQuery, useProductQuery } from 'api/productApi'
 import { DEFAULT_PAGE_SIZE } from 'common/config'
-import type { CollectData } from 'common/interfaces/History'
+import type { CollectData } from 'common/interfaces/HistoryTypes'
 import { Button } from 'components/ui/Button/Button'
 import { CustomTable } from 'components/ui/CustomTable/CustomTable'
 import { columns } from 'components/ui/CustomTable/TableColumns'
@@ -14,6 +14,8 @@ import { isEmpty } from 'lodash'
 import { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { BoxWrapper, SearchWrapper, TableWrapper, Title, TitleWrapper } from './Histyort.styled'
+import type { ChangeEvent } from 'react'
+import { debounce } from 'lodash-es'
 
 // TODO --> MOVE THIS CONST, FIND OTHER NAME
 const LIST = ['Collect', 'All']
@@ -21,17 +23,30 @@ const LIST = ['Collect', 'All']
 export const History = () => {
   const navigate = useNavigate()
   const [selectedList, setSelectedList] = useState<string>(LIST[0])
+  const [search, setSearch] = useState<string>('')
 
   const handleNavigateToAddEntry = useCallback(() => {
     navigate('/add')
   }, [])
+
+  const handleSearch = useCallback(
+    debounce((e: ChangeEvent<HTMLInputElement>) => {
+      setSearch(e.target.value)
+    }, 300),
+    [],
+  )
 
   return (
     <>
       <TitleWrapper>
         <Title>Entry History</Title>
         <SearchWrapper>
-          <Input type='search' placeholder='EX: Tipografiei 1' value='' />
+          <Input
+            type='search'
+            placeholder='EX: Tipografiei 1'
+            value={search}
+            onChange={handleSearch}
+          />
           <Button onClick={handleNavigateToAddEntry}>New Entry</Button>
         </SearchWrapper>
       </TitleWrapper>

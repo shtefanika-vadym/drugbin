@@ -4,7 +4,7 @@ import type { EndpointBuilder } from '@reduxjs/toolkit/src/query/endpointDefinit
 import { DEFAULT_PAGE_SIZE } from 'common/config'
 import { HTTP_METHODS } from 'common/constants/httpMethodsConstants'
 import { REDUCER_CONSTANTS } from 'common/constants/reducerConstants'
-import type { CollectParser } from 'common/interfaces/History'
+import type { CollectParser } from 'common/interfaces/HistoryTypes'
 import { baseQuery } from 'common/utils/fetchBaseQuery'
 import { allEntry, collectAllEntry } from 'uc/historyMappers'
 
