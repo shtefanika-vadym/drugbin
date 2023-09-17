@@ -20,8 +20,8 @@ interface IDeleteModal {
 }
 
 // TODO --> REFACTORING
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const DeleteModal: FC<IDeleteModal> = ({ handleCloseModal, id }) => {
-  console.log('id', id)
   return (
     <Modal callbackOnClose={handleCloseModal}>
       <ContentDelete>

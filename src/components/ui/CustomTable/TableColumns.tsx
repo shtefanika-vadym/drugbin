@@ -150,39 +150,6 @@ export const columnsPV: ColumnsType<any> = [
     title: 'Observatii',
     dataIndex: 'isPsycholeptic',
     key: 'isPsycholeptic',
-    render: ({ isPsycholeptic }) => (
-      <NameWrapper>{isPsycholeptic === true && 'Psihotrop'}</NameWrapper>
-    ),
+    render: (isPsycholeptic) => <NameWrapper>{isPsycholeptic && 'Psihotrop'}</NameWrapper>,
   },
-  // {
-  //   title: 'Recycle time',
-  //   dataIndex: 'recycle',
-  //   key: 'recycle',
-  //   render: ({ data, time }) => (
-  //     <NameWrapper>
-  //       {data} <SubtitleWrapper>{time}</SubtitleWrapper>
-  //     </NameWrapper>
-  //   ),
-  // },
-  // {
-  //   title: 'Quantity',
-  //   dataIndex: 'quantity',
-  //   key: 'quantity',
-  // },
-  // {
-  //   title: 'Pack',
-  //   dataIndex: 'pack',
-  //   key: 'pack',
-  // },
-  // {
-  //   title: 'Status',
-  //   dataIndex: 'status',
-  //   key: 'status',
-  //   render: () => <Tag variant='recycled'>Collected</Tag>,
-  // },
-  // {
-  //   title: 'Action',
-  //   key: 'action',
-  //   render: (id: number) => <QuickActions id={id} />,
-  // },
 ]

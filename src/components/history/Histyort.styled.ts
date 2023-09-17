@@ -8,6 +8,11 @@ import {
 } from 'common/style/size'
 import styled from 'styled-components'
 
+export const Content = styled.div`
+  ${flex({ direction: 'column', gap: WDS_SIZE_016_PX })};
+  margin-bottom: 16px;
+`
+
 export const TitleWrapper = styled.div`
   ${flex({ justifyContent: 'space-between' })};
 `
@@ -23,6 +28,7 @@ export const SearchWrapper = styled.div`
 export const InputWrapper = styled.div`
   ${flex({ gap: WDS_SIZE_008_PX })}
 `
+
 export const BoxWrapper = styled.div`
   ${flex({ direction: 'column', gap: WDS_SIZE_016_PX })}
 `

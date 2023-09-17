@@ -3,8 +3,12 @@ import { UtilService } from 'common/services/utilService'
 import { capitalize } from 'lodash-es'
 
 // TODO: --> REPLACE ANY
-
-export const allEntry = (input: any): any => input.map((entry: any) => toEntry(entry))
+export const allEntry = (input: any): any => {
+  return {
+    data: input.data.map((entry: any) => toEntry(entry)),
+    totalItems: input.totalItems,
+  }
+}
 
 const toEntry = (input: any) => {
   return {
@@ -14,8 +18,8 @@ const toEntry = (input: any) => {
       id: 'W64020007',
     },
     recycle: {
-      data: UtilService.formatDate(input.createdAt),
-      time: UtilService.formatTime(input.createdAt),
+      data: UtilService.formatDate(input?.drugDetails?.createdAt),
+      time: UtilService.formatTime(input?.drugDetails?.createdAt),
     },
     quantity: input.quantity,
     pack: UtilService.transformText(input.pack),
