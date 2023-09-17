@@ -53,6 +53,7 @@ const LIST = ['Proces Verbal', 'Psychotropic Subs', 'Shared', 'Trash']
 
 export const Documents = () => {
   const dispatch = useAppDispatch()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedList, setSelectedList] = useState<string>(LIST[0])
 
   // TODO --> FIND BETTER APPROACH
@@ -90,7 +91,7 @@ export const Documents = () => {
           <Button onClick={callbackOnClickGenerate}>Generate new</Button>
         )}
       </TopContainer>
-      <NavigateList list={LIST} selectedList={selectedList} setSelectedList={setSelectedList} />
+      <NavigateList list={LIST} />
       <DisplayTable />
     </Container>
   )

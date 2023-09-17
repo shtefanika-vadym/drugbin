@@ -13,8 +13,8 @@ export const historyApi = createApi({
   baseQuery: baseQuery(),
   endpoints: (build: EndpointBuilder<BaseQueryFn, string, string>) => ({
     product: build.query({
-      query: () => ({
-        url: `/recycle-drug/history`,
+      query: (pagination: number) => ({
+        url: `/recycle-drug/history?page=${pagination}&limit=${DEFAULT_PAGE_SIZE}`,
       }),
       transformResponse: (response) => {
         return allEntry(response)
@@ -23,6 +23,14 @@ export const historyApi = createApi({
     collect: build.query({
       query: (pagination: number) => ({
         url: `/recycle-drug?page=${pagination}&limit=${DEFAULT_PAGE_SIZE}`,
+      }),
+      transformResponse: (response: CollectParser) => {
+        return collectAllEntry(response)
+      },
+    }),
+    collectSearch: build.query({
+      query: (value: any) => ({
+        url: `/recycle-drug/search/${value.search}?page=${value.page}&limit=${DEFAULT_PAGE_SIZE}`,
       }),
       transformResponse: (response: CollectParser) => {
         return collectAllEntry(response)
@@ -45,6 +53,7 @@ export const historyApi = createApi({
 export const {
   useProductQuery,
   useCollectQuery,
+  useCollectSearchQuery,
   useDeleteProductMutation,
   useCompaniesQuery,
 }: any = historyApi

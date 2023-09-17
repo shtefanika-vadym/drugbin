@@ -9,8 +9,8 @@ export const Camera = () => {
   const [drugsIdentify] = useDrugsIdentifyMutation()
   const handleFileUpload = async (event: any) => {
     const file = event.target.files[0]
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const formData = new FormData()
-    console.log('formData', formData)
     await drugsIdentify(file)
   }
 
