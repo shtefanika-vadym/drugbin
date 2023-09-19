@@ -1,5 +1,7 @@
+import type { DocumentsVerbalProces } from 'common/interfaces/DocumentsProps'
 import type { CollectDataParser, CollectParser } from 'common/interfaces/HistoryTypes'
 import { UtilService } from 'common/services/utilService'
+import { customDateFormat, customTimeFormat } from 'common/utils/utils'
 import { capitalize } from 'lodash-es'
 
 // TODO: --> REPLACE ANY
@@ -87,4 +89,22 @@ const toVerbalProcesDrugList = (entry: any, key: number) => {
     },
     isPsycholeptic: entry.drugDetails.isPsycholeptic,
   }
+}
+
+export const toDocumentsVerbalProces = (input: DocumentsVerbalProces[]) => {
+  return input.map((entry) => {
+    return {
+      createAt: {
+        data: customDateFormat(entry.createdAt),
+        time: customTimeFormat(entry.createdAt),
+      },
+      period: {
+        startDate: customDateFormat(entry.startDate),
+        endDate: customDateFormat(entry.endDate),
+      },
+      deletedAt: entry.deletedAt,
+      id: entry.id,
+      sharedAt: entry.sharedAt,
+    }
+  })
 }

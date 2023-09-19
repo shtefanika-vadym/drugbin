@@ -20,6 +20,16 @@ export const TopBlock = () => {
     if (getLastElement(path) === 'collect' || getLastElement(path) === 'all') return true
   }
 
+  const isActiveDocuments = (path: string) => {
+    if (
+      getLastElement(path) === 'verbal-process' ||
+      getLastElement(path) === 'psychotropic' ||
+      getLastElement(path) === 'shared' ||
+      getLastElement(path) === 'trash'
+    )
+      return true
+  }
+
   return (
     <Header>
       <Container>
@@ -35,10 +45,10 @@ export const TopBlock = () => {
             <Dot isActive={isActiveHistory(location.pathname)} />
           </NavLink>
           <NavLink
-            isActive={location.pathname === '/documents'}
-            onClick={() => handleNavigateTo('/documents')}>
+            isActive={isActiveDocuments(location.pathname)}
+            onClick={() => handleNavigateTo('/documents/verbal-process')}>
             Documents
-            <Dot isActive={location.pathname === '/documents'} />
+            <Dot isActive={isActiveDocuments(location.pathname)} />
           </NavLink>
         </Navigation>
         <Logo src={logo} onClick={handleNavigate} />

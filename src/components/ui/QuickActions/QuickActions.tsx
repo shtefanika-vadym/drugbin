@@ -8,6 +8,7 @@ import editIcon from 'common/assets/edit.svg'
 import eye from 'common/assets/eye-table.svg'
 import shareLine from 'common/assets/share-line.svg'
 import deleteIcon from 'common/assets/trash.svg'
+import reverse from 'common/assets/reverse.svg'
 
 import { SET_SHOW_MODAL } from 'common/state/modalSlice'
 
@@ -88,6 +89,24 @@ export const QuickActions: FC<IQuickActionsProps> = ({ id, variant = 'pharmacy',
           </Button>
           <Button variant='square' size='S-square'>
             <Icon src={downloadCloudLine} />
+          </Button>
+        </>
+      ) : variant === 'shared' ? (
+        <>
+          <Button variant='square' size='S-square'>
+            <Icon src={eye} onClick={openPDF} />
+          </Button>
+          <Button variant='square' size='S-square'>
+            <Icon src={downloadCloudLine} />
+          </Button>
+        </>
+      ) : variant === 'trash' ? (
+        <>
+          <Button variant='square' size='S-square'>
+            <Icon src={eye} onClick={openPDF} />
+          </Button>
+          <Button variant='square' size='S-square'>
+            <Icon src={reverse} />
           </Button>
         </>
       ) : (

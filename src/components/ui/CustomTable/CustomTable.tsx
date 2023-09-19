@@ -4,6 +4,7 @@ import { Empty } from 'components/ui/Empty/Empty'
 import { PdfSkeleton } from 'components/ui/PdfSkeleton/PdfSkeleton'
 import { isEmpty } from 'lodash-es'
 import type { FC } from 'react'
+import { DocumentsSkeleton } from 'components/ui/DocumentsSkeleton/DocumentsSkeleton'
 import type { CustomTableProps } from './CustomTable.type'
 
 export const CustomTable: FC<CustomTableProps> = ({
@@ -16,6 +17,8 @@ export const CustomTable: FC<CustomTableProps> = ({
     switch (loadingType) {
       case 'pdf':
         return <PdfSkeleton />
+      default:
+        return <DocumentsSkeleton />
     }
   }
 

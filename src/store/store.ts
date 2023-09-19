@@ -13,6 +13,7 @@ import { homeSlice } from 'features/Home/state/slices/homeSlice'
 import { landingApi } from 'features/LandingPage/store/api/landingApi'
 import { statusApi } from 'api/statusApi'
 import { authApi } from 'components/login/store/api/authApi'
+import { documentsApi } from 'api/documentsApi'
 
 const rootReducer = combineReducers({
   modal: modalReducer,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   [statusApi.reducerPath as keyof object]: statusApi.reducer,
   [recycleApi.reducerPath as keyof object]: recycleApi.reducer,
   [landingApi.reducerPath as keyof object]: landingApi.reducer,
+  [documentsApi.reducerPath as keyof object]: documentsApi.reducer,
 })
 
 export const store = configureStore({
@@ -39,7 +41,8 @@ export const store = configureStore({
       .concat(homeApi.middleware)
       .concat(statusApi.middleware)
       .concat(recycleApi.middleware)
-      .concat(landingApi.middleware),
+      .concat(landingApi.middleware)
+      .concat(documentsApi.middleware),
 })
 
 setupListeners(store.dispatch)
