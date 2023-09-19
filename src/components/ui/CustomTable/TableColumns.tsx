@@ -5,9 +5,48 @@ import { QuickActions } from 'components/ui/QuickActions/QuickActions'
 import { SubtitleWrapper, NameWrapper } from './CustomTable.styled'
 import { Tag } from 'components/ui/Tag/Tag'
 
-export const columns: ColumnsType<any> = [
+export const columnsDocumentsPV: ColumnsType<any> = [
   {
     title: 'Name',
+    dataIndex: 'id',
+    key: 'id',
+    render: (id) => (
+      <NameWrapper>
+        Raport Medicamente<SubtitleWrapper>{id}</SubtitleWrapper>
+      </NameWrapper>
+    ),
+  },
+  {
+    title: 'Data creări',
+    dataIndex: 'createAt',
+    key: 'createAt',
+    render: ({ data, time }) => (
+      <NameWrapper>
+        {data}
+        <SubtitleWrapper>{time}</SubtitleWrapper>
+      </NameWrapper>
+    ),
+  },
+  {
+    title: 'Perioadă de timp',
+    dataIndex: 'period',
+    key: 'period',
+    render: ({ startDate, endDate }) => (
+      <NameWrapper>
+        {startDate} - {endDate}
+      </NameWrapper>
+    ),
+  },
+  {
+    title: 'Acțiuni',
+    key: 'action',
+    render: (id) => <QuickActions variant='documents' id={id} />,
+  },
+]
+
+export const columns: ColumnsType<any> = [
+  {
+    title: 'Nume',
     dataIndex: 'name',
     key: 'name',
     render: ({ name, id }) => (
@@ -27,12 +66,12 @@ export const columns: ColumnsType<any> = [
     ),
   },
   {
-    title: 'Quantity',
+    title: 'Cantitate',
     dataIndex: 'quantity',
     key: 'quantity',
   },
   {
-    title: 'Pack',
+    title: 'Tip (cutie/blister)',
     dataIndex: 'pack',
     key: 'pack',
   },
@@ -43,7 +82,7 @@ export const columns: ColumnsType<any> = [
     render: () => <Tag variant='recycled'>Collected</Tag>,
   },
   {
-    title: 'Action',
+    title: 'Acțiuni',
     key: 'action',
     render: (id: number) => <QuickActions id={id} />,
   },
@@ -51,7 +90,7 @@ export const columns: ColumnsType<any> = [
 
 export const columnsRecycle: ColumnsType<any> = [
   {
-    title: 'Name',
+    title: 'Nume',
     dataIndex: 'name',
     key: 'name',
     render: ({ name, id }) => (
@@ -71,12 +110,12 @@ export const columnsRecycle: ColumnsType<any> = [
     ),
   },
   {
-    title: 'Pack',
+    title: 'Tip (cutie/blister)',
     dataIndex: 'pack',
     key: 'pack',
   },
   {
-    title: 'Quantity',
+    title: 'Cantitate',
     dataIndex: 'quantity',
     key: 'quantity',
   },
@@ -84,7 +123,7 @@ export const columnsRecycle: ColumnsType<any> = [
 
 export const columnsDocuments: ColumnsType<any> = [
   {
-    title: 'Name',
+    title: 'Nume',
     dataIndex: 'name',
     key: 'name',
     render: ({ name, id }) => (
@@ -94,7 +133,7 @@ export const columnsDocuments: ColumnsType<any> = [
     ),
   },
   {
-    title: 'Creation time',
+    title: 'Data creări',
     dataIndex: 'time',
     key: 'time',
     render: ({ data, time }) => (
@@ -104,12 +143,12 @@ export const columnsDocuments: ColumnsType<any> = [
     ),
   },
   {
-    title: 'Time period',
+    title: 'Perioadă de timp',
     dataIndex: 'period',
     key: 'period',
   },
   {
-    title: 'Action',
+    title: 'Acțiuni',
     key: 'action',
     render: (id: number) => <QuickActions variant='documents' id={id} />,
   },
@@ -151,5 +190,83 @@ export const columnsPV: ColumnsType<any> = [
     dataIndex: 'isPsycholeptic',
     key: 'isPsycholeptic',
     render: (isPsycholeptic) => <NameWrapper>{isPsycholeptic && 'Psihotrop'}</NameWrapper>,
+  },
+]
+
+export const columnsDocumentsShared: ColumnsType<any> = [
+  {
+    title: 'Nume',
+    dataIndex: 'id',
+    key: 'id',
+    render: (id) => (
+      <NameWrapper>
+        Raport Medicamente<SubtitleWrapper>{id}</SubtitleWrapper>
+      </NameWrapper>
+    ),
+  },
+  {
+    title: 'Data creări',
+    dataIndex: 'createAt',
+    key: 'createAt',
+    render: ({ data, time }) => (
+      <NameWrapper>
+        {data}
+        <SubtitleWrapper>{time}</SubtitleWrapper>
+      </NameWrapper>
+    ),
+  },
+  {
+    title: 'Perioadă de timp',
+    dataIndex: 'period',
+    key: 'period',
+    render: ({ startDate, endDate }) => (
+      <NameWrapper>
+        {startDate} - {endDate}
+      </NameWrapper>
+    ),
+  },
+  {
+    title: 'Acțiuni',
+    key: 'action',
+    render: (id) => <QuickActions variant='shared' id={id} />,
+  },
+]
+
+export const columnsDocumentsTrash: ColumnsType<any> = [
+  {
+    title: 'Nume',
+    dataIndex: 'id',
+    key: 'id',
+    render: (id) => (
+      <NameWrapper>
+        Raport Medicamente<SubtitleWrapper>{id}</SubtitleWrapper>
+      </NameWrapper>
+    ),
+  },
+  {
+    title: 'Data creări',
+    dataIndex: 'createAt',
+    key: 'createAt',
+    render: ({ data, time }) => (
+      <NameWrapper>
+        {data}
+        <SubtitleWrapper>{time}</SubtitleWrapper>
+      </NameWrapper>
+    ),
+  },
+  {
+    title: 'Perioadă de timp',
+    dataIndex: 'period',
+    key: 'period',
+    render: ({ startDate, endDate }) => (
+      <NameWrapper>
+        {startDate} - {endDate}
+      </NameWrapper>
+    ),
+  },
+  {
+    title: 'Acțiuni',
+    key: 'action',
+    render: (id) => <QuickActions variant='trash' id={id} />,
   },
 ]

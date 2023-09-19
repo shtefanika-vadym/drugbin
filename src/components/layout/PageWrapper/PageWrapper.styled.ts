@@ -13,6 +13,7 @@ export const Main = styled.div`
   padding: ${WDS_SIZE_016_PX} ${WDS_SIZE_024_PX};
   border-radius: ${WDS_SIZE_016_PX};
   margin: 0 20px;
+  min-height: 80vh;
 
   @media (min-width: ${WDS_BREAKPOINT_DESKTOP_S}) {
     padding: ${WDS_SIZE_024_PX};

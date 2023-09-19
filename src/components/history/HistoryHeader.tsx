@@ -39,7 +39,7 @@ export const HistoryHeader: React.FC<{ setDebouncedState: (value: string) => voi
   return (
     <Content>
       <TitleWrapper>
-        <Title>Entry History</Title>
+        <Title>Istoricul intrărilor</Title>
         <SearchWrapper>
           <Input
             type='search'
@@ -47,7 +47,7 @@ export const HistoryHeader: React.FC<{ setDebouncedState: (value: string) => voi
             value={search}
             onChange={handleSearch}
           />
-          <Button onClick={handleNavigateToAddEntry}>New Entry</Button>
+          <Button onClick={handleNavigateToAddEntry}>Intrare nouă</Button>
         </SearchWrapper>
       </TitleWrapper>
       <NavigateList list={LIST} />
