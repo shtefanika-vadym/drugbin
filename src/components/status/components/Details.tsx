@@ -1,5 +1,8 @@
 import type { FC } from 'react'
 
+import { SET_SHOW_MODAL } from 'common/state/modalSlice'
+import { PdfViewer } from 'components/ui/PdfViewer/PdfViewer'
+import { useAppDispatch } from 'store/hooks'
 import {
   ContentDetails,
   DetailsText,
@@ -7,9 +10,6 @@ import {
   DetailsTitle,
   DetailsWrapper,
 } from './Details.styled'
-import { PdfViewer } from 'components/ui/PdfViewer/PdfViewer'
-import { SET_SHOW_MODAL } from 'common/state/modalSlice'
-import { useAppDispatch } from 'store/hooks'
 
 interface IDetails {
   name: string

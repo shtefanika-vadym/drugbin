@@ -5,7 +5,7 @@ import { PageWrapper } from 'components/layout/PageWrapper/PageWrapper'
 export const DocumentsPVPage = () => {
   return (
     <PageWrapper>
-      <DocumentsHeader showButton={true} />
+      <DocumentsHeader showButton={true} type='normal' />
       <VerbalProcess />
     </PageWrapper>
   )

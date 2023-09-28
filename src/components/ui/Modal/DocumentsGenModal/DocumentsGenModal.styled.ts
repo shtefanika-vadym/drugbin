@@ -19,3 +19,7 @@ export const Details = styled.p`
 export const ButtonWrapper = styled.div`
   ${flex({ gap: WDS_SIZE_012_PX })};
 `
+
+export const Span = styled.span`
+  font-weight: bold;
+`

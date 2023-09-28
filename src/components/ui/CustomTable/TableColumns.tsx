@@ -40,7 +40,7 @@ export const columnsDocumentsPV: ColumnsType<any> = [
   {
     title: 'Acțiuni',
     key: 'action',
-    render: (id) => <QuickActions variant='documents' id={id} />,
+    render: ({ id }) => <QuickActions variant='documents' id={id} />,
   },
 ]
 
@@ -84,7 +84,7 @@ export const columns: ColumnsType<any> = [
   {
     title: 'Acțiuni',
     key: 'action',
-    render: (id: number) => <QuickActions id={id} />,
+    render: ({ id }) => <QuickActions id={id} />,
   },
 ]
 
@@ -150,7 +150,7 @@ export const columnsDocuments: ColumnsType<any> = [
   {
     title: 'Acțiuni',
     key: 'action',
-    render: (id: number) => <QuickActions variant='documents' id={id} />,
+    render: ({ id }) => <QuickActions variant='documents' id={id} />,
   },
 ]
 
@@ -198,7 +198,7 @@ export const columnsDocumentsShared: ColumnsType<any> = [
     title: 'Nume',
     dataIndex: 'id',
     key: 'id',
-    render: (id) => (
+    render: ({ id }) => (
       <NameWrapper>
         Raport Medicamente<SubtitleWrapper>{id}</SubtitleWrapper>
       </NameWrapper>
@@ -228,7 +228,7 @@ export const columnsDocumentsShared: ColumnsType<any> = [
   {
     title: 'Acțiuni',
     key: 'action',
-    render: (id) => <QuickActions variant='shared' id={id} />,
+    render: ({ id }) => <QuickActions variant='shared' id={id} />,
   },
 ]
 
@@ -237,7 +237,7 @@ export const columnsDocumentsTrash: ColumnsType<any> = [
     title: 'Nume',
     dataIndex: 'id',
     key: 'id',
-    render: (id) => (
+    render: ({ id }) => (
       <NameWrapper>
         Raport Medicamente<SubtitleWrapper>{id}</SubtitleWrapper>
       </NameWrapper>
@@ -267,6 +267,6 @@ export const columnsDocumentsTrash: ColumnsType<any> = [
   {
     title: 'Acțiuni',
     key: 'action',
-    render: (id) => <QuickActions variant='trash' id={id} />,
+    render: ({ id }) => <QuickActions variant='trash' id={id} />,
   },
 ]

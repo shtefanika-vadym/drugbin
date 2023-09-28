@@ -26,7 +26,12 @@ const Modal = ({ children, callbackOnClose, type }: IModalProps) => {
 
   const { isBelowDesktop } = useBreakpoints()
 
-  const handleCloseModal = () => {
+  const handleCloseModal = (e: any) => {
+    if (
+      Array.from(e?.srcElement?.classList)?.every((element: any) => element.includes('ant-picker'))
+    ) {
+      return
+    }
     dispatch(SET_SHOW_MODAL({ isOpenModal: false, childModal: null }))
     setLocked(!locked)
   }

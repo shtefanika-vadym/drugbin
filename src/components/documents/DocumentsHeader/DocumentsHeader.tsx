@@ -4,17 +4,28 @@ import { DocumentsGenModal } from 'components/ui/Modal/DocumentsGenModal/Documen
 import { NavigateList } from 'components/ui/NavigateList/NavigateList'
 import { useAppDispatch } from 'store/hooks'
 import { Content, Title, TitleWrapper } from './DocumentsHeader.styled'
+import { useDocumentsLastDateQuery } from 'api/documentsApi'
 
 const LIST = ['Proces Verbal', 'Psihotropice', 'Trimise', 'Șterse']
 
-export const DocumentsHeader: React.FC<{ showButton?: boolean }> = ({ showButton = false }) => {
+export const DocumentsHeader: React.FC<{ showButton?: boolean; type?: string }> = ({
+  showButton = false,
+  type,
+}) => {
   const dispatch = useAppDispatch()
+  const { data } = useDocumentsLastDateQuery(type)
 
   const callbackOnClickGenerate = () => {
     dispatch(
       SET_SHOW_MODAL({
         isOpenModal: true,
-        childModal: <DocumentsGenModal handleCloseModal={handleCloseModal} />,
+        childModal: (
+          <DocumentsGenModal
+            handleCloseModal={handleCloseModal}
+            disabledDate={data.date}
+            type={type}
+          />
+        ),
       }),
     )
   }
