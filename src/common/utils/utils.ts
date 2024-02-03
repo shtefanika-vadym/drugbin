@@ -8,7 +8,7 @@ export const customDateFormat = (timestampString: string) => {
   const month = date.getMonth() + 1
   const day = date.getDate()
   const year = date.getFullYear()
-  return `${month}/${day}/${year}`
+  return `${day}/${month}/${year}`
 }
 
 export const customTimeFormat = (timestampString: string) => {
@@ -19,4 +19,11 @@ export const customTimeFormat = (timestampString: string) => {
     .toString()
     .padStart(2, '0')}`
   return formattedTime
+}
+
+export const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  })
 }

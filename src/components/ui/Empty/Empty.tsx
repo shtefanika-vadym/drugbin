@@ -5,7 +5,7 @@ interface EmptyProps {
   description?: string
 }
 
-export const Empty: React.FC<EmptyProps> = ({ description = 'No Data' }) => {
+export const Empty: React.FC<EmptyProps> = ({ description = 'Nu există date disponibile!' }) => {
   return (
     <Content>
       <Icon src={noData} alt='No Data' />

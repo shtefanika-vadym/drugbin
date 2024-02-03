@@ -46,6 +46,7 @@ export const NotificationProvider = ({ children }: { children: ReactNode }) => {
       ),
       closeIcon: <img src={closeIcon} alt={ALT_CONSTANTS.ACTION_ICON} />,
     })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

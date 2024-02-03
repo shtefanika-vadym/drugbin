@@ -1,9 +1,10 @@
+import { flex } from 'common/style/mixins/flex.mixin'
 import styled from 'styled-components'
 
-import { flex } from 'common/style/mixins/flex.mixin'
-
 export const Container = styled.div`
-  ${flex({ direction: 'row', gap: '16px' })}
+  width: fit-content;
 `
 
-export const Icon = styled.img``
+export const ButtonWrapper = styled.div`
+  ${flex({ direction: 'row', justifyContent: 'flex-end', flexWrap: 'nowrap', gap: '16px' })};
+`

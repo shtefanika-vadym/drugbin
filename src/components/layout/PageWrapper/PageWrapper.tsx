@@ -1,6 +1,7 @@
-import type { ReactNode } from 'react'
 import { TopBlock } from 'components/layout/TopBlock/TopBlock'
-import { Page, Main } from './PageWrapper.styled'
+import { Content } from 'layout/Content/Content'
+import type { ReactNode } from 'react'
+import { Main, Page } from './PageWrapper.styled'
 
 interface PageWrapperProps {
   children?: ReactNode
@@ -11,8 +12,9 @@ export const PageWrapper: React.FC<PageWrapperProps> = ({ children }) => {
   return (
     <Page>
       <TopBlock />
-      <Main>{children}</Main>
-      {/* <BottomBlock /> */}
+      <Main>
+        <Content>{children}</Content>
+      </Main>
     </Page>
   )
 }

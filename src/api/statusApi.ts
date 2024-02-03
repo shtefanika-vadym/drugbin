@@ -12,7 +12,7 @@ export const statusApi = createApi({
   endpoints: (build: EndpointBuilder<BaseQueryFn, string, string>) => ({
     collectStatus: build.query({
       query: (id: string) => ({
-        url: `recycle-drug/verbal-process/${id}`,
+        url: `recycle/verbal-process/${id}`,
       }),
       transformResponse: (response): VerbalProcesData => {
         return verbalProcessData(response)
@@ -31,7 +31,7 @@ export const statusApi = createApi({
     }),
     updateStatus: build.mutation({
       query: (id) => ({
-        url: `recycle-drug/${id}`,
+        url: `recycle/${id}`,
         method: 'PATCH',
       }),
     }),

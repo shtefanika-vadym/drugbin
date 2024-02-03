@@ -1,10 +1,9 @@
 import logo from 'common/assets/logo.svg'
+import { getLastElement } from 'common/utils/utils'
 import { Header } from 'components/layout/Header'
-import { SelectLanguage } from 'components/ui/SelectLanguage/SelectLanguage'
 import { useCallback } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Container, Dot, Logo, NavLink, Navigation } from './TopBlock.styled'
-import { getLastElement } from 'common/utils/utils'
 
 // TODO --> REFACTORING
 export const TopBlock = () => {
@@ -12,12 +11,15 @@ export const TopBlock = () => {
   const handleNavigate = () => navigate('/')
   const location = useLocation()
 
-  const handleNavigateTo = useCallback((link: string) => {
-    navigate(link)
-  }, [])
+  const handleNavigateTo = useCallback(
+    (link: string) => {
+      navigate(link)
+    },
+    [navigate],
+  )
 
   const isActiveHistory = (path: string) => {
-    if (getLastElement(path) === 'collect' || getLastElement(path) === 'all') return true
+    if (getLastElement(path) === 'gestionare') return true
   }
 
   const isActiveDocuments = (path: string) => {
@@ -35,24 +37,23 @@ export const TopBlock = () => {
       <Container>
         <Navigation>
           <NavLink isActive={location.pathname === '/'} onClick={() => handleNavigateTo('/')}>
-            Home
+            Statistici
             <Dot isActive={location.pathname === '/'} />
           </NavLink>
           <NavLink
             isActive={isActiveHistory(location.pathname)}
-            onClick={() => handleNavigateTo('/history/collect')}>
-            History
+            onClick={() => handleNavigateTo('/gestionare')}>
+            Gestionare
             <Dot isActive={isActiveHistory(location.pathname)} />
           </NavLink>
           <NavLink
             isActive={isActiveDocuments(location.pathname)}
             onClick={() => handleNavigateTo('/documents/verbal-process')}>
-            Documents
+            Documente
             <Dot isActive={isActiveDocuments(location.pathname)} />
           </NavLink>
         </Navigation>
         <Logo src={logo} onClick={handleNavigate} />
-        <SelectLanguage />
       </Container>
     </Header>
   )

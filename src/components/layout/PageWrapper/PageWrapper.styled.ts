@@ -1,25 +1,14 @@
-import { WDS_BREAKPOINT_DESKTOP_S, WDS_BREAKPOINT_DESKTOP_M } from 'common/constants/breakpoint'
-import { WDS_COLOR_WHITE } from 'common/style/colors'
 import { flex } from 'common/style/mixins/flex.mixin'
-import { WDS_SIZE_016_PX, WDS_SIZE_024_PX } from 'common/style/size'
+import { WDS_SIZE_024_PX } from 'common/style/size'
 import styled from 'styled-components'
 
 export const Page = styled.div`
-  ${flex({ direction: 'column', gap: WDS_SIZE_024_PX })};
+  ${flex({ direction: 'column', gap: WDS_SIZE_024_PX, alignItems: 'center' })};
 `
 
 export const Main = styled.div`
-  flex-grow: 1;
-  padding: ${WDS_SIZE_016_PX} ${WDS_SIZE_024_PX};
-  border-radius: ${WDS_SIZE_016_PX};
-  margin: 0 20px;
-  min-height: 80vh;
-
-  @media (min-width: ${WDS_BREAKPOINT_DESKTOP_S}) {
-    padding: ${WDS_SIZE_024_PX};
-    width: 100%;
-    max-width: ${WDS_BREAKPOINT_DESKTOP_M};
-    margin: 0 auto;
-  }
-  background-color: ${WDS_COLOR_WHITE};
+  ${flex({ direction: 'column', gap: WDS_SIZE_024_PX, alignItems: 'center' })};
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 80px;
 `

@@ -1,4 +1,4 @@
-export type TagVriant = 'pending' | 'recycled'
+export type TagVriant = 'pending' | 'recycled' | 'approved' | 'deny'
 
 export interface TagProps {
   variant?: TagVriant

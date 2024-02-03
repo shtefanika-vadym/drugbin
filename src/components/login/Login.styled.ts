@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { WDS_COLOR_BLUE_400, WDS_COLOR_RED, WDS_COLOR_WHITE } from 'common/style/colors'
 import { flex } from 'common/style/mixins/flex.mixin'
 import { textVariant } from 'common/style/mixins/typography.mixin'
+import { WDS_SIZE_048_PX } from 'common/style/size'
 
 export const ContentLogin = styled.form`
   ${flex({ direction: 'row' })};
@@ -17,6 +18,7 @@ export const LeftSide = styled.div`
   flex: 1;
   background: ${WDS_COLOR_WHITE};
   ${flex({ direction: 'column', alignItems: 'center', justifyContent: 'center', gap: '24px' })};
+  padding: ${WDS_SIZE_048_PX};
 `
 
 export const Error = styled.p`

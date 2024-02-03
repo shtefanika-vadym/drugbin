@@ -1,13 +1,26 @@
-import approveIcon from 'common/assets/approve.png'
-
+import { useGetEntriesQuery } from 'api/management'
 import { useUpdateStatusMutation } from 'api/statusApi'
-
-import { BoxIcon, ButtonWrapper, ContentApprove, Title, TitleBox } from './ApproveModal.styled'
-import Modal from 'components/ui/Modal/Modal'
+import approveIcon from 'common/assets/approve.png'
 import { Button } from 'components/ui/Button/Button'
+import Modal from 'components/ui/Modal/Modal'
+import { useMemo } from 'react'
+import { useSearchParams } from 'react-router-dom'
+import {
+  BoxIcon,
+  ButtonWrapper,
+  Container,
+  Description,
+  Text,
+  Title,
+  TitleBox,
+} from './ApproveModal.styled'
 
-export const ApproveModal = ({ handleCloseModal, id, refetch }: any) => {
+export const ApproveModal = ({ handleCloseModal, id }: any) => {
   const [updateStatus, { isLoading }] = useUpdateStatusMutation()
+
+  const [searchParams] = useSearchParams()
+  const currentPage = useMemo(() => Number(searchParams.get('page')) || 1, [searchParams])
+  const { refetch } = useGetEntriesQuery(currentPage)
 
   const handleUpdateStatus = async () => {
     if (id) await updateStatus(id)
@@ -15,23 +28,30 @@ export const ApproveModal = ({ handleCloseModal, id, refetch }: any) => {
     refetch()
   }
 
-  // TODO --> REFACTORING
   return (
     <Modal callbackOnClose={handleCloseModal}>
-      <ContentApprove>
+      <Container>
         <TitleBox>
           <BoxIcon>
-            <img src={approveIcon} alt='' />
+            <img src={approveIcon} alt='Approve' />
           </BoxIcon>
-          <Title>Are you sure you want to approve this?</Title>
+          <Title>Sunteți sigur că doriți să aprobați această cerere de colectare?</Title>
         </TitleBox>
+        <Description>
+          <Text>
+            Aceasta este o acțiune ireversibilă care va duce la aprobarea cererii de colectare în
+            sistemul DrugBin.
+          </Text>
+        </Description>
         <ButtonWrapper>
-          <Button variant='secondary'>Cancel</Button>
+          <Button variant='secondary' onClick={handleCloseModal}>
+            Anulare
+          </Button>
           <Button variant='primary' onClick={handleUpdateStatus}>
-            {isLoading ? 'Loading...' : 'Approve'}
+            {isLoading ? 'Încărcare...' : 'Aprobare'}
           </Button>
         </ButtonWrapper>
-      </ContentApprove>
+      </Container>
     </Modal>
   )
 }

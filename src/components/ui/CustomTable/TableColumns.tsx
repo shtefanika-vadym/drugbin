@@ -1,9 +1,9 @@
 import type { ColumnsType } from 'antd/lib/table'
-
+import { WDS_COLOR_GREY } from 'common/style/colors'
+import { Copy } from 'components/ui/Copy/Copy'
 import { QuickActions } from 'components/ui/QuickActions/QuickActions'
-
-import { SubtitleWrapper, NameWrapper } from './CustomTable.styled'
 import { Tag } from 'components/ui/Tag/Tag'
+import { NameWrapper, SubtitleWrapper, Text } from './CustomTable.styled'
 
 export const columnsDocumentsPV: ColumnsType<any> = [
   {
@@ -40,7 +40,7 @@ export const columnsDocumentsPV: ColumnsType<any> = [
   {
     title: 'Acțiuni',
     key: 'action',
-    render: (id) => <QuickActions variant='documents' id={id} />,
+    render: (id) => <QuickActions id={id} type='document-normal' />,
   },
 ]
 
@@ -84,7 +84,7 @@ export const columns: ColumnsType<any> = [
   {
     title: 'Acțiuni',
     key: 'action',
-    render: (id: number) => <QuickActions id={id} />,
+    render: (id: number) => <QuickActions id={id} type='document-normal' />,
   },
 ]
 
@@ -150,7 +150,7 @@ export const columnsDocuments: ColumnsType<any> = [
   {
     title: 'Acțiuni',
     key: 'action',
-    render: (id: number) => <QuickActions variant='documents' id={id} />,
+    render: (id: number) => <QuickActions id={id} type='document-normal' />,
   },
 ]
 
@@ -228,7 +228,7 @@ export const columnsDocumentsShared: ColumnsType<any> = [
   {
     title: 'Acțiuni',
     key: 'action',
-    render: (id) => <QuickActions variant='shared' id={id} />,
+    render: (id) => <QuickActions id={id} type='document-normal' />,
   },
 ]
 
@@ -267,6 +267,73 @@ export const columnsDocumentsTrash: ColumnsType<any> = [
   {
     title: 'Acțiuni',
     key: 'action',
-    render: (id) => <QuickActions variant='trash' id={id} />,
+    render: (id) => <QuickActions id={id} type='document-normal' />,
+  },
+]
+
+export const columnsManagement: ColumnsType<any> = [
+  {
+    title: 'Name',
+    dataIndex: 'user',
+    key: 'user',
+    render: ({ name, id }) => (
+      <NameWrapper>
+        {name}
+        <Copy text={id} />
+      </NameWrapper>
+    ),
+  },
+  {
+    title: 'Data creări',
+    dataIndex: 'createAt',
+    key: 'createAt',
+    render: ({ date, time }) => (
+      <NameWrapper>
+        {date}
+        <SubtitleWrapper>{time}</SubtitleWrapper>
+      </NameWrapper>
+    ),
+  },
+  {
+    title: 'Total medicamente',
+    dataIndex: 'quantity',
+    key: 'quantity',
+  },
+  {
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
+    render: (status) => <Tag variant={status} />,
+  },
+  {
+    title: 'Acțiuni',
+    dataIndex: 'user',
+    key: 'user',
+    render: ({ id }, data) => <QuickActions id={id} status={data?.status} type='entry-drug' />,
+  },
+]
+
+export const columnsManagementDrugs: ColumnsType<any> = [
+  {
+    dataIndex: 'drugDetails',
+    key: 'drugDetails',
+    render: ({ name, id }) => (
+      <NameWrapper>
+        <Text variant='bodyS'>{name}</Text>
+        <Text variant='bodyXS' color={WDS_COLOR_GREY}>
+          {id}
+        </Text>
+      </NameWrapper>
+    ),
+  },
+  {
+    dataIndex: 'pack',
+    key: 'pack',
+    render: (pack) => <Text variant='bodyS'>{pack}</Text>,
+  },
+  {
+    dataIndex: 'quantity',
+    key: 'quantity',
+    render: (quantity) => <Text variant='bodyS'>{quantity}</Text>,
   },
 ]

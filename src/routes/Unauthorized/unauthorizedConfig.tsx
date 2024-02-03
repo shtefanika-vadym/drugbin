@@ -1,7 +1,6 @@
 import type { RouteProps } from 'react-router-dom'
 import { Navigate } from 'react-router-dom'
 
-import { Collect } from 'features/Collect/pages/Collect'
 import { LoginPage } from 'pages/Login'
 
 enum UNAUTHORIZED_ROUTES {
@@ -20,10 +19,6 @@ export const UNAUTHORIZED_ROUTE_CONFIG: RouteProps[] = [
   {
     path: UNAUTHORIZED_PATHS.LOGIN,
     element: <LoginPage />,
-  },
-  {
-    path: UNAUTHORIZED_PATHS.COLLECT,
-    element: <Collect />,
   },
   {
     path: '*',

@@ -15,6 +15,7 @@ export const Content = styled.div`
 
 export const TitleWrapper = styled.div`
   ${flex({ justifyContent: 'space-between' })};
+  height: 40px;
 `
 
 export const Title = styled.p`

@@ -1,14 +1,9 @@
-// import { Navigate } from 'react-router-dom'
-
 import { DocumentsPVPage } from 'pages/DocumentsPV'
 import { DocumentsSharedPage } from 'pages/DocumentsShared'
 import { DocumentsTrashPage } from 'pages/DocumentsTrash'
-import { DrugEntryPage } from 'pages/DrugEntry'
-import { HistoryAllPage } from 'pages/HistoryAll'
-import { HistoryCollectPage } from 'pages/HistoryCollect'
 import { HomePage } from 'pages/Home'
+import { ManagementPage } from 'pages/Management'
 import { PsychotropicPage } from 'pages/Psychotropic'
-import { StatusPage } from 'pages/Status'
 import type { RouteProps } from 'react-router-dom'
 
 enum AUTHORIZED_PATH {
@@ -33,7 +28,7 @@ const AUTHORIZED_PATHS: Record<AUTHORIZED_PATH, string> = {
   [AUTHORIZED_PATH.STATUS]: '/status/:id',
   [AUTHORIZED_PATH.COLLECT_STATUS]: '/collect-status/:id',
   [AUTHORIZED_PATH.COLLECT]: '/collect',
-  [AUTHORIZED_PATH.HISTORY_COLLECT]: '/history/collect',
+  [AUTHORIZED_PATH.HISTORY_COLLECT]: '/gestionare',
   [AUTHORIZED_PATH.HISTORY_ALL]: '/history/all',
   [AUTHORIZED_PATH.DOCUMENTS_PV]: '/documents/verbal-process',
   [AUTHORIZED_PATH.DOCUMENTS_PSYCHOTROPIC]: '/documents/psychotropic',
@@ -51,11 +46,7 @@ export const AUTHORIZED_ROUTE_CONFIG: RouteProps[] = [
   },
   {
     path: AUTHORIZED_PATHS.HISTORY_COLLECT,
-    element: <HistoryCollectPage />,
-  },
-  {
-    path: AUTHORIZED_PATHS.HISTORY_ALL,
-    element: <HistoryAllPage />,
+    element: <ManagementPage />,
   },
   {
     path: AUTHORIZED_PATHS.DOCUMENTS_PV,
@@ -72,13 +63,5 @@ export const AUTHORIZED_ROUTE_CONFIG: RouteProps[] = [
   {
     path: AUTHORIZED_PATHS.DOCUMENTS_TRASH,
     element: <DocumentsTrashPage />,
-  },
-  {
-    path: AUTHORIZED_PATHS.ADD,
-    element: <DrugEntryPage />,
-  },
-  {
-    path: AUTHORIZED_PATHS.COLLECT_STATUS,
-    element: <StatusPage />,
   },
 ]

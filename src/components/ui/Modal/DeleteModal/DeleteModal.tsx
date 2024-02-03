@@ -1,6 +1,8 @@
 import type { FC } from 'react'
 
 import deleteIcon from 'common/assets/modalDelete.png'
+import { Button } from 'components/ui/Button/Button'
+import Modal from 'components/ui/Modal/Modal'
 import {
   ButtonWrapper,
   ContentDelete,
@@ -11,8 +13,6 @@ import {
   Title,
   WrapperText,
 } from './DeleteModal.styled'
-import Modal from 'components/ui/Modal/Modal'
-import { Button } from 'components/ui/Button/Button'
 
 interface IDeleteModal {
   id: number
@@ -30,15 +30,18 @@ export const DeleteModal: FC<IDeleteModal> = ({ handleCloseModal, id }) => {
             <Icon src={deleteIcon} />
           </IconWrapper>
           <WrapperText>
-            <Title>Are you sure you want to cancel this action?</Title>
+            <Title>Sunteți sigur că doriți să ștergeți această cerere de colectare?</Title>
             <Text>
-              This will delete all the data in the form and it is a non reversible action.
+              Aceasta este o acțiune ireversibilă care va duce la ștergerea datelor referitoare la
+              cererea de colectare din întregul sistem DrugBin.
             </Text>
           </WrapperText>
         </HeaderDelete>
         <ButtonWrapper>
-          <Button variant='primary'>Yes, I confirm</Button>
-          <Button variant='secondary'>No, close</Button>
+          <Button variant='primary'>Da, confirm.</Button>
+          <Button variant='secondary' onClick={handleCloseModal}>
+            Anulare
+          </Button>
         </ButtonWrapper>
       </ContentDelete>
     </Modal>

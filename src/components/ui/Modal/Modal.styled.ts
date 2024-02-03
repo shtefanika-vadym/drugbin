@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 import { WDS_BREAKPOINT_TABLET_UP_TO } from 'common/constants/breakpoint'
+import { flex } from 'common/style/mixins/flex.mixin'
 
 export const ContentModal = styled.nav`
   position: fixed;
@@ -44,4 +45,18 @@ export const ButtonWrapper = styled.div`
   position: absolute;
   right: 11px;
   top: 12px;
+`
+
+export const ContentPdf = styled.nav`
+  position: relative;
+  min-width: min-content;
+  height: auto;
+  margin: 0 auto;
+  background-color: transparent;
+  ${flex({ gap: '4px' })};
+`
+
+export const PdfButton = styled.div`
+  ${flex({ gap: '4px', justifyContent: 'flex-end' })};
+  margin-bottom: 8px;
 `

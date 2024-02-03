@@ -15,7 +15,7 @@ export const NavigateList: FC<NavigateListProps> = ({ list }) => {
   const handleChangTab = (tab: string) => {
     switch (tab) {
       case 'Collect':
-        return navigate('/history/collect')
+        return navigate('/gestionare')
       case 'All':
         return navigate('/history/all')
       case 'Proces Verbal':

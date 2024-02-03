@@ -77,6 +77,7 @@ export const UserIcon = styled.img`
 `
 
 export const Content = styled.div`
+  box-sizing: border-box;
   ${flex({ justifyContent: 'center' })};
   padding: ${WDS_SIZE_040_PX} ${WDS_SIZE_080_PX};
 
