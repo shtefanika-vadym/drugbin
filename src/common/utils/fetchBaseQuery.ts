@@ -30,6 +30,7 @@ export const baseQuery =
       })
       return { data: result.data }
     } catch (axiosError) {
+      // eslint-disable-next-line prefer-const
       let err = axiosError as AxiosError
       if (err.response?.status === 401) {
         localStorage.clear()

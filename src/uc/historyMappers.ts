@@ -1,4 +1,4 @@
-import type { DocumentsVerbalProces } from 'common/interfaces/DocumentsProps'
+import type { DocumentsVerbalProces, DocumentsVerbalProcesResponse } from 'common/interfaces/DocumentsProps'
 import type { CollectDataParser, CollectParser } from 'common/interfaces/HistoryTypes'
 import { UtilService } from 'common/services/utilService'
 import { customDateFormat, customTimeFormat } from 'common/utils/utils'
@@ -70,7 +70,7 @@ export const collectStatusTable = (input: any) => {
 export const verbalProcessData = (input: any) => {
   return {
     generationDate: input.generationDate,
-    pharmaName: input.drugDetails.chain.name,
+    pharmaName: '',
     clientName: `${input.drugDetails.firstName}  ${input.drugDetails.lastName}`,
     drugList: input.drugDetails.drugList.map((entry: any, key: number) =>
       toVerbalProcesDrugList(entry, key),
@@ -91,7 +91,7 @@ const toVerbalProcesDrugList = (entry: any, key: number) => {
   }
 }
 
-export const toDocumentsVerbalProces = (input: DocumentsVerbalProces[]) => {
+export const toDocumentsVerbalProces = (input: DocumentsVerbalProcesResponse[]): DocumentsVerbalProces[] => {
   return input.map((entry) => {
     return {
       createAt: {

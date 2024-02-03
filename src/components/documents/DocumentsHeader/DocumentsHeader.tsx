@@ -5,7 +5,8 @@ import { NavigateList } from 'components/ui/NavigateList/NavigateList'
 import { useAppDispatch } from 'store/hooks'
 import { Content, Title, TitleWrapper } from './DocumentsHeader.styled'
 
-const LIST = ['Proces Verbal', 'Psihotropice', 'Trimise', 'Șterse']
+// 'Trimise', 'Șterse'
+const LIST = ['Proces Verbal', 'Psihotropice']
 
 export const DocumentsHeader: React.FC<{ showButton?: boolean }> = ({ showButton = false }) => {
   const dispatch = useAppDispatch()
@@ -26,7 +27,7 @@ export const DocumentsHeader: React.FC<{ showButton?: boolean }> = ({ showButton
     <Content>
       <TitleWrapper>
         <Title>Documente</Title>
-        {showButton && <Button onClick={callbackOnClickGenerate}>Generare document</Button>}
+        {showButton && <Button onClick={callbackOnClickGenerate}>Generarea Rapoart</Button>}
       </TitleWrapper>
       <NavigateList list={LIST} />
     </Content>

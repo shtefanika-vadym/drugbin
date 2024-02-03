@@ -67,6 +67,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       register,
       isPharmacy: true,
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [user, error],
   )
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

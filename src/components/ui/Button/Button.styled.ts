@@ -1,9 +1,11 @@
 import styled, { css } from 'styled-components'
 
 import {
+  WDS_COLOR_BLUE_100,
   WDS_COLOR_BLUE_200,
   WDS_COLOR_BLUE_300,
   WDS_COLOR_BLUE_400,
+  WDS_COLOR_BLUE_500,
   WDS_COLOR_WHITE,
   WDS_COLOR_WHITE_100,
 } from 'common/style/colors'
@@ -15,6 +17,7 @@ import {
   WDS_SIZE_006_PX,
   WDS_SIZE_008_PX,
   WDS_SIZE_010_PX,
+  WDS_SIZE_016_PX,
   WDS_SIZE_024_PX,
 } from 'common/style/size'
 
@@ -54,10 +57,6 @@ export const buttonVariants = {
     background-color: transparent;
     ${border({ type: 'solid', color: WDS_COLOR_BLUE_300 })};
     border-radius: ${WDS_SIZE_008_PX};
-    &:hover {
-      background-color: ${WDS_COLOR_BLUE_300};
-      color: ${WDS_COLOR_WHITE};
-    }
     &:disabled {
       ${border({ type: 'solid', color: WDS_COLOR_BLUE_300 })};
     }
@@ -85,9 +84,20 @@ export const buttonVariants = {
       background-color: ${WDS_COLOR_BLUE_200};
     }
   `,
+  document: css`
+    ${textVariant('bodyXS')};
+    background-color: ${WDS_COLOR_BLUE_100};
+    border-radius: ${WDS_SIZE_008_PX};
+    color: ${WDS_COLOR_BLUE_500};
+  `,
 }
 
 export const buttonSizes = {
+  XS: css`
+    ${textVariant('bodyXS')};
+    padding: ${WDS_SIZE_008_PX} ${WDS_SIZE_016_PX};
+    gap: ${WDS_SIZE_004_PX};
+  `,
   S: css`
     ${fontNormal};
     padding: ${WDS_SIZE_010_PX} ${WDS_SIZE_024_PX};
@@ -97,7 +107,8 @@ export const buttonSizes = {
     padding: ${WDS_SIZE_004_PX};
   `,
   'S-round': css`
-    padding: ${WDS_SIZE_006_PX};
+    padding: ${WDS_SIZE_004_PX};
+    border-radius: 50%;
   `,
   None: css`
     padding: ${WDS_SIZE_006_PX};

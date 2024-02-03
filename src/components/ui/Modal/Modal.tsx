@@ -10,8 +10,8 @@ import xIcon from 'common/assets/close.svg'
 import useBreakpoints from 'common/hooks/useBreakpoints'
 import { SET_SHOW_MODAL } from 'common/state/modalSlice'
 
-import { ButtonWrapper, ContentModal, Icon, ModalWrapper } from './Modal.styled'
 import { Button } from 'components/ui/Button/Button'
+import { ButtonWrapper, ContentModal, Icon, ModalWrapper } from './Modal.styled'
 
 interface IModalProps {
   children: ReactChild | ReactNode
@@ -23,10 +23,10 @@ const Modal = ({ children, callbackOnClose, type }: IModalProps) => {
   const [locked, setLocked] = useLockedBody(true, 'root')
   const dispatch = useAppDispatch()
   const isPdf = Boolean(type === 'pdf')
-
   const { isBelowDesktop } = useBreakpoints()
-
-  const handleCloseModal = () => {
+  
+  const handleCloseModal = (e: any) => {
+    if (e.target.classList.contains('ant-picker-cell-inner')) return
     dispatch(SET_SHOW_MODAL({ isOpenModal: false, childModal: null }))
     setLocked(!locked)
   }
@@ -45,7 +45,6 @@ const Modal = ({ children, callbackOnClose, type }: IModalProps) => {
             </ButtonWrapper>
           )}
           <div>{children}</div>
-          {/* <button>test</button> */}
         </ModalWrapper>
       </ContentModal>
     </FocusLock>

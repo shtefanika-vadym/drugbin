@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import type { ComponentType, FC } from 'react'
 import { useEffect } from 'react'
 
@@ -17,6 +18,7 @@ export const withMonitorLocaleStorage = (Component: ComponentType) => {
       return () => {
         window.removeEventListener('storage', handleLocalStorageChange)
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user])
 
     return <Component {...props} />

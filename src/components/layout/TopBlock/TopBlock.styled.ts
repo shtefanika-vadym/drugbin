@@ -1,4 +1,3 @@
-import { WDS_BREAKPOINT_DESKTOP_M } from 'common/constants/breakpoint'
 import { WDS_COLOR_BLUE_300, WDS_COLOR_BLUE_400, WDS_COLOR_BLUE_700 } from 'common/style/colors'
 import { flex } from 'common/style/mixins/flex.mixin'
 import { textVariant } from 'common/style/mixins/typography.mixin'
@@ -9,7 +8,7 @@ export const Container = styled.div`
   width: 100%;
   margin: 0 auto;
   ${flex({ justifyContent: 'space-between' })};
-  max-width: ${WDS_BREAKPOINT_DESKTOP_M};
+  max-width: 1285px;
 `
 export const NavLink = styled.div<{ isActive: boolean }>`
   ${flex({ direction: 'column', alignItems: 'center' })};

@@ -1,3 +1,11 @@
+.drug .ant-table-thead {
+    display: none;
+}
+
+.drug .ant-table-cell {
+    padding: 0;
+}
+
 .customTable table {
     width: 100%;
 }
@@ -35,6 +43,7 @@
   font-size: 16px;
   line-height: 24px;
   color: #011640;
+  cursor: pointer;
 }
 
 .ant-table-cell {
@@ -78,4 +87,18 @@
     a {
         color: #2949A6;
     }
+}
+
+.ant-table-row-expand-icon-cell {
+    padding: 8px 0 8px 24px;
+}
+
+.ant-table-cell .ant-table-row-expand-icon-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ant-pagination-item-ellipsis {
+    display: none;
 }

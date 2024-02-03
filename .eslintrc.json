@@ -1,95 +1,36 @@
 {
-  "env": {
-    "browser": true,
-    "es2021": true
-  },
-  "extends": ["react-app", "prettier", "react-app/jest", "plugin:css-modules/recommended"],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "ecmaVersion": "latest",
-    "sourceType": "module"
-  },
-  "plugins": [
-    "react",
-    "@typescript-eslint",
-    "@typescript-eslint",
-    "prettier",
-    "css-modules",
-    "no-relative-import-paths",
-    "eslint-plugin-import-helpers"
-  ],
+  "extends": ["prettier", "plugin:@typescript-eslint/recommended"],
+  "plugins": ["react-hooks"],
   "rules": {
-    "curly": ["off"],
-    "no-shadow": "off",
-    "no-useless-escape": "off",
-    "react-hooks/rules-of-hooks": "off",
-    "no-param-reassign": [
-      "error",
-      {
-        "props": false
-      }
-    ],
-    "react-hooks/exhaustive-deps": "off",
-    "no-underscore-dangle": "off",
-    "no-console": "off",
+    "no-console": "warn",
     "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": [
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-explicit-any": "off",
+    "react/jsx-no-bind": ["off"],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": ["error"],
+    "@typescript-eslint/no-inferrable-types": [
       "error",
       {
-        "varsIgnorePattern": "^_$"
+        "ignoreParameters": true,
+        "ignoreProperties": true
       }
     ],
-    "no-multiple-empty-lines": [
+    "no-restricted-imports": [
       "error",
       {
-        "max": 2
-      }
-    ],
-    "css-modules/no-unused-class": [
-      2,
-      {
-        "camelCase": true
-      }
-    ],
-    "css-modules/no-undef-class": [
-      2,
-      {
-        "camelCase": true
-      }
-    ],
-    "prettier/prettier": [
-      "error",
-      {
-        "endOfLine": "auto"
-      }
-    ],
-    "no-relative-import-paths/no-relative-import-paths": [
-      "error",
-      {
-        "allowSameFolder": true
-      }
-    ],
-    "react/self-closing-comp": [
-      "error",
-      {
-        "component": true,
-        "html": true
-      }
-    ],
-    "@typescript-eslint/consistent-type-imports": [
-      "error",
-      {
-        "prefer": "type-imports"
-      }
-    ],
-    "react/jsx-curly-brace-presence": [
-      "error",
-      {
-        "props": "never",
-        "children": "never"
+        "paths": [
+          {
+            "name": "react-i18next",
+            "importNames": ["useTranslation"],
+            "message": "Please use next-i18next import instead to avoid hydration errors"
+          },
+          {
+            "name": "lodash",
+            "importNames": ["Dictionary"],
+            "message": "Please do not import Dictionary from lodash, import it from @/types/utils.types instead."
+          }
+        ]
       }
     ]
   }
