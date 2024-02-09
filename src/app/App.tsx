@@ -6,6 +6,7 @@ import { AuthProvider } from './providers'
 import { Provider } from 'react-redux'
 import { store } from 'store/store'
 import 'common/style/pagination.scss'
+import 'common/style/customDataPicker.scss'
 
 i18n.init({
   interpolation: { escapeValue: false },

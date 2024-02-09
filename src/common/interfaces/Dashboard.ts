@@ -1,17 +1,52 @@
 export interface DashboardResponse {
-  topProducers: any
-  topTypes: TopTypes
-  totalDrugs: any
+  documents: DocumentChart
+  drugs: DrugsChart
+  types: TypesChart
 }
 
-export type TopTypes = {
-  annualTopTypes: { type: string; total: number }[]
-  monthlyTopTypes: MonthlyTopTypes
+export type TypesChart = {
+  annual: MonthlyAnnualTypes[]
+  monthly: MonthlyTypes[]
 }
 
-type MonthlyTopTypes = {
+type MonthlyTypes = {
   [month: number]: {
     type: string
     total: number
-  }[]
+  }
 }
+
+type MonthlyAnnualTypes = {
+  type: string
+  total: number
+}
+
+export type DrugsChart = {
+  annual: number
+  monthly: number[]
+  monthlyDetails: MonthlyDetailsDrugs
+}
+
+type MonthlyDetailsDrugs = {
+  [month: string]: {
+    [day: string]: number
+  }
+}
+
+export type DocumentChart = {
+  annual: {
+    normal: number,
+    psycholeptic: number,
+    total: number
+  }
+  monthly: MonthlyDocumets
+}
+
+type MonthlyDocumets = {
+  normal: {
+      [month: string]: number;
+  };
+  psycholeptic: {
+      [month: string]: number;
+  };
+};

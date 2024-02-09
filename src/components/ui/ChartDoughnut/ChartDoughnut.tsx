@@ -1,6 +1,6 @@
 import { PieChart } from '@mui/x-charts/PieChart'
 import { useDrawingArea } from '@mui/x-charts/hooks'
-import { TopTypes } from 'common/interfaces/Dashboard'
+import { TypesChart } from 'common/interfaces/Dashboard'
 import {
   WDS_COLOR_BLACK,
   WDS_COLOR_BLUE_100,
@@ -40,20 +40,20 @@ const PieCenterLabel: React.FC<{ total: number }> = ({ total }) => {
 }
 
 interface ChartDoughnutProps {
-  doughnutData: TopTypes
+  doughnutData: TypesChart
 }
 
 export const ChartDoughnut: React.FC<ChartDoughnutProps> = ({ doughnutData }) => {
   const data = [
     { value: getValueByLabel('Rx', doughnutData), label: 'RX', color: '#2949A6' },
     { value: getValueByLabel('OTC', doughnutData), label: 'OTC', color: '#EBF0FB' },
-    { value: getValueByLabel('Supplement', doughnutData), label: 'Supliment', color: '#AEC5F2' },
+    { value: getValueByLabel('P6L', doughnutData), label: 'Supliment', color: '#AEC5F2' },
   ]
 
   const totalValue = useMemo(() => getDoughnutTotal(doughnutData), [doughnutData])
 
   return (
-    <DashboardCard title='Tip de medicament'> 
+    <DashboardCard title='Tip de medicament'>
       <Container>
         <DoughnutBackgorund>
           <PieChart

@@ -28,6 +28,7 @@ export const ExpandedRow: React.FC<ExpandedRowProps> = ({ data, id }) => {
     },
     [dispatch, id],
   )
+  // window.open(fileURL);
 
   return (
     <Container>

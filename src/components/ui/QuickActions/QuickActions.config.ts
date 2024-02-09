@@ -10,6 +10,6 @@ export const QUICK_ACTION_OPTIONS: QuickActionOption = {
 
 type QuickActionContent = {
   icon: React.ReactNode
-  action: (e?: React.MouseEvent<HTMLElement>) => void
+  action: (e?: React.MouseEvent<HTMLElement>) => void 
 }
 export type AvailableQuickAction = Record<Option, QuickActionContent>

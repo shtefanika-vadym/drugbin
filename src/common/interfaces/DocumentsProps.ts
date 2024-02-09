@@ -5,6 +5,7 @@ export interface DocumentsVerbalProcesResponse {
   id: number
   sharedAt: string
   startDate: string
+  documentId: string
 }
 
 export interface DocumentsVerbalProces {
@@ -19,4 +20,5 @@ export interface DocumentsVerbalProces {
   deletedAt: string
   id: number
   sharedAt: string
+  documentId: string
 }

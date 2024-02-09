@@ -25,6 +25,7 @@
     "chart.js": "^4.4.1",
     "classnames": "^2.3.1",
     "compose-function": "^3.0.3",
+    "dayjs": "^1.11.10",
     "dom-to-image": "^2.6.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-no-relative-import-paths": "^1.4.0",

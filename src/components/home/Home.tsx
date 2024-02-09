@@ -15,9 +15,9 @@ export const Home = () => {
       <ChartLine />
       <BottomChart>
         <ChartAlign>
-          <ChartDoughnut doughnutData={data?.topTypes} />
+          <ChartDoughnut doughnutData={data?.types} />
           <StatusType />
-          <DocumentType />
+          <DocumentType documentsData={data?.documents} />
         </ChartAlign>
       </BottomChart>
     </Container>

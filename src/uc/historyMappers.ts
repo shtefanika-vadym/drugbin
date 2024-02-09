@@ -105,6 +105,7 @@ export const toDocumentsVerbalProces = (input: DocumentsVerbalProcesResponse[]):
       deletedAt: entry.deletedAt,
       id: entry.id,
       sharedAt: entry.sharedAt,
+      documentId: entry.documentId
     }
   })
 }

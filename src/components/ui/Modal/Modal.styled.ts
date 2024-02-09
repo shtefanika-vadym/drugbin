@@ -34,7 +34,7 @@ export const ModalWrapper = styled.nav<{ type: string }>`
   flex-direction: ${(props) => (props.type === 'pdf' ? 'row' : 'column')};
 
   @media (max-width: ${WDS_BREAKPOINT_TABLET_UP_TO}) {
-    padding: 24px 16px;
+    padding: 36px 40px;
     margin: 0 16px;
   }
 `
@@ -43,8 +43,8 @@ export const Icon = styled.img``
 
 export const ButtonWrapper = styled.div`
   position: absolute;
-  right: 11px;
-  top: 12px;
+  right: 16px;
+  top: 14px;
 `
 
 export const ContentPdf = styled.nav`

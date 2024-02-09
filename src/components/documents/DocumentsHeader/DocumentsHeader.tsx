@@ -8,14 +8,14 @@ import { Content, Title, TitleWrapper } from './DocumentsHeader.styled'
 // 'Trimise', 'Șterse'
 const LIST = ['Proces Verbal', 'Psihotropice']
 
-export const DocumentsHeader: React.FC<{ showButton?: boolean }> = ({ showButton = false }) => {
+export const DocumentsHeader: React.FC<{ showButton?: boolean, type?: string  }> = ({ showButton = false, type }) => {
   const dispatch = useAppDispatch()
 
   const callbackOnClickGenerate = () => {
     dispatch(
       SET_SHOW_MODAL({
         isOpenModal: true,
-        childModal: <DocumentsGenModal handleCloseModal={handleCloseModal} />,
+        childModal: <DocumentsGenModal handleCloseModal={handleCloseModal} type={type} />,
       }),
     )
   }
@@ -27,7 +27,7 @@ export const DocumentsHeader: React.FC<{ showButton?: boolean }> = ({ showButton
     <Content>
       <TitleWrapper>
         <Title>Documente</Title>
-        {showButton && <Button onClick={callbackOnClickGenerate}>Generarea Rapoart</Button>}
+        {showButton && <Button onClick={callbackOnClickGenerate}>Generarea Raport</Button>}
       </TitleWrapper>
       <NavigateList list={LIST} />
     </Content>

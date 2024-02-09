@@ -24,9 +24,20 @@ const Modal = ({ children, callbackOnClose, type }: IModalProps) => {
   const dispatch = useAppDispatch()
   const isPdf = Boolean(type === 'pdf')
   const { isBelowDesktop } = useBreakpoints()
-  
+
   const handleCloseModal = (e: any) => {
-    if (e.target.classList.contains('ant-picker-cell-inner')) return
+    if (
+      e.target.classList.contains('ant-picker-cell-inner') ||
+      e.target.classList.contains('ant-picker-body') ||
+      e.target.classList.contains('ant-picker-date-panel') ||
+      e.target.classList.contains('ant-picker-header') ||
+      e.target.classList.contains('ant-picker-header-prev-btn') ||
+      e.target.classList.contains('ant-picker-header-super-prev-btn') ||
+      e.target.classList.contains('ant-picker-header-next-btn') ||
+      e.target.classList.contains('ant-picker-header-super-next-btn') ||
+      e.target.classList.contains('ant-picker-cell-in-view')
+    )
+      return
     dispatch(SET_SHOW_MODAL({ isOpenModal: false, childModal: null }))
     setLocked(!locked)
   }

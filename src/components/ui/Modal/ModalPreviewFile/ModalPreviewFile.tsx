@@ -10,9 +10,9 @@ import { useAppDispatch } from 'store/hooks'
 import { ContentModal, ContentPdf } from '../Modal.styled'
 
 import '@react-pdf-viewer/core/lib/styles/index.css'
-import { useGetDocumnetQuery } from 'api/documentsApi'
-import './modalPreviewFile.scss'
+import { useGetDocumnetQuery, useGetRaportQuery } from 'api/documentsApi'
 import Spinner from 'components/ui/Spinner/Spinner'
+import './modalPreviewFile.scss'
 
 const WORKER_URL = 'https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js'
 
@@ -21,10 +21,22 @@ export type DocumentType = 'psycholeptic' | 'normal'
 interface ModalPreviewFileProps {
   id: string | number
   type: DocumentType
+  isRaport?: boolean
 }
 
-const ModalPreviewFile: FC<ModalPreviewFileProps> = ({ id, type }) => {
-  const { data, isLoading } = useGetDocumnetQuery({ id, type })
+const ModalPreviewFile: FC<ModalPreviewFileProps> = ({ id, type, isRaport }) => {
+  const { data, isLoading } = useGetDocumnetQuery(
+    { id, type },
+    {
+      skip: isRaport,
+    },
+  )
+  const { data: raportDocumentUrl, isLoading: isLoadingRaportDocument } = useGetRaportQuery(
+    { id, type },
+    {
+      skip: !isRaport,
+    },
+  )
 
   const dispatch = useAppDispatch()
   const topNavRef = useRef<HTMLElement | null>(null)
@@ -40,7 +52,7 @@ const ModalPreviewFile: FC<ModalPreviewFileProps> = ({ id, type }) => {
   return (
     <FocusLock>
       <ContentModal>
-        {isLoading ? (
+        {isLoading || isLoadingRaportDocument ? (
           <div
             style={{
               width: '700px',
@@ -55,7 +67,7 @@ const ModalPreviewFile: FC<ModalPreviewFileProps> = ({ id, type }) => {
         ) : (
           <ContentPdf ref={topNavRef} style={{ width: '700px', height: '600px' }}>
             <Worker workerUrl={WORKER_URL}>
-              <Viewer fileUrl={data} />
+              <Viewer fileUrl={data ?? raportDocumentUrl} />
             </Worker>
           </ContentPdf>
         )}
