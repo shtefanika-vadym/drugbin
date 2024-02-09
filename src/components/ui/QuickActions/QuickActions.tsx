@@ -24,7 +24,6 @@ export const QuickActions: React.FC<QuickActionsProps> = ({
   refetch,
   status,
   type,
-  documentId,
   documentType,
 }) => {
   const dispatch = useAppDispatch()
@@ -66,10 +65,10 @@ export const QuickActions: React.FC<QuickActionsProps> = ({
     dispatch(
       SET_SHOW_MODAL({
         isOpenModal: true,
-        childModal: <ModalPreviewFile id={documentId} type={documentType} />,
+        childModal: <ModalPreviewFile id={id} type={documentType} isRaport={true} />,
       }),
     )
-  }, [dispatch, documentId, documentType])
+  }, [dispatch, documentType, id])
 
   const isApproved = useMemo(() => status !== 'pending', [status])
 

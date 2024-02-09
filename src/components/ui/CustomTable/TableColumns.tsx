@@ -40,7 +40,46 @@ export const columnsDocumentsPV: ColumnsType<any> = [
   {
     title: 'Acțiuni',
     key: 'action',
-    render: (id) => <QuickActions id={id} type='document-normal' />,
+    render: ({documentId}) => <QuickActions id={documentId} type='document-normal' documentType='normal' />,
+  },
+]
+
+export const columnsDocumentsPsychotropic: ColumnsType<any> = [
+  {
+    title: 'Name',
+    dataIndex: 'id',
+    key: 'id',
+    render: (id) => (
+      <NameWrapper>
+        Raport Medicamente<SubtitleWrapper>{id}</SubtitleWrapper>
+      </NameWrapper>
+    ),
+  },
+  {
+    title: 'Data creări',
+    dataIndex: 'createAt',
+    key: 'createAt',
+    render: ({ data, time }) => (
+      <NameWrapper>
+        {data}
+        <SubtitleWrapper>{time}</SubtitleWrapper>
+      </NameWrapper>
+    ),
+  },
+  {
+    title: 'Perioadă de timp',
+    dataIndex: 'period',
+    key: 'period',
+    render: ({ startDate, endDate }) => (
+      <NameWrapper>
+        {startDate} - {endDate}
+      </NameWrapper>
+    ),
+  },
+  {
+    title: 'Acțiuni',
+    key: 'action',
+    render: ({documentId}) => <QuickActions id={documentId} type='document-normal' documentType='psycholeptic' />,
   },
 ]
 
