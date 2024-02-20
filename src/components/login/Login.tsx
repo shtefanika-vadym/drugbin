@@ -1,24 +1,19 @@
-import { Formik } from 'formik'
-
 import { useAuth } from 'app/providers'
-
 import loginImg from 'common/assets/login.png'
-
+import { Button } from 'components/ui/Button/Button'
+import { Input } from 'components/ui/Input/Input'
+import { Formik } from 'formik'
 import {
+  ButtonWrapper,
   ContentLogin,
-  RightSide,
-  LeftSide,
-  InputWrapper,
   Error,
   Forgot,
+  InputWrapper,
+  LeftSide,
+  RightSide,
   Title,
-  ButtonWrapper,
-  NewAccount,
-  Span,
 } from './Login.styled'
 import { AUTH_LOGIN_SCHEMA } from './schemas/authLoginSchema'
-import { Input } from 'components/ui/Input/Input'
-import { Button } from 'components/ui/Button/Button'
 
 const Login = () => {
   const { login } = useAuth()
@@ -63,9 +58,9 @@ const Login = () => {
               <Button type='submit' variant='primaryFull'>
                 Login
               </Button>
-              <NewAccount>
+              {/* <NewAccount>
                 Don't have an account?<Span> Sign Up</Span>
-              </NewAccount>
+              </NewAccount> */}
             </ButtonWrapper>
           </LeftSide>
           <RightSide src={loginImg} />

@@ -1,5 +1,6 @@
 import type { ColumnsType } from 'antd/lib/table'
 import { WDS_COLOR_GREY } from 'common/style/colors'
+import { toPackType } from 'common/utils/pack'
 import { Copy } from 'components/ui/Copy/Copy'
 import { QuickActions } from 'components/ui/QuickActions/QuickActions'
 import { Tag } from 'components/ui/Tag/Tag'
@@ -40,7 +41,9 @@ export const columnsDocumentsPV: ColumnsType<any> = [
   {
     title: 'Acțiuni',
     key: 'action',
-    render: ({documentId}) => <QuickActions id={documentId} type='document-normal' documentType='normal' />,
+    render: ({ documentId }) => (
+      <QuickActions id={documentId} type='document-normal' documentType='normal' />
+    ),
   },
 ]
 
@@ -79,7 +82,9 @@ export const columnsDocumentsPsychotropic: ColumnsType<any> = [
   {
     title: 'Acțiuni',
     key: 'action',
-    render: ({documentId}) => <QuickActions id={documentId} type='document-normal' documentType='psycholeptic' />,
+    render: ({ documentId }) => (
+      <QuickActions id={documentId} type='document-normal' documentType='psycholeptic' />
+    ),
   },
 ]
 
@@ -368,7 +373,7 @@ export const columnsManagementDrugs: ColumnsType<any> = [
   {
     dataIndex: 'pack',
     key: 'pack',
-    render: (pack) => <Text variant='bodyS'>{pack}</Text>,
+    render: (pack) => <Text variant='bodyS'>{toPackType(pack)}</Text>,
   },
   {
     dataIndex: 'quantity',

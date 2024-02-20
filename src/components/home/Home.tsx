@@ -16,10 +16,10 @@ export const Home = () => {
       <BottomChart>
         <ChartAlign>
           <ChartDoughnut doughnutData={data?.types} />
-          <StatusType />
+          <StatusType statusData={data?.recycle} />
           <DocumentType documentsData={data?.documents} />
         </ChartAlign>
-      </BottomChart>
+      </BottomChart> 
     </Container>
   )
 }
