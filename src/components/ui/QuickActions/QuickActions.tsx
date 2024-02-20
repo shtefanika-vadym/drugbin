@@ -1,5 +1,14 @@
+import { useDownloadPDF } from 'common/hooks/useDownloadPDF'
+import { usePrintPDF } from 'common/hooks/usePrintPDF'
 import { SET_SHOW_MODAL } from 'common/state/modalSlice'
-import { ApproveIcon, DownloadIcon, PrintIcon, ShareIcon, TrashIcon, ViewIcon } from 'components/ui/Icon'
+import {
+  ApproveIcon,
+  DownloadIcon,
+  PrintIcon,
+  ShareIcon,
+  TrashIcon,
+  ViewIcon,
+} from 'components/ui/Icon'
 import { ApproveModal } from 'components/ui/Modal/ApproveModal/ApproveModal'
 import { DeleteModal } from 'components/ui/Modal/DeleteModal/DeleteModal'
 import { pick } from 'lodash-es'
@@ -26,8 +35,12 @@ export const QuickActions: React.FC<QuickActionsProps> = ({
   type,
   documentType,
 }) => {
-  const dispatch = useAppDispatch()
+  const isApproved = useMemo(() => status !== 'pending', [status])
   const quickActionsOptions = QUICK_ACTION_OPTIONS[type]
+
+  const dispatch = useAppDispatch()
+  const downloadPDF = useDownloadPDF()
+  const { printPDF, iframeRef } = usePrintPDF()
 
   const handleCloseModal = useCallback(() => {
     dispatch(SET_SHOW_MODAL({ isOpenModal: false, childModal: null }))
@@ -70,32 +83,13 @@ export const QuickActions: React.FC<QuickActionsProps> = ({
     )
   }, [dispatch, documentType, id])
 
-  const isApproved = useMemo(() => status !== 'pending', [status])
+  const handleDownloadPDF = useCallback(() => {
+    downloadPDF(id, documentType)
+  }, [documentType, downloadPDF, id])
 
-  const pdfUrl = 'https://www.africau.edu/images/default/sample.pdf'
-
-  const handlePrint = async () => {
-    try {
-      const response = await fetch(pdfUrl);
-      const blob = await response.blob();
-
-      const objectUrl = URL.createObjectURL(blob);
-
-      const iframe = document.createElement('iframe');
-      iframe.style.display = 'none';
-      iframe.src = objectUrl;
-
-      document.body.appendChild(iframe);
-
-      iframe.onload = () => {
-        iframe.contentWindow.print();
-        document.body.removeChild(iframe);
-        URL.revokeObjectURL(objectUrl);
-      };
-    } catch (error) {
-      console.error('Error fetching or printing the PDF:', error);
-    }
-  };
+  const handlePrint = useCallback(() => {
+    printPDF(id, documentType)
+  }, [documentType, id, printPDF])
 
   const AVAILABLE_QUICK_ACTION: AvailableQuickAction = useMemo(() => {
     return {
@@ -119,16 +113,14 @@ export const QuickActions: React.FC<QuickActionsProps> = ({
       },
       download: {
         icon: <DownloadIcon />,
-        action: () => {
-          return
-        },
+        action: handleDownloadPDF,
       },
       print: {
         icon: <PrintIcon />,
-        action: handlePrint
+        action: handlePrint,
       },
     }
-  }, [handleDelete, handleApprove, handleView])
+  }, [handleDelete, handleApprove, handleView, handleDownloadPDF, handlePrint])
 
   const filteredQuickActions = useMemo(() => {
     const filteredActions = pick(AVAILABLE_QUICK_ACTION, quickActionsOptions)
@@ -142,6 +134,7 @@ export const QuickActions: React.FC<QuickActionsProps> = ({
 
   return (
     <Container>
+      <iframe ref={iframeRef} style={{ display: 'none' }} />
       <ButtonWrapper>
         {Object.entries(filteredQuickActions).map(([key, selectedQuickAction]) => (
           <React.Fragment key={key}>

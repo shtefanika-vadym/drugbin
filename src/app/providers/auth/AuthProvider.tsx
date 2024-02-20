@@ -9,6 +9,7 @@ import { LOCALE_STORAGE_KEYS } from 'common/constants/localeStorageConstants'
 import { RESPONSE_PROPERTY_CONSTANTS } from 'common/constants/reponsePropertyConstants'
 import type { ITriggerRequest } from 'common/interfaces/IRequestResponse'
 import type { IUser } from 'common/interfaces/IUser'
+import { useAuthState } from 'common/state/auth.state'
 import type { IAuthLogin, IAuthRegister } from 'components/login/interfaces/IAuth'
 import { authApi, useLoginMutation, useRegisterMutation } from 'components/login/store/api/authApi'
 
@@ -30,12 +31,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [doRegister]: ITriggerRequest = useRegisterMutation()
   const [error, setError] = useState<string | null>(null)
   const [user, setUser] = useLocalStorage<IUser | null>(LOCALE_STORAGE_KEYS.USER, null)
+  const { setToken } = useAuthState()
 
   const login = async (data: IAuthLogin): Promise<void> => {
     const response = await doLogin(data)
     if (response.hasOwnProperty(RESPONSE_PROPERTY_CONSTANTS.ERROR)) setError(response.error.data[0])
     else {
       const { data } = response
+      setToken(data.token)
       setUser({
         role: data.role,
         token: data.token,

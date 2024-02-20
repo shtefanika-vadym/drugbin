@@ -32,8 +32,6 @@ export const DocumentsGenModal: React.FC<DocumentsGenModalProps> = ({ type, hand
   const [date, setDate] = useState<string>('')
   const [error, setError] = useState(false)
 
-  console.log('data', data)
-
   const onCalendarChange = useCallback((_: any, dateString: string) => {
     setDate(dateString)
   }, [])

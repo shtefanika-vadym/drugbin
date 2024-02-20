@@ -4,8 +4,8 @@ type QuickActionOption = Record<QuickActionEntry, Option[]>
 
 export const QUICK_ACTION_OPTIONS: QuickActionOption = {
   'entry-drug': ['approve', 'delete'],
-  'document-normal': ['view', 'share', 'download', 'print'],
-  'document-psycholeptic': ['view', 'share', 'download', 'print'],
+  'document-normal': ['view', 'download', 'print'],
+  'document-psycholeptic': ['view', 'download', 'print'],
 }
 
 type QuickActionContent = {

@@ -2,6 +2,7 @@ export interface DashboardResponse {
   documents: DocumentChart
   drugs: DrugsChart
   types: TypesChart
+  recycle: StatusChart
 }
 
 export type TypesChart = {
@@ -35,8 +36,8 @@ type MonthlyDetailsDrugs = {
 
 export type DocumentChart = {
   annual: {
-    normal: number,
-    psycholeptic: number,
+    normal: number
+    psycholeptic: number
     total: number
   }
   monthly: MonthlyDocumets
@@ -44,9 +45,26 @@ export type DocumentChart = {
 
 type MonthlyDocumets = {
   normal: {
-      [month: string]: number;
-  };
+    [month: string]: number
+  }
   psycholeptic: {
-      [month: string]: number;
-  };
-};
+    [month: string]: number
+  }
+}
+
+type MonthlyStatus = {
+  [month: string]: {
+    approved: number
+    pending: number
+    recycled: number
+  }
+}
+
+export type StatusChart = {
+  annual: {
+    approved: number
+    pending: number
+    recycled: number
+  }
+  monthly: MonthlyStatus
+}
