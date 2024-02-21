@@ -8,12 +8,12 @@ import { NameWrapper, SubtitleWrapper, Text } from './CustomTable.styled'
 
 export const columnsDocumentsPV: ColumnsType<any> = [
   {
-    title: 'Name',
-    dataIndex: 'id',
-    key: 'id',
-    render: (id) => (
+    title: 'Nume',
+    dataIndex: 'documentId',
+    key: 'documentId',
+    render: (documentId) => (
       <NameWrapper>
-        Raport Medicamente<SubtitleWrapper>{id}</SubtitleWrapper>
+        Raport Medicamente <Copy text={documentId} />
       </NameWrapper>
     ),
   },
@@ -49,12 +49,12 @@ export const columnsDocumentsPV: ColumnsType<any> = [
 
 export const columnsDocumentsPsychotropic: ColumnsType<any> = [
   {
-    title: 'Name',
-    dataIndex: 'id',
-    key: 'id',
-    render: (id) => (
+    title: 'Nume',
+    dataIndex: 'documentId',
+    key: 'documentId',
+    render: (documentId) => (
       <NameWrapper>
-        Raport Medicamente<SubtitleWrapper>{id}</SubtitleWrapper>
+        Raport Medicamente <Copy text={documentId} />
       </NameWrapper>
     ),
   },
@@ -317,7 +317,7 @@ export const columnsDocumentsTrash: ColumnsType<any> = [
 
 export const columnsManagement: ColumnsType<any> = [
   {
-    title: 'Name',
+    title: 'Nume',
     dataIndex: 'user',
     key: 'user',
     render: ({ name, id }) => (
