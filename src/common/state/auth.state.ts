@@ -4,6 +4,7 @@ import { persist } from 'zustand/middleware'
 interface AuthState {
   token: string
   setToken: (token: string) => void
+  clearTokens: () => void
 }
 
 export const useAuthState = create(
@@ -11,6 +12,11 @@ export const useAuthState = create(
     (set, get) => ({
       token: get()?.token || '',
       setToken: (token) => set({ token }),
+      clearTokens: () => {
+        return set({
+          token: undefined,
+        })
+      },
     }),
     {
       name: 'auth-storage',

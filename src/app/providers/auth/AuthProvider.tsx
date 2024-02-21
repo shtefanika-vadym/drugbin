@@ -32,6 +32,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [error, setError] = useState<string | null>(null)
   const [user, setUser] = useLocalStorage<IUser | null>(LOCALE_STORAGE_KEYS.USER, null)
   const { setToken } = useAuthState()
+  const clearTokens = useAuthState((state) => state.clearTokens)
+
 
   const login = async (data: IAuthLogin): Promise<void> => {
     const response = await doLogin(data)
@@ -58,6 +60,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => {
     setUser(null)
     navigate('/login')
+    clearTokens()
     dispatch(authApi.util.resetApiState())
   }
 
