@@ -4,6 +4,7 @@ import { Header } from 'components/layout/Header'
 import { useCallback } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Container, Dot, Logo, NavLink, Navigation } from './TopBlock.styled'
+import { UserActions } from 'components/ui/UserActions/UserActions'
 
 // TODO --> REFACTORING
 export const TopBlock = () => {
@@ -54,6 +55,7 @@ export const TopBlock = () => {
           </NavLink>
         </Navigation>
         <Logo src={logo} onClick={handleNavigate} />
+        <UserActions />
       </Container>
     </Header>
   )
