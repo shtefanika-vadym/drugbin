@@ -5,17 +5,19 @@ import {
   ApproveIcon,
   DownloadIcon,
   PrintIcon,
+  RestoreIcon,
   ShareIcon,
   TrashIcon,
   ViewIcon,
 } from 'components/ui/Icon'
-import { ApproveModal } from 'components/ui/Modal/ApproveModal/ApproveModal'
-import { DeleteModal } from 'components/ui/Modal/DeleteModal/DeleteModal'
+import { ApproveModal } from 'components/ui/Modal/StatusModal/ApproveModal'
+import { DeleteModal } from 'components/ui/Modal/StatusModal/DeleteModal'
 import { pick } from 'lodash-es'
 import React, { useCallback, useMemo } from 'react'
 import { useAppDispatch } from 'store/hooks'
 import { Button } from '../Button/Button'
 import ModalPreviewFile, { DocumentType } from '../Modal/ModalPreviewFile/ModalPreviewFile'
+import { RestoreModal } from '../Modal/StatusModal/RestoreModal'
 import { AvailableQuickAction, QUICK_ACTION_OPTIONS, QuickActionEntry } from './QuickActions.config'
 import { ButtonWrapper, Container } from './QuickActions.styled'
 
@@ -74,6 +76,19 @@ export const QuickActions: React.FC<QuickActionsProps> = ({
     [dispatch, handleCloseModal, id, refetch],
   )
 
+  const handleRestore = useCallback(
+    (e: React.MouseEvent<HTMLElement>) => {
+      e.stopPropagation()
+      dispatch(
+        SET_SHOW_MODAL({
+          isOpenModal: true,
+          childModal: <RestoreModal handleCloseModal={handleCloseModal} id={id} />,
+        }),
+      )
+    },
+    [dispatch, handleCloseModal, id],
+  )
+
   const handleView = useCallback(() => {
     dispatch(
       SET_SHOW_MODAL({
@@ -119,8 +134,12 @@ export const QuickActions: React.FC<QuickActionsProps> = ({
         icon: <PrintIcon />,
         action: handlePrint,
       },
+      restore: {
+        icon: <RestoreIcon />,
+        action: handleRestore,
+      },
     }
-  }, [handleDelete, handleApprove, handleView, handleDownloadPDF, handlePrint])
+  }, [handleDelete, handleApprove, handleView, handleDownloadPDF, handlePrint, handleRestore])
 
   const filteredQuickActions = useMemo(() => {
     const filteredActions = pick(AVAILABLE_QUICK_ACTION, quickActionsOptions)
@@ -129,8 +148,16 @@ export const QuickActions: React.FC<QuickActionsProps> = ({
       delete filteredActions.approve
     }
 
+    if (filteredActions.delete && isApproved) {
+      delete filteredActions.delete
+    }
+
+    if (filteredActions.restore && status !== 'approved') {
+      delete filteredActions.restore
+    }
+
     return filteredActions
-  }, [AVAILABLE_QUICK_ACTION, quickActionsOptions, isApproved])
+  }, [AVAILABLE_QUICK_ACTION, quickActionsOptions, isApproved, status])
 
   return (
     <Container>
