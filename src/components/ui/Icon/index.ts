@@ -10,6 +10,9 @@ import { ReactComponent as PrintIcon } from 'common/assets/icon/printer.svg'
 import { ReactComponent as ShareIcon } from 'common/assets/icon/share-line.svg'
 import { ReactComponent as TrashIcon } from 'common/assets/icon/trash.svg'
 import { ReactComponent as UserIcon } from 'common/assets/icon/user-01.svg'
+import { ReactComponent as CheckIcon } from 'common/assets/icon/check-one.svg'
+import { ReactComponent as RestoreIcon } from 'common/assets/icon/restore.svg'
+import { ReactComponent as TrashIcon2 } from 'common/assets/icon/trash-2.svg'
 
 export {
   ApproveIcon,
@@ -24,4 +27,7 @@ export {
   TrashIcon,
   ViewIcon,
   UserIcon,
+  CheckIcon,
+  RestoreIcon,
+  TrashIcon2,
 }
