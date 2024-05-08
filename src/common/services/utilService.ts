@@ -1,27 +1,5 @@
 // TODO --> MANDATORY REFACTOR
 
-const capitalizeFirstLetter = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1)
-
-const deepEqual = (object1: object, object2: object): boolean => {
-  const keys1 = Object.keys(object1)
-  const keys2 = Object.keys(object2)
-  if (keys1.length !== keys2.length) {
-    return false
-  }
-
-  const isObject = (object: object) => object != null && typeof object === 'object'
-
-  for (const key of keys1) {
-    const val1 = object1[key as keyof object]
-    const val2 = object2[key as keyof object]
-    const areObjects = isObject(val1) && isObject(val2)
-    if ((areObjects && deepEqual(val1, val2)) || (!areObjects && val1 !== val2)) {
-      return false
-    }
-  }
-  return true
-}
-
 const formatDate = (props: string) => {
   const timestampString = props
   const date = new Date(timestampString)
@@ -56,19 +34,8 @@ const transformText = (props: string) => {
   }
 }
 
-const formatWeight = (weightInGrams: number): string => {
-  if (weightInGrams >= 1000) {
-    return (weightInGrams / 1000).toFixed(1) + ' kg'
-  } else {
-    return weightInGrams + ' g'
-  }
-}
-
 export const UtilService = {
-  deepEqual,
-  capitalizeFirstLetter,
   formatDate,
   formatTime,
   transformText,
-  formatWeight,
 }

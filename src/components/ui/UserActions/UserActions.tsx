@@ -1,4 +1,4 @@
-import { useAuth } from 'app/providers'
+import { useAuth } from 'common/hooks/auth'
 import { WDS_COLOR_BLUE_700, WDS_COLOR_RED } from 'common/style/colors'
 import { useCallback, useRef } from 'react'
 import { useOnClickOutside, useToggle } from 'usehooks-ts'
@@ -30,19 +30,19 @@ export const UserActions = () => {
     <div ref={containerRef}>
       <Button variant='white' size='XS' onClick={toggle}>
         <UserIcon width={16} height={16} />
-        <Text textVariant='bodyS' color={WDS_COLOR_BLUE_700}>
+        <Text variant='bodyS' color={WDS_COLOR_BLUE_700}>
           Spitalul Judetean Suceava
         </Text>
       </Button>
       {value && (
         <Menu>
           <MenuActions onClick={handleReport}>
-            <Text textVariant='bodyM'>Raportați o problemă</Text>
+            <Text variant='bodyM'>Raportați o problemă</Text>
           </MenuActions>
           <Border />
           <MenuActions onClick={logout}>
             <LogoutIcon width={16} height={16} />
-            <Text textVariant='subheading' color={WDS_COLOR_RED}>
+            <Text variant='subheading' color={WDS_COLOR_RED}>
               Deconectați-vă
             </Text>
           </MenuActions>

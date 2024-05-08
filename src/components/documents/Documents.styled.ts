@@ -15,3 +15,11 @@ export const Title = styled.p`
 export const TopContainer = styled.div`
   ${flex({ justifyContent: 'space-between', alignItems: 'center' })};
 `
+
+export const TableHeader = styled.thead`
+  display: block;
+`
+
+export const TableBody = styled.tbody`
+  display: block;
+`

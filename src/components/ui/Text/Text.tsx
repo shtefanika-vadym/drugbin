@@ -1,18 +1,11 @@
-import { WDS_COLOR_BLACK } from 'common/style/colors'
-import type { TextVariantType } from 'common/style/mixins/typography.mixin'
-import type { ReactNode } from 'react'
-import { StyledText } from './Text.styled'
+import React from 'react'
+import { StyledElement } from './Text.styled'
+import { TextProps } from './Text.types'
 
-interface TextProps {
-  textVariant: TextVariantType
-  color?: string
-  children: ReactNode
-}
-
-export const Text: React.FC<TextProps> = ({ textVariant, color = WDS_COLOR_BLACK, children }) => {
+export const Text: React.FC<TextProps> = ({ variant, element, className, children, ...rest }) => {
   return (
-    <StyledText variant={textVariant} color={color}>
+    <StyledElement variant={variant} element={element} className={className} {...rest}>
       {children}
-    </StyledText>
+    </StyledElement>
   )
 }

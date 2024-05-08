@@ -11,7 +11,7 @@ export const Home = () => {
 
   return (
     <Container>
-      <Text textVariant='titleH4'>Aruncă o privire asupra progresului colectării</Text>
+      <Text variant='titleH4'>Aruncă o privire asupra progresului colectării</Text>
       <ChartLine />
       <BottomChart>
         <ChartAlign>

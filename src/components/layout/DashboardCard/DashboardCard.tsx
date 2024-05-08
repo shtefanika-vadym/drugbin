@@ -11,7 +11,7 @@ interface DashboardCardProps {
 export const DashboardCard: React.FC<DashboardCardProps> = ({ title, children }) => {
   return (
     <Container>
-      <Text textVariant='subheading' color={WDS_COLOR_BLUE_400}>
+      <Text variant='subheading' color={WDS_COLOR_BLUE_400}>
         {title}
       </Text>
       <>{children}</>

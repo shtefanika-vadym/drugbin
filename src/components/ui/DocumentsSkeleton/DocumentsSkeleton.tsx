@@ -1,11 +1,13 @@
 import { Skeleton } from 'components/ui/Skeleton/Skeleton'
 import { IconWrpper, NameWrapper, Row } from './DocumentsSkeleton.styled'
 
+
+// TO-DO: REFACTORING
 export const DocumentsSkeleton = () => {
   const numberOfRows = 10
 
-  const renderedRows = [...Array(numberOfRows)].map((key: number) => (
-    <div key={key}>
+  const renderedRows = [...Array(numberOfRows)].map((_, index: number) => (
+    <div key={index}>
       <Row>
         <NameWrapper>
           <Skeleton height='22px' width='195px' />

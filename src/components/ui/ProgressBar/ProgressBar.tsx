@@ -18,8 +18,8 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
   return (
     <Container>
       <Details>
-        <Text textVariant='bodyS'>{name}</Text>
-        <Text textVariant='bodyS'>{value}</Text>
+        <Text variant='bodyS'>{name}</Text>
+        <Text variant='bodyS'>{value}</Text>
       </Details>
       <BarWrapper>
         <Bar progress={progress} color={color} />

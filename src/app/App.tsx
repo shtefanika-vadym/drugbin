@@ -1,16 +1,14 @@
-import { I18nextProvider } from 'react-i18next'
+import { StyledContainer } from 'components/ui/Toast/CustomToast.styled'
 import i18n from 'i18next'
-import { Routes } from 'routes'
-import { withProviders } from 'app/hocs'
-import { AuthProvider } from './providers'
+import { I18nextProvider } from 'react-i18next'
 import { Provider } from 'react-redux'
+import 'react-toastify/dist/ReactToastify.css'
+import { Routes } from 'routes'
 import { store } from 'store/store'
-import 'common/style/pagination.scss'
-import 'common/style/customDataPicker.scss'
 
 i18n.init({
   interpolation: { escapeValue: false },
-  lng: 'en', // Set the default language
+  lng: 'ro', // Set the default language
   resources: {
     en: {
       translation: require('./translation/en/translation.json'),
@@ -24,13 +22,12 @@ i18n.init({
 const App = () => {
   return (
     <Provider store={store}>
-      <AuthProvider>
-        <I18nextProvider i18n={i18n}>
-          <Routes />
-        </I18nextProvider>
-      </AuthProvider>
+      <I18nextProvider i18n={i18n}>
+        <Routes />
+        <StyledContainer position='top-center' hideProgressBar limit={1} />
+      </I18nextProvider>
     </Provider>
   )
 }
 
-export default withProviders(App)
+export default App

@@ -1,8 +1,9 @@
 import type { BaseQueryFn } from '@reduxjs/toolkit/query'
 import type { AxiosError, AxiosRequestConfig } from 'axios'
 import axios from 'axios'
+import { useAuthState } from 'common/state/auth.state'
 
-import type { IUser } from 'common/interfaces/IUser'
+const getAccessToken = (): string | undefined => useAuthState.getState().token
 
 export const baseQuery =
   (): BaseQueryFn<
@@ -17,15 +18,13 @@ export const baseQuery =
   > =>
   async (param) => {
     try {
-      const user: IUser | null = localStorage.getItem('user')
-        ? JSON.parse(localStorage.getItem('user'))
-        : null
+      const token = getAccessToken()
       const result = await axios({
         ...param,
         baseURL: process.env.REACT_APP_DRUGBIN_API_BASE_URL,
         headers: {
           ...param?.headers,
-          Authorization: user ? `Bearer ${user.token}` : null,
+          Authorization: token ? `Bearer ${token}` : null,
         },
       })
       return { data: result.data }
@@ -34,7 +33,7 @@ export const baseQuery =
       let err = axiosError as AxiosError
       if (err.response?.status === 401) {
         localStorage.clear()
-        window.location.assign('/auth/login')
+        window.location.assign('/auth')
       }
       const errors = err.response?.data['error' as keyof unknown]
       return {
