@@ -38,7 +38,8 @@ export const Copy: React.FC<CopyProps> = ({ text }) => {
       <Text
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        onClick={copyToClipboard}>
+        onClick={copyToClipboard}
+        title={text}>
         {text}
       </Text>
       {isHovered && <CopyIcon />}

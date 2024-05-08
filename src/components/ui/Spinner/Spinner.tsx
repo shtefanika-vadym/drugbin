@@ -1,17 +1,15 @@
-import type { FC } from 'react'
+import React from 'react';
+import { StyledSpinner } from './Spinner.styled';
 
-import { Spin } from 'antd'
-import type { SpinProps } from 'antd/lib/spin'
-
-import 'antd/lib/spin/style/css'
-
-interface IProps extends SpinProps {
-  isLoading: boolean
+export interface SpinnerProps {
+  className?: string;
+  size?: number;
+  color?: `#${string}`;
+  ringWidth?: number;
 }
 
-// TODO --> CHANGE THE DESIGNE
-const Spinner: FC<IProps> = ({ isLoading, ...rest }) => {
-  if (!isLoading) return null
-  return <Spin {...rest} />
-}
-export default Spinner
+export const Spinner = React.forwardRef<HTMLDivElement, SpinnerProps>((props, ref) => {
+  return <StyledSpinner ref={ref} {...props} />;
+});
+
+Spinner.displayName = 'Spinner';

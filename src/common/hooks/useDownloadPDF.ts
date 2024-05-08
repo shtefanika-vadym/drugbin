@@ -3,7 +3,7 @@ import { capitalize } from 'lodash-es'
 import { useCallback } from 'react'
 
 export const useDownloadPDF = () => {
-  const downloadPDF = useCallback(async (id: number, documentType: string) => {
+  const downloadPDF = useCallback(async (id: string, documentType: string) => {
     const documentName = `DrugBin_Raport_${capitalize(documentType)}_${id}.pdf`
     try {
       const response = await getDownloadDocument(id, documentType)

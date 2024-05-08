@@ -1,20 +1,17 @@
-import type { FC } from 'react'
-import { useRef, useCallback } from 'react'
-
 import arrowDonwIcon from 'common/assets/arrow-down.svg'
 import arrowUpIcon from 'common/assets/arrow-up.svg'
-
-import useOnClickOutside from 'common/hooks/useOnClickOutside'
 import useToggle from 'common/hooks/useToggle'
-
+import type { FC } from 'react'
+import { useCallback, useRef } from 'react'
+import { useOnClickOutside } from 'usehooks-ts'
 import {
   Container,
-  DropdownWrapper,
-  Label,
   DropdownList,
+  DropdownWrapper,
+  Icon,
+  Label,
   Option,
   Select,
-  Icon,
 } from './Dropdown.styled'
 import type { DropdownProps } from './Dropdown.types'
 

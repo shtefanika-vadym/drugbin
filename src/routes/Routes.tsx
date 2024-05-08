@@ -1,28 +1,60 @@
-import type { RouteProps } from 'react-router-dom'
-import { Routes as ReactRoutes, Route } from 'react-router-dom'
+import { DocumentsNormalPage } from 'pages/DocumentsNormalPage'
+import { DocumentsPsychotropicPage } from 'pages/DocumentsPsychotropicPage'
+import { HomePage } from 'pages/Home'
+import { LoginPage } from 'pages/Login'
+import { ManagementPage } from 'pages/Management'
+import { StrictMode } from 'react'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { ProtectedRoutes } from './ProtectedRoutes'
+import { PublicRoutes } from './PublicRoutes'
 
-import { UnauthorizedRoutes } from 'routes/Unauthorized/UnauthorizedRoutes'
-import AuthorizedRoutes from './Authorized/AuthorizedRoutes'
-import { AUTHORIZED_ROUTE_CONFIG } from './Authorized/authorizedConfig'
-import { UNAUTHORIZED_ROUTE_CONFIG } from './Unauthorized/unauthorizedConfig'
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: (
+      <ProtectedRoutes>
+        <HomePage />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: '/gestionare',
+    element: (
+      <ProtectedRoutes>
+        <ManagementPage />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: '/documents/verbal-process',
+    element: (
+      <ProtectedRoutes>
+        <DocumentsNormalPage />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: '/documents/psychotropic',
+    element: (
+      <ProtectedRoutes>
+        <DocumentsPsychotropicPage />
+      </ProtectedRoutes>
+    ),
+  },
+  {
+    path: '/login',
+    element: (
+      <PublicRoutes>
+        <LoginPage />
+      </PublicRoutes>
+    ),
+  },
+])
 
 export const Routes = () => {
   return (
-    <ReactRoutes>
-      <Route element={<AuthorizedRoutes />}>
-        {AUTHORIZED_ROUTE_CONFIG.map(
-          (route: RouteProps, index: number): JSX.Element => (
-            <Route key={index} {...route} />
-          ),
-        )}
-      </Route>
-      <Route element={<UnauthorizedRoutes />}>
-        {UNAUTHORIZED_ROUTE_CONFIG.map(
-          (route: RouteProps, index: number): JSX.Element => (
-            <Route key={index} {...route} />
-          ),
-        )}
-      </Route>
-    </ReactRoutes>
+    <StrictMode>
+      <RouterProvider router={router} />
+    </StrictMode>
   )
 }

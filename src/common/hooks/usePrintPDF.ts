@@ -4,7 +4,7 @@ import { useRef } from 'react'
 export const usePrintPDF = () => {
   const iframeRef = useRef(null)
 
-  const printPDF = async (id: number, documentType: string) => {
+  const printPDF = async (id: string, documentType: string) => {
     const response = await getDownloadDocument(id, documentType)
     const documentData = response.data
     const documentBlob = new Blob([documentData], { type: 'application/pdf' })

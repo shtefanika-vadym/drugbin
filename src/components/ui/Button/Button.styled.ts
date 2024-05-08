@@ -5,9 +5,10 @@ import {
   WDS_COLOR_BLUE_200,
   WDS_COLOR_BLUE_300,
   WDS_COLOR_BLUE_400,
+  WDS_COLOR_BLUE_50,
   WDS_COLOR_BLUE_500,
   WDS_COLOR_WHITE,
-  WDS_COLOR_WHITE_100,
+  WDS_COLOR_WHITE_100
 } from 'common/style/colors'
 import { border } from 'common/style/mixins/border.mixin'
 import { flex } from 'common/style/mixins/flex.mixin'
@@ -31,6 +32,7 @@ const primaryStyles = css`
   color: ${WDS_COLOR_WHITE};
   background-color: ${WDS_COLOR_BLUE_300};
   border-radius: ${WDS_SIZE_008_PX};
+
   &:hover {
     background-color: ${WDS_COLOR_BLUE_400};
   }
@@ -44,6 +46,7 @@ export const buttonVariants = {
     ${primaryStyles};
     background-color: ${WDS_COLOR_WHITE};
     color: ${WDS_COLOR_BLUE_300};
+
     &:hover {
       background-color: ${WDS_COLOR_WHITE_100};
     }
@@ -53,33 +56,35 @@ export const buttonVariants = {
     width: 100%;
   `,
   secondary: css`
-    color: ${WDS_COLOR_BLUE_300};
-    background-color: transparent;
     ${border({ type: 'solid', color: WDS_COLOR_BLUE_300 })};
+    background-color: transparent;
+    color: ${WDS_COLOR_BLUE_300};
     border-radius: ${WDS_SIZE_008_PX};
+
     &:disabled {
       ${border({ type: 'solid', color: WDS_COLOR_BLUE_300 })};
     }
   `,
   square: css`
-    background-color: ${WDS_COLOR_BLUE_200};
+    background-color: ${WDS_COLOR_BLUE_50};
     border-radius: ${WDS_SIZE_004_PX};
+
     &:hover {
-      transition: transform 0.3s ease-out;
-      transform: translateY(-1px);
+      background-color: ${WDS_COLOR_BLUE_200};
     }
   `,
   round: css`
-    background-color: ${WDS_COLOR_BLUE_200};
+    background-color: ${WDS_COLOR_BLUE_50};
     border-radius: 50%;
+
     &:hover {
-      transition: transform 0.3s ease-out;
-      transform: translateY(-1px);
+      background-color: ${WDS_COLOR_BLUE_200};
     }
   `,
   empty: css`
     background-color: transparent;
     border-radius: 8px;
+
     &:hover {
       background-color: ${WDS_COLOR_BLUE_200};
     }
@@ -89,6 +94,10 @@ export const buttonVariants = {
     background-color: ${WDS_COLOR_BLUE_100};
     border-radius: ${WDS_SIZE_008_PX};
     color: ${WDS_COLOR_BLUE_500};
+
+    &:disabled {
+      background-color: ${WDS_COLOR_BLUE_50};
+    }
   `,
 }
 

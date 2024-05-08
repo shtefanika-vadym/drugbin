@@ -9,7 +9,7 @@ import type {
 } from 'common/interfaces/DocumentsProps'
 
 import { baseQuery } from 'common/utils/fetchBaseQuery'
-import { toDocumentsVerbalProces } from 'uc/historyMappers'
+import { toDocumentsVerbalProces } from 'uc/mappers'
 
 export const documentsApi = createApi({
   reducerPath: 'documents',
@@ -18,14 +18,6 @@ export const documentsApi = createApi({
     documents: build.query({
       query: (type) => ({
         url: `/documents/all?type=${type}`,
-      }),
-      transformResponse: (response: DocumentsVerbalProcesResponse[]): DocumentsVerbalProces[] => {
-        return toDocumentsVerbalProces(response)
-      },
-    }),
-    documentsShared: build?.query({
-      query: () => ({
-        url: `/documents/shared`,
       }),
       transformResponse: (response: DocumentsVerbalProcesResponse[]): DocumentsVerbalProces[] => {
         return toDocumentsVerbalProces(response)
@@ -72,18 +64,6 @@ export const documentsApi = createApi({
         return URL.createObjectURL(pdfBlob)
       },
     }),
-    getRaportDownload: build.query({
-      query: ({ id, type }) => ({
-        headers: {
-          Accept: 'application/pdf',
-        },
-        responseType: 'arraybuffer',
-        url: `/documents/data/${id}?type=${type}`,
-      }),
-      transformResponse: (respons: ArrayBuffer) => {
-        return window.URL.createObjectURL(new Blob([respons]))
-      },
-    }),
     getLastRaportDate: build.query({
       query: (type) => ({
         url: `/documents/start-date?type=${type}`,
@@ -92,7 +72,7 @@ export const documentsApi = createApi({
   }),
 })
 
-export const getDownloadDocument = (id: number, type: string): any =>
+export const getDownloadDocument = (id: string, type: string): any =>
   api.get(`/documents/data/${id}?type=${type}`, {
     headers: {
       Accept: 'application/pdf',
@@ -102,11 +82,9 @@ export const getDownloadDocument = (id: number, type: string): any =>
 
 export const {
   useDocumentsQuery,
-  useDocumentsSharedQuery,
   useDocumentsTrashedQuery,
   useGetDocumnetQuery,
   useGenerateRaportMutation,
   useGetRaportQuery,
-  useGetRaportDownloadQuery,
   useGetLastRaportDateQuery,
 } = documentsApi

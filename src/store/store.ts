@@ -5,11 +5,9 @@ import { dashboardApi } from 'api/dashboard'
 import { documentsApi } from 'api/documentsApi'
 import { managementApi } from 'api/management'
 import { statusApi } from 'api/statusApi'
-import { modalReducer } from 'common/state/modalSlice'
 import { authApi } from 'components/login/store/api/authApi'
 
 const rootReducer = combineReducers({
-  modal: modalReducer,
   [authApi.reducerPath as keyof object]: authApi.reducer,
   [statusApi.reducerPath as keyof object]: statusApi.reducer,
   [documentsApi.reducerPath as keyof object]: documentsApi.reducer,

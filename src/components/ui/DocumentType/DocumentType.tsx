@@ -23,10 +23,10 @@ export const DocumentType: React.FC<DocumentTypeProps> = ({ documentsData }) => 
         <Legend>
           <LegendDot color={WDS_COLOR_BLUE_300} />
           <TextWrapper>
-            <Text textVariant='bodyS' color={WDS_COLOR_GREY}>
+            <Text variant='bodyS' color={WDS_COLOR_GREY}>
               Normale
             </Text>
-            <Text textVariant='bodyS' color={WDS_COLOR_BLUE_500}>
+            <Text variant='bodyS' color={WDS_COLOR_BLUE_500}>
               {annual?.normal} PV
             </Text>
           </TextWrapper>
@@ -34,10 +34,10 @@ export const DocumentType: React.FC<DocumentTypeProps> = ({ documentsData }) => 
         <Legend>
           <LegendDot color={WDS_COLOR_BLUE_200} />
           <TextWrapper>
-            <Text textVariant='bodyS' color={WDS_COLOR_GREY}>
+            <Text variant='bodyS' color={WDS_COLOR_GREY}>
               Psihotropice
             </Text>
-            <Text textVariant='bodyS' color={WDS_COLOR_BLUE_500}>
+            <Text variant='bodyS' color={WDS_COLOR_BLUE_500}>
               {annual?.psycholeptic} PV
             </Text>
           </TextWrapper>

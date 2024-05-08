@@ -1,7 +1,12 @@
-export type TagVriant = 'pending' | 'recycled' | 'approved' | 'deny'
+export enum TagVriantType {
+  PENDING = 'pending',
+  RECYCLED = 'recycled',
+  APPROVED = 'approved',
+  DENY = 'deny'
+}
 
 export interface TagProps {
-  variant?: TagVriant
+  variant?: TagVriantType
   children?: React.ReactNode
 }
 

@@ -76,15 +76,15 @@ export const ChartDoughnut: React.FC<ChartDoughnutProps> = ({ doughnutData }) =>
         <LegendWrapper>
           <LegendStyles>
             <Line color={WDS_COLOR_BLUE_400} />
-            <Text textVariant='bodyS'>RX</Text>
+            <Text variant='bodyS'>RX</Text>
           </LegendStyles>
           <LegendStyles>
             <Line color={WDS_COLOR_BLUE_200} />
-            <Text textVariant='bodyS'>Supliment</Text>
+            <Text variant='bodyS'>Supliment</Text>
           </LegendStyles>
           <LegendStyles>
             <Line color={WDS_COLOR_BLUE_100} />
-            <Text textVariant='bodyS'>OTC</Text>
+            <Text variant='bodyS'>OTC</Text>
           </LegendStyles>
         </LegendWrapper>
       </Container>

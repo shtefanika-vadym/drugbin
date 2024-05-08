@@ -1,4 +1,6 @@
+import { Dictionary } from 'common/types/utils.types'
 import { remToPxVal } from './cssHelpers'
+import { WDS_BREAKPOINT_DESKTOP_LARGE, WDS_BREAKPOINT_DESKTOP_M, WDS_BREAKPOINT_DESKTOP_S, WDS_BREAKPOINT_HEIGHT_TABLET_UP_TO, WDS_BREAKPOINT_MOBILE_UP_TO, WDS_BREAKPOINT_TABLET, WDS_BREAKPOINT_TABLET_UP_TO } from 'common/constants/breakpoint'
 
 export const WDS_SIZE_001_PX = '0.0625rem'
 export const WDS_SIZE_002_PX = '0.125rem'
@@ -17,6 +19,7 @@ export const WDS_SIZE_018_PX = '1.125rem'
 export const WDS_SIZE_020_PX = '1.25rem'
 export const WDS_SIZE_022_PX = '1.375rem'
 export const WDS_SIZE_024_PX = '1.5rem'
+export const WDS_SIZE_026_PX = '1.625rem'
 export const WDS_SIZE_028_PX = '1.75rem'
 export const WDS_SIZE_032_PX = '2rem'
 export const WDS_SIZE_036_PX = '2.25rem'
@@ -87,3 +90,13 @@ export const WDS_SIZE_176_PX_UNITLESS = remToPxVal(WDS_SIZE_176_PX)
 export const WDS_SIZE_192_PX_UNITLESS = remToPxVal(WDS_SIZE_192_PX)
 export const WDS_SIZE_256_PX_UNITLESS = remToPxVal(WDS_SIZE_256_PX)
 export const WDS_SIZE_300_PX_UNITLESS = remToPxVal(WDS_SIZE_300_PX)
+
+export const BREAKPOINTS: Dictionary<string> = {
+  MOBILE_UP_TO: `screen and (max-width: ${WDS_BREAKPOINT_MOBILE_UP_TO})`, // < 640px
+  TABLET: `screen and (min-width: ${WDS_BREAKPOINT_TABLET})`, // > 640px
+  TABLET_UP_TO: `screen and (max-width: ${WDS_BREAKPOINT_TABLET_UP_TO})`, // < 1023px
+  DESKTOP_S: `screen and (min-width: ${WDS_BREAKPOINT_DESKTOP_S})`, // > 1024px
+  DESKTOP_S_LARGE: `screen and (min-width: ${WDS_BREAKPOINT_DESKTOP_LARGE})`, // > 1200px
+  DESKTOP_M: `screen and (min-width: ${WDS_BREAKPOINT_DESKTOP_M})`, // > 1440px+
+  HEIGHT_TABLET_UP_TO: `screen and (max-height: ${WDS_BREAKPOINT_HEIGHT_TABLET_UP_TO})`, // < 880px
+}

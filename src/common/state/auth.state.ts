@@ -12,11 +12,7 @@ export const useAuthState = create(
     (set, get) => ({
       token: get()?.token || '',
       setToken: (token) => set({ token }),
-      clearTokens: () => {
-        return set({
-          token: undefined,
-        })
-      },
+      clearTokens: () => set({ token: null }),
     }),
     {
       name: 'auth-storage',

@@ -1,10 +1,10 @@
-import logo from 'common/assets/logo.svg'
 import { getLastElement } from 'common/utils/utils'
 import { Header } from 'components/layout/Header'
+import { LogoIcon } from 'components/ui/Icon'
+import { UserActions } from 'components/ui/UserActions/UserActions'
 import { useCallback } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { Container, Dot, Logo, NavLink, Navigation } from './TopBlock.styled'
-import { UserActions } from 'components/ui/UserActions/UserActions'
+import { Container, Dot, NavLink, Navigation } from './TopBlock.styled'
 
 // TODO --> REFACTORING
 export const TopBlock = () => {
@@ -54,7 +54,7 @@ export const TopBlock = () => {
             <Dot isActive={isActiveDocuments(location.pathname)} />
           </NavLink>
         </Navigation>
-        <Logo src={logo} onClick={handleNavigate} />
+        <LogoIcon onClick={handleNavigate} />
         <UserActions />
       </Container>
     </Header>

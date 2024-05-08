@@ -7,12 +7,12 @@ export const ChartLine = () => {
   return (
     <>
       <Container>
-        <Text textVariant='subheading' color={WDS_COLOR_BLUE_400}>
+        <Text variant='subheading' color={WDS_COLOR_BLUE_400}>
           Medicamente colectate
         </Text>
         <LegendContent>
           <Border />
-          <Text textVariant='bodyXS' color={WDS_COLOR_GREY}>
+          <Text variant='bodyXS' color={WDS_COLOR_GREY}>
             Luna anterioară
           </Text>
         </LegendContent>
