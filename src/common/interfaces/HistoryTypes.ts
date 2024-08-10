@@ -21,7 +21,6 @@ export interface DrugListProps {
     id: number
     importer: number
     isPsycholeptic: boolean
-    name: string
     packaging: string
     prescription: string
     producer: string
@@ -32,6 +31,9 @@ export interface DrugListProps {
   lot: string
   pack: string
   quantity: number
+  name: {
+    value: string
+  }
 }
 
 export interface CollectData {
