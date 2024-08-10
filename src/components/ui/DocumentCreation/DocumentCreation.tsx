@@ -27,7 +27,7 @@ interface DocumentCreationProps {
 }
 
 export const DocumentCreation: React.FC<DocumentCreationProps> = ({ type, close }) => {
-  const [currentDate, setCurrentDate] = useState<string>(moment(new Date()).format('DD-MM-YYYY'))
+  const [currentDate, setCurrentDate] = useState<string>(moment(new Date()).format('YYYY-MM-DD'))
   const [error, setError] = useState(false)
 
   const { data, isLoading: isLastDateLoading } = useGetLastRaportDateQuery(type)
@@ -50,7 +50,8 @@ export const DocumentCreation: React.FC<DocumentCreationProps> = ({ type, close 
     })
     refetch()
     entriesRefetch()
-  }, [currentDate, entriesRefetch, generateRaport, refetch, type])
+    close(false)
+  }, [currentDate, entriesRefetch, generateRaport, refetch, close, type])
 
   useEffect(() => {
     if (currentDate) return setError(false)

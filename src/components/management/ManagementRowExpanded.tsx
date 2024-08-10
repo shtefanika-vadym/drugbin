@@ -6,10 +6,9 @@ import { DocumentType } from 'common/types/documents'
 import { Button } from 'components/ui/Button/Button'
 import { DocumentViewer } from 'components/ui/DocumentViewer/DocumentViewer'
 import { Attachment } from 'components/ui/Icon'
-import { Text } from 'components/ui/Text/Text'
-import { capitalize } from 'lodash-es'
-import { Container, Content, DrugContainer, WrapperBox } from './ManagementRowExpanded.styled'
 import { Spinner } from 'components/ui/Spinner/Spinner'
+import { Text } from 'components/ui/Text/Text'
+import { Container, Content, DrugContainer, WrapperBox } from './ManagementRowExpanded.styled'
 
 interface ManagementRowExpamdedProps {
   drugList: DrugListProps[]
@@ -38,6 +37,15 @@ export const ManagementRowExpanded: React.FC<ManagementRowExpamdedProps> = ({ dr
     documentPsycholepticViewerDialogProps,
     toggleDocumentPsycholepticViewerDialog,
   ] = useDialog()
+
+  const fromDrugPack = (pack: string): string => {
+    const packMapping: { [key: string]: string } = {
+      box: 'Cutie',
+      entity: 'Unitate',
+    }
+
+    return packMapping[pack] || 'Unitate'
+  }
 
   return (
     <Container>
@@ -77,13 +85,13 @@ export const ManagementRowExpanded: React.FC<ManagementRowExpamdedProps> = ({ dr
         {drugList.map((drug) => (
           <DrugContainer>
             <WrapperBox>
-              <Text>{drug.drugDetails.name}</Text>
+              <Text>{drug?.name.value}</Text>
               <Text variant='bodyXS' color={WDS_COLOR_GREY}>
                 ({drug.quantity})
               </Text>
             </WrapperBox>
             <Text variant='bodyXS' color={WDS_COLOR_GREY}>
-              {capitalize(drug.pack)}
+              {fromDrugPack(drug.pack)}
             </Text>
           </DrugContainer>
         ))}
