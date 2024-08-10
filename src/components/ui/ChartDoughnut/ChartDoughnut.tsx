@@ -47,7 +47,7 @@ export const ChartDoughnut: React.FC<ChartDoughnutProps> = ({ doughnutData }) =>
   const data = [
     { value: getValueByLabel('Rx', doughnutData), label: 'RX', color: '#2949A6' },
     { value: getValueByLabel('OTC', doughnutData), label: 'OTC', color: '#EBF0FB' },
-    { value: getValueByLabel('P6L', doughnutData), label: 'Supliment', color: '#AEC5F2' },
+    { value: getValueByLabel('Supplement', doughnutData), label: 'Supliment', color: '#AEC5F2' },
   ]
 
   const totalValue = useMemo(() => getDoughnutTotal(doughnutData), [doughnutData])
