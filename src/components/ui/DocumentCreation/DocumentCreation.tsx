@@ -71,7 +71,7 @@ export const DocumentCreation: React.FC<DocumentCreationProps> = ({ type, close 
         ) : (
           <RangePicker
             defaultValue={[moment(data.startDate), moment()]}
-            format={'DD-MM-YYYY'}
+            format={'YYYY-MM-DD'}
             disabledDate={(current) =>
               current.isBefore(moment(data.startDate)) || current.isAfter(moment())
             }

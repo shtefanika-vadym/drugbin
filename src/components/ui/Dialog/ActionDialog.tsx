@@ -5,12 +5,12 @@ import { Button } from '../Button/Button'
 import { ApproveIcon, CheckIcon, RestoreIcon, TrashIcon, TrashIcon2 } from '../Icon'
 import { Text } from '../Text/Text'
 import {
-    BoxIcon,
-    ButtonWrapper,
-    Container,
-    Description,
-    LeftSection,
-    RightSection,
+  BoxIcon,
+  ButtonWrapper,
+  Container,
+  Description,
+  LeftSection,
+  RightSection,
 } from './ActionDialog.styled'
 
 interface ActionDialogProps {
@@ -97,8 +97,13 @@ export const TrashAction: React.FC<{ onConfirm: () => void }> = ({ onConfirm }) 
   )
 }
 
-export const RestoreAction = () => {
+export const RestoreAction: React.FC<{ onConfirm: () => void }> = ({ onConfirm }) => {
   const [RestoreViewerDialog, restoreViewerDialogProps, toggleRestoreViewerDialog] = useDialog()
+
+  const handleRestore = useCallback(() => {
+    onConfirm()
+    toggleRestoreViewerDialog(false)
+  }, [onConfirm, toggleRestoreViewerDialog])
 
   return (
     <>
@@ -108,6 +113,7 @@ export const RestoreAction = () => {
           title='Sunteți sigur că doriți să restaurați această cerere de colectare?'
           description='Aceasta este o acțiune ireversibilă care va duce la restaurarea datelor referitoare la cererea de colectare în întregul sistem DrugBin.'
           close={() => toggleRestoreViewerDialog(false)}
+          confirm={handleRestore}
         />
       </RestoreViewerDialog>
       <Button variant='square' size='S-square' onClick={() => toggleRestoreViewerDialog(true)}>

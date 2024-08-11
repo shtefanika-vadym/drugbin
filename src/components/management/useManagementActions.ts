@@ -37,5 +37,13 @@ export const useManagementActions = (search?: string) => {
     [deleteStatus, refetchData],
   )
 
-  return { approveEntry, deleteEntry }
+  const restoreEntry = useCallback(
+    async (id: string) => {
+      if (id) await updateStatus(id)
+      refetchData()
+    },
+    [refetchData, updateStatus],
+  )
+
+  return { approveEntry, deleteEntry, restoreEntry }
 }
