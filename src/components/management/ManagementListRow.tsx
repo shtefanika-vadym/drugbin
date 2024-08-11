@@ -69,7 +69,7 @@ const ToggleCell: React.FC<ToggleCellProps> = ({ toggle, expanded }) => (
 )
 
 const ActionCell: React.FC<ActionCellProps> = ({ id, status, search }) => {
-  const { approveEntry, deleteEntry } = useManagementActions(search)
+  const { approveEntry, deleteEntry, restoreEntry } = useManagementActions(search)
   const isApproved = status === TagVriantType.APPROVED
   const isRecycled = status === TagVriantType.RECYCLED
 
@@ -81,12 +81,17 @@ const ActionCell: React.FC<ActionCellProps> = ({ id, status, search }) => {
     deleteEntry(id)
   }, [deleteEntry, id])
 
+  const handleRestoreEntry = useCallback(() => {
+    console.log('restoreEntry', id)
+    restoreEntry(id)
+  }, [restoreEntry, id])
+
   if (isRecycled) return null
 
   if (isApproved)
     return (
       <ActionContainer>
-        <RestoreAction />
+        <RestoreAction onConfirm={handleRestoreEntry} />
       </ActionContainer>
     )
 
