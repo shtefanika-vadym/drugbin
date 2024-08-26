@@ -1,7 +1,7 @@
 import { DocumentsNormalPage } from 'pages/DocumentsNormalPage'
 import { DocumentsPsychotropicPage } from 'pages/DocumentsPsychotropicPage'
 import { HomePage } from 'pages/Home'
-import { LoginPage } from 'pages/Login'
+import { Login } from 'pages/Login'
 import { ManagementPage } from 'pages/Management'
 import { StrictMode } from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
@@ -45,7 +45,7 @@ const router = createBrowserRouter([
     path: '/login',
     element: (
       <PublicRoutes>
-        <LoginPage />
+        <Login />
       </PublicRoutes>
     ),
   },
