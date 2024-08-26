@@ -11,19 +11,24 @@ export const Container = styled.form`
   width: 100%;
 `
 export const RightSide = styled.img`
-  flex: 1;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 `
 
 export const LeftSide = styled.div`
   flex: 1;
+  ${flex({ alignItems: 'center', justifyContent: 'center' })};
   background: ${WDS_COLOR_WHITE};
-  ${flex({
-    direction: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: WDS_SIZE_024_PX,
-  })};
   padding: ${WDS_SIZE_048_PX};
+  box-sizing: border-box;
+`
+
+export const FormWrapper = styled.div`
+  ${flex({ direction: 'column', gap: WDS_SIZE_024_PX })};
+  max-width: ${WDS_SIZE_416_PX};
+  width: 100%;
 `
 
 export const InputWrapper = styled.div`
@@ -33,11 +38,12 @@ export const InputWrapper = styled.div`
 `
 
 export const ButtonWrapper = styled.div`
-  width: ${WDS_SIZE_416_PX};
+  width: 100%;
 `
 
 export const Title = styled(Text).attrs({
   variant: 'titleH1',
 })`
-  margin-bottom: ${WDS_SIZE_024_PX}
+  margin-bottom: ${WDS_SIZE_024_PX};
+  text-align: center;
 `

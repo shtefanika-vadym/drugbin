@@ -1,5 +1,5 @@
-import { Login } from "components/login/Login"
+import { LoginPage } from 'components/login/LoginPage'
 
-export const LoginPage = () => {
-  return <Login />
+export const Login = () => {
+  return <LoginPage />
 }
