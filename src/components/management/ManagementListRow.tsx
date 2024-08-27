@@ -1,23 +1,21 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { ManagementData } from 'common/interfaces/ManagementTypes'
+import { ManagementEntry } from 'common/types/managament.types'
 import { Button } from 'components/ui/Button/Button'
-import { ApproveAction, RestoreAction, TrashAction } from 'components/ui/Dialog/ActionDialog'
 import { ChevronDown, ChevronUp } from 'components/ui/Icon'
 import { CellVariant } from 'components/ui/Table/Table.types'
 import { TableCell } from 'components/ui/Table/TableCell'
 import { TableRow } from 'components/ui/Table/TableRow'
 import { Tag } from 'components/ui/Tag/Tag'
 import { TagVriantType } from 'components/ui/Tag/Tag.type'
-import { useCallback } from 'react'
-import { ActionContainer, Container, ExpandedContainer } from './ManagementListRow.styled'
+import { ManagementActionCell } from './ManagementActionCell'
+import { Container, ExpandedContainer } from './ManagementListRow.styled'
 import { ManagementRowExpanded } from './ManagementRowExpanded'
-import { useManagementActions } from './useManagementActions'
 
 interface ManagementListRowProps {
-  data: ManagementData
+  data: ManagementEntry
   expanded: boolean
   search?: string
   onToggle: () => void
+  mutate: () => void
 }
 
 interface ToggleCellProps {
@@ -25,17 +23,12 @@ interface ToggleCellProps {
   expanded: boolean
 }
 
-interface ActionCellProps {
-  id: string
-  status: string
-  search?: string
-}
-
 export const ManagementListRow: React.FC<ManagementListRowProps> = ({
   data,
   onToggle,
   expanded,
   search,
+  mutate,
 }) => {
   return (
     <Container>
@@ -48,7 +41,12 @@ export const ManagementListRow: React.FC<ManagementListRowProps> = ({
           <Tag variant={data.status as TagVriantType} />
         </TableCell>
         <TableCell>
-          <ActionCell id={data.user.id} status={data.status} search={search} />
+          <ManagementActionCell
+            id={data.user.id}
+            status={data.status}
+            search={search}
+            mutate={mutate}
+          />
         </TableCell>
       </TableRow>
       {expanded && (
@@ -67,38 +65,3 @@ const ToggleCell: React.FC<ToggleCellProps> = ({ toggle, expanded }) => (
     </Button>
   </TableCell>
 )
-
-const ActionCell: React.FC<ActionCellProps> = ({ id, status, search }) => {
-  const { approveEntry, deleteEntry, restoreEntry } = useManagementActions(search)
-  const isApproved = status === TagVriantType.APPROVED
-  const isRecycled = status === TagVriantType.RECYCLED
-
-  const handleApproveEntry = useCallback(() => {
-    approveEntry(id)
-  }, [approveEntry, id])
-
-  const handleDeleteEntry = useCallback(() => {
-    deleteEntry(id)
-  }, [deleteEntry, id])
-
-  const handleRestoreEntry = useCallback(() => {
-    console.log('restoreEntry', id)
-    restoreEntry(id)
-  }, [restoreEntry, id])
-
-  if (isRecycled) return null
-
-  if (isApproved)
-    return (
-      <ActionContainer>
-        <RestoreAction onConfirm={handleRestoreEntry} />
-      </ActionContainer>
-    )
-
-  return (
-    <ActionContainer>
-      <ApproveAction onConfirm={handleApproveEntry} />
-      <TrashAction onConfirm={handleDeleteEntry} />
-    </ActionContainer>
-  )
-}

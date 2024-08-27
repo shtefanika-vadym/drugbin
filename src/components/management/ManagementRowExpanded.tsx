@@ -1,13 +1,15 @@
-import { useGetDocumnetQuery } from 'api/documentsApi'
+import { useGetDocument } from 'common/hooks/documents'
 import useDialog from 'common/hooks/useDialog'
 import { DrugListProps } from 'common/interfaces/HistoryTypes'
 import { WDS_COLOR_BLUE_400, WDS_COLOR_GREY } from 'common/style/colors'
 import { DocumentType } from 'common/types/documents'
+import { fromDrugPack } from 'common/utils/pack'
 import { Button } from 'components/ui/Button/Button'
 import { DocumentViewer } from 'components/ui/DocumentViewer/DocumentViewer'
 import { Attachment } from 'components/ui/Icon'
 import { Spinner } from 'components/ui/Spinner/Spinner'
 import { Text } from 'components/ui/Text/Text'
+import { useCallback } from 'react'
 import { Container, Content, DrugContainer, WrapperBox } from './ManagementRowExpanded.styled'
 
 interface ManagementRowExpamdedProps {
@@ -16,15 +18,16 @@ interface ManagementRowExpamdedProps {
 }
 
 export const ManagementRowExpanded: React.FC<ManagementRowExpamdedProps> = ({ drugList, id }) => {
-  const { data: documentNormal, isLoading: isDocumentNormalLoading } = useGetDocumnetQuery({
-    id,
-    type: DocumentType.NORMAL,
-  })
-  const { data: documentPsycholeptic, isLoading: isDocumentPsycholepticLoading } =
-    useGetDocumnetQuery({
-      id,
-      type: DocumentType.PSYCHOLEPTIC,
-    })
+  const {
+    trigger: triggerNormal,
+    isMutating: isLoadingNormal,
+    data: normalPDF,
+  } = useGetDocument(id, DocumentType.NORMAL)
+  const {
+    trigger: triggerPsycholeptic,
+    isMutating: isLoadingPsycholeptic,
+    data: psycholepticPDF,
+  } = useGetDocument(id, DocumentType.PSYCHOLEPTIC)
 
   const [
     DocumentNormalViewerDialog,
@@ -38,22 +41,23 @@ export const ManagementRowExpanded: React.FC<ManagementRowExpamdedProps> = ({ dr
     toggleDocumentPsycholepticViewerDialog,
   ] = useDialog()
 
-  const fromDrugPack = (pack: string): string => {
-    const packMapping: { [key: string]: string } = {
-      box: 'Cutie',
-      entity: 'Unitate',
-    }
+  const handleOpenNormal = useCallback(async () => {
+    await triggerNormal()
+    toggleDocumentNormalViewerDialog()
+  }, [triggerNormal, toggleDocumentNormalViewerDialog])
 
-    return packMapping[pack] || 'Unitate'
-  }
+  const handleOpenPsycholeptic = useCallback(async () => {
+    await triggerPsycholeptic()
+    toggleDocumentPsycholepticViewerDialog()
+  }, [triggerPsycholeptic, toggleDocumentPsycholepticViewerDialog])
 
   return (
     <Container>
       <DocumentNormalViewerDialog {...documentNormalViewerDialogProps} isDocumentLayout>
-        <DocumentViewer documentURL={documentNormal} />
+        <DocumentViewer documentURL={normalPDF} />
       </DocumentNormalViewerDialog>
       <DocumentPsycholepticViewerDialog {...documentPsycholepticViewerDialogProps} isDocumentLayout>
-        <DocumentViewer documentURL={documentPsycholeptic} />
+        <DocumentViewer documentURL={psycholepticPDF} />
       </DocumentPsycholepticViewerDialog>
       <Content>
         <Text variant='subheading' color={WDS_COLOR_BLUE_400}>
@@ -61,19 +65,19 @@ export const ManagementRowExpanded: React.FC<ManagementRowExpamdedProps> = ({ dr
         </Text>
         <WrapperBox>
           <Button
-            disabled={isDocumentNormalLoading}
+            disabled={isLoadingNormal}
             variant='document'
             size='XS'
-            onClick={() => toggleDocumentNormalViewerDialog(true)}>
-            {!isDocumentNormalLoading ? <Attachment /> : <Spinner />}
+            onClick={handleOpenNormal}>
+            {!isLoadingNormal ? <Attachment /> : <Spinner />}
             PV Predare General
           </Button>
           <Button
-            disabled={isDocumentPsycholepticLoading}
+            disabled={isLoadingPsycholeptic}
             variant='document'
             size='XS'
-            onClick={() => toggleDocumentPsycholepticViewerDialog(true)}>
-            {!isDocumentPsycholepticLoading ? <Attachment /> : <Spinner />}
+            onClick={handleOpenPsycholeptic}>
+            {!isLoadingPsycholeptic ? <Attachment /> : <Spinner />}
             Declaratie PR Stupefiante
           </Button>
         </WrapperBox>

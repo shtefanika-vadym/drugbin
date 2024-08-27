@@ -3,11 +3,12 @@ import { Button } from 'components/ui/Button/Button'
 import { NavigateList } from 'components/ui/NavigateList/NavigateList'
 import { Content, Title, TitleWrapper } from './DocumentsHeader.styled'
 import { DocumentCreation } from 'components/ui/DocumentCreation'
+import { DocumentType } from 'common/types/documents'
 
 // 'Trimise', 'Șterse'
 const LIST = ['Proces Verbal', 'Psihotropice']
 
-export const DocumentsHeader: React.FC<{ showButton?: boolean; type?: string }> = ({
+export const DocumentsHeader: React.FC<{ showButton?: boolean; type?: DocumentType }> = ({
   showButton = false,
   type,
 }) => {

@@ -1,4 +1,4 @@
-import { useDocumentsQuery } from 'api/documentsApi'
+import { useGetVerbalProcesEntries } from 'common/hooks/documents'
 import useBreakpoints from 'common/hooks/useBreakpoints'
 import { DocumentType } from 'common/types/documents'
 import { Table } from 'components/ui/Table/Table'
@@ -14,7 +14,7 @@ interface DocumentsProps {
 
 // TODO: Add pagination
 export const Documents: React.FC<DocumentsProps> = ({ type }) => {
-  const { data, isLoading } = useDocumentsQuery(type)
+  const { data, isLoading } = useGetVerbalProcesEntries(type)
   const breakpoints = useBreakpoints()
 
   return (

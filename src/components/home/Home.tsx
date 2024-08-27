@@ -1,4 +1,4 @@
-import { useGetDashboardQuery } from 'api/dashboard'
+import { useGetDashboard } from 'common/hooks/dashboard'
 import { ChartDoughnut } from 'components/ui/ChartDoughnut/ChartDoughnut'
 import { ChartLine } from 'components/ui/ChartLine/ChartLine'
 import { DocumentType } from 'components/ui/DocumentType/DocumentType'
@@ -7,7 +7,7 @@ import { Text } from 'components/ui/Text/Text'
 import { BottomChart, ChartAlign, Container } from './home.styled'
 
 export const Home = () => {
-  const { data } = useGetDashboardQuery(2024)
+  const { data } = useGetDashboard(2024)
 
   return (
     <Container>
@@ -19,7 +19,7 @@ export const Home = () => {
           <StatusType statusData={data?.recycle} />
           <DocumentType documentsData={data?.documents} />
         </ChartAlign>
-      </BottomChart> 
+      </BottomChart>
     </Container>
   )
 }

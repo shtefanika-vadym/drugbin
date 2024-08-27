@@ -9,7 +9,13 @@ import { TableHeaderRow } from 'components/ui/Table/TableHeaderRow'
 import { Text } from 'components/ui/Text/Text'
 import { ChangeEvent, useCallback, useState } from 'react'
 import { useDebounce } from 'usehooks-ts'
-import { Container, InputWrapper, PaginationContainer, TableBody, TableHeader } from './Management.styled'
+import {
+  Container,
+  InputWrapper,
+  PaginationContainer,
+  TableBody,
+  TableHeader,
+} from './Management.styled'
 import { ManagementListRow } from './ManagementListRow'
 import { useManagementEntries } from './useManagementEntries'
 
@@ -20,7 +26,7 @@ export const Management = () => {
 
   const breakpoints = useBreakpoints()
   const { currentPage, setCurrentPage } = usePagination()
-  const { data, totalPages, isLoading } = useManagementEntries({
+  const { data, totalPages, isLoading, mutate } = useManagementEntries({
     page: currentPage,
     search: debouncedSearchTerm,
   })
@@ -77,23 +83,22 @@ export const Management = () => {
           </TableHeaderRow>
         </TableHeader>
         <TableBody>
-          {data.map((item, index) => {
-            return (
-              <ManagementListRow
-                key={index}
-                data={item}
-                expanded={expanded === item.key}
-                onToggle={() => toggle(item.key)}
-                search={searchTerm}
-              />
-            )
-          })}
+          {data.map((item, index) => (
+            <ManagementListRow
+              key={index}
+              data={item}
+              expanded={expanded === item.key}
+              onToggle={() => toggle(item.key)}
+              mutate={mutate}
+              search={searchTerm}
+            />
+          ))}
         </TableBody>
       </Table>
       <PaginationContainer>
         <Pagination
           current={currentPage}
-          total={totalPages + 1}
+          total={totalPages}
           maxVisible={10}
           onChange={handleChangePage}
         />

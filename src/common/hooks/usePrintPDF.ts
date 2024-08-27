@@ -1,13 +1,12 @@
-import { getDownloadDocument } from 'api/documentsApi'
 import { useRef } from 'react'
+import { fetchDocument } from './documents'
 
 export const usePrintPDF = () => {
   const iframeRef = useRef(null)
 
   const printPDF = async (id: string, documentType: string) => {
-    const response = await getDownloadDocument(id, documentType)
-    const documentData = response.data
-    const documentBlob = new Blob([documentData], { type: 'application/pdf' })
+    const response = await fetchDocument(`/documents/data/${id}?type=${documentType}`)
+    const documentBlob = new Blob([response], { type: 'application/pdf' })
     const documentURL = window.URL.createObjectURL(documentBlob)
 
     if (iframeRef.current) {

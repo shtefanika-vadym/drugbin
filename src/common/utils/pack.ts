@@ -1,10 +1,8 @@
-export const toPackType = (pack: string) => {
-  switch (pack) {
-    case 'pack':
-      return 'Cutie'
-    case 'blister':
-      return 'Blister'
-    case 'pastila':
-      return 'Pastila'
+export const fromDrugPack = (pack: string): string => {
+  const packMapping: { [key: string]: string } = {
+    box: 'Cutie',
+    entity: 'Unitate',
   }
+
+  return packMapping[pack] || 'Unitate'
 }

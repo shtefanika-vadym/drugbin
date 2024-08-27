@@ -1,13 +1,13 @@
-import type { DrugListProps } from './HistoryTypes'
+import { DrugListProps } from 'common/interfaces/HistoryTypes'
 
-export interface ManagementParser {
-  data: ManagementEntryParser[]
+export interface ManagementResponse {
+  data: ManagementEntryResponse[]
   limit: number
   page: number
   totalItems: number
 }
 
-export interface ManagementEntryParser {
+export interface ManagementEntryResponse {
   id: number
   recycleId: string
   status: string
@@ -20,7 +20,7 @@ export interface ManagementEntryParser {
   createdAt: string
 }
 
-export interface ManagementData {
+export interface ManagementEntry {
   key: number
   user: {
     name: string
@@ -35,7 +35,7 @@ export interface ManagementData {
   drugList: DrugListProps[]
 }
 
-export interface ManagementResponse {
-  data: ManagementData[]
+export interface ManagementType {
+  data: ManagementEntry[]
   totalItems: number
 }
