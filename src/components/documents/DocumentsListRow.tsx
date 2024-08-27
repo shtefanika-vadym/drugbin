@@ -1,8 +1,8 @@
-import { useGetRaportQuery } from 'api/documentsApi'
+import { useGetMonthlyRaport } from 'common/hooks/documents'
 import useDialog from 'common/hooks/useDialog'
 import { useDownloadPDF } from 'common/hooks/useDownloadPDF'
 import { usePrintPDF } from 'common/hooks/usePrintPDF'
-import { DocumentsVerbalProces } from 'common/interfaces/DocumentsProps'
+import { DocumentsVerbalProcess } from 'common/interfaces/DocumentsProps'
 import { DocumentType } from 'common/types/documents'
 import { Button } from 'components/ui/Button/Button'
 import { DocumentViewer } from 'components/ui/DocumentViewer/DocumentViewer'
@@ -13,7 +13,7 @@ import { useCallback } from 'react'
 import { ActionContainer } from './DocumentsListRow.styled'
 
 interface DocumentsListRowProps {
-  item: DocumentsVerbalProces
+  item: DocumentsVerbalProcess
   documentType: DocumentType
 }
 
@@ -40,13 +40,11 @@ export const DocumentsListRow: React.FC<DocumentsListRowProps> = ({ item, docume
 }
 
 const ActionCell: React.FC<ActionCellProps> = ({ id, documentType }) => {
-  const { data: raportDocumentUrl, isLoading: isLoadingRaportDocument } = useGetRaportQuery({
-    id,
-    type: documentType,
-  })
+  const [DocumentViewerDialog, documenViewerDialogProps, toggleTrashViewerDialog] = useDialog()
+
+  const { data, trigger, isMutating } = useGetMonthlyRaport(id, documentType)
   const { printPDF, iframeRef } = usePrintPDF()
   const downloadPDF = useDownloadPDF()
-  const [DocumentViewerDialog, documenViewerDialogProps, toggleTrashViewerDialog] = useDialog()
 
   const handleDownloadPDF = useCallback(() => {
     downloadPDF(id, documentType)
@@ -56,17 +54,18 @@ const ActionCell: React.FC<ActionCellProps> = ({ id, documentType }) => {
     printPDF(id, documentType)
   }, [documentType, id, printPDF])
 
+  const handleViewDocument = useCallback(async () => {
+    await trigger()
+    toggleTrashViewerDialog()
+  }, [trigger, toggleTrashViewerDialog])
+
   return (
     <ActionContainer>
       <DocumentViewerDialog {...documenViewerDialogProps} isDocumentLayout>
-        <DocumentViewer documentURL={raportDocumentUrl} />
+        <DocumentViewer documentURL={data} />
       </DocumentViewerDialog>
       <iframe ref={iframeRef} style={{ display: 'none' }} />
-      <Button
-        variant='square'
-        size='S-square'
-        onClick={() => toggleTrashViewerDialog()}
-        disabled={isLoadingRaportDocument}>
+      <Button variant='square' size='S-square' onClick={handleViewDocument} disabled={isMutating}>
         <ViewIcon />
       </Button>
       <Button variant='square' size='S-square' onClick={handleDownloadPDF}>

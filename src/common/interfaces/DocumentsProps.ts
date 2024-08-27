@@ -1,4 +1,4 @@
-export interface DocumentsVerbalProcesResponse {
+export interface DocumentsVerbalProcessResponse {
   createdAt: string
   deletedAt: string | null
   endDate: string
@@ -8,7 +8,7 @@ export interface DocumentsVerbalProcesResponse {
   documentId: string
 }
 
-export interface DocumentsVerbalProces {
+export interface DocumentsVerbalProcess {
   createAt: {
     data: string
     time: string

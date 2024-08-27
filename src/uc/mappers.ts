@@ -1,14 +1,12 @@
-import { DocumentsVerbalProces, DocumentsVerbalProcesResponse } from 'common/interfaces/DocumentsProps'
-import type {
-  ManagementData,
-  ManagementEntryParser,
-  ManagementParser,
-  ManagementResponse,
-} from 'common/interfaces/ManagementTypes'
+import {
+  DocumentsVerbalProcess,
+  DocumentsVerbalProcessResponse
+} from 'common/interfaces/DocumentsProps'
+import { ManagementEntry, ManagementEntryResponse, ManagementResponse, ManagementType } from 'common/types/managament.types'
 import { customDateFormat, customTimeFormat } from 'common/utils/utils'
 import { TagVriantType } from 'components/ui/Tag/Tag.type'
 
-const toManagementData = (input: ManagementEntryParser, index: number): ManagementData => ({
+const toManagementData = (input: ManagementEntryResponse, index: number): ManagementEntry => ({
   key: index,
   user: {
     name: `${input.firstName} ${input.lastName}`,
@@ -23,16 +21,16 @@ const toManagementData = (input: ManagementEntryParser, index: number): Manageme
   drugList: input.drugList,
 })
 
-export const toManagementEntry = (input: ManagementParser): ManagementResponse => ({
-  data: input.data.map((entry: ManagementEntryParser, index: number) =>
+export const toManagementEntry = (input: ManagementResponse): ManagementType => ({
+  data: input.data.map((entry, index) =>
     toManagementData(entry, index),
   ),
   totalItems: input.totalItems,
 })
 
-export const toDocumentsVerbalProces = (
-  input: DocumentsVerbalProcesResponse[],
-): DocumentsVerbalProces[] => {
+export const toDocumentsVerbalProcess = (
+  input: DocumentsVerbalProcessResponse[],
+): DocumentsVerbalProcess[] => {
   return input.map((entry) => {
     return {
       createAt: {
