@@ -9,7 +9,7 @@ const toTagText = (tagVariant: TagVriantType) => {
       return 'În progres'
     case TagVriantType.APPROVED:
       return 'Aprobat'
-    case TagVriantType.RECYCLED:
+    case TagVriantType.COLLECTED:
       return 'Distrus'
     case TagVriantType.DENY:
       return 'Respins'

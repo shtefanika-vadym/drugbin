@@ -1,7 +1,7 @@
 import api from 'api'
 import { AxiosResponse } from 'axios'
-import { DashboardResponse } from 'common/interfaces/Dashboard'
 import { useData } from './useData'
+import { DashboardResponse } from 'common/types/dashboard.types'
 
 const fetcher = async (url: string): Promise<DashboardResponse> => {
   const response: AxiosResponse<DashboardResponse> = await api.get<DashboardResponse>(url)

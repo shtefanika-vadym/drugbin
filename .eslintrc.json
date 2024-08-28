@@ -21,11 +21,6 @@
       {
         "paths": [
           {
-            "name": "react-i18next",
-            "importNames": ["useTranslation"],
-            "message": "Please use next-i18next import instead to avoid hydration errors"
-          },
-          {
             "name": "lodash",
             "importNames": ["Dictionary"],
             "message": "Please do not import Dictionary from lodash, import it from @/types/utils.types instead."

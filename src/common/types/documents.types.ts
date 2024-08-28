@@ -1,3 +1,8 @@
+export enum DocumentType {
+  PSYCHOLEPTIC = 'psycholeptic',
+  NORMAL = 'normal',
+}
+
 export interface DocumentsVerbalProcessResponse {
   createdAt: string
   deletedAt: string | null

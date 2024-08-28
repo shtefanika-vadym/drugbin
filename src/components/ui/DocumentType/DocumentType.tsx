@@ -1,4 +1,3 @@
-import { DocumentChart } from 'common/interfaces/Dashboard'
 import {
   WDS_COLOR_BLUE_200,
   WDS_COLOR_BLUE_300,
@@ -9,6 +8,7 @@ import { DashboardCard } from 'components/layout/DashboardCard/DashboardCard'
 import { ProgressBar } from '../ProgressBar/ProgressBar'
 import { Text } from '../Text/Text'
 import { Container, Legend, LegendDot, TextWrapper } from './DocumentType.styled'
+import { DocumentChart } from 'common/types/dashboard.types'
 
 interface DocumentTypeProps {
   documentsData: DocumentChart

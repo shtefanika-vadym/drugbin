@@ -1,6 +1,6 @@
 export enum TagVriantType {
   PENDING = 'pending',
-  RECYCLED = 'recycled',
+  COLLECTED = 'recycled',
   APPROVED = 'approved',
   DENY = 'deny'
 }

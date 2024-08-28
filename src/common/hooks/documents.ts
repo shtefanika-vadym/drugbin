@@ -1,10 +1,10 @@
 import api from 'api'
 import { AxiosResponse } from 'axios'
 import {
-  DocumentsVerbalProcess,
-  DocumentsVerbalProcessResponse,
-} from 'common/interfaces/DocumentsProps'
-import { DocumentType } from 'common/types/documents'
+    DocumentType,
+    DocumentsVerbalProcess,
+    DocumentsVerbalProcessResponse,
+} from 'common/types/documents.types'
 import { toDocumentsVerbalProcess } from 'uc/mappers'
 import { useData } from './useData'
 import { useDataOnDemand } from './useDataOnDemand'
@@ -17,8 +17,6 @@ export const fetchDocument = async (url: string): Promise<ArrayBuffer> => {
     responseType: 'arraybuffer',
   })
 
-  //   const pdfBlob = new Blob([response.data], { type: 'application/pdf' })
-  //   return URL.createObjectURL(pdfBlob)
   return response.data
 }
 

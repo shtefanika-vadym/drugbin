@@ -1,5 +1,3 @@
-import { DrugListProps } from 'common/interfaces/HistoryTypes'
-
 export interface ManagementResponse {
   data: ManagementEntryResponse[]
   limit: number
@@ -11,7 +9,7 @@ export interface ManagementEntryResponse {
   id: number
   recycleId: string
   status: string
-  drugList: DrugListProps[]
+  drugList: DrugList[]
   address: string | null
   cnp: string | number | null
   firstName: string
@@ -32,10 +30,32 @@ export interface ManagementEntry {
   }
   quantity: number
   status: string
-  drugList: DrugListProps[]
+  drugList: DrugList[]
 }
 
 export interface ManagementType {
   data: ManagementEntry[]
   totalItems: number
+}
+
+export interface DrugList {
+  drugDetails: {
+    atc: string
+    createdAt: string
+    id: number
+    importer: number
+    isPsycholeptic: boolean
+    packaging: string
+    prescription: string
+    producer: string
+    updatedAt: string
+  }
+  drugId: number
+  expirationDate: string | null
+  lot: string
+  pack: string
+  quantity: number
+  name: {
+    value: string
+  }
 }

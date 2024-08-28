@@ -1,6 +1,5 @@
 import { PieChart } from '@mui/x-charts/PieChart'
 import { useDrawingArea } from '@mui/x-charts/hooks'
-import { TypesChart } from 'common/interfaces/Dashboard'
 import {
   WDS_COLOR_BLACK,
   WDS_COLOR_BLUE_100,
@@ -20,6 +19,7 @@ import {
   LegendWrapper,
   Line,
 } from './ChartDoughnut.styled'
+import { TypesChart } from 'common/types/dashboard.types'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const StyledText = styled('text')(({ theme }) => ({

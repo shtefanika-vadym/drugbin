@@ -1,4 +1,4 @@
-import { TypesChart } from 'common/interfaces/Dashboard'
+import { TypesChart } from "common/types/dashboard.types"
 
 export const getValueByLabel = (label: string, doughnutData: TypesChart) => {
   const typeObject = doughnutData?.annual.find((data: { type: string }) => data.type === label)

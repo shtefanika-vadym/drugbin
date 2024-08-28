@@ -1,6 +1,6 @@
 import { useGetVerbalProcesEntries } from 'common/hooks/documents'
 import useBreakpoints from 'common/hooks/useBreakpoints'
-import { DocumentType } from 'common/types/documents'
+import { DocumentType } from 'common/types/documents.types'
 import { Table } from 'components/ui/Table/Table'
 import { TableHeaderCell } from 'components/ui/Table/TableHeaderCell'
 import { TableHeaderRow } from 'components/ui/Table/TableHeaderRow'

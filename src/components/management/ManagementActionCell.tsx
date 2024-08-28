@@ -7,7 +7,6 @@ import { ActionContainer } from "./ManagementListRow.styled"
 interface ManagementActionCellProps {
   id: string
   status: string
-  search?: string
   mutate: () => void
 }
 
@@ -16,7 +15,7 @@ export const ManagementActionCell: React.FC<ManagementActionCellProps> = ({ id, 
   const { trigger: triggerDelete } = useDeleteRaport(id)
 
   const isApproved = status === TagVriantType.APPROVED
-  const isRecycled = status === TagVriantType.RECYCLED
+  const isCollected = status === TagVriantType.COLLECTED
 
   const handleApproveEntry = useCallback(async () => {
     await triggerUpdate()
@@ -33,7 +32,7 @@ export const ManagementActionCell: React.FC<ManagementActionCellProps> = ({ id, 
     mutate()
   }, [triggerDelete, mutate])
 
-  if (isRecycled) return null
+  if (isCollected) return null
 
   if (isApproved)
     return (
