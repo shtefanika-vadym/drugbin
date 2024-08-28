@@ -90,7 +90,6 @@ export const Management = () => {
               expanded={expanded === item.key}
               onToggle={() => toggle(item.key)}
               mutate={mutate}
-              search={searchTerm}
             />
           ))}
         </TableBody>

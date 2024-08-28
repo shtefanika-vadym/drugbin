@@ -1,7 +1,7 @@
 import {
   DocumentsVerbalProcess,
   DocumentsVerbalProcessResponse
-} from 'common/interfaces/DocumentsProps'
+} from 'common/types/documents.types'
 import { ManagementEntry, ManagementEntryResponse, ManagementResponse, ManagementType } from 'common/types/managament.types'
 import { customDateFormat, customTimeFormat } from 'common/utils/utils'
 import { TagVriantType } from 'components/ui/Tag/Tag.type'

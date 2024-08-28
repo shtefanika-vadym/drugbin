@@ -1,8 +1,8 @@
+import { auth, register as registerUser } from 'api/auth'
+import { useAuthState } from 'common/state/auth.state'
 import { RegisterState, SignInState } from 'common/types/auth.types'
 import { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { auth, register as registerUser } from 'api/auth'
-import { useAuthState } from 'common/state/auth.state'
 
 const defaultSignInState = {
   isLoading: false,

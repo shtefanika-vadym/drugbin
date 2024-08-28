@@ -1,6 +1,6 @@
 import api from 'api'
 import { AxiosResponse } from 'axios'
-import { DocumentType } from 'common/types/documents'
+import { DocumentType } from 'common/types/documents.types'
 import { useData } from './useData'
 import { useDataOnDemand } from './useDataOnDemand'
 

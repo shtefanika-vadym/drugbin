@@ -1,19 +1,19 @@
 import { useGetDocument } from 'common/hooks/documents'
 import useDialog from 'common/hooks/useDialog'
-import { DrugListProps } from 'common/interfaces/HistoryTypes'
 import { WDS_COLOR_BLUE_400, WDS_COLOR_GREY } from 'common/style/colors'
-import { DocumentType } from 'common/types/documents'
+import { DocumentType } from 'common/types/documents.types'
 import { fromDrugPack } from 'common/utils/pack'
 import { Button } from 'components/ui/Button/Button'
 import { DocumentViewer } from 'components/ui/DocumentViewer/DocumentViewer'
 import { Attachment } from 'components/ui/Icon'
-import { Spinner } from 'components/ui/Spinner/Spinner'
+import { Loader } from 'components/ui/Loader'
 import { Text } from 'components/ui/Text/Text'
 import { useCallback } from 'react'
 import { Container, Content, DrugContainer, WrapperBox } from './ManagementRowExpanded.styled'
+import { DrugList } from 'common/types/managament.types'
 
 interface ManagementRowExpamdedProps {
-  drugList: DrugListProps[]
+  drugList: DrugList[]
   id: string
 }
 
@@ -69,7 +69,9 @@ export const ManagementRowExpanded: React.FC<ManagementRowExpamdedProps> = ({ dr
             variant='document'
             size='XS'
             onClick={handleOpenNormal}>
-            {!isLoadingNormal ? <Attachment /> : <Spinner />}
+            <Loader isLoading={isLoadingNormal}>
+              <Attachment />
+            </Loader>
             PV Predare General
           </Button>
           <Button
@@ -77,7 +79,9 @@ export const ManagementRowExpanded: React.FC<ManagementRowExpamdedProps> = ({ dr
             variant='document'
             size='XS'
             onClick={handleOpenPsycholeptic}>
-            {!isLoadingPsycholeptic ? <Attachment /> : <Spinner />}
+            <Loader isLoading={isLoadingPsycholeptic}>
+              <Attachment />
+            </Loader>
             Declaratie PR Stupefiante
           </Button>
         </WrapperBox>

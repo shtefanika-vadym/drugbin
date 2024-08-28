@@ -1,4 +1,4 @@
-import { DocumentType } from 'common/types/documents'
+import { DocumentType } from 'common/types/documents.types'
 import { Documents } from 'components/documents/Documents'
 import { PageWrapper } from 'components/layout/PageWrapper/PageWrapper'
 

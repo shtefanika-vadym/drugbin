@@ -20,10 +20,3 @@ export const customTimeFormat = (timestampString: string) => {
     .padStart(2, '0')}`
   return formattedTime
 }
-
-export const scrollToTop = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth',
-  })
-}
