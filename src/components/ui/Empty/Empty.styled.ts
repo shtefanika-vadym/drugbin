@@ -1,6 +1,6 @@
-import { flex } from 'common/style/mixins/flex.mixin'
-import { textVariant } from 'common/style/mixins/typography.mixin'
-import { WDS_SIZE_012_PX } from 'common/style/size'
+import { flex } from 'common/styles/mixins/flex.mixin'
+import { textVariant } from 'common/styles/mixins/typography.mixin'
+import { WDS_SIZE_012_PX } from 'common/styles/size'
 import styled from 'styled-components'
 
 export const Content = styled.div`

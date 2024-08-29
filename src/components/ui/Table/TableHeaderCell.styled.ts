@@ -1,8 +1,8 @@
-import { WDS_COLOR_BLUE_400 } from 'common/style/colors'
-import { flex } from 'common/style/mixins/flex.mixin'
-import { grid } from 'common/style/mixins/grid.mixin'
-import { textVariant } from 'common/style/mixins/typography.mixin'
-import { WDS_SIZE_008_PX, WDS_SIZE_024_PX } from 'common/style/size'
+import { WDS_COLOR_BLUE_400 } from 'common/styles/colors'
+import { flex } from 'common/styles/mixins/flex.mixin'
+import { grid } from 'common/styles/mixins/grid.mixin'
+import { textVariant } from 'common/styles/mixins/typography.mixin'
+import { WDS_SIZE_008_PX, WDS_SIZE_024_PX } from 'common/styles/size'
 import styled, { css } from 'styled-components'
 import { TableBreakpoint, TableConfig } from './Table.types'
 

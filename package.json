@@ -18,16 +18,19 @@
     "@types/node": "^16.11.45",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
-    "antd": "^4.24.13",
     "axios": "^0.27.2",
     "classnames": "^2.3.1",
+    "date-fns": "^3.6.0",
     "dayjs": "^1.11.11",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-no-relative-import-paths": "^1.4.0",
     "lodash-es": "^4.17.21",
+    "moment": "^2.30.1",
     "npm": "^8.19.4",
     "pdfjs-dist": "^3.4.120",
     "react": "^18.2.0",
+    "react-calendar": "^5.0.0",
+    "react-date-picker": "^11.0.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.4",
     "react-router-dom": "^6.23.0",
@@ -68,14 +71,9 @@
     ]
   },
   "devDependencies": {
-    "@faker-js/faker": "^8.3.1",
     "@types/compose-function": "^0.0.30",
-    "@types/dom-to-image": "^2.6.4",
-    "@types/file-saver": "^2.0.5",
     "@types/lodash-es": "^4.17.7",
-    "@types/react-pdf": "^6.2.0",
     "@types/react-router-dom": "^5.3.3",
-    "@types/react-scroll": "^1.8.6",
     "@types/styled-components": "^5.1.26",
     "@types/validator": "^13.7.10",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
@@ -88,7 +86,6 @@
     "eslint-plugin-react": "^7.30.1",
     "husky": "^8.0.0",
     "prettier": "^2.8.8",
-    "sass": "1.57.1",
     "typescript": "^4.9.5"
   }
 }

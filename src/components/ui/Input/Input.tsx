@@ -1,7 +1,7 @@
 import React, { InputHTMLAttributes } from "react";
 import { Text } from "../Text/Text";
 import { Container, StyledInput } from "./Input.styled";
-import { WDS_COLOR_BLACK } from "common/style/colors";
+import { WDS_COLOR_BLACK } from "common/styles/colors";
 
 export interface LabeledInputProps
   extends InputHTMLAttributes<HTMLInputElement> {

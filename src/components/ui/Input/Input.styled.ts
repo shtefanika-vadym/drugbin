@@ -1,7 +1,7 @@
 
-import { WDS_COLOR_BLACK, WDS_COLOR_GREY, WDS_COLOR_WHITE } from 'common/style/colors'
-import { textVariant } from 'common/style/mixins/typography.mixin'
-import { WDS_SIZE_008_PX, WDS_SIZE_010_PX } from 'common/style/size'
+import { WDS_COLOR_BLACK, WDS_COLOR_GREY, WDS_COLOR_WHITE } from 'common/styles/colors'
+import { textVariant } from 'common/styles/mixins/typography.mixin'
+import { WDS_SIZE_008_PX, WDS_SIZE_010_PX } from 'common/styles/size'
 import styled from 'styled-components'
 
 export const Container = styled.div`

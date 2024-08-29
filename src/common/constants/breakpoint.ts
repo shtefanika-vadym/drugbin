@@ -1,4 +1,4 @@
-import { remToPxVal } from 'common/style/cssHelpers'
+import { remToPxVal } from 'common/styles/cssHelpers'
 import type { Dictionary } from 'common/types/utils.types'
 
 export const WDS_BREAKPOINT_MOBILE = '20rem'; // from 320 px

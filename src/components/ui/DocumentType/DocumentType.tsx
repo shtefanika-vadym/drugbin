@@ -3,7 +3,7 @@ import {
   WDS_COLOR_BLUE_300,
   WDS_COLOR_BLUE_500,
   WDS_COLOR_GREY,
-} from 'common/style/colors'
+} from 'common/styles/colors'
 import { DashboardCard } from 'components/layout/DashboardCard/DashboardCard'
 import { ProgressBar } from '../ProgressBar/ProgressBar'
 import { Text } from '../Text/Text'

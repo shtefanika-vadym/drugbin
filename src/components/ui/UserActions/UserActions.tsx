@@ -1,5 +1,5 @@
 import { useAuth } from 'common/hooks/auth'
-import { WDS_COLOR_BLUE_700, WDS_COLOR_RED } from 'common/style/colors'
+import { WDS_COLOR_BLUE_700, WDS_COLOR_RED } from 'common/styles/colors'
 import { useCallback, useRef } from 'react'
 import { useOnClickOutside, useToggle } from 'usehooks-ts'
 import { Button } from '../Button/Button'

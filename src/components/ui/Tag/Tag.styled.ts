@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components'
 
-import { WDS_COLOR_GREEN, WDS_COLOR_ORANGE, WDS_COLOR_RED } from 'common/style/colors'
-import { textVariant } from 'common/style/mixins/typography.mixin'
-import { WDS_SIZE_006_PX, WDS_SIZE_008_PX, WDS_SIZE_016_PX } from 'common/style/size'
+import { WDS_COLOR_GREEN, WDS_COLOR_ORANGE, WDS_COLOR_RED } from 'common/styles/colors'
+import { textVariant } from 'common/styles/mixins/typography.mixin'
+import { WDS_SIZE_006_PX, WDS_SIZE_008_PX, WDS_SIZE_016_PX } from 'common/styles/size'
 
 import type { TagProps } from './Tag.type'
 

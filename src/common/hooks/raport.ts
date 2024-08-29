@@ -17,13 +17,13 @@ const fetchRaportDate = async (url: string): Promise<string> => {
 }
 
 export const useGenerateRaport = (type: DocumentType) => {
-  const { trigger, isMutating } = useDataOnDemand(`/documents/${type}`, generateRaportFetcher)
+  const { trigger, isMutating, error } = useDataOnDemand(`/documents/${type}`, generateRaportFetcher)
 
-  return { trigger, isMutating }
+  return { trigger, isMutating, error }
 }
 
 export const useGetRaportDate = (type: DocumentType) => {
-  const { data, isLoading } = useData(`/documents/start-date?type=${type}`, fetchRaportDate)
+  const { data, isLoading, isError } = useData(`/documents/start-date?type=${type}`, fetchRaportDate)
 
-  return { data, isLoading }
+  return { data, isLoading, isError }
 }

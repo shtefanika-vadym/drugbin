@@ -4,15 +4,15 @@ import {
   WDS_COLOR_GREY,
   WDS_COLOR_RED,
   WDS_COLOR_WHITE,
-} from 'common/style/colors'
-import { border } from 'common/style/mixins/border.mixin'
-import { flex } from 'common/style/mixins/flex.mixin'
+} from 'common/styles/colors'
+import { border } from 'common/styles/mixins/border.mixin'
+import { flex } from 'common/styles/mixins/flex.mixin'
 import {
   WDS_SIZE_003_PX,
   WDS_SIZE_004_PX,
   WDS_SIZE_008_PX,
   WDS_SIZE_014_PX,
-} from 'common/style/size'
+} from 'common/styles/size'
 
 import styled from 'styled-components'
 

@@ -1,10 +1,10 @@
-import { WDS_COLOR_BLUE_100, WDS_COLOR_WHITE } from 'common/style/colors'
-import { flex } from 'common/style/mixins/flex.mixin'
+import { WDS_COLOR_BLUE_100, WDS_COLOR_WHITE } from 'common/styles/colors'
+import { flex } from 'common/styles/mixins/flex.mixin'
 import {
     WDS_SIZE_008_PX,
     WDS_SIZE_012_PX,
     WDS_SIZE_016_PX
-} from 'common/style/size'
+} from 'common/styles/size'
 import styled from 'styled-components'
 
 export const Menu = styled.div`

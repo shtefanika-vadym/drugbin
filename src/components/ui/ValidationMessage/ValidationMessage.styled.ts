@@ -1,7 +1,7 @@
-import { WDS_COLOR_RED } from 'common/style/colors'
-import { flex } from 'common/style/mixins/flex.mixin'
-import { textVariant } from 'common/style/mixins/typography.mixin'
-import { WDS_SIZE_004_PX, WDS_SIZE_006_PX } from 'common/style/size'
+import { WDS_COLOR_RED } from 'common/styles/colors'
+import { flex } from 'common/styles/mixins/flex.mixin'
+import { textVariant } from 'common/styles/mixins/typography.mixin'
+import { WDS_SIZE_004_PX, WDS_SIZE_006_PX } from 'common/styles/size'
 import styled from 'styled-components'
 
 export const Container = styled.div`

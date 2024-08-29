@@ -50,20 +50,7 @@ export const Dialog: React.FC<DialogProps> = ({
 
   //TO-DO: FIND OTHER SOLUTION
   const handleCloseIfOpen = useCallback(
-    (e: any) => {
-      if (
-        e.target.classList.contains('ant-picker-cell-inner') ||
-        e.target.classList.contains('ant-picker-body') ||
-        e.target.classList.contains('ant-picker-date-panel') ||
-        e.target.classList.contains('ant-picker-header') ||
-        e.target.classList.contains('ant-picker-header-prev-btn') ||
-        e.target.classList.contains('ant-picker-header-super-prev-btn') ||
-        e.target.classList.contains('ant-picker-header-next-btn') ||
-        e.target.classList.contains('ant-picker-header-super-next-btn') ||
-        e.target.classList.contains('ant-picker-cell-in-view')
-      )
-        return
-
+    () => {
       if (open) {
         onClose()
         unlock()

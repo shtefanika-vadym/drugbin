@@ -1,7 +1,7 @@
 import { Text } from 'components/ui/Text/Text'
 import { ReactNode } from 'react'
 import { Container } from './DashboardCard.styled'
-import { WDS_COLOR_BLUE_400 } from 'common/style/colors'
+import { WDS_COLOR_BLUE_400 } from 'common/styles/colors'
 
 interface DashboardCardProps {
   title: string
