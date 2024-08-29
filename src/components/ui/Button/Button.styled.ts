@@ -9,10 +9,10 @@ import {
   WDS_COLOR_BLUE_500,
   WDS_COLOR_WHITE,
   WDS_COLOR_WHITE_100
-} from 'common/style/colors'
-import { border } from 'common/style/mixins/border.mixin'
-import { flex } from 'common/style/mixins/flex.mixin'
-import { textVariant } from 'common/style/mixins/typography.mixin'
+} from 'common/styles/colors'
+import { border } from 'common/styles/mixins/border.mixin'
+import { flex } from 'common/styles/mixins/flex.mixin'
+import { textVariant } from 'common/styles/mixins/typography.mixin'
 import {
   WDS_SIZE_004_PX,
   WDS_SIZE_006_PX,
@@ -20,7 +20,7 @@ import {
   WDS_SIZE_010_PX,
   WDS_SIZE_016_PX,
   WDS_SIZE_024_PX,
-} from 'common/style/size'
+} from 'common/styles/size'
 
 import type { StyledButtonProps } from './Button.types'
 

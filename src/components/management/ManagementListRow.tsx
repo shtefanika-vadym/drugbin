@@ -27,7 +27,7 @@ export const ManagementListRow: React.FC<ManagementListRowProps> = ({
     <Container>
       <TableRow isOpen={expanded}>
         <ManagementToggleCell toggle={onToggle} expanded={expanded} />
-        <TableCell label={user.id}>{user.name}</TableCell>
+        <TableCell label={user.id} isCopy>{user.name}</TableCell>
         <TableCell label={createAt.time}>{createAt.date}</TableCell>
         <TableCell>{quantity}</TableCell>
         <TableCell>

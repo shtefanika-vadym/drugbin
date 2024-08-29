@@ -1,5 +1,5 @@
-import { flex } from 'common/style/mixins/flex.mixin'
-import { WDS_SIZE_024_PX, WDS_SIZE_040_PX, WDS_SIZE_224_PX } from 'common/style/size'
+import { flex } from 'common/styles/mixins/flex.mixin'
+import { WDS_SIZE_024_PX, WDS_SIZE_040_PX, WDS_SIZE_224_PX } from 'common/styles/size'
 import styled from 'styled-components'
 
 export const PaginationContainer = styled.div`

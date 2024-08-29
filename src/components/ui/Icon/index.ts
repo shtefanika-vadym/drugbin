@@ -18,6 +18,7 @@ import { ReactComponent as TrashIcon } from 'common/assets/icon/trash.svg'
 import { ReactComponent as UserIcon } from 'common/assets/icon/user-01.svg'
 import { ReactComponent as AlertIcon } from 'common/assets/icon/error.svg'
 import { ReactComponent as SuccessIcon } from 'common/assets/icon/check-one.svg'
+import { ReactComponent as CalendarIcon } from 'common/assets/icon/calendar.svg'
 
 import { ReactComponent as Eye } from 'common/assets/icon/eye.svg'
 import { ReactComponent as EyeSlash } from 'common/assets/icon/eye-slash.svg'
@@ -45,4 +46,5 @@ export {
   SuccessIcon,
   EyeSlash,
   Eye,
+  CalendarIcon,
 }

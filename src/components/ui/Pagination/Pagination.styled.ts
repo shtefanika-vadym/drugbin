@@ -1,13 +1,13 @@
-import { WDS_COLOR_BLUE_100, WDS_COLOR_BLUE_400, WDS_COLOR_GREY } from 'common/style/colors'
-import { border } from 'common/style/mixins/border.mixin'
-import { flex } from 'common/style/mixins/flex.mixin'
+import { WDS_COLOR_BLUE_100, WDS_COLOR_BLUE_400, WDS_COLOR_GREY } from 'common/styles/colors'
+import { border } from 'common/styles/mixins/border.mixin'
+import { flex } from 'common/styles/mixins/flex.mixin'
 import {
   WDS_SIZE_004_PX,
   WDS_SIZE_008_PX,
   WDS_SIZE_016_PX,
   WDS_SIZE_024_PX,
   WDS_SIZE_026_PX,
-} from 'common/style/size'
+} from 'common/styles/size'
 import styled, { css } from 'styled-components'
 
 export const Container = styled.div`

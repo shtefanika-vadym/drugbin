@@ -1,5 +1,5 @@
-import { WDS_COLOR_WHITE } from 'common/style/colors'
-import { flex } from 'common/style/mixins/flex.mixin'
+import { WDS_COLOR_WHITE } from 'common/styles/colors'
+import { flex } from 'common/styles/mixins/flex.mixin'
 import {
   BREAKPOINTS,
   WDS_SIZE_008_PX,
@@ -9,13 +9,13 @@ import {
   WDS_SIZE_040_PX,
   WDS_SIZE_048_PX,
   WDS_SIZE_400_PX,
-} from 'common/style/size'
-import { WDS_Z_INDEX_THROBBER } from 'common/style/tokens/layers'
+} from 'common/styles/size'
+import { WDS_Z_INDEX_THROBBER } from 'common/styles/tokens/layers'
 import styled from 'styled-components'
 import { Button } from '../Button/Button'
 
-export const DIALOG_MIN_WIDTH = '560px'
-export const DIALOG_MAX_WIDTH = '45%'
+export const DIALOG_MIN_WIDTH = '385px'
+export const DIALOG_MAX_WIDTH = '385px'
 
 //same value as for SidebarNavigation container to keep layout in place
 const DIALOG_CONTAINER_MAX_WIDTH_FOR_TABLET = `${WDS_SIZE_400_PX}`
@@ -85,4 +85,5 @@ export const TopDocumentHeader = styled.div`
   background-color: ${WDS_COLOR_WHITE};
   padding: ${WDS_SIZE_016_PX};
   width: 100%;
+  box-sizing: border-box;
 `

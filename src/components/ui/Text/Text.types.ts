@@ -1,4 +1,4 @@
-import { TextVariantType } from 'common/style/mixins/typography.mixin'
+import { TextVariantType } from 'common/styles/mixins/typography.mixin'
 import { HTMLAttributes, ReactNode } from 'react'
 
 export type TextWrapperElement =

@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
-import { WDS_COLOR_BLUE_300, WDS_COLOR_GREY } from 'common/style/colors'
-import { border } from 'common/style/mixins/border.mixin'
-import { flex } from 'common/style/mixins/flex.mixin'
-import { WDS_SIZE_008_PX, WDS_SIZE_028_PX } from 'common/style/size'
+import { WDS_COLOR_BLUE_300, WDS_COLOR_GREY } from 'common/styles/colors'
+import { border } from 'common/styles/mixins/border.mixin'
+import { flex } from 'common/styles/mixins/flex.mixin'
+import { WDS_SIZE_008_PX, WDS_SIZE_028_PX } from 'common/styles/size'
 
 export const Container = styled.div`
   ${flex};

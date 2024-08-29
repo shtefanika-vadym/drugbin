@@ -1,4 +1,4 @@
-import { flex } from 'common/style/mixins/flex.mixin';
+import { flex } from 'common/styles/mixins/flex.mixin';
 import styled from 'styled-components';
 import { LoaderProps } from './Loader';
 

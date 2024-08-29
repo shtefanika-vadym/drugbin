@@ -1,6 +1,6 @@
 import { useGetDocument } from 'common/hooks/documents'
 import useDialog from 'common/hooks/useDialog'
-import { WDS_COLOR_BLUE_400, WDS_COLOR_GREY } from 'common/style/colors'
+import { WDS_COLOR_BLUE_400, WDS_COLOR_GREY } from 'common/styles/colors'
 import { DocumentType } from 'common/types/documents.types'
 import { fromDrugPack } from 'common/utils/pack'
 import { Button } from 'components/ui/Button/Button'

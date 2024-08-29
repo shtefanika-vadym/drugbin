@@ -1,5 +1,5 @@
 import { usePercentageCalculator } from 'common/hooks/percentage'
-import { WDS_COLOR_BLUE_200, WDS_COLOR_BLUE_400 } from 'common/style/colors'
+import { WDS_COLOR_BLUE_200, WDS_COLOR_BLUE_400 } from 'common/styles/colors'
 import { DashboardCard } from 'components/layout/DashboardCard/DashboardCard'
 import { ProgressBar } from '../ProgressBar/ProgressBar'
 import { Container } from './StatusType.styled'

@@ -1,5 +1,5 @@
 import { LineChart } from '@mui/x-charts/LineChart'
-import { WDS_COLOR_BLUE_400, WDS_COLOR_GREY } from 'common/style/colors'
+import { WDS_COLOR_BLUE_400, WDS_COLOR_GREY } from 'common/styles/colors'
 import { Text } from 'components/ui/Text/Text'
 import { Border, Container, LegendContent } from './ChartLine.styled'
 

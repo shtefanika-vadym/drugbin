@@ -1,19 +1,32 @@
 import { FC, ReactNode } from 'react'
-import { Copy } from '../Copy/Copy'
+import { CopyText } from '../CopyText/CopyText'
 import { CellVariant } from './Table.types'
-import { StyledTableCell, Value } from './TableCell.styled'
+import { Label, StyledTableCell, Value } from './TableCell.styled'
 
 interface TableCellProps {
-  label?: ReactNode
+  label?: string
   variant?: CellVariant
   children?: ReactNode
+  isCopy?: boolean
 }
 
-export const TableCell: FC<TableCellProps> = ({ children, label, variant }) => {
+export const TableCell: FC<TableCellProps> = ({ children, label, variant, isCopy = false }) => {
+
+  const renderLabel = () => {
+    if (isCopy)
+      return (
+        <CopyText value={label}>
+          <Label>{label}</Label>
+        </CopyText>
+      )
+
+    return <Label>{label}</Label>
+  } 
+
   return (
     <StyledTableCell variant={variant}>
       <Value>{children}</Value>
-      {label && <Copy text={label as string} />}
+      {renderLabel()}
     </StyledTableCell>
   )
 }

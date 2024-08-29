@@ -14,12 +14,12 @@ interface DocumentsProps {
 
 // TODO: Add pagination
 export const Documents: React.FC<DocumentsProps> = ({ type }) => {
-  const { data, isLoading } = useGetVerbalProcesEntries(type)
+  const { data, isLoading, mutate } = useGetVerbalProcesEntries(type)
   const breakpoints = useBreakpoints()
 
   return (
     <>
-      <DocumentsHeader showButton type={type} />
+      <DocumentsHeader showButton type={type} refetchDocuments={mutate} />
       <Table
         configDesktop={{
           itemGridCols: 'minmax(0, 2fr) minmax(0, 1.5fr) minmax(0, 2fr) minmax(0, 1.5fr)',

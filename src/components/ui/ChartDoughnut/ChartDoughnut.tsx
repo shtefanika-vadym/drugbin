@@ -6,7 +6,7 @@ import {
   WDS_COLOR_BLUE_200,
   WDS_COLOR_BLUE_400,
   WDS_COLOR_GREY,
-} from 'common/style/colors'
+} from 'common/styles/colors'
 import { getDoughnutTotal, getValueByLabel } from 'common/utils/dashboard'
 import { DashboardCard } from 'components/layout/DashboardCard/DashboardCard'
 import { Text } from 'components/ui/Text/Text'

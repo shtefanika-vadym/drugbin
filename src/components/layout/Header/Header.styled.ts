@@ -1,12 +1,12 @@
 import { WDS_BREAKPOINT_DESKTOP_S } from 'common/constants/breakpoint'
-import { WDS_COLOR_BLUE_100, WDS_COLOR_WHITE } from 'common/style/colors'
-import { flex } from 'common/style/mixins/flex.mixin'
+import { WDS_COLOR_BLUE_100, WDS_COLOR_WHITE } from 'common/styles/colors'
+import { flex } from 'common/styles/mixins/flex.mixin'
 import {
   WDS_SIZE_016_PX,
   WDS_SIZE_024_PX,
   WDS_SIZE_064_PX,
   WDS_SIZE_080_PX,
-} from 'common/style/size'
+} from 'common/styles/size'
 import styled from 'styled-components'
 
 export const Container = styled.div`
@@ -21,6 +21,7 @@ export const Container = styled.div`
   border-bottom: 1px solid ${WDS_COLOR_BLUE_100};
   position: relative;
   padding: ${WDS_SIZE_016_PX} ${WDS_SIZE_080_PX};
+  box-sizing: border-box;
 
   @media (min-width: ${WDS_BREAKPOINT_DESKTOP_S}) {
     ${flex({ gap: WDS_SIZE_064_PX })};

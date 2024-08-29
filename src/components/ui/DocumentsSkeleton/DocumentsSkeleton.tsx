@@ -6,7 +6,7 @@ import { IconWrpper, NameWrapper, Row } from './DocumentsSkeleton.styled'
 export const DocumentsSkeleton = () => {
   const numberOfRows = 10
 
-  const renderedRows = [...Array(numberOfRows)].map((_, index: number) => (
+  const renderRows = [...Array(numberOfRows)].map((_, index: number) => (
     <div key={index}>
       <Row>
         <NameWrapper>
@@ -30,7 +30,7 @@ export const DocumentsSkeleton = () => {
   return (
     <>
       <Skeleton height='38px' width='100%' />
-      {renderedRows}
+      {renderRows}
     </>
   )
 }

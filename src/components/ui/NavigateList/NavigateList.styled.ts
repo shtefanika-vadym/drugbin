@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
-import { flex } from 'common/style/mixins/flex.mixin'
-import { textVariant } from 'common/style/mixins/typography.mixin'
+import { flex } from 'common/styles/mixins/flex.mixin'
+import { textVariant } from 'common/styles/mixins/typography.mixin'
 
 export const NavigateListWrapper = styled.div`
   ${flex({ gap: '14px' })}

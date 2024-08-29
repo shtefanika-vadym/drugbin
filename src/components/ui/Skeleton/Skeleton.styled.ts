@@ -1,4 +1,4 @@
-import { WDS_SIZE_008_PX } from 'common/style/size'
+import { WDS_SIZE_008_PX } from 'common/styles/size'
 import styled from 'styled-components'
 
 export const SkeletonStyle = styled.div<{ width: string; height: string }>`

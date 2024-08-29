@@ -1,6 +1,6 @@
-import { WDS_COLOR_BLUE_100, WDS_COLOR_GREY } from 'common/style/colors'
-import { flex } from 'common/style/mixins/flex.mixin'
-import { grid } from 'common/style/mixins/grid.mixin'
+import { WDS_COLOR_BLUE_100, WDS_COLOR_GREY } from 'common/styles/colors'
+import { flex } from 'common/styles/mixins/flex.mixin'
+import { grid } from 'common/styles/mixins/grid.mixin'
 import styled from 'styled-components'
 import { TableConfig } from './Table.types'
 

@@ -1,5 +1,5 @@
-import { flex } from 'common/style/mixins/flex.mixin'
-import { WDS_SIZE_008_PX, WDS_SIZE_010_PX, WDS_SIZE_016_PX } from 'common/style/size'
+import { flex } from 'common/styles/mixins/flex.mixin'
+import { WDS_SIZE_008_PX, WDS_SIZE_010_PX, WDS_SIZE_016_PX } from 'common/styles/size'
 import styled, { keyframes } from 'styled-components'
 
 const progressAnimation = keyframes`

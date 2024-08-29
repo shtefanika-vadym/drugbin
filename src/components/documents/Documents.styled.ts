@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
-import { flex } from 'common/style/mixins/flex.mixin'
-import { textVariant } from 'common/style/mixins/typography.mixin'
-import { WDS_SIZE_016_PX, WDS_SIZE_024_PX } from 'common/style/size'
+import { flex } from 'common/styles/mixins/flex.mixin'
+import { textVariant } from 'common/styles/mixins/typography.mixin'
+import { WDS_SIZE_016_PX, WDS_SIZE_024_PX } from 'common/styles/size'
 
 export const Container = styled.div`
   ${flex({ direction: 'column', gap: WDS_SIZE_016_PX })};

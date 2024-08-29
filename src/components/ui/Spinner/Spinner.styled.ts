@@ -1,4 +1,4 @@
-import { WDS_COLOR_BLUE_400 } from 'common/style/colors';
+import { WDS_COLOR_BLUE_400 } from 'common/styles/colors';
 import styled, { css, keyframes } from 'styled-components';
 import { SpinnerProps } from './Spinner';
 

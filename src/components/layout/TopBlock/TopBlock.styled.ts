@@ -1,7 +1,8 @@
-import { WDS_COLOR_BLUE_300, WDS_COLOR_BLUE_400, WDS_COLOR_BLUE_700 } from 'common/style/colors'
-import { flex } from 'common/style/mixins/flex.mixin'
-import { textVariant } from 'common/style/mixins/typography.mixin'
-import { WDS_SIZE_002_PX, WDS_SIZE_009_PX, WDS_SIZE_032_PX } from 'common/style/size'
+import { WDS_COLOR_BLUE_300, WDS_COLOR_BLUE_400, WDS_COLOR_BLUE_700 } from 'common/styles/colors'
+import { flex } from 'common/styles/mixins/flex.mixin'
+import { textVariant } from 'common/styles/mixins/typography.mixin'
+import { WDS_SIZE_002_PX, WDS_SIZE_009_PX, WDS_SIZE_032_PX } from 'common/styles/size'
+import { LogoIcon } from 'components/ui/Icon'
 import styled from 'styled-components'
 
 export const Container = styled.div`
@@ -9,6 +10,7 @@ export const Container = styled.div`
   margin: 0 auto;
   ${flex({ justifyContent: 'space-between' })};
   max-width: 1285px;
+  box-sizing: border-box;
 `
 export const NavLink = styled.div<{ isActive: boolean }>`
   ${flex({ direction: 'column', alignItems: 'center' })};
@@ -30,11 +32,15 @@ export const Navigation = styled.div`
   gap: ${WDS_SIZE_032_PX};
 `
 
-export const Logo = styled.img`
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 0);
-  ${textVariant('titleH4')};
-  color: ${WDS_COLOR_BLUE_300};
+// export const Logo = styled.img`
+//   position: absolute;
+//   left: 50%;
+//   transform: translate(-50%, 0);
+//   ${textVariant('titleH4')};
+//   color: ${WDS_COLOR_BLUE_300};
+//   cursor: pointer;
+// `
+
+export const Logo = styled(LogoIcon)`
   cursor: pointer;
 `

@@ -1,4 +1,4 @@
-import { WDS_COLOR_BLUE_300 } from 'common/style/colors'
+import { WDS_COLOR_BLUE_300 } from 'common/styles/colors'
 import { Text } from '../Text/Text'
 import { Bar, BarWrapper, Container, Details } from './ProgressBar.styled'
 

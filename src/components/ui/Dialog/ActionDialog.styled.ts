@@ -1,13 +1,13 @@
-import { flex } from 'common/style/mixins/flex.mixin'
+import { flex } from 'common/styles/mixins/flex.mixin'
 import {
   WDS_SIZE_008_PX,
   WDS_SIZE_016_PX,
   WDS_SIZE_024_PX,
   WDS_SIZE_056_PX,
-} from 'common/style/size'
+} from 'common/styles/size'
 import styled from 'styled-components'
 import { Text } from '../Text/Text'
-import { WDS_COLOR_GREY } from 'common/style/colors'
+import { WDS_COLOR_GREY } from 'common/styles/colors'
 
 export const Container = styled.div`
   ${flex({ gap: WDS_SIZE_024_PX })}

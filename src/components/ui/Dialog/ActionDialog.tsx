@@ -1,5 +1,5 @@
 import useDialog from 'common/hooks/useDialog'
-import { WDS_COLOR_BLUE_100, WDS_COLOR_GREEN_200 } from 'common/style/colors'
+import { WDS_COLOR_BLUE_100, WDS_COLOR_GREEN_200 } from 'common/styles/colors'
 import { useCallback } from 'react'
 import { Button } from '../Button/Button'
 import { ApproveIcon, CheckIcon, RestoreIcon, TrashIcon, TrashIcon2 } from '../Icon'

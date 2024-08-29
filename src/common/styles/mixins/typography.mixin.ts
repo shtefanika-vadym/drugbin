@@ -9,13 +9,13 @@ import {
   WDS_SIZE_040_PX,
   WDS_SIZE_048_PX,
   WDS_SIZE_064_PX,
-} from 'common/style/size'
+} from 'common/styles/size'
 import {
   WDS_TEXT_FAMILY_BASE,
   WDS_TEXT_WEIGHT_BOLD,
   WDS_TEXT_WEIGHT_DEMI,
   WDS_TEXT_WEIGHT_REGULAR,
-} from 'common/style/typography'
+} from 'common/styles/typography'
 
 export interface Dictionary<T> {
   [Key: string]: T

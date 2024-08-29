@@ -2,7 +2,7 @@ import { isNil } from "lodash-es";
 import useSWR, { BareFetcher, KeyedMutator, SWRConfiguration } from "swr";
 
 export const SWR_CONFIG = {
-  revalidateOnFocus: false,
+  revalidateOnFocus: true,
 };
 
 export interface Model<T, E> {

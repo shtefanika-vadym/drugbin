@@ -8,17 +8,24 @@ import { DocumentType } from 'common/types/documents.types'
 // 'Trimise', 'Șterse'
 const LIST = ['Proces Verbal', 'Psihotropice']
 
-export const DocumentsHeader: React.FC<{ showButton?: boolean; type?: DocumentType }> = ({
-  showButton = false,
-  type,
-}) => {
+interface DocumentsHeaderProps {
+  showButton?: boolean
+  type?: DocumentType
+  refetchDocuments: () => void
+}
+
+export const DocumentsHeader: React.FC<DocumentsHeaderProps> = ({ showButton = false, type, refetchDocuments }) => {
   const [DocumentCreationDialog, documentCreationDialogProps, toggleDocumentCreationDialog] =
     useDialog()
 
   return (
     <Content>
       <DocumentCreationDialog {...documentCreationDialogProps}>
-        <DocumentCreation type={type} close={toggleDocumentCreationDialog} />
+        <DocumentCreation
+          type={type}
+          close={toggleDocumentCreationDialog}
+          refetchDocuments={refetchDocuments}
+        />
       </DocumentCreationDialog>
       <TitleWrapper>
         <Title>Documente</Title>
