@@ -33,6 +33,8 @@ export const Pagination: React.FC<PaginationProps> = ({
     [onChange, current],
   )
 
+  if (total <= 1) return null
+
   return (
     <Container>
       <Tile disabled={current === 1} onClick={handlePrev}>
@@ -42,7 +44,7 @@ export const Pagination: React.FC<PaginationProps> = ({
         <PageTile key={t} active={current === t} value={t} onChange={onChange} />
       ))}
       <Tile disabled={current === total - 1} onClick={handleNext}>
-        <ChevronUp className='rotate' color='red' fill='red'/>
+        <ChevronUp className='rotate' color='red' fill='red' />
       </Tile>
     </Container>
   )

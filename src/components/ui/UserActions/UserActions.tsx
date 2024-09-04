@@ -15,6 +15,7 @@ export const UserActions = () => {
   const [value, toggle, setValue] = useToggle(false)
 
   const { logout } = useAuth()
+  // const navigate = useNavigate()
 
   const handleClose = useCallback(() => {
     setValue(false)
@@ -23,6 +24,10 @@ export const UserActions = () => {
   const handleReport = useCallback(() => {
     window.open(reportURL, '_blank')
   }, [])
+
+  // const handleNavigateSettings = useCallback(() => {
+  //   navigate('/settings')
+  // }, [navigate])
 
   useOnClickOutside(containerRef, handleClose)
 
@@ -36,6 +41,9 @@ export const UserActions = () => {
       </Button>
       {value && (
         <Menu>
+          {/* <MenuActions onClick={handleNavigateSettings}>
+            <Text variant='bodyM'>Setări</Text>
+          </MenuActions> */}
           <MenuActions onClick={handleReport}>
             <Text variant='bodyM'>Raportați o problemă</Text>
           </MenuActions>

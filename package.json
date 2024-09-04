@@ -72,6 +72,7 @@
   },
   "devDependencies": {
     "@types/compose-function": "^0.0.30",
+    "@types/d3-scale": "^4.0.8",
     "@types/lodash-es": "^4.17.7",
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.26",

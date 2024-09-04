@@ -20,3 +20,12 @@ export const customTimeFormat = (timestampString: string) => {
     .padStart(2, '0')}`
   return formattedTime
 }
+
+export const getDaysInCurrentMonth = () => {
+  const date = new Date();
+  const currentYear = date.getFullYear();
+  const currentMonth = date.getMonth();
+  const nextMonthDate = new Date(currentYear, currentMonth + 1, 0);
+
+  return nextMonthDate.getDate();
+}

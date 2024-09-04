@@ -1,6 +1,6 @@
 import { useDeleteRaport, useUpdateStatusRaport } from "common/hooks/status"
 import { ApproveAction, RestoreAction, TrashAction } from "components/ui/Dialog/ActionDialog"
-import { TagVriantType } from "components/ui/Tag/Tag.type"
+import { TagVariantType } from "components/ui/Tag/Tag.type"
 import { useCallback } from "react"
 import { ActionContainer } from "./ManagementListRow.styled"
 
@@ -14,8 +14,8 @@ export const ManagementActionCell: React.FC<ManagementActionCellProps> = ({ id, 
   const { trigger: triggerUpdate } = useUpdateStatusRaport(id)
   const { trigger: triggerDelete } = useDeleteRaport(id)
 
-  const isApproved = status === TagVriantType.APPROVED
-  const isCollected = status === TagVriantType.COLLECTED
+  const isApproved = status === TagVariantType.APPROVED
+  const isCollected = status === TagVariantType.COLLECTED
 
   const handleApproveEntry = useCallback(async () => {
     await triggerUpdate()

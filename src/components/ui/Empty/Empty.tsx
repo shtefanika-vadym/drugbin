@@ -1,5 +1,5 @@
-import noData from 'common/assets/no-data.svg'
-import { Content, Description, Icon } from './Empty.styled'
+import { EmptyIcon } from '../Icon'
+import { Content, Description } from './Empty.styled'
 
 interface EmptyProps {
   description?: string
@@ -8,7 +8,7 @@ interface EmptyProps {
 export const Empty: React.FC<EmptyProps> = ({ description = 'Nu există date disponibile!' }) => {
   return (
     <Content>
-      <Icon src={noData} alt='No Data' />
+      <EmptyIcon />
       <Description>{description}</Description>
     </Content>
   )

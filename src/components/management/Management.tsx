@@ -1,5 +1,6 @@
 import useBreakpoints from 'common/hooks/useBreakpoints'
 import { usePagination } from 'common/hooks/usePagination'
+import { Empty } from 'components/ui/Empty/Empty'
 import { Input } from 'components/ui/Input/Input'
 import { Pagination } from 'components/ui/Pagination/Pagination'
 import { Table } from 'components/ui/Table/Table'
@@ -59,6 +60,20 @@ export const Management = () => {
     [expanded],
   )
 
+  const renderRow = useCallback(() => {
+    if (data.length === 0) return <Empty />
+
+    return data.map((item, index) => (
+      <ManagementListRow
+        key={index}
+        data={item}
+        expanded={expanded === item.key}
+        onToggle={() => toggle(item.key)}
+        mutate={mutate}
+      />
+    ))
+  }, [data, mutate, expanded, toggle])
+
   return (
     <Container>
       <Text variant='titleH4'>Gestionare intrări</Text>
@@ -82,17 +97,7 @@ export const Management = () => {
             <TableHeaderCell>Acțiuni</TableHeaderCell>
           </TableHeaderRow>
         </TableHeader>
-        <TableBody>
-          {data.map((item, index) => (
-            <ManagementListRow
-              key={index}
-              data={item}
-              expanded={expanded === item.key}
-              onToggle={() => toggle(item.key)}
-              mutate={mutate}
-            />
-          ))}
-        </TableBody>
+        <TableBody>{renderRow()}</TableBody>
       </Table>
       <PaginationContainer>
         <Pagination

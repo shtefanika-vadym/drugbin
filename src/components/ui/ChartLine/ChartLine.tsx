@@ -1,9 +1,19 @@
 import { LineChart } from '@mui/x-charts/LineChart'
 import { WDS_COLOR_BLUE_400, WDS_COLOR_GREY } from 'common/styles/colors'
+import { DrugsChart } from 'common/types/dashboard.types'
 import { Text } from 'components/ui/Text/Text'
+import React from 'react'
 import { Border, Container, LegendContent } from './ChartLine.styled'
 
-export const ChartLine = () => {
+interface ChartLineProps {
+  data: DrugsChart
+}
+
+// TODO: ASK BACKEND
+export const ChartLine: React.FC<ChartLineProps> = ({ data }) => {
+  // const arrayOfDays = range(1, getDaysInCurrentMonth() + 1)
+  // const valuesArray = map(arrayOfDays, (key) => get(data?.monthly, key, 0))
+
   return (
     <>
       <Container>

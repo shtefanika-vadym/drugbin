@@ -8,6 +8,7 @@ import { DocumentViewer } from 'components/ui/DocumentViewer/DocumentViewer'
 import { DownloadIcon, PrintIcon, ViewIcon } from 'components/ui/Icon'
 import { useCallback } from 'react'
 import { Container } from './DocumentsActionCell.styled'
+import { Loader } from 'components/ui/Loader'
 
 interface DocumentsActionCellProps {
   id: string
@@ -19,7 +20,7 @@ export const DocumentsActionCell: React.FC<DocumentsActionCellProps> = ({ id, do
 
   const { data, trigger, isMutating } = useGetMonthlyRaport(id, documentType)
   const { printPDF, iframeRef } = usePrintPDF()
-  const downloadPDF = useDownloadPDF()
+  const { downloadPDF, isLoading: isDownloadLoading } = useDownloadPDF()
 
   const handleDownloadPDF = useCallback(() => {
     downloadPDF(id, documentType)
@@ -41,10 +42,18 @@ export const DocumentsActionCell: React.FC<DocumentsActionCellProps> = ({ id, do
       </DocumentViewerDialog>
       <iframe ref={iframeRef} style={{ display: 'none' }} />
       <Button variant='square' size='S-square' onClick={handleViewDocument} disabled={isMutating}>
-        <ViewIcon />
+        <Loader isLoading={isMutating} justify='center'>
+          <ViewIcon />
+        </Loader>
       </Button>
-      <Button variant='square' size='S-square' onClick={handleDownloadPDF}>
-        <DownloadIcon />
+      <Button
+        variant='square'
+        size='S-square'
+        onClick={handleDownloadPDF}
+        disabled={isDownloadLoading}>
+        <Loader isLoading={isDownloadLoading} justify='center'>
+          <DownloadIcon />
+        </Loader>
       </Button>
       <Button variant='square' size='S-square' onClick={handlePrint}>
         <PrintIcon />

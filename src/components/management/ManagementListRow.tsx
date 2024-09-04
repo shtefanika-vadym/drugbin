@@ -2,7 +2,7 @@ import { ManagementEntry } from 'common/types/managament.types'
 import { TableCell } from 'components/ui/Table/TableCell'
 import { TableRow } from 'components/ui/Table/TableRow'
 import { Tag } from 'components/ui/Tag/Tag'
-import { TagVriantType } from 'components/ui/Tag/Tag.type'
+import { TagVariantType } from 'components/ui/Tag/Tag.type'
 import { ManagementActionCell } from './ManagementActionCell'
 import { Container, ExpandedContainer } from './ManagementListRow.styled'
 import { ManagementRowExpanded } from './ManagementRowExpanded'
@@ -31,7 +31,7 @@ export const ManagementListRow: React.FC<ManagementListRowProps> = ({
         <TableCell label={createAt.time}>{createAt.date}</TableCell>
         <TableCell>{quantity}</TableCell>
         <TableCell>
-          <Tag variant={status as TagVriantType} />
+          <Tag variant={status as TagVariantType} />
         </TableCell>
         <TableCell>
           <ManagementActionCell id={user.id} status={status} mutate={mutate} />

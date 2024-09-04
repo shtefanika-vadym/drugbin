@@ -12,7 +12,7 @@ export const Home = () => {
   return (
     <Container>
       <Text variant='titleH4'>Aruncă o privire asupra progresului colectării</Text>
-      <ChartLine />
+      <ChartLine data={data?.drugs}/>
       <BottomChart>
         <ChartAlign>
           <ChartDoughnut doughnutData={data?.types} />

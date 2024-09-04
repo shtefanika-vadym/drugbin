@@ -11,6 +11,7 @@ export const WDS_COLOR_BLUE_700 = '#01102E'
 
 export const WDS_COLOR_BLACK = '#000611'
 export const WDS_COLOR_GREY = '#A3A6AD'
+export const WDS_COLOR_GREY_100 = '#D9D9D9'
 export const WDS_COLOR_GREEN = '#219653'
 export const WDS_COLOR_GREEN_200 = '#D3EADD'
 export const WDS_COLOR_RED = '#EB5757'

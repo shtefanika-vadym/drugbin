@@ -1,9 +1,12 @@
 import { capitalize } from 'lodash-es'
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import { fetchDocument } from './documents'
 
 export const useDownloadPDF = () => {
+  const [isLoading, setIsLoading] = useState(false)
+
   const downloadPDF = useCallback(async (id: string, documentType: string) => {
+    setIsLoading(true)
     const documentName = `DrugBin_Raport_${capitalize(documentType)}_${id}.pdf`
     try {
       const response = await fetchDocument(`/documents/data/${id}?type=${documentType}`)
@@ -18,11 +21,13 @@ export const useDownloadPDF = () => {
 
       document.body.removeChild(link)
       window.URL.revokeObjectURL(documentURL)
+      setIsLoading(false)
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error('Error downloading PDF:', error)
+      setIsLoading(false)
     }
   }, [])
 
-  return downloadPDF
+  return { downloadPDF, isLoading }
 }
