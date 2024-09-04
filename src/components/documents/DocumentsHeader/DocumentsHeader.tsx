@@ -1,12 +1,23 @@
 import useDialog from 'common/hooks/useDialog'
+import { DocumentType } from 'common/types/documents.types'
 import { Button } from 'components/ui/Button/Button'
+import { DocumentCreation } from 'components/ui/DocumentCreation'
 import { NavigateList } from 'components/ui/NavigateList/NavigateList'
 import { Content, Title, TitleWrapper } from './DocumentsHeader.styled'
-import { DocumentCreation } from 'components/ui/DocumentCreation'
-import { DocumentType } from 'common/types/documents.types'
 
 // 'Trimise', 'Șterse'
-const LIST = ['Proces Verbal', 'Psihotropice']
+// const LIST = ['Proces Verbal', 'Psihotropice']
+
+const DOCUMENTS_LIST_NAVIGATION = [
+  {
+    name: 'Proces Verbal',
+    route: '/documents/verbal-process'
+  },
+  {
+    name: 'Psihotropice',
+    route: '/documents/psychotropic'
+  }
+]
 
 interface DocumentsHeaderProps {
   showButton?: boolean
@@ -33,7 +44,7 @@ export const DocumentsHeader: React.FC<DocumentsHeaderProps> = ({ showButton = f
           <Button onClick={() => toggleDocumentCreationDialog()}>Generarea Raport</Button>
         )}
       </TitleWrapper>
-      <NavigateList list={LIST} />
+      <NavigateList list={DOCUMENTS_LIST_NAVIGATION} />
     </Content>
   )
 }

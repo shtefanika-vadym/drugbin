@@ -23,6 +23,10 @@ export const tagVariants = {
     color: ${WDS_COLOR_RED};
     background: rgba(235, 87, 87, 0.1);
   `,
+  default: css`
+    color: ${WDS_COLOR_GREEN};
+    background: rgba(33, 150, 83, 0.1);
+  `,
 }
 
 export const StyledTag = styled.div<TagProps>`

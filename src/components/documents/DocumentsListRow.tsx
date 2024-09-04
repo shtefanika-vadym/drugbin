@@ -11,7 +11,7 @@ interface DocumentsListRowProps {
 export const DocumentsListRow: React.FC<DocumentsListRowProps> = ({ item, documentType }) => {
   return (
     <TableRow>
-      <TableCell label={item.documentId}>Raport Medicamente</TableCell>
+      <TableCell label={item.documentId} isCopy>Raport Medicamente</TableCell>
       <TableCell label={item.createAt.time}>{item.createAt.data}</TableCell>
       <TableCell>
         {item.period.startDate} - {item.period.endDate}

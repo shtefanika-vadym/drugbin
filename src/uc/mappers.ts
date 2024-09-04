@@ -4,7 +4,7 @@ import {
 } from 'common/types/documents.types'
 import { ManagementEntry, ManagementEntryResponse, ManagementResponse, ManagementType } from 'common/types/managament.types'
 import { customDateFormat, customTimeFormat } from 'common/utils/utils'
-import { TagVriantType } from 'components/ui/Tag/Tag.type'
+import { TagVariantType } from 'components/ui/Tag/Tag.type'
 
 const toManagementData = (input: ManagementEntryResponse, index: number): ManagementEntry => ({
   key: index,
@@ -17,7 +17,7 @@ const toManagementData = (input: ManagementEntryResponse, index: number): Manage
     time: customTimeFormat(input.createdAt),
   },
   quantity: input.drugList.length,
-  status: input.status as TagVriantType,
+  status: input.status as TagVariantType,
   drugList: input.drugList,
 })
 

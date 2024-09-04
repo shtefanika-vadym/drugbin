@@ -3,6 +3,7 @@ import { DocumentsPsychotropicPage } from 'pages/DocumentsPsychotropicPage'
 import { HomePage } from 'pages/Home'
 import { Login } from 'pages/Login'
 import { ManagementPage } from 'pages/Management'
+import { NotFoundPage } from 'pages/NotFound'
 import { StrictMode } from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { ProtectedRoutes } from './ProtectedRoutes'
@@ -41,6 +42,14 @@ const router = createBrowserRouter([
       </ProtectedRoutes>
     ),
   },
+  // {
+  //   path: '/settings',
+  //   element: (
+  //     <ProtectedRoutes>
+  //       <SettingsPage />
+  //     </ProtectedRoutes>
+  //   ),
+  // },
   {
     path: '/login',
     element: (
@@ -48,6 +57,10 @@ const router = createBrowserRouter([
         <Login />
       </PublicRoutes>
     ),
+  },
+  {
+    path: '*',
+    element: <NotFoundPage />,
   },
 ])
 

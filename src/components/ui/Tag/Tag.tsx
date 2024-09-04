@@ -1,18 +1,20 @@
 import type { FC } from 'react'
 
 import { StyledTag } from './Tag.styled'
-import { TagProps, TagVriantType } from './Tag.type'
+import { TagProps, TagVariantType } from './Tag.type'
 
-const toTagText = (tagVariant: TagVriantType) => {
+const toTagText = (tagVariant: TagVariantType) => {
   switch (tagVariant) {
-    case TagVriantType.PENDING:
+    case TagVariantType.PENDING:
       return 'În progres'
-    case TagVriantType.APPROVED:
+    case TagVariantType.APPROVED:
       return 'Aprobat'
-    case TagVriantType.COLLECTED:
+    case TagVariantType.COLLECTED:
       return 'Distrus'
-    case TagVriantType.DENY:
+    case TagVariantType.DENY:
       return 'Respins'
+    case TagVariantType.DEFAULT:
+      return 'Implicită'
   }
 }
 
@@ -20,6 +22,6 @@ export const Tag: FC<TagProps> = (props) => {
   const { variant = 'pending' } = props
 
   return (
-    <StyledTag variant={variant as TagVriantType}>{toTagText(variant as TagVriantType)}</StyledTag>
+    <StyledTag variant={variant as TagVariantType}>{toTagText(variant as TagVariantType)}</StyledTag>
   )
 }
