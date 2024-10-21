@@ -1,16 +1,17 @@
 import { useGetDocument } from 'common/hooks/documents'
 import useDialog from 'common/hooks/useDialog'
 import { WDS_COLOR_BLUE_400, WDS_COLOR_GREY } from 'common/styles/colors'
-import { DocumentType } from 'common/types/documents.types'
+import { DrugList } from 'common/types/managament.types'
 import { fromDrugPack } from 'common/utils/pack'
+import { categoryLabels } from 'common/utils/utils'
 import { Button } from 'components/ui/Button/Button'
 import { DocumentViewer } from 'components/ui/DocumentViewer/DocumentViewer'
 import { Attachment } from 'components/ui/Icon'
 import { Loader } from 'components/ui/Loader'
 import { Text } from 'components/ui/Text/Text'
-import { useCallback } from 'react'
+import { uniq } from 'lodash-es'
+import { useCallback, useMemo, useState } from 'react'
 import { Container, Content, DrugContainer, WrapperBox } from './ManagementRowExpanded.styled'
-import { DrugList } from 'common/types/managament.types'
 
 interface ManagementRowExpamdedProps {
   drugList: DrugList[]
@@ -18,16 +19,15 @@ interface ManagementRowExpamdedProps {
 }
 
 export const ManagementRowExpanded: React.FC<ManagementRowExpamdedProps> = ({ drugList, id }) => {
+  const categories = useMemo(() => uniq(drugList.map((drug) => drug.category)), [drugList])
+
+  const [currentCategory, setCurrentCategory] = useState<number>(categories[0])
+
   const {
-    trigger: triggerNormal,
-    isMutating: isLoadingNormal,
+    trigger,
+    isMutating,
     data: normalPDF,
-  } = useGetDocument(id, DocumentType.NORMAL)
-  const {
-    trigger: triggerPsycholeptic,
-    isMutating: isLoadingPsycholeptic,
-    data: psycholepticPDF,
-  } = useGetDocument(id, DocumentType.PSYCHOLEPTIC)
+  } = useGetDocument(id, currentCategory)
 
   const [
     DocumentNormalViewerDialog,
@@ -35,55 +35,35 @@ export const ManagementRowExpanded: React.FC<ManagementRowExpamdedProps> = ({ dr
     toggleDocumentNormalViewerDialog,
   ] = useDialog()
 
-  const [
-    DocumentPsycholepticViewerDialog,
-    documentPsycholepticViewerDialogProps,
-    toggleDocumentPsycholepticViewerDialog,
-  ] = useDialog()
-
-  const handleOpenNormal = useCallback(async () => {
-    await triggerNormal()
+  const handleOpenNormal = useCallback(async (category: number) => {
+    await setCurrentCategory(category)
+    await trigger()
     toggleDocumentNormalViewerDialog()
-  }, [triggerNormal, toggleDocumentNormalViewerDialog])
-
-  const handleOpenPsycholeptic = useCallback(async () => {
-    await triggerPsycholeptic()
-    toggleDocumentPsycholepticViewerDialog()
-  }, [triggerPsycholeptic, toggleDocumentPsycholepticViewerDialog])
+  }, [trigger, toggleDocumentNormalViewerDialog])
 
   return (
     <Container>
       <DocumentNormalViewerDialog {...documentNormalViewerDialogProps} isDocumentLayout>
         <DocumentViewer documentURL={normalPDF} />
       </DocumentNormalViewerDialog>
-      <DocumentPsycholepticViewerDialog {...documentPsycholepticViewerDialogProps} isDocumentLayout>
-        <DocumentViewer documentURL={psycholepticPDF} />
-      </DocumentPsycholepticViewerDialog>
       <Content>
         <Text variant='subheading' color={WDS_COLOR_BLUE_400}>
           Documente
         </Text>
         <WrapperBox>
-          <Button
-            disabled={isLoadingNormal}
-            variant='document'
-            size='XS'
-            onClick={handleOpenNormal}>
-            <Loader isLoading={isLoadingNormal}>
-              <Attachment />
-            </Loader>
-            PV Predare General
-          </Button>
-          <Button
-            disabled={isLoadingPsycholeptic}
-            variant='document'
-            size='XS'
-            onClick={handleOpenPsycholeptic}>
-            <Loader isLoading={isLoadingPsycholeptic}>
-              <Attachment />
-            </Loader>
-            Declaratie PR Stupefiante
-          </Button>
+          {categories.map((category) => (
+            <Button
+              key={category}
+              disabled={isMutating}
+              variant='document'
+              size='XS'
+              onClick={() => handleOpenNormal(category)}>
+              <Loader isLoading={isMutating}>
+                <Attachment />
+              </Loader>
+              PV {categoryLabels[category]}
+            </Button>
+          ))}
         </WrapperBox>
       </Content>
       <Content>
@@ -93,7 +73,7 @@ export const ManagementRowExpanded: React.FC<ManagementRowExpamdedProps> = ({ dr
         {drugList.map((drug) => (
           <DrugContainer>
             <WrapperBox>
-              <Text>{drug?.name.value}</Text>
+              <Text>{drug?.name}</Text>
               <Text variant='bodyXS' color={WDS_COLOR_GREY}>
                 ({drug.quantity})
               </Text>

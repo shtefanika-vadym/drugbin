@@ -1,9 +1,11 @@
 import { flex } from 'common/styles/mixins/flex.mixin'
+import { grid } from 'common/styles/mixins/grid.mixin'
 import { WDS_SIZE_016_PX, WDS_SIZE_036_PX } from 'common/styles/size'
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  ${flex({ direction: 'column', gap: WDS_SIZE_016_PX})};
+  /* ${flex({ direction: 'column', gap: WDS_SIZE_016_PX })}; */
+  ${grid({ gridTemplateColumns: '1fr 1fr', rowGap: WDS_SIZE_016_PX })}
 `
 
 export const LegendDot = styled.div<{ color: string }>`

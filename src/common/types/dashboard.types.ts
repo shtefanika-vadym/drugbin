@@ -1,71 +1,75 @@
 export interface DashboardResponse {
-    documents: DocumentChart
-    drugs: DrugsChart
-    types: TypesChart
-    recycle: StatusChart
-  }
-  
-  export type TypesChart = {
-    annual: MonthlyAnnualTypes[]
-    monthly: MonthlyTypes[]
-  }
-  
-  type MonthlyTypes = {
-    [month: number]: {
-      type: string
-      total: number
-    }
-  }
-  
-  type MonthlyAnnualTypes = {
-    type: string
+  documents: DocumentChart
+  drugs: DrugsChart
+  categories: CategoriesChart
+  recycle: StatusChart
+}
+
+export type CategoriesChart = {
+  annual: MonthlyAnnualCategories[]
+  monthly: MonthlyCategories[]
+}
+
+type MonthlyCategories = {
+  [month: number]: {
+    category: number
     total: number
   }
-  
-  export type DrugsChart = {
-    annual: number
-    monthly: number[]
-    monthlyDetails: MonthlyDetailsDrugs
+}
+
+type MonthlyAnnualCategories = {
+  category: number
+  total: number
+}
+
+export type DrugsChart = {
+  annual: number
+  monthly: number[]
+  monthlyDetails: MonthlyDetailsDrugs
+}
+
+type MonthlyDetailsDrugs = {
+  [month: string]: {
+    [day: string]: number
   }
-  
-  type MonthlyDetailsDrugs = {
-    [month: string]: {
-      [day: string]: number
-    }
+}
+
+export type DocumentChart = {
+  annual: {
+    common: number
+    cytototoxic: number
+    inhalers: number
+    injectables: number
+    insulin: number
+    psycholeptics: number
+    supplements: number
+    total: number
   }
-  
-  export type DocumentChart = {
-    annual: {
-      normal: number
-      psycholeptic: number
-      total: number
-    }
-    monthly: MonthlyDocumets
+  monthly: MonthlyDocumets
+}
+
+type MonthlyDocumets = {
+  normal: {
+    [month: string]: number
   }
-  
-  type MonthlyDocumets = {
-    normal: {
-      [month: string]: number
-    }
-    psycholeptic: {
-      [month: string]: number
-    }
+  psycholeptic: {
+    [month: string]: number
   }
-  
-  type MonthlyStatus = {
-    [month: string]: {
-      approved: number
-      pending: number
-      recycled: number
-    }
+}
+
+type MonthlyStatus = {
+  [month: string]: {
+    approved: number
+    pending: number
+    recycled: number
   }
-  
-  export type StatusChart = {
-    annual: {
-      approved: number
-      pending: number
-      recycled: number
-    }
-    monthly: MonthlyStatus
+}
+
+export type StatusChart = {
+  annual: {
+    approved: number
+    pending: number
+    recycled: number
   }
-  
+  monthly: MonthlyStatus
+}

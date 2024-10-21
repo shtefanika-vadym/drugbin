@@ -35,9 +35,9 @@ const fetchVerbalProces = async (url: string): Promise<DocumentsVerbalProcess[]>
   return toDocumentsVerbalProcess(response.data)
 }
 
-export const useGetDocument = (id: string, type: DocumentType) => {
+export const useGetDocument = (id: string, category: number) => {
   const { data, trigger, isMutating } = useDataOnDemand(
-    `/recycle/process/${id}?type=${type}`,
+    `/recycle/process/${id}?category=${category}`,
     fetcher,
   )
 
