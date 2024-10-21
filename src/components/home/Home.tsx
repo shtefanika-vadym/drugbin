@@ -15,7 +15,7 @@ export const Home = () => {
       <ChartLine data={data?.drugs}/>
       <BottomChart>
         <ChartAlign>
-          <ChartDoughnut doughnutData={data?.types} />
+          <ChartDoughnut doughnutData={data?.categories} />
           <StatusType statusData={data?.recycle} />
           <DocumentType documentsData={data?.documents} />
         </ChartAlign>

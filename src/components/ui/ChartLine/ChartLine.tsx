@@ -10,7 +10,7 @@ interface ChartLineProps {
 }
 
 // TODO: ASK BACKEND
-export const ChartLine: React.FC<ChartLineProps> = ({ data }) => {
+export const ChartLine: React.FC<ChartLineProps> = () => {
   // const arrayOfDays = range(1, getDaysInCurrentMonth() + 1)
   // const valuesArray = map(arrayOfDays, (key) => get(data?.monthly, key, 0))
 

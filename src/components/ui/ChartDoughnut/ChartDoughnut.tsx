@@ -2,12 +2,11 @@ import { PieChart } from '@mui/x-charts/PieChart'
 import { useDrawingArea } from '@mui/x-charts/hooks'
 import {
   WDS_COLOR_BLACK,
-  WDS_COLOR_BLUE_100,
-  WDS_COLOR_BLUE_200,
-  WDS_COLOR_BLUE_400,
-  WDS_COLOR_GREY,
+  WDS_COLOR_GREY
 } from 'common/styles/colors'
+import { CategoriesChart } from 'common/types/dashboard.types'
 import { getDoughnutTotal, getValueByLabel } from 'common/utils/dashboard'
+import { categoryLabels } from 'common/utils/utils'
 import { DashboardCard } from 'components/layout/DashboardCard/DashboardCard'
 import { Text } from 'components/ui/Text/Text'
 import { useMemo } from 'react'
@@ -19,7 +18,6 @@ import {
   LegendWrapper,
   Line,
 } from './ChartDoughnut.styled'
-import { TypesChart } from 'common/types/dashboard.types'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const StyledText = styled('text')(({ theme }) => ({
@@ -40,14 +38,18 @@ const PieCenterLabel: React.FC<{ total: number }> = ({ total }) => {
 }
 
 interface ChartDoughnutProps {
-  doughnutData: TypesChart
+  doughnutData: CategoriesChart
 }
 
 export const ChartDoughnut: React.FC<ChartDoughnutProps> = ({ doughnutData }) => {
   const data = [
-    { value: getValueByLabel('Rx', doughnutData), label: 'RX', color: '#2949A6' },
-    { value: getValueByLabel('OTC', doughnutData), label: 'OTC', color: '#EBF0FB' },
-    { value: getValueByLabel('Supplement', doughnutData), label: 'Supliment', color: '#AEC5F2' },
+    { value: getValueByLabel(1, doughnutData), label: categoryLabels[1], color: '#EBF0FB' },
+    { value: getValueByLabel(2, doughnutData), label: categoryLabels[2], color: '#AEC5F2' },
+    { value: getValueByLabel(3, doughnutData), label: categoryLabels[3], color: '#B3C4E6' },
+    { value: getValueByLabel(4, doughnutData), label: categoryLabels[4], color: '#D5E4F8' },
+    { value: getValueByLabel(5, doughnutData), label: categoryLabels[5], color: '#2949A6' },
+    { value: getValueByLabel(6, doughnutData), label: categoryLabels[6], color: '#6A8ECA' },
+    { value: getValueByLabel(7, doughnutData), label: categoryLabels[7], color: '#FFB3B3' },
   ]
 
   const totalValue = useMemo(() => getDoughnutTotal(doughnutData), [doughnutData])
@@ -75,16 +77,32 @@ export const ChartDoughnut: React.FC<ChartDoughnutProps> = ({ doughnutData }) =>
         </DoughnutBackgorund>
         <LegendWrapper>
           <LegendStyles>
-            <Line color={WDS_COLOR_BLUE_400} />
-            <Text variant='bodyS'>RX</Text>
+            <Line color='#EBF0FB' />
+            <Text variant='bodyXS'>Citotoxice</Text>
           </LegendStyles>
           <LegendStyles>
-            <Line color={WDS_COLOR_BLUE_200} />
-            <Text variant='bodyS'>Supliment</Text>
+            <Line color='#AEC5F2' />
+            <Text variant='bodyXS'>{categoryLabels[2]}</Text>
           </LegendStyles>
           <LegendStyles>
-            <Line color={WDS_COLOR_BLUE_100} />
-            <Text variant='bodyS'>OTC</Text>
+            <Line color='#B3C4E6' />
+            <Text variant='bodyXS'>Tăietoare</Text>
+          </LegendStyles>
+          <LegendStyles>
+            <Line color='#D5E4F8' />
+            <Text variant='bodyXS'>{categoryLabels[4]}</Text>
+          </LegendStyles>
+          <LegendStyles>
+            <Line color='#2949A6' />
+            <Text variant='bodyXS'>Uzuale</Text>
+          </LegendStyles>
+          <LegendStyles>
+            <Line color='#6A8ECA' />
+            <Text variant='bodyXS'>{categoryLabels[6]}</Text>
+          </LegendStyles>
+          <LegendStyles>
+            <Line color='#FFB3B3' />
+            <Text variant='bodyXS'>{categoryLabels[7]}</Text>
           </LegendStyles>
         </LegendWrapper>
       </Container>

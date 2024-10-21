@@ -29,3 +29,14 @@ export const getDaysInCurrentMonth = () => {
 
   return nextMonthDate.getDate();
 }
+
+export const categoryLabels: Record<number, string> = {
+  0: "Necunoscut",
+  1: "Medicamente citotoxice și citostatice",
+  2: "Inhalatoare",
+  3: "Medicamente tăietoare",
+  4: "Insuline",
+  5: "Medicamente uzuale",
+  6: "Suplimente",
+  7: "Psiholeptice",
+};

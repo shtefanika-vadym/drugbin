@@ -28,5 +28,5 @@ export const LegendStyles = styled.div`
 `
 
 export const LegendWrapper = styled.div`
-  ${flex({ direction: 'column', gap: '30px' })};
+  ${flex({ direction: 'column', gap: '8px' })};
 `

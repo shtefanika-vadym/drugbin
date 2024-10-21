@@ -39,23 +39,20 @@ export interface ManagementType {
 }
 
 export interface DrugList {
-  drugDetails: {
-    atc: string
-    createdAt: string
-    id: number
-    importer: number
-    isPsycholeptic: boolean
-    packaging: string
-    prescription: string
-    producer: string
-    updatedAt: string
-  }
+  atc: string
+  createdAt: string
+  id: number
+  importer: number
+  isPsycholeptic: boolean
+  packaging: string
+  prescription: string
+  producer: string
+  updatedAt: string
   drugId: number
   expirationDate: string | null
   lot: string
   pack: string
   quantity: number
-  name: {
-    value: string
-  }
+  name: string
+  category: number
 }
