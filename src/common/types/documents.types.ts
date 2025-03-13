@@ -27,3 +27,14 @@ export interface DocumentsVerbalProcess {
   sharedAt: string
   documentId: string
 }
+
+export enum DocumentCategory {
+  UNKNOWN = 0,
+  CYTOTOXIC = 1,
+  INHALER = 2,
+  CUTTING = 3,
+  INSULIN = 4,
+  USUAL = 5,
+  SUPPLEMENT = 6,
+  PSYCHOLEPTIC = 7,
+}

@@ -1,6 +1,6 @@
 import api from 'api'
 import { AxiosResponse } from 'axios'
-import { DocumentType } from 'common/types/documents.types'
+import { DocumentCategory } from 'common/types/documents.types'
 import { useData } from './useData'
 import { useDataOnDemand } from './useDataOnDemand'
 
@@ -16,13 +16,13 @@ const fetchRaportDate = async (url: string): Promise<string> => {
   return response.data.startDate
 }
 
-export const useGenerateRaport = (type: DocumentType) => {
+export const useGenerateRaport = (type: DocumentCategory) => {
   const { trigger, isMutating, error } = useDataOnDemand(`/documents/${type}`, generateRaportFetcher)
 
   return { trigger, isMutating, error }
 }
 
-export const useGetRaportDate = (type: DocumentType) => {
+export const useGetRaportDate = (type: DocumentCategory) => {
   const { data, isLoading, isError } = useData(`/documents/start-date?type=${type}`, fetchRaportDate)
 
   return { data, isLoading, isError }

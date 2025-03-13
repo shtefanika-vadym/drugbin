@@ -1,11 +1,11 @@
-import { DocumentType, DocumentsVerbalProcess } from 'common/types/documents.types'
+import { DocumentCategory, DocumentsVerbalProcess } from 'common/types/documents.types'
 import { TableCell } from 'components/ui/Table/TableCell'
 import { TableRow } from 'components/ui/Table/TableRow'
 import { DocumentsActionCell } from './DocumentsActionCell'
 
 interface DocumentsListRowProps {
   item: DocumentsVerbalProcess
-  documentType: DocumentType
+  documentType: DocumentCategory
 }
 
 export const DocumentsListRow: React.FC<DocumentsListRowProps> = ({ item, documentType }) => {

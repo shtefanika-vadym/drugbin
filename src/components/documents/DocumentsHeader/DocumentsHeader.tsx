@@ -1,5 +1,5 @@
 import useDialog from 'common/hooks/useDialog'
-import { DocumentType } from 'common/types/documents.types'
+import { DocumentCategory } from 'common/types/documents.types'
 import { Button } from 'components/ui/Button/Button'
 import { DocumentCreation } from 'components/ui/DocumentCreation'
 import { NavigateList } from 'components/ui/NavigateList/NavigateList'
@@ -11,21 +11,25 @@ import { Content, Title, TitleWrapper } from './DocumentsHeader.styled'
 const DOCUMENTS_LIST_NAVIGATION = [
   {
     name: 'Proces Verbal',
-    route: '/documents/verbal-process'
+    route: '/documents/verbal-process',
   },
   {
     name: 'Psihotropice',
-    route: '/documents/psychotropic'
-  }
+    route: '/documents/psychotropic',
+  },
 ]
 
 interface DocumentsHeaderProps {
   showButton?: boolean
-  type?: DocumentType
+  type?: DocumentCategory
   refetchDocuments: () => void
 }
 
-export const DocumentsHeader: React.FC<DocumentsHeaderProps> = ({ showButton = false, type, refetchDocuments }) => {
+export const DocumentsHeader: React.FC<DocumentsHeaderProps> = ({
+  showButton = false,
+  type,
+  refetchDocuments,
+}) => {
   const [DocumentCreationDialog, documentCreationDialogProps, toggleDocumentCreationDialog] =
     useDialog()
 

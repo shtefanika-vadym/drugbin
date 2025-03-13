@@ -1,10 +1,11 @@
 import { useRef } from 'react'
 import { fetchDocument } from './documents'
+import { DocumentCategory } from 'common/types/documents.types'
 
 export const usePrintPDF = () => {
   const iframeRef = useRef(null)
 
-  const printPDF = async (id: string, documentType: string) => {
+  const printPDF = async (id: string, documentType: DocumentCategory) => {
     const response = await fetchDocument(`/documents/data/${id}?type=${documentType}`)
     const documentBlob = new Blob([response], { type: 'application/pdf' })
     const documentURL = window.URL.createObjectURL(documentBlob)

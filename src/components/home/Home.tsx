@@ -7,7 +7,7 @@ import { Text } from 'components/ui/Text/Text'
 import { BottomChart, ChartAlign, Container } from './home.styled'
 
 export const Home = () => {
-  const { data } = useGetDashboard(2024)
+  const { data } = useGetDashboard(2025)
 
   return (
     <Container>

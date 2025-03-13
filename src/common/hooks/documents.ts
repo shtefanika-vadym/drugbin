@@ -1,9 +1,9 @@
 import api from 'api'
 import { AxiosResponse } from 'axios'
 import {
-    DocumentType,
-    DocumentsVerbalProcess,
-    DocumentsVerbalProcessResponse,
+  DocumentCategory,
+  DocumentsVerbalProcess,
+  DocumentsVerbalProcessResponse
 } from 'common/types/documents.types'
 import { toDocumentsVerbalProcess } from 'uc/mappers'
 import { useData } from './useData'
@@ -44,13 +44,13 @@ export const useGetDocument = (id: string, category: number) => {
   return { data, trigger, isMutating }
 }
 
-export const useGetVerbalProcesEntries = (type: DocumentType) => {
+export const useGetVerbalProcesEntries = (type: DocumentCategory) => {
   const { data, isLoading, mutate } = useData(`/documents/all?type=${type}`, fetchVerbalProces)
 
   return { data, isLoading, mutate }
 }
 
-export const useGetMonthlyRaport = (id: string, type: DocumentType) => {
+export const useGetMonthlyRaport = (id: string, type: DocumentCategory) => {
   const { trigger, data, isMutating } = useDataOnDemand(
     `/documents/data/${id}?type=${type}`,
     fetcher,

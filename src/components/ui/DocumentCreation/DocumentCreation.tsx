@@ -1,7 +1,7 @@
 import { useGenerateRaport, useGetRaportDate } from 'common/hooks/raport'
 import { WDS_COLOR_RED } from 'common/styles/colors'
 import { WDS_SIZE_040_PX } from 'common/styles/size'
-import { DocumentType } from 'common/types/documents.types'
+import { DocumentCategory } from 'common/types/documents.types'
 import { subDays } from 'date-fns'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Button } from '../Button/Button'
@@ -18,7 +18,7 @@ import {
 } from './DocumentCreation.styled'
 
 interface DocumentCreationProps {
-  type: DocumentType
+  type: DocumentCategory
   close: (status: boolean) => void
   refetchDocuments: () => void
 }
