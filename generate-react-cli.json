@@ -1,0 +1,23 @@
+{
+  "usesTypeScript": true,
+  "usesCssModule": false,
+  "cssPreprocessor": "css",
+  "testLibrary": "Testing Library",
+  "component": {
+    "default": {
+      "path": "src/components/ui",
+      "withStyle": false,
+      "withTest": false,
+      "withStory": false,
+      "withLazy": false,
+      "withIndex": true,
+      "withStyled": true,
+      "customTemplates": {
+        "index": "__templates__/default/index.ts",
+        "component": "__templates__/default/TemplateName.tsx",
+        "styled": "__templates__/default/TemplateName.styled.ts"
+      }
+    }
+  },
+  "usesStyledComponents": true
+}
