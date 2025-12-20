@@ -16,8 +16,8 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.11.45",
-    "@types/react": "^18.0.15",
-    "@types/react-dom": "^18.0.6",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
     "axios": "^0.27.2",
     "classnames": "^2.3.1",
     "date-fns": "^3.6.0",
@@ -29,10 +29,10 @@
     "moment": "^2.30.1",
     "npm": "^8.19.4",
     "pdfjs-dist": "^3.4.120",
-    "react": "^18.2.0",
+    "react": "^18.3.1",
     "react-calendar": "^5.0.0",
     "react-date-picker": "^11.0.0",
-    "react-dom": "^18.2.0",
+    "react-dom": "^18.3.1",
     "react-hook-form": "^7.51.4",
     "react-router-dom": "^6.23.0",
     "react-scripts": "5.0.1",
@@ -83,9 +83,9 @@
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.26",
     "@types/validator": "^13.7.10",
-    "@typescript-eslint/eslint-plugin": "^5.31.0",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
-    "eslint": "^8.48.0",
+    "eslint": "^8.57.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-css-modules": "^2.11.0",
     "eslint-plugin-import-helpers": "^1.2.1",
@@ -94,6 +94,6 @@
     "generate-react-cli": "^8.4.9",
     "husky": "^8.0.3",
     "prettier": "^2.8.8",
-    "typescript": "^4.9.5"
+    "typescript": "^5.9.2"
   }
 }
