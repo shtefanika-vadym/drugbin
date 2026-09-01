@@ -1,5 +1,12 @@
 /** Mirrors the drugbin-cf admin-console response shapes (src/schema/{hospital,machine,manage}.ts). */
 
+/** The handover-report signature state (drugbin-cf docs/19). The R2 key is never exposed. */
+export interface SignatureMeta {
+  present: boolean
+  updatedAt: number | null
+  signatoryName: string | null
+}
+
 export interface Hospital {
   id: string
   name: string
@@ -13,6 +20,21 @@ export interface Hospital {
   updatedAt: number
   credentialsRotatedAt: number | null
   machineCount: number
+  signature: SignatureMeta
+}
+
+/** What a hospital principal sees on its own profile page (GET /api/v1/hospital/profile). */
+export interface HospitalProfile {
+  id: string
+  name: string
+  city: string | null
+  address: string | null
+  contactEmail: string | null
+  loginEmail: string
+  status: 'active' | 'suspended'
+  createdAt: number
+  credentialsRotatedAt: number | null
+  signature: SignatureMeta
 }
 
 export interface Page {

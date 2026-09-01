@@ -2,6 +2,7 @@ import { useAuth } from 'common/hooks/auth'
 import { useAuthState } from 'common/state/auth.state'
 import { WDS_COLOR_BLUE_700, WDS_COLOR_RED } from 'common/styles/colors'
 import { useCallback, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useOnClickOutside, useToggle } from 'usehooks-ts'
 import { Button } from '../Button/Button'
 import { LogoutIcon, UserIcon } from '../Icon'
@@ -14,10 +15,11 @@ const reportURL =
 export const UserActions = () => {
   const containerRef = useRef(null)
   const [value, toggle, setValue] = useToggle(false)
+  const navigate = useNavigate()
 
   const { logout } = useAuth()
   const identity = useAuthState((s) => s.hospitalName || s.email || 'DrugBin')
-  // const navigate = useNavigate()
+  const isHospital = useAuthState((s) => s.role === 'hospital')
 
   const handleClose = useCallback(() => {
     setValue(false)
@@ -27,9 +29,10 @@ export const UserActions = () => {
     window.open(reportURL, '_blank')
   }, [])
 
-  // const handleNavigateSettings = useCallback(() => {
-  //   navigate('/settings')
-  // }, [navigate])
+  const handleNavigateProfile = useCallback(() => {
+    setValue(false)
+    navigate('/profil')
+  }, [navigate, setValue])
 
   useOnClickOutside(containerRef, handleClose)
 
@@ -43,9 +46,12 @@ export const UserActions = () => {
       </Button>
       {value && (
         <Menu>
-          {/* <MenuActions onClick={handleNavigateSettings}>
-            <Text variant='bodyM'>Setări</Text>
-          </MenuActions> */}
+          {isHospital && (
+            <MenuActions onClick={handleNavigateProfile}>
+              <UserIcon width={16} height={16} />
+              <Text variant='bodyM'>Profilul spitalului</Text>
+            </MenuActions>
+          )}
           <MenuActions onClick={handleReport}>
             <Text variant='bodyM'>Raportați o problemă</Text>
           </MenuActions>
