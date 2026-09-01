@@ -8,6 +8,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { ErrorMessage } from '@hookform/error-message'
 import { ValidationMessage } from 'components/ui/ValidationMessage'
 import { LabeledInput } from 'components/ui/LabeledInput'
+import { Text } from 'components/ui/Text/Text'
+import { WDS_COLOR_RED } from 'common/styles/colors'
 
 type AuthForm = {
   email: string
@@ -24,9 +26,7 @@ export const LoginPage = () => {
     resolver: yupResolver(loginSchema),
   })
 
-  const onSubmit: SubmitHandler<AuthForm> = (data) => {
-    const { email, password } = data
-
+  const onSubmit: SubmitHandler<AuthForm> = ({ email, password }) => {
     signIn(email, password)
   }
 
@@ -38,7 +38,7 @@ export const LoginPage = () => {
           <LabeledInput
             {...register('email')}
             label='Adresa de email'
-            placeholder='Ex: wade.warren@gmail.com'
+            placeholder='Ex: spital@exemplu.ro'
             required
           />
           <ErrorMessage
@@ -46,7 +46,13 @@ export const LoginPage = () => {
             name='email'
             render={({ message }) => <ValidationMessage>{message}</ValidationMessage>}
           />
-          <LabeledInput {...register('password')} type='password' label='Parolă' required />
+          <LabeledInput
+            {...register('password')}
+            type='password'
+            label='Parolă'
+            placeholder='Parola primită de la administrator'
+            required
+          />
           <ErrorMessage
             errors={errors}
             name='password'
@@ -56,7 +62,11 @@ export const LoginPage = () => {
             <Button type='submit' variant='primaryFull' disabled={signInState.isLoading}>
               Autentificare
             </Button>
-            {signInState.hasSignInError && <>Adresa de email sau parola este incorectă</>}
+            {signInState.hasError && (
+              <Text variant='bodyS' color={WDS_COLOR_RED}>
+                Autentificare eșuată. Verifică datele sau contactează administratorul.
+              </Text>
+            )}
           </ButtonWrapper>
         </FormWrapper>
       </LeftSide>

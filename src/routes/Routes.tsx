@@ -1,3 +1,8 @@
+import { AdminClassificationDetailPage } from 'pages/admin/ClassificationDetail'
+import { AdminClassificationsPage } from 'pages/admin/Classifications'
+import { AdminHospitalsPage } from 'pages/admin/Hospitals'
+import { AdminRobotsPage } from 'pages/admin/Robots'
+import { useAuthState } from 'common/state/auth.state'
 import { DocumentsNormalPage } from 'pages/DocumentsNormalPage'
 import { DocumentsPsychotropicPage } from 'pages/DocumentsPsychotropicPage'
 import { HomePage } from 'pages/Home'
@@ -5,51 +10,39 @@ import { Login } from 'pages/Login'
 import { ManagementPage } from 'pages/Management'
 import { NotFoundPage } from 'pages/NotFound'
 import { StrictMode } from 'react'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import { ProtectedRoutes } from './ProtectedRoutes'
 import { PublicRoutes } from './PublicRoutes'
 
+/** Only an admin principal may see /admin/*; a hospital is sent back to its dashboard. */
+const AdminOnly: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const role = useAuthState((s) => s.role)
+  return role === 'admin' ? <>{children}</> : <Navigate to='/' replace />
+}
+
+/** `/` — admins land in the console, hospitals keep the original dashboard. */
+const RootRoute: React.FC = () => {
+  const role = useAuthState((s) => s.role)
+  return role === 'admin' ? <Navigate to='/admin/spitale' replace /> : <HomePage />
+}
+
+const protectedRoute = (element: React.ReactNode) => ({
+  element: <ProtectedRoutes>{element}</ProtectedRoutes>,
+})
+
 const router = createBrowserRouter([
-  {
-    path: '/',
-    element: (
-      <ProtectedRoutes>
-        <HomePage />
-      </ProtectedRoutes>
-    ),
-  },
-  {
-    path: '/gestionare',
-    element: (
-      <ProtectedRoutes>
-        <ManagementPage />
-      </ProtectedRoutes>
-    ),
-  },
-  {
-    path: '/documents/verbal-process',
-    element: (
-      <ProtectedRoutes>
-        <DocumentsNormalPage />
-      </ProtectedRoutes>
-    ),
-  },
-  {
-    path: '/documents/psychotropic',
-    element: (
-      <ProtectedRoutes>
-        <DocumentsPsychotropicPage />
-      </ProtectedRoutes>
-    ),
-  },
-  // {
-  //   path: '/settings',
-  //   element: (
-  //     <ProtectedRoutes>
-  //       <SettingsPage />
-  //     </ProtectedRoutes>
-  //   ),
-  // },
+  { path: '/', ...protectedRoute(<RootRoute />) },
+
+  { path: '/admin', ...protectedRoute(<Navigate to='/admin/spitale' replace />) },
+  { path: '/admin/spitale', ...protectedRoute(<AdminOnly><AdminHospitalsPage /></AdminOnly>) },
+  { path: '/admin/roboti', ...protectedRoute(<AdminOnly><AdminRobotsPage /></AdminOnly>) },
+  { path: '/admin/clasificari', ...protectedRoute(<AdminOnly><AdminClassificationsPage /></AdminOnly>) },
+  { path: '/admin/clasificari/:imageId', ...protectedRoute(<AdminOnly><AdminClassificationDetailPage /></AdminOnly>) },
+
+  { path: '/gestionare', ...protectedRoute(<ManagementPage />) },
+  { path: '/documents/verbal-process', ...protectedRoute(<DocumentsNormalPage />) },
+  { path: '/documents/psychotropic', ...protectedRoute(<DocumentsPsychotropicPage />) },
+
   {
     path: '/login',
     element: (
@@ -58,10 +51,7 @@ const router = createBrowserRouter([
       </PublicRoutes>
     ),
   },
-  {
-    path: '*',
-    element: <NotFoundPage />,
-  },
+  { path: '*', element: <NotFoundPage /> },
 ])
 
 export const Routes = () => {

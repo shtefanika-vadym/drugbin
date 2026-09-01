@@ -1,4 +1,5 @@
 import { useAuth } from 'common/hooks/auth'
+import { useAuthState } from 'common/state/auth.state'
 import { WDS_COLOR_BLUE_700, WDS_COLOR_RED } from 'common/styles/colors'
 import { useCallback, useRef } from 'react'
 import { useOnClickOutside, useToggle } from 'usehooks-ts'
@@ -15,6 +16,7 @@ export const UserActions = () => {
   const [value, toggle, setValue] = useToggle(false)
 
   const { logout } = useAuth()
+  const identity = useAuthState((s) => s.hospitalName || s.email || 'DrugBin')
   // const navigate = useNavigate()
 
   const handleClose = useCallback(() => {
@@ -36,7 +38,7 @@ export const UserActions = () => {
       <Button variant='white' size='XS' onClick={toggle}>
         <UserIcon width={16} height={16} />
         <Text variant='bodyS' color={WDS_COLOR_BLUE_700}>
-          Spitalul Judetean Suceava
+          {identity}
         </Text>
       </Button>
       {value && (

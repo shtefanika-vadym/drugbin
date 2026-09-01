@@ -1,0 +1,27 @@
+{
+  // The admin-console SPA. Static assets only -- no stateful bindings -- so wrangler owns both the
+  // Worker and its custom domain end to end (unlike the API Worker, whose bindings Terraform owns;
+  // ADR-0003 in drugbin-cf). Same shape as drugbin-landing -> drugbin.ro.
+  //
+  // Hostname convention: prod is app.drugbin.ro, dev is app.dev.drugbin.ro (one zone).
+  //   npm run deploy        -> drugbin-app       on app.drugbin.ro     (build uses .env.production)
+  //   npm run deploy:dev    -> drugbin-app-dev   on app.dev.drugbin.ro (build points at api.dev)
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "drugbin-app",
+  "compatibility_date": "2026-08-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": { "enabled": true },
+  "assets": {
+    "directory": "build",
+    // Client-side routing: /admin, /gestionare, /admin/... are React Router paths, not files.
+    "not_found_handling": "single-page-application"
+  },
+  "routes": [{ "pattern": "app.drugbin.ro", "custom_domain": true }],
+
+  "env": {
+    "dev": {
+      "name": "drugbin-app-dev",
+      "routes": [{ "pattern": "app.dev.drugbin.ro", "custom_domain": true }]
+    }
+  }
+}

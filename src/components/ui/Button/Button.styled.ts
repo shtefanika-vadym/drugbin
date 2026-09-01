@@ -7,6 +7,8 @@ import {
   WDS_COLOR_BLUE_400,
   WDS_COLOR_BLUE_50,
   WDS_COLOR_BLUE_500,
+  WDS_COLOR_RED,
+  WDS_COLOR_RED_100,
   WDS_COLOR_WHITE,
   WDS_COLOR_WHITE_100
 } from 'common/styles/colors'
@@ -87,6 +89,19 @@ export const buttonVariants = {
 
     &:hover {
       background-color: ${WDS_COLOR_BLUE_200};
+    }
+  `,
+  danger: css`
+    ${border({ type: 'solid', color: WDS_COLOR_RED })};
+    background-color: transparent;
+    color: ${WDS_COLOR_RED};
+    border-radius: ${WDS_SIZE_008_PX};
+
+    &:hover {
+      background-color: ${WDS_COLOR_RED_100};
+    }
+    &:disabled {
+      ${border({ type: 'solid', color: WDS_COLOR_RED })};
     }
   `,
   document: css`

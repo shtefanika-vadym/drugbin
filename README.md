@@ -1,46 +1,60 @@
-# Getting Started with Create React App
+# drugbin
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The DrugBin dashboard SPA — CRA 5 + React 18, styled-components, MUI (charts), zustand, SWR.
+Conventions: **`CLAUDE.md`**.
 
-## Available Scripts
+## Two roles, two backends
 
-In the project directory, you can run:
+Sign in at `/login` with email + password → `POST /api/v1/auth/login` on the `drugbin-cf` Worker →
+a session JWT in `localStorage` (`src/common/state/auth.state.ts`). The `role` decides the nav
+(`src/components/layout/TopBlock/`) and what you see:
 
-### `npm start`
+- **admin** (`ADMIN_EMAIL` in `drugbin-cf`) → the console — **Spitale** (`/admin/spitale`),
+  **Roboți** (`/admin/roboti`), **Clasificări** (`/admin/clasificari`, per-step timings, archived
+  image, corrections, re-run). Same chrome (`PageWrapper` + `TopBlock`) and UI kit as the rest of
+  the app; data from the Worker (`src/api/v2.ts` / `src/common/hooks/admin.ts`).
+- **hospital** → the original dashboard: **Statistici** (`/`), **Gestionare** (`/gestionare`),
+  **Documente** (`/documents/*`) — served by the **legacy backend** (`src/api/index.ts`).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### API base URLs
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+| Env var | Client | Serves |
+|---|---|---|
+| `REACT_APP_API_URL` | `src/api/v2.ts` | the `drugbin-cf` Worker — auth, `/api/v1/admin/*`, `/api/v1/manage/*` |
+| `REACT_APP_DRUGBIN_API_BASE_URL` | `src/api/index.ts` | the legacy dashboard backend — `/recycle`, `/documents`, `/statistics`, … |
 
-### `npm test`
+The legacy backend is a separate project (see `drugbin-cf/docs/16` "What does not move here"). If
+you don't run it, the Statistici/Gestionare/Documente pages simply show empty states.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Develop
 
-### `npm run build`
+```bash
+npm install --legacy-peer-deps      # react-scripts 5 peers want TS 4.x
+npm start                           # http://localhost:3000 (Worker -> https://api.dev.drugbin.ro)
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To hit a local `wrangler dev` of the Worker, create `.env.development.local`:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+REACT_APP_API_URL=http://localhost:8787
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Deploy
 
-### `npm run eject`
+Cloudflare Workers static assets. The Worker **and its custom domain** live in `wrangler.jsonc`
+(`routes` with `custom_domain: true`) — no Terraform step, same as `drugbin-landing` → `drugbin.ro`.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Hostname convention (one `drugbin.ro` zone; see `drugbin-cf/docs/09`):
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+| | Worker | Domain | `REACT_APP_API_URL` |
+|---|---|---|---|
+| prod | `drugbin-app` | `app.drugbin.ro` | `api.drugbin.ro` |
+| dev | `drugbin-app-dev` | `app.dev.drugbin.ro` | `api.dev.drugbin.ro` |
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```bash
+npm run deploy         # prod  -> app.drugbin.ro
+npm run deploy:dev     # dev   -> app.dev.drugbin.ro
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+The `drugbin-cf` API for the target env must be deployed first (it owns `/api/v1/auth/login`) —
+see `drugbin-cf/docs/17` "Standing it up".

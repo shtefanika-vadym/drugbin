@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "@hookform/error-message": "^2.0.1",
     "@hookform/resolvers": "^3.9.0",
     "@mui/material": "^5.15.6",
@@ -49,12 +51,15 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "deploy": "npm run build && wrangler deploy",
+    "deploy:dev": "REACT_APP_API_URL=https://api.dev.drugbin.ro npm run build && wrangler deploy --env dev",
     "prepare": "husky install",
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
     "aftercare": "npm lint:fix && npm types-check",
     "types-check": "tsc --project . --noEmit --pretty --skipLibCheck --skipDefaultLibCheck",
-    "gen:c": "npx generate-react-cli component"
+    "gen:c": "npx generate-react-cli component",
+    "shots": "node scripts/shots.mjs"
   },
   "eslintConfig": {
     "extends": [
@@ -93,7 +98,9 @@
     "eslint-plugin-react": "^7.30.1",
     "generate-react-cli": "^8.4.9",
     "husky": "^8.0.3",
+    "playwright": "^1.62.1",
     "prettier": "^2.8.8",
-    "typescript": "^5.9.2"
+    "typescript": "^4.9.5",
+    "wrangler": "^4.91.0"
   }
 }

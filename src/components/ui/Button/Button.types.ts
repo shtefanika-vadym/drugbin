@@ -9,6 +9,7 @@ export type ButtonVariant =
   | 'primaryFull'
   | 'white'
   | 'document'
+  | 'danger'
 export type ButtonSize = 'XS' | 'S' | 'S-square' | 'S-round' | 'None'
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant

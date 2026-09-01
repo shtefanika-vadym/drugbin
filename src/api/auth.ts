@@ -1,37 +1,22 @@
-import api from 'api'
-import { AxiosResponse } from 'axios'
-import { AuthData, AuthResponse, RegisterResponse } from 'common/types/auth.types'
+import apiV2 from 'api/v2'
+import { Role } from 'common/state/auth.state'
 
-export const auth = async (email: string, password: string): Promise<AuthResponse> => {
-  try {
-    const response: AxiosResponse<AuthData> = await api.post('/auth/login', { email, password })
-    return {
-      status: response.status === 201,
-      data: response.data,
-    }
-  } catch (error) {
-    return {
-      status: false,
-      data: null,
-    }
+export interface LoginResponse {
+  token: string
+  expiresIn: number
+  principal: {
+    role: Role
+    email?: string
+    hospitalId?: string
+    hospitalName?: string
   }
 }
 
-export const register = async (
-  name: string,
-  email: string,
-  password: string,
-): Promise<RegisterResponse> => {
-  try {
-    const response: AxiosResponse = await api.post('/auth/register', { name, email, password })
-    return {
-      status: response.status === 201,
-      data: response.data,
-    }
-  } catch (error) {
-    return {
-      status: false,
-      data: null,
-    }
-  }
+/**
+ * One sign-in for both principals (ADR-0008). The Worker returns an admin token if the email +
+ * password match ADMIN_EMAIL / ADMIN_PASSWORD, otherwise it checks the hospital row.
+ */
+export const login = async (email: string, password: string): Promise<LoginResponse> => {
+  const { data } = await apiV2.post<LoginResponse>('/api/v1/auth/login', { email, password })
+  return data
 }
