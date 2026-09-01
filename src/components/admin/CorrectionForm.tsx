@@ -36,7 +36,9 @@ export const CorrectionForm: React.FC<{
         note: note.trim() || undefined,
         promote,
       })
-      setMsg({ text: promote ? 'Corecție înregistrată și promovată în index.' : 'Corecție înregistrată.' })
+      setMsg({
+        text: promote ? 'Corecție înregistrată și promovată în index.' : 'Corecție înregistrată.',
+      })
       setCategory('')
       setName('')
       setNote('')
@@ -62,8 +64,17 @@ export const CorrectionForm: React.FC<{
           </option>
         ))}
       </Select>
-      <LabeledInput label='Nume (opțional)' placeholder='Ex: Nurofen Forte 400mg' value={name} onChange={(e) => setName(e.target.value)} />
-      <LabeledInput label='Notă (opțional)' value={note} onChange={(e) => setNote(e.target.value)} />
+      <LabeledInput
+        label='Nume (opțional)'
+        placeholder='Ex: Nurofen Forte 400mg'
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+      <LabeledInput
+        label='Notă (opțional)'
+        value={note}
+        onChange={(e) => setNote(e.target.value)}
+      />
       <CheckboxRow>
         <input type='checkbox' checked={promote} onChange={(e) => setPromote(e.target.checked)} />
         <Text variant='bodyS'>Promovează înregistrarea corectată în index</Text>

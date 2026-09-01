@@ -1,16 +1,12 @@
-import api from 'api'
-import { AxiosResponse } from 'axios'
+import apiV2 from 'api/v2'
 import { useData } from './useData'
 import { DashboardResponse } from 'common/types/dashboard.types'
 
-const fetcher = async (url: string): Promise<DashboardResponse> => {
-  const response: AxiosResponse<DashboardResponse> = await api.get<DashboardResponse>(url)
+const fetcher = (url: string): Promise<DashboardResponse> =>
+  apiV2.get<DashboardResponse>(url).then((r) => r.data)
 
-  return response.data
-}
-
-export const useGetDashboard = (date: number) => {
-  const { data, isError, isLoading, mutate } = useData(`/dashboard/${date}`, fetcher)
-
+/** "Statistici" for the signed-in hospital, one calendar year. drugbin-cf /api/v1/manage/dashboard. */
+export const useGetDashboard = (year: number) => {
+  const { data, isError, isLoading, mutate } = useData(`/api/v1/manage/dashboard/${year}`, fetcher)
   return { data, isError, isLoading, mutate }
 }

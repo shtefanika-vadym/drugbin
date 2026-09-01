@@ -1,75 +1,43 @@
-export interface DashboardResponse {
-  documents: DocumentChart
-  drugs: DrugsChart
-  categories: CategoriesChart
-  recycle: StatusChart
-}
-
-export type CategoriesChart = {
-  annual: MonthlyAnnualCategories[]
-  monthly: MonthlyCategories[]
-}
-
-type MonthlyCategories = {
-  [month: number]: {
-    category: number
-    total: number
-  }
-}
-
-type MonthlyAnnualCategories = {
+/**
+ * "Statistici" — the hospital dashboard blob. Mirrors drugbin-cf src/schema/dashboard.ts
+ * (docs/18.03). One hospital, one calendar year. No `recycle`/`status` block — every classification
+ * is implicitly approved.
+ */
+export interface CategoryTotal {
   category: number
   total: number
 }
 
-export type DrugsChart = {
-  annual: number
-  monthly: number[]
-  monthlyDetails: MonthlyDetailsDrugs
-}
+/** month key "1".."12" -> value */
+export type MonthMap = Record<string, number>
 
-type MonthlyDetailsDrugs = {
-  [month: string]: {
-    [day: string]: number
+export interface DashboardResponse {
+  categories: {
+    annual: CategoryTotal[]
+    monthly: Record<string, CategoryTotal[]>
   }
-}
-
-export type DocumentChart = {
-  annual: {
-    common: number
-    cytototoxic: number
-    inhalers: number
-    injectables: number
-    insulin: number
-    psycholeptics: number
-    supplements: number
-    total: number
+  volume: {
+    annual: number
+    monthly: MonthMap
+    /** month "1".."12" -> day "1".."31" -> count */
+    monthlyDetails: Record<string, Record<string, number>>
   }
-  monthly: MonthlyDocumets
-}
-
-type MonthlyDocumets = {
-  normal: {
-    [month: string]: number
-  }
-  psycholeptic: {
-    [month: string]: number
+  documents: {
+    annual: {
+      cytototoxic: number
+      inhalers: number
+      injectables: number
+      insulin: number
+      common: number
+      supplements: number
+      psycholeptics: number
+      total: number
+    }
+    monthly: Record<string, MonthMap>
   }
 }
 
-type MonthlyStatus = {
-  [month: string]: {
-    approved: number
-    pending: number
-    recycled: number
-  }
-}
-
-export type StatusChart = {
-  annual: {
-    approved: number
-    pending: number
-    recycled: number
-  }
-  monthly: MonthlyStatus
-}
+// Names the widgets still import.
+export type CategoriesChart = DashboardResponse['categories']
+export type VolumeChart = DashboardResponse['volume']
+export type DocumentChart = DashboardResponse['documents']

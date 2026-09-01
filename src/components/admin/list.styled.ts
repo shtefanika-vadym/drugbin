@@ -1,15 +1,26 @@
 import { flex } from 'common/styles/mixins/flex.mixin'
-import { WDS_SIZE_012_PX, WDS_SIZE_016_PX, WDS_SIZE_024_PX, WDS_SIZE_040_PX, WDS_SIZE_300_PX } from 'common/styles/size'
+import {
+  WDS_SIZE_012_PX,
+  WDS_SIZE_016_PX,
+  WDS_SIZE_024_PX,
+  WDS_SIZE_040_PX,
+  WDS_SIZE_300_PX,
+} from 'common/styles/size'
 import styled from 'styled-components'
 
-/** Shared layout for the admin list screens, matching src/components/management/Management.styled. */
+/** Shared layout for the admin/hospital list screens. */
 
 export const Container = styled.div`
   ${flex({ direction: 'column', gap: WDS_SIZE_024_PX })};
 `
 
 export const HeaderRow = styled.div`
-  ${flex({ alignItems: 'center', justifyContent: 'space-between', gap: WDS_SIZE_016_PX, flexWrap: 'wrap' })};
+  ${flex({
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: WDS_SIZE_016_PX,
+    flexWrap: 'wrap',
+  })};
 `
 
 export const HeaderActions = styled.div`
@@ -44,7 +55,12 @@ export const MoreRow = styled.div`
 `
 
 export const PaginationRow = styled.div`
-  ${flex({ alignItems: 'center', justifyContent: 'space-between', gap: WDS_SIZE_016_PX, flexWrap: 'wrap' })};
+  ${flex({
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: WDS_SIZE_016_PX,
+    flexWrap: 'wrap',
+  })};
 `
 
 export const PaginationMeta = styled.div`

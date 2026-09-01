@@ -10,7 +10,7 @@ import {
   WDS_COLOR_RED,
   WDS_COLOR_RED_100,
   WDS_COLOR_WHITE,
-  WDS_COLOR_WHITE_100
+  WDS_COLOR_WHITE_100,
 } from 'common/styles/colors'
 import { border } from 'common/styles/mixins/border.mixin'
 import { flex } from 'common/styles/mixins/flex.mixin'

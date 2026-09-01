@@ -19,7 +19,7 @@ import useSWR from 'swr'
 /** Default rows per page on every admin list screen (the UI lets the user pick 10/20/30). */
 export const PAGE_SIZE = 10
 
-const fetcher = <T,>(url: string) => apiV2.get<T>(url).then((r) => r.data)
+const fetcher = <T>(url: string) => apiV2.get<T>(url).then((r) => r.data)
 
 const qs = (params: Record<string, string | number | undefined>) => {
   const s = new URLSearchParams()
@@ -72,7 +72,9 @@ export const updateHospital = (id: string, body: Record<string, unknown>) =>
   apiV2.patch<Hospital>(`/api/v1/admin/hospitals/${id}`, body).then((r) => r.data)
 
 export const rotateHospitalCredentials = (id: string) =>
-  apiV2.post<CredentialsResponse>(`/api/v1/admin/hospitals/${id}/rotate-credentials`).then((r) => r.data)
+  apiV2
+    .post<CredentialsResponse>(`/api/v1/admin/hospitals/${id}/rotate-credentials`)
+    .then((r) => r.data)
 
 export const setHospitalStatus = (id: string, status: 'active' | 'suspended') =>
   apiV2.post<Hospital>(`/api/v1/admin/hospitals/${id}/status`, { status }).then((r) => r.data)
@@ -140,7 +142,11 @@ export interface ClassificationFilters {
   until?: number
 }
 
-export const useClassifications = (filters: ClassificationFilters, page = 1, pageSize = PAGE_SIZE) => {
+export const useClassifications = (
+  filters: ClassificationFilters,
+  page = 1,
+  pageSize = PAGE_SIZE,
+) => {
   const { data, error, isLoading, mutate } = useSWR<ClassificationList>(
     `/api/v1/manage/classifications${qs({ ...filters, page, pageSize })}`,
     fetcher,

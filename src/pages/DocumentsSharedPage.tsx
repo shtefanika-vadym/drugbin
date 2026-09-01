@@ -1,8 +1,8 @@
 import { Documents } from 'components/documents/Documents'
 import { PageWrapper } from 'components/layout/PageWrapper/PageWrapper'
 
-export const DocumentsNormalPage = () => (
+export const DocumentsSharedPage = () => (
   <PageWrapper>
-    <Documents mode='normal' />
+    <Documents mode='shared' />
   </PageWrapper>
 )

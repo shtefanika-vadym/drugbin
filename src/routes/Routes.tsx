@@ -5,10 +5,13 @@ import { AdminRobotsPage } from 'pages/admin/Robots'
 import { useAuthState } from 'common/state/auth.state'
 import { DocumentsNormalPage } from 'pages/DocumentsNormalPage'
 import { DocumentsPsychotropicPage } from 'pages/DocumentsPsychotropicPage'
+import { DocumentsSharedPage } from 'pages/DocumentsSharedPage'
+import { DocumentsTrashPage } from 'pages/DocumentsTrashPage'
+import { GestionarePage } from 'pages/Gestionare'
+import { GestionareDetailPage } from 'pages/GestionareDetail'
 import { HomePage } from 'pages/Home'
 import { HospitalProfilePage } from 'pages/HospitalProfile'
 import { Login } from 'pages/Login'
-import { ManagementPage } from 'pages/Management'
 import { NotFoundPage } from 'pages/NotFound'
 import { StrictMode } from 'react'
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
@@ -83,9 +86,12 @@ const router = createBrowserRouter([
     ),
   },
 
-  { path: '/gestionare', ...protectedRoute(<ManagementPage />) },
+  { path: '/gestionare', ...protectedRoute(<GestionarePage />) },
+  { path: '/gestionare/:imageId', ...protectedRoute(<GestionareDetailPage />) },
   { path: '/documents/verbal-process', ...protectedRoute(<DocumentsNormalPage />) },
   { path: '/documents/psychotropic', ...protectedRoute(<DocumentsPsychotropicPage />) },
+  { path: '/documents/shared', ...protectedRoute(<DocumentsSharedPage />) },
+  { path: '/documents/trash', ...protectedRoute(<DocumentsTrashPage />) },
 
   {
     path: '/login',

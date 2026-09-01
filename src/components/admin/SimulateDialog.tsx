@@ -6,7 +6,14 @@ import { Text } from 'components/ui/Text/Text'
 import { UploadIcon } from 'components/ui/Icon'
 import { useCallback, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Actions, Description, Form, HiddenFileInput, UploadPreview, UploadZone } from './dialog.styled'
+import {
+  Actions,
+  Description,
+  Form,
+  HiddenFileInput,
+  UploadPreview,
+  UploadZone,
+} from './dialog.styled'
 
 const apiMsg = (e: any, fallback: string) => e?.response?.data?.message || fallback
 
@@ -74,7 +81,11 @@ export const SimulateDialog: React.FC<Props> = ({ close, onDone }) => {
         (tiers, arhivare, audit) și se deschide pagina cu detaliile.
       </Description>
 
-      <Select label='Robot' value={machineId} disabled={busy} onChange={(e) => setMachineId(e.target.value)}>
+      <Select
+        label='Robot'
+        value={machineId}
+        disabled={busy}
+        onChange={(e) => setMachineId(e.target.value)}>
         <option value=''>— anonim —</option>
         {machines.map((m) => (
           <option key={m.machineId} value={m.machineId}>
@@ -97,10 +108,20 @@ export const SimulateDialog: React.FC<Props> = ({ close, onDone }) => {
 
       {isMobile && (
         <>
-          <Button variant='secondary' type='button' disabled={busy} onClick={() => cameraRef.current?.click()}>
+          <Button
+            variant='secondary'
+            type='button'
+            disabled={busy}
+            onClick={() => cameraRef.current?.click()}>
             Fă o poză
           </Button>
-          <HiddenFileInput ref={cameraRef} type='file' accept='image/*' capture='environment' onChange={pick} />
+          <HiddenFileInput
+            ref={cameraRef}
+            type='file'
+            accept='image/*'
+            capture='environment'
+            onChange={pick}
+          />
         </>
       )}
 

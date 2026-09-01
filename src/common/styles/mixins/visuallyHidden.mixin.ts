@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from 'styled-components'
 
 export const visuallyHidden = css`
   clip: rect(0 0 0 0);
@@ -8,4 +8,4 @@ export const visuallyHidden = css`
   position: absolute;
   white-space: nowrap;
   width: 1px;
-`;
+`

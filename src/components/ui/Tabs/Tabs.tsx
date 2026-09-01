@@ -16,7 +16,11 @@ export function Tabs<T extends string>({ items, active, onChange }: TabsProps<T>
   return (
     <Bar>
       {items.map((item) => (
-        <TabButton key={item.id} type='button' isActive={item.id === active} onClick={() => onChange(item.id)}>
+        <TabButton
+          key={item.id}
+          type='button'
+          isActive={item.id === active}
+          onClick={() => onChange(item.id)}>
           {item.label}
         </TabButton>
       ))}

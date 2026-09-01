@@ -2,7 +2,14 @@ import loginImage from 'common/assets/images/login.png'
 import { useAuth } from 'common/hooks/auth'
 import { Button } from 'components/ui/Button/Button'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { ButtonWrapper, Container, FormWrapper, LeftSide, RightSide, Title } from './LoginPage.styled'
+import {
+  ButtonWrapper,
+  Container,
+  FormWrapper,
+  LeftSide,
+  RightSide,
+  Title,
+} from './LoginPage.styled'
 import { loginSchema } from 'schema/login.schema'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ErrorMessage } from '@hookform/error-message'

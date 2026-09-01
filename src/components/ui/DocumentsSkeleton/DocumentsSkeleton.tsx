@@ -1,7 +1,6 @@
 import { Skeleton } from 'components/ui/Skeleton/Skeleton'
 import { IconWrpper, NameWrapper, Row } from './DocumentsSkeleton.styled'
 
-
 // TO-DO: REFACTORING
 export const DocumentsSkeleton = () => {
   const numberOfRows = 10

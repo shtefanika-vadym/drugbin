@@ -1,6 +1,17 @@
-import { WDS_COLOR_BLUE_300, WDS_COLOR_BLUE_500, WDS_COLOR_GREEN, WDS_COLOR_GREY_100 } from 'common/styles/colors'
+import {
+  WDS_COLOR_BLUE_300,
+  WDS_COLOR_BLUE_500,
+  WDS_COLOR_GREEN,
+  WDS_COLOR_GREY_100,
+} from 'common/styles/colors'
 import { flex } from 'common/styles/mixins/flex.mixin'
-import { WDS_SIZE_004_PX, WDS_SIZE_006_PX, WDS_SIZE_008_PX, WDS_SIZE_016_PX, WDS_SIZE_020_PX } from 'common/styles/size'
+import {
+  WDS_SIZE_004_PX,
+  WDS_SIZE_006_PX,
+  WDS_SIZE_008_PX,
+  WDS_SIZE_016_PX,
+  WDS_SIZE_020_PX,
+} from 'common/styles/size'
 import styled from 'styled-components'
 
 export const SEGMENT_COLORS = [WDS_COLOR_BLUE_300, WDS_COLOR_GREEN, '#F2C94C', WDS_COLOR_BLUE_500]

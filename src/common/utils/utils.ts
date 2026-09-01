@@ -22,21 +22,21 @@ export const customTimeFormat = (timestampString: string) => {
 }
 
 export const getDaysInCurrentMonth = () => {
-  const date = new Date();
-  const currentYear = date.getFullYear();
-  const currentMonth = date.getMonth();
-  const nextMonthDate = new Date(currentYear, currentMonth + 1, 0);
+  const date = new Date()
+  const currentYear = date.getFullYear()
+  const currentMonth = date.getMonth()
+  const nextMonthDate = new Date(currentYear, currentMonth + 1, 0)
 
-  return nextMonthDate.getDate();
+  return nextMonthDate.getDate()
 }
 
 export const categoryLabels: Record<number, string> = {
-  0: "Necunoscut",
-  1: "Medicamente citotoxice și citostatice",
-  2: "Inhalatoare",
-  3: "Medicamente tăietoare",
-  4: "Insuline",
-  5: "Medicamente uzuale",
-  6: "Suplimente",
-  7: "Psiholeptice",
-};
+  0: 'Necunoscut',
+  1: 'Medicamente citotoxice și citostatice',
+  2: 'Inhalatoare',
+  3: 'Medicamente tăietoare',
+  4: 'Insuline',
+  5: 'Medicamente uzuale',
+  6: 'Suplimente',
+  7: 'Psiholeptice',
+}

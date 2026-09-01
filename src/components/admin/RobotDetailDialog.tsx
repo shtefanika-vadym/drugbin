@@ -1,4 +1,10 @@
-import { assignMachine, deleteMachine, rotateMachineKey, setMachineStatus, useHospitals } from 'common/hooks/admin'
+import {
+  assignMachine,
+  deleteMachine,
+  rotateMachineKey,
+  setMachineStatus,
+  useHospitals,
+} from 'common/hooks/admin'
 import { Machine } from 'common/types/manage.types'
 import { WDS_COLOR_GREY } from 'common/styles/colors'
 import { Button } from 'components/ui/Button/Button'
@@ -25,7 +31,13 @@ interface Props {
   onSecret: (s: Secret) => void
 }
 
-export const RobotDetailDialog: React.FC<Props> = ({ machine, close, onChanged, onDeleted, onSecret }) => {
+export const RobotDetailDialog: React.FC<Props> = ({
+  machine,
+  close,
+  onChanged,
+  onDeleted,
+  onSecret,
+}) => {
   const confirm = useConfirm()
   const { hospitals } = useHospitals({ pageSize: 200 })
   const [tab, setTab] = useState<'detalii' | 'acces'>('detalii')
@@ -47,13 +59,15 @@ export const RobotDetailDialog: React.FC<Props> = ({ machine, close, onChanged, 
     let res: Awaited<ReturnType<typeof rotateMachineKey>> | undefined
     const ok = await confirm({
       title: 'Rotești cheia dispozitivului?',
-      description: 'Se generează o cheie nouă, afișată o singură dată. Cea veche se dezactivează imediat.',
+      description:
+        'Se generează o cheie nouă, afișată o singură dată. Cea veche se dezactivează imediat.',
       confirmLabel: 'Rotește cheia',
       action: async () => {
         res = await rotateMachineKey(machine.machineId)
       },
     })
-    if (ok && res) onSecret({ title: 'Cheie regenerată', label: 'Cheie dispozitiv', value: res.key })
+    if (ok && res)
+      onSecret({ title: 'Cheie regenerată', label: 'Cheie dispozitiv', value: res.key })
   }, [confirm, machine.machineId, onSecret])
 
   const toggleEnabled = useCallback(async () => {
@@ -90,15 +104,24 @@ export const RobotDetailDialog: React.FC<Props> = ({ machine, close, onChanged, 
     <Form>
       <Text variant='titleH4'>{machine.label}</Text>
       <Description>
-        {machine.enabled ? <StatusTag tone='ok'>Activ</StatusTag> : <StatusTag tone='danger'>Dezactivat</StatusTag>}
-        {'  '}· creat {fmtDate(machine.createdAt)} · ultima activitate {fmtRelative(machine.lastSeenAt)}
+        {machine.enabled ? (
+          <StatusTag tone='ok'>Activ</StatusTag>
+        ) : (
+          <StatusTag tone='danger'>Dezactivat</StatusTag>
+        )}
+        {'  '}· creat {fmtDate(machine.createdAt)} · ultima activitate{' '}
+        {fmtRelative(machine.lastSeenAt)}
       </Description>
 
       <Tabs items={TABS} active={tab} onChange={setTab} />
 
       {tab === 'detalii' && (
         <TabPanel>
-          <Select label='Spital' value={machine.hospitalId ?? ''} disabled={busy} onChange={(e) => assign(e.target.value)}>
+          <Select
+            label='Spital'
+            value={machine.hospitalId ?? ''}
+            disabled={busy}
+            onChange={(e) => assign(e.target.value)}>
             <option value=''>— neasignat —</option>
             {hospitals.map((h) => (
               <option key={h.id} value={h.id}>
@@ -122,7 +145,9 @@ export const RobotDetailDialog: React.FC<Props> = ({ machine, close, onChanged, 
           <AccessRow>
             <AccessRowHead>
               <Text variant='subheading'>Cheie dispozitiv</Text>
-              <StatusTag tone={machine.hasKey ? 'ok' : 'muted'}>{machine.hasKey ? 'configurată' : 'lipsă'}</StatusTag>
+              <StatusTag tone={machine.hasKey ? 'ok' : 'muted'}>
+                {machine.hasKey ? 'configurată' : 'lipsă'}
+              </StatusTag>
             </AccessRowHead>
             <Text variant='bodyXS' color={WDS_COLOR_GREY}>
               Se generează o cheie nouă, afișată o singură dată. Cea veche se dezactivează imediat.
@@ -137,7 +162,11 @@ export const RobotDetailDialog: React.FC<Props> = ({ machine, close, onChanged, 
           <AccessRow>
             <AccessRowHead>
               <Text variant='subheading'>Stare robot</Text>
-              {machine.enabled ? <StatusTag tone='ok'>Activ</StatusTag> : <StatusTag tone='danger'>Dezactivat</StatusTag>}
+              {machine.enabled ? (
+                <StatusTag tone='ok'>Activ</StatusTag>
+              ) : (
+                <StatusTag tone='danger'>Dezactivat</StatusTag>
+              )}
             </AccessRowHead>
             <Text variant='bodyXS' color={WDS_COLOR_GREY}>
               Un robot dezactivat este refuzat la /api/v1/classify.

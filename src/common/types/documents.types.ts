@@ -1,29 +1,19 @@
+/**
+ * "Documente" — proces-verbal shapes. Mirrors drugbin-cf src/schema/documents.ts (docs/18.02).
+ */
 export enum DocumentType {
-  PSYCHOLEPTIC = 'psycholeptic',
   NORMAL = 'normal',
+  PSYCHOLEPTIC = 'psycholeptic',
 }
 
-export interface DocumentsVerbalProcessResponse {
-  createdAt: string
-  deletedAt: string | null
-  endDate: string
-  id: number
-  sharedAt: string
+export interface PvRow {
+  id: string
+  category: number
   startDate: string
-  documentId: string
-}
-
-export interface DocumentsVerbalProcess {
-  createAt: {
-    data: string
-    time: string
-  }
-  period: {
-    startDate: string
-    endDate: string
-  }
-  deletedAt: string
-  id: number
-  sharedAt: string
-  documentId: string
+  endDate: string
+  createdAt: number
+  sharedAt: number | null
+  deletedAt: number | null
+  /** Live window count for a draft; frozen membership count for a shared PV. */
+  itemCount: number
 }

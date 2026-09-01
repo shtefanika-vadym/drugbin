@@ -1,23 +1,23 @@
 export interface AuthData {
-  token: string;
+  token: string
 }
 
 export interface AuthResponse {
-  status: boolean;
-  data: AuthData;
+  status: boolean
+  data: AuthData
 }
 
 export interface RegisterResponse {
-  status: boolean;
-  data: AuthData;
+  status: boolean
+  data: AuthData
 }
 
 export type SignInState = {
-  isLoading: boolean;
-  hasSignInError: boolean;
-};
+  isLoading: boolean
+  hasSignInError: boolean
+}
 
 export type RegisterState = {
-  isLoading: boolean;
-  hasSignInError: boolean;
-};
+  isLoading: boolean
+  hasSignInError: boolean
+}

@@ -1,4 +1,9 @@
-import { WDS_COLOR_GREEN, WDS_COLOR_GREY, WDS_COLOR_ORANGE, WDS_COLOR_RED } from 'common/styles/colors'
+import {
+  WDS_COLOR_GREEN,
+  WDS_COLOR_GREY,
+  WDS_COLOR_ORANGE,
+  WDS_COLOR_RED,
+} from 'common/styles/colors'
 import { textVariant } from 'common/styles/mixins/typography.mixin'
 import { WDS_SIZE_006_PX, WDS_SIZE_008_PX, WDS_SIZE_016_PX } from 'common/styles/size'
 import styled, { css } from 'styled-components'

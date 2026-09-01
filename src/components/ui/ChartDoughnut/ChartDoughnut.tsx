@@ -1,9 +1,6 @@
 import { PieChart } from '@mui/x-charts/PieChart'
 import { useDrawingArea } from '@mui/x-charts/hooks'
-import {
-  WDS_COLOR_BLACK,
-  WDS_COLOR_GREY
-} from 'common/styles/colors'
+import { WDS_COLOR_BLACK, WDS_COLOR_GREY } from 'common/styles/colors'
 import { CategoriesChart } from 'common/types/dashboard.types'
 import { getDoughnutTotal, getValueByLabel } from 'common/utils/dashboard'
 import { categoryLabels } from 'common/utils/utils'

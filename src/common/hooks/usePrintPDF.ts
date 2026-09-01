@@ -2,24 +2,17 @@ import { useRef } from 'react'
 import { fetchDocument } from './documents'
 
 export const usePrintPDF = () => {
-  const iframeRef = useRef(null)
+  const iframeRef = useRef<HTMLIFrameElement>(null)
 
-  const printPDF = async (id: string, documentType: string) => {
-    const response = await fetchDocument(`/documents/data/${id}?type=${documentType}`)
-    const documentBlob = new Blob([response], { type: 'application/pdf' })
-    const documentURL = window.URL.createObjectURL(documentBlob)
+  const printPDF = async (id: string) => {
+    const bytes = await fetchDocument(id)
+    const url = window.URL.createObjectURL(new Blob([bytes], { type: 'application/pdf' }))
 
-    if (iframeRef.current) {
-      iframeRef.current.src = documentURL
+    if (!iframeRef.current) return
+    iframeRef.current.src = url
+    iframeRef.current.onload = () => {
+      iframeRef.current?.contentWindow?.print()
     }
-
-    const handleLoad = () => {
-      if (iframeRef.current && iframeRef.current.contentWindow) {
-        iframeRef.current.contentWindow.print()
-      }
-    }
-
-    iframeRef.current.onload = handleLoad
   }
 
   return { printPDF, iframeRef }

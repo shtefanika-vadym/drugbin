@@ -5,27 +5,25 @@ import { DocumentCreation } from 'components/ui/DocumentCreation'
 import { NavigateList } from 'components/ui/NavigateList/NavigateList'
 import { Content, Title, TitleWrapper } from './DocumentsHeader.styled'
 
-// 'Trimise', 'Șterse'
-// const LIST = ['Proces Verbal', 'Psihotropice']
-
 const DOCUMENTS_LIST_NAVIGATION = [
-  {
-    name: 'Proces Verbal',
-    route: '/documents/verbal-process'
-  },
-  {
-    name: 'Psihotropice',
-    route: '/documents/psychotropic'
-  }
+  { name: 'Proces Verbal', route: '/documents/verbal-process' },
+  { name: 'Psihotropice', route: '/documents/psychotropic' },
+  { name: 'Trimise', route: '/documents/shared' },
+  { name: 'Șterse', route: '/documents/trash' },
 ]
 
 interface DocumentsHeaderProps {
   showButton?: boolean
+  /** Which tab we can create a PV for (normal spans categories 1-6, psycholeptic = 7). */
   type?: DocumentType
   refetchDocuments: () => void
 }
 
-export const DocumentsHeader: React.FC<DocumentsHeaderProps> = ({ showButton = false, type, refetchDocuments }) => {
+export const DocumentsHeader: React.FC<DocumentsHeaderProps> = ({
+  showButton = false,
+  type,
+  refetchDocuments,
+}) => {
   const [DocumentCreationDialog, documentCreationDialogProps, toggleDocumentCreationDialog] =
     useDialog()
 
@@ -33,7 +31,7 @@ export const DocumentsHeader: React.FC<DocumentsHeaderProps> = ({ showButton = f
     <Content>
       <DocumentCreationDialog {...documentCreationDialogProps}>
         <DocumentCreation
-          type={type}
+          tab={type ?? DocumentType.NORMAL}
           close={toggleDocumentCreationDialog}
           refetchDocuments={refetchDocuments}
         />
@@ -41,7 +39,7 @@ export const DocumentsHeader: React.FC<DocumentsHeaderProps> = ({ showButton = f
       <TitleWrapper>
         <Title>Documente</Title>
         {showButton && (
-          <Button onClick={() => toggleDocumentCreationDialog()}>Generarea Raport</Button>
+          <Button onClick={() => toggleDocumentCreationDialog()}>Generare proces verbal</Button>
         )}
       </TitleWrapper>
       <NavigateList list={DOCUMENTS_LIST_NAVIGATION} />

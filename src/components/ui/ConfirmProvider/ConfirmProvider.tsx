@@ -116,7 +116,10 @@ export const ConfirmProvider: React.FC<{ children: React.ReactNode }> = ({ child
                 <Button variant='secondary' disabled={running} onClick={cancel}>
                   {options.cancelLabel ?? 'Anulare'}
                 </Button>
-                <Button variant={options.danger ? 'danger' : 'primary'} disabled={running} onClick={accept}>
+                <Button
+                  variant={options.danger ? 'danger' : 'primary'}
+                  disabled={running}
+                  onClick={accept}>
                   {running ? (
                     <Spinner size={16} color={options.danger ? WDS_COLOR_RED : WDS_COLOR_WHITE} />
                   ) : (

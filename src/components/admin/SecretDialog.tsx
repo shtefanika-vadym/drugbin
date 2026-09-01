@@ -13,7 +13,10 @@ export interface Secret {
 }
 
 /** One-time reveal of a generated password / device key, for `useDialog`. Cannot be shown again. */
-export const SecretDialog: React.FC<{ secret: Secret; close: () => void }> = ({ secret, close }) => (
+export const SecretDialog: React.FC<{ secret: Secret; close: () => void }> = ({
+  secret,
+  close,
+}) => (
   <Form>
     <Text variant='titleH4'>{secret.title}</Text>
     {secret.context && <Description>{secret.context}</Description>}

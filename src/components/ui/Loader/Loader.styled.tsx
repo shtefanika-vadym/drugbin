@@ -1,8 +1,8 @@
-import { flex } from 'common/styles/mixins/flex.mixin';
-import styled from 'styled-components';
-import { LoaderProps } from './Loader';
+import { flex } from 'common/styles/mixins/flex.mixin'
+import styled from 'styled-components'
+import { LoaderProps } from './Loader'
 
-type ContainerProps = Pick<LoaderProps, 'justify' | 'spacing' | 'centered'>;
+type ContainerProps = Pick<LoaderProps, 'justify' | 'spacing' | 'centered'>
 
 export const Container = styled.div<ContainerProps>`
   ${(props) => props.justify && flex({ justifyContent: props.justify })};
@@ -15,8 +15,8 @@ export const Container = styled.div<ContainerProps>`
     left: 50%;
     transform: translate(-50%, -50%);
   `}
-`;
+`
 
 export const StyledLoaderContainer = styled.div`
   display: contents;
-`;
+`

@@ -1,9 +1,9 @@
-import { WDS_COLOR_BLUE_400 } from 'common/styles/colors';
-import styled, { css, keyframes } from 'styled-components';
-import { SpinnerProps } from './Spinner';
+import { WDS_COLOR_BLUE_400 } from 'common/styles/colors'
+import styled, { css, keyframes } from 'styled-components'
+import { SpinnerProps } from './Spinner'
 
-const SPINNER_DEFAULT_SIZE = 24;
-const RING_DEFAULT_SIZE = 2;
+const SPINNER_DEFAULT_SIZE = 24
+const RING_DEFAULT_SIZE = 2
 
 const rotate = keyframes`
     0% {
@@ -12,7 +12,7 @@ const rotate = keyframes`
     100% { 
       transform: rotate(360deg);
     }
-`;
+`
 
 export const StyledSpinner = styled.div<SpinnerProps>`
   display: inline-block;
@@ -36,4 +36,4 @@ export const StyledSpinner = styled.div<SpinnerProps>`
       border-width: ${ringWidth}px;
     `};
   }
-`;
+`

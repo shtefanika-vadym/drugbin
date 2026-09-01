@@ -4,7 +4,10 @@ import { Text } from 'components/ui/Text/Text'
 import { Bar, Legend, Segment, Swatch, Total } from './TimingBreakdown.styled'
 import { fmtMs } from './format'
 
-export const TimingBreakdown: React.FC<{ steps: StepTiming[]; total?: number | null }> = ({ steps, total }) => {
+export const TimingBreakdown: React.FC<{ steps: StepTiming[]; total?: number | null }> = ({
+  steps,
+  total,
+}) => {
   if (steps.length === 0)
     return (
       <Text variant='bodyS' color={WDS_COLOR_GREY}>
@@ -17,7 +20,12 @@ export const TimingBreakdown: React.FC<{ steps: StepTiming[]; total?: number | n
     <div>
       <Bar>
         {steps.map((s, i) => (
-          <Segment key={s.label} ratio={s.ms / sum} index={i} title={`${s.label}: ${fmtMs(s.ms)}`} />
+          <Segment
+            key={s.label}
+            ratio={s.ms / sum}
+            index={i}
+            title={`${s.label}: ${fmtMs(s.ms)}`}
+          />
         ))}
       </Bar>
       <Legend>

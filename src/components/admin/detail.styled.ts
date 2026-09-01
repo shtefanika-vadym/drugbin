@@ -1,6 +1,12 @@
 import { WDS_COLOR_GREY_100, WDS_COLOR_WHITE_100 } from 'common/styles/colors'
 import { flex } from 'common/styles/mixins/flex.mixin'
-import { WDS_SIZE_008_PX, WDS_SIZE_012_PX, WDS_SIZE_016_PX, WDS_SIZE_024_PX, WDS_SIZE_032_PX } from 'common/styles/size'
+import {
+  WDS_SIZE_008_PX,
+  WDS_SIZE_012_PX,
+  WDS_SIZE_016_PX,
+  WDS_SIZE_024_PX,
+  WDS_SIZE_032_PX,
+} from 'common/styles/size'
 import styled from 'styled-components'
 
 export const Sections = styled.div`

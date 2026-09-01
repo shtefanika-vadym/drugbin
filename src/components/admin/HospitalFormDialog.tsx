@@ -11,10 +11,10 @@ import { Secret } from './SecretDialog'
 const EMPTY = { name: '', loginEmail: '', city: '', address: '' }
 const apiMsg = (e: any, fallback: string) => e?.response?.data?.message || fallback
 
-export const HospitalFormDialog: React.FC<{ close: () => void; onCreated: (s: Secret) => void }> = ({
-  close,
-  onCreated,
-}) => {
+export const HospitalFormDialog: React.FC<{
+  close: () => void
+  onCreated: (s: Secret) => void
+}> = ({ close, onCreated }) => {
   const [form, setForm] = useState(EMPTY)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')

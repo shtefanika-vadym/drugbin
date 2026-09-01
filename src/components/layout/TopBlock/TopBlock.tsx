@@ -20,14 +20,19 @@ const HOSPITAL_NAV: NavItem[] = [
   {
     label: 'Documente',
     route: '/documents/verbal-process',
-    isActive: (p) => ['verbal-process', 'psychotropic', 'shared', 'trash'].includes(last(p) as string),
+    isActive: (p) =>
+      ['verbal-process', 'psychotropic', 'shared', 'trash'].includes(last(p) as string),
   },
 ]
 
 const ADMIN_NAV: NavItem[] = [
   { label: 'Spitale', route: '/admin/spitale', isActive: (p) => last(p) === 'spitale' },
   { label: 'Roboți', route: '/admin/roboti', isActive: (p) => last(p) === 'roboti' },
-  { label: 'Clasificări', route: '/admin/clasificari', isActive: (p) => p.startsWith('/admin/clasificari') },
+  {
+    label: 'Clasificări',
+    route: '/admin/clasificari',
+    isActive: (p) => p.startsWith('/admin/clasificari'),
+  },
 ]
 
 export const TopBlock = () => {

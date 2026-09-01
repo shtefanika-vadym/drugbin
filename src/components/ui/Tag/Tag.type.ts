@@ -3,7 +3,7 @@ export enum TagVariantType {
   COLLECTED = 'recycled',
   APPROVED = 'approved',
   DENY = 'deny',
-  DEFAULT = 'default'
+  DEFAULT = 'default',
 }
 
 export interface TagProps {

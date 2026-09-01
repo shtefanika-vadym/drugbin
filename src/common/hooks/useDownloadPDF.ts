@@ -1,30 +1,26 @@
-import { capitalize } from 'lodash-es'
 import { useCallback, useState } from 'react'
 import { fetchDocument } from './documents'
 
 export const useDownloadPDF = () => {
   const [isLoading, setIsLoading] = useState(false)
 
-  const downloadPDF = useCallback(async (id: string, documentType: string) => {
+  const downloadPDF = useCallback(async (id: string) => {
     setIsLoading(true)
-    const documentName = `DrugBin_Raport_${capitalize(documentType)}_${id}.pdf`
     try {
-      const response = await fetchDocument(`/documents/data/${id}?type=${documentType}`)
-      const documentBlob = new Blob([response], { type: 'application/pdf' })
-      const documentURL = window.URL.createObjectURL(documentBlob)
+      const bytes = await fetchDocument(id)
+      const url = window.URL.createObjectURL(new Blob([bytes], { type: 'application/pdf' }))
 
       const link = document.createElement('a')
-      link.href = documentURL
-      link.setAttribute('download', documentName)
+      link.href = url
+      link.setAttribute('download', `DrugBin_PV_${id}.pdf`)
       document.body.appendChild(link)
       link.click()
-
       document.body.removeChild(link)
-      window.URL.revokeObjectURL(documentURL)
-      setIsLoading(false)
+      window.URL.revokeObjectURL(url)
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error('Error downloading PDF:', error)
+    } finally {
       setIsLoading(false)
     }
   }, [])

@@ -5,6 +5,7 @@ import {
   useImageBlob,
 } from 'common/hooks/admin'
 import { ReclassifyResponse } from 'common/types/manage.types'
+import { useAuthState } from 'common/state/auth.state'
 import { WDS_COLOR_GREY, WDS_COLOR_RED } from 'common/styles/colors'
 import { DashboardCard } from 'components/layout/DashboardCard/DashboardCard'
 import { Button } from 'components/ui/Button/Button'
@@ -26,10 +27,18 @@ const TABS = [
   { id: 'actiuni' as const, label: 'Acțiuni' },
 ]
 
-export const ClassificationDetail = () => {
+interface ClassificationDetailProps {
+  /** Route the "back" button and post-delete redirect target. */
+  basePath?: string
+}
+
+export const ClassificationDetail: React.FC<ClassificationDetailProps> = ({
+  basePath = '/admin/clasificari',
+}) => {
   const { imageId = '' } = useParams()
   const navigate = useNavigate()
   const confirm = useConfirm()
+  const role = useAuthState((s) => s.role)
   const { detail, isLoading, isError, mutate } = useClassification(imageId)
   const { url, failed } = useImageBlob(imageId)
 
@@ -48,8 +57,8 @@ export const ClassificationDetail = () => {
       danger: true,
       action: () => deleteClassification(imageId),
     })
-    if (ok) navigate('/admin/clasificari')
-  }, [confirm, imageId, navigate])
+    if (ok) navigate(basePath)
+  }, [confirm, imageId, navigate, basePath])
 
   const reclassify = useCallback(async () => {
     setBusy(true)
@@ -76,7 +85,7 @@ export const ClassificationDetail = () => {
   return (
     <Sections>
       <BackRow>
-        <Button variant='secondary' size='XS' onClick={() => navigate('/admin/clasificari')}>
+        <Button variant='secondary' size='XS' onClick={() => navigate(basePath)}>
           ← Înapoi
         </Button>
         <Text variant='bodyS' color={WDS_COLOR_GREY}>
@@ -182,17 +191,19 @@ export const ClassificationDetail = () => {
                 )}
               </DashboardCard>
 
-              <DashboardCard title='Zonă periculoasă'>
-                <Text variant='bodyS' color={WDS_COLOR_GREY}>
-                  Șterge definitiv clasificarea: înregistrarea, corecțiile, ambele imagini, vectorul
-                  din index și cache-ul. Nu poate fi anulată.
-                </Text>
-                <div>
-                  <Button variant='danger' onClick={remove}>
-                    Șterge clasificarea
-                  </Button>
-                </div>
-              </DashboardCard>
+              {role === 'admin' && (
+                <DashboardCard title='Zonă periculoasă'>
+                  <Text variant='bodyS' color={WDS_COLOR_GREY}>
+                    Șterge definitiv clasificarea: înregistrarea, corecțiile, ambele imagini,
+                    vectorul din index și cache-ul. Nu poate fi anulată.
+                  </Text>
+                  <div>
+                    <Button variant='danger' onClick={remove}>
+                      Șterge clasificarea
+                    </Button>
+                  </div>
+                </DashboardCard>
+              )}
             </>
           )}
         </Sections>

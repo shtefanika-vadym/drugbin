@@ -2,13 +2,13 @@ import { Tag } from 'components/ui/Tag/Tag'
 import { TagVariantType } from 'components/ui/Tag/Tag.type'
 import React from 'react'
 import {
-    BoxContainer,
-    ContentVisibility,
-    DeleteSignature,
-    Name,
-    Signature,
-    SignatureAction,
-    SignatureWrapper,
+  BoxContainer,
+  ContentVisibility,
+  DeleteSignature,
+  Name,
+  Signature,
+  SignatureAction,
+  SignatureWrapper,
 } from './SettingsSignature.styled'
 import SignatureImage from './signature.png'
 

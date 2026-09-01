@@ -1,13 +1,15 @@
-import { useGenerateRaport, useGetRaportDate } from 'common/hooks/raport'
+import { createPv, usePvStartDate } from 'common/hooks/documents'
 import { WDS_COLOR_RED } from 'common/styles/colors'
 import { WDS_SIZE_040_PX } from 'common/styles/size'
 import { DocumentType } from 'common/types/documents.types'
+import { categoryLabels } from 'common/utils/utils'
 import { subDays } from 'date-fns'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { Button } from '../Button/Button'
 import { DatePicker } from '../DatePicker/DatePicker'
 import { CalendarIcon } from '../Icon'
 import { Loader } from '../Loader'
+import { Select } from '../Select/Select'
 import { Skeleton } from '../Skeleton/Skeleton'
 import { Text } from '../Text/Text'
 import {
@@ -18,60 +20,72 @@ import {
 } from './DocumentCreation.styled'
 
 interface DocumentCreationProps {
-  type: DocumentType
-  close: (status: boolean) => void
+  /** The tab we're creating from — `normal` lets the user pick a category 1-6, `psycholeptic` is 7. */
+  tab: DocumentType
+  close: (open: boolean) => void
   refetchDocuments: () => void
 }
 
+const NORMAL_CATEGORIES = [1, 2, 3, 4, 5, 6]
+
 export const DocumentCreation: React.FC<DocumentCreationProps> = ({
-  type,
+  tab,
   close,
   refetchDocuments,
 }) => {
+  const psycholeptic = tab === DocumentType.PSYCHOLEPTIC
+  const [category, setCategory] = useState<number>(psycholeptic ? 7 : NORMAL_CATEGORIES[0])
   const [date, setDate] = useState<string>('')
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState('')
 
-  const { trigger, isMutating, error } = useGenerateRaport(type)
-  const { data: lastRaportDate, isLoading, isError } = useGetRaportDate(type)
+  const { startDate, isLoading, isError } = usePvStartDate(category)
 
-  const onChange = useCallback(
-    (date: any) => {
-      const currentDate = new Date(date)
-      const formattedDate = currentDate.toISOString().split('T')[0]
-      setDate(formattedDate)
-    },
-    [setDate],
-  )
+  const onChange = useCallback((value: any) => {
+    if (!value) return setDate('')
+    setDate(new Date(value).toISOString().split('T')[0])
+  }, [])
 
-  useEffect(() => {
-    if (error) setDate('')
-  }, [error])
+  const minDate = useMemo(() => (startDate ? new Date(startDate) : undefined), [startDate])
 
-  const handleGenerateRaport = useCallback(async () => {
-    await trigger(date)
-    refetchDocuments()
-    close(false)
-  }, [date, refetchDocuments, close, trigger])
+  const handleGenerate = useCallback(async () => {
+    setBusy(true)
+    setError('')
+    try {
+      await createPv(category, date)
+      refetchDocuments()
+      close(false)
+    } catch (e: any) {
+      const status = e?.response?.status
+      setError(
+        status === 404
+          ? 'Nu există clasificări pentru această categorie în intervalul ales.'
+          : status === 409
+          ? 'Există deja un proces verbal pentru această categorie și acest interval.'
+          : 'A apărut o eroare. Încercați din nou.',
+      )
+      setDate('')
+    } finally {
+      setBusy(false)
+    }
+  }, [category, date, refetchDocuments, close])
 
   const renderDatePicker = () => {
     if (isLoading) return <Skeleton height={WDS_SIZE_040_PX} />
     if (isError)
       return (
-        <Text variant='bodyS'>
-          Ne pare rău, a apărut o eroare necunoscută. Vă rugăm să încercați din nou sau să
-          contactați suportul tehnic pentru asistență.
-        </Text>
+        <Text variant='bodyS'>Ne pare rău, a apărut o eroare. Vă rugăm să încercați din nou.</Text>
       )
-
     return (
       <DatePicker
-        yearPlaceholder='EX. 2024'
+        yearPlaceholder='2026'
         monthPlaceholder='02'
         dayPlaceholder='12'
         format='yyyy-MM-dd'
         onChange={onChange}
         value={date}
         maxDate={subDays(new Date(), 0)}
-        minDate={new Date(lastRaportDate)}
+        minDate={minDate}
         clearIcon={null}
         calendarIcon={<CalendarIcon />}
       />
@@ -80,21 +94,42 @@ export const DocumentCreation: React.FC<DocumentCreationProps> = ({
 
   return (
     <Container>
-      <Text variant='titleH4'>Generarea Raport</Text>
+      <Text variant='titleH4'>Generare proces verbal</Text>
       <Description>
-        Pentru a genera un raport, selectați o dată de încheiere. Data de început va fi setată
-        automat pe baza ultimului raport generat.
+        Selectați categoria și data de încheiere. Data de început este stabilită automat, în
+        continuarea ultimului proces verbal.
       </Description>
-      <RangePickerContainer>{renderDatePicker()}</RangePickerContainer>
-      {error && (
-        <Text variant='bodyXS' color={WDS_COLOR_RED}>
-          Nu există date disponibile pentru perioada selectată. Vă rugăm să verificați intervalul
-          ales și să încercați din nou
+
+      {!psycholeptic && (
+        <Select
+          label='Categorie'
+          value={String(category)}
+          onChange={(e) => setCategory(Number(e.target.value))}>
+          {NORMAL_CATEGORIES.map((c) => (
+            <option key={c} value={c}>
+              {categoryLabels[c]}
+            </option>
+          ))}
+        </Select>
+      )}
+
+      {startDate && (
+        <Text variant='bodyXS'>
+          Interval: {startDate} — {date || '…'}
         </Text>
       )}
+
+      <RangePickerContainer>{renderDatePicker()}</RangePickerContainer>
+
+      {error && (
+        <Text variant='bodyXS' color={WDS_COLOR_RED}>
+          {error}
+        </Text>
+      )}
+
       <ButtonWrapper>
-        <Button onClick={handleGenerateRaport} disabled={isMutating || !date}>
-          <Loader isLoading={isMutating}>Generează raport</Loader>
+        <Button onClick={handleGenerate} disabled={busy || !date}>
+          <Loader isLoading={busy}>Generează</Loader>
         </Button>
         <Button variant='secondary' onClick={() => close(false)}>
           Anulare

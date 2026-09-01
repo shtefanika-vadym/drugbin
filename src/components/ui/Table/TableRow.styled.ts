@@ -4,7 +4,11 @@ import { grid } from 'common/styles/mixins/grid.mixin'
 import styled from 'styled-components'
 import { TableConfig } from './Table.types'
 
-export const StyledTableRow = styled.tr<{ config: TableConfig; isOpen?: boolean; clickable?: boolean }>`
+export const StyledTableRow = styled.tr<{
+  config: TableConfig
+  isOpen?: boolean
+  clickable?: boolean
+}>`
   width: 100%;
   ${({ clickable }) => clickable && `cursor: pointer;`}
   ${({ clickable }) => clickable && `&:hover { background-color: ${WDS_COLOR_BLUE_100}; }`}

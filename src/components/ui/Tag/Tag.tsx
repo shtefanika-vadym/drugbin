@@ -22,6 +22,8 @@ export const Tag: FC<TagProps> = (props) => {
   const { variant = 'pending' } = props
 
   return (
-    <StyledTag variant={variant as TagVariantType}>{toTagText(variant as TagVariantType)}</StyledTag>
+    <StyledTag variant={variant as TagVariantType}>
+      {toTagText(variant as TagVariantType)}
+    </StyledTag>
   )
 }

@@ -1,4 +1,9 @@
-import { deleteHospital, rotateHospitalCredentials, setHospitalStatus, updateHospital } from 'common/hooks/admin'
+import {
+  deleteHospital,
+  rotateHospitalCredentials,
+  setHospitalStatus,
+  updateHospital,
+} from 'common/hooks/admin'
 import { Hospital } from 'common/types/manage.types'
 import { WDS_COLOR_GREEN, WDS_COLOR_GREY, WDS_COLOR_RED } from 'common/styles/colors'
 import { Button } from 'components/ui/Button/Button'
@@ -28,7 +33,13 @@ interface Props {
   onSecret: (s: Secret) => void
 }
 
-export const HospitalDetailDialog: React.FC<Props> = ({ hospital, close, onChanged, onDeleted, onSecret }) => {
+export const HospitalDetailDialog: React.FC<Props> = ({
+  hospital,
+  close,
+  onChanged,
+  onDeleted,
+  onSecret,
+}) => {
   const confirm = useConfirm()
   const [tab, setTab] = useState<'detalii' | 'acces'>('detalii')
   const [form, setForm] = useState({
@@ -76,7 +87,8 @@ export const HospitalDetailDialog: React.FC<Props> = ({ hospital, close, onChang
     let res: Awaited<ReturnType<typeof rotateHospitalCredentials>> | undefined
     const ok = await confirm({
       title: 'Rotești parola?',
-      description: 'Se generează o parolă nouă, afișată o singură dată. Cea veche se dezactivează imediat.',
+      description:
+        'Se generează o parolă nouă, afișată o singură dată. Cea veche se dezactivează imediat.',
       confirmLabel: 'Rotește parola',
       action: async () => {
         res = await rotateHospitalCredentials(hospital.id)
@@ -128,7 +140,11 @@ export const HospitalDetailDialog: React.FC<Props> = ({ hospital, close, onChang
     <Form>
       <Text variant='titleH4'>{hospital.name}</Text>
       <Description>
-        {active ? <StatusTag tone='ok'>Activ</StatusTag> : <StatusTag tone='danger'>Suspendat</StatusTag>}
+        {active ? (
+          <StatusTag tone='ok'>Activ</StatusTag>
+        ) : (
+          <StatusTag tone='danger'>Suspendat</StatusTag>
+        )}
         {'  '}· {hospital.machineCount} roboți · creat {fmtDate(hospital.createdAt)}
       </Description>
 
@@ -137,10 +153,20 @@ export const HospitalDetailDialog: React.FC<Props> = ({ hospital, close, onChang
       {tab === 'detalii' && (
         <TabPanel>
           <LabeledInput label='Nume' value={form.name} onChange={set('name')} />
-          <LabeledInput label='Email' type='email' value={form.loginEmail} onChange={set('loginEmail')} />
+          <LabeledInput
+            label='Email'
+            type='email'
+            value={form.loginEmail}
+            onChange={set('loginEmail')}
+          />
           <CityField value={form.city} onChange={(v) => setForm((f) => ({ ...f, city: v }))} />
           <LabeledInput label='Adresă' value={form.address} onChange={set('address')} />
-          <LabeledInput label='Email de contact' type='email' value={form.contactEmail} onChange={set('contactEmail')} />
+          <LabeledInput
+            label='Email de contact'
+            type='email'
+            value={form.contactEmail}
+            onChange={set('contactEmail')}
+          />
           {msg && (
             <Text variant='bodyXS' color={msg.error ? WDS_COLOR_RED : WDS_COLOR_GREEN}>
               {msg.text}
@@ -176,7 +202,11 @@ export const HospitalDetailDialog: React.FC<Props> = ({ hospital, close, onChang
           <AccessRow>
             <AccessRowHead>
               <Text variant='subheading'>Stare cont</Text>
-              {active ? <StatusTag tone='ok'>Activ</StatusTag> : <StatusTag tone='danger'>Suspendat</StatusTag>}
+              {active ? (
+                <StatusTag tone='ok'>Activ</StatusTag>
+              ) : (
+                <StatusTag tone='danger'>Suspendat</StatusTag>
+              )}
             </AccessRowHead>
             <Text variant='bodyXS' color={WDS_COLOR_GREY}>
               {active
@@ -195,7 +225,8 @@ export const HospitalDetailDialog: React.FC<Props> = ({ hospital, close, onChang
               <Text variant='subheading'>Șterge spitalul</Text>
             </AccessRowHead>
             <Text variant='bodyXS' color={WDS_COLOR_GREY}>
-              Roboții asignați devin neasignați (nu se șterg). Istoricul clasificărilor se păstrează.
+              Roboții asignați devin neasignați (nu se șterg). Istoricul clasificărilor se
+              păstrează.
             </Text>
             <div>
               <Button variant='danger' disabled={busy} onClick={remove}>

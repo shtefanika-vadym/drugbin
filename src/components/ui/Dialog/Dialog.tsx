@@ -49,15 +49,12 @@ export const Dialog: React.FC<DialogProps> = ({
   }
 
   //TO-DO: FIND OTHER SOLUTION
-  const handleCloseIfOpen = useCallback(
-    () => {
-      if (open) {
-        onClose()
-        unlock()
-      }
-    },
-    [open, onClose, unlock],
-  )
+  const handleCloseIfOpen = useCallback(() => {
+    if (open) {
+      onClose()
+      unlock()
+    }
+  }, [open, onClose, unlock])
 
   const DialogWrapper = isMaxWidthFixed ? DialogContainerWithMaxWidth : DialogContainer
 

@@ -1,10 +1,10 @@
 export interface Ellipsis {
-  maxWidth?: string;
-  width?: string;
-  display?: '-webkit-box';
-  webkitBoxOrient?: 'vertical' | 'horizontal';
-  webkitLineClamp?: number;
-  whiteSpace?: 'pre-wrap' | 'nowrap';
+  maxWidth?: string
+  width?: string
+  display?: '-webkit-box'
+  webkitBoxOrient?: 'vertical' | 'horizontal'
+  webkitLineClamp?: number
+  whiteSpace?: 'pre-wrap' | 'nowrap'
 }
 
 export const ellipsis = ({
@@ -23,4 +23,4 @@ export const ellipsis = ({
     ${webkitBoxOrient ? ` -webkit-box-orient: ${webkitBoxOrient};` : ''}
     ${webkitLineClamp ? ` -webkit-line-clamp: ${webkitLineClamp};` : ''}
     ${whiteSpace ? `white-space: ${whiteSpace};` : ''}
-`;
+`

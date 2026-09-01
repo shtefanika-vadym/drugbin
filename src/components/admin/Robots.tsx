@@ -17,7 +17,14 @@ import { Text } from 'components/ui/Text/Text'
 import { ViewIcon } from 'components/ui/Icon'
 import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { useDebounce } from 'usehooks-ts'
-import { Container, HeaderActions, HeaderRow, InputWrapper, TableBody, TableHeader } from './list.styled'
+import {
+  Container,
+  HeaderActions,
+  HeaderRow,
+  InputWrapper,
+  TableBody,
+  TableHeader,
+} from './list.styled'
 import { PageControls } from './PageControls'
 import { RefreshButton } from './RefreshButton'
 import { RobotFormDialog } from './RobotFormDialog'
@@ -47,7 +54,10 @@ export const Robots = () => {
   const [selected, setSelected] = useState<Machine | null>(null)
   const [secret, setSecret] = useState<Secret | null>(null)
 
-  const handleSearch = useCallback((e: ChangeEvent<HTMLInputElement>) => setTerm(e.target.value), [])
+  const handleSearch = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => setTerm(e.target.value),
+    [],
+  )
 
   const showSecret = useCallback(
     (s: Secret) => {
@@ -59,7 +69,8 @@ export const Robots = () => {
   )
 
   const renderRows = () => {
-    if (!isLoading && machines.length === 0) return <Empty description='Niciun robot înregistrat.' />
+    if (!isLoading && machines.length === 0)
+      return <Empty description='Niciun robot înregistrat.' />
     return machines.map((m) => (
       <TableRow key={m.machineId}>
         <TableCell variant={CellVariant.ACTION}>
@@ -79,7 +90,11 @@ export const Robots = () => {
         <TableCell>{m.site || '—'}</TableCell>
         <TableCell>{m.hospitalName || <StatusTag tone='muted'>Neasignat</StatusTag>}</TableCell>
         <TableCell>
-          {m.enabled ? <StatusTag tone='ok'>Activ</StatusTag> : <StatusTag tone='danger'>Dezactivat</StatusTag>}
+          {m.enabled ? (
+            <StatusTag tone='ok'>Activ</StatusTag>
+          ) : (
+            <StatusTag tone='danger'>Dezactivat</StatusTag>
+          )}
         </TableCell>
         <TableCell>{fmtRelative(m.lastSeenAt)}</TableCell>
         <TableCell>{fmtDate(m.createdAt)}</TableCell>

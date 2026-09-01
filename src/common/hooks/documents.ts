@@ -1,60 +1,78 @@
-import api from 'api'
-import { AxiosResponse } from 'axios'
-import {
-    DocumentType,
-    DocumentsVerbalProcess,
-    DocumentsVerbalProcessResponse,
-} from 'common/types/documents.types'
-import { toDocumentsVerbalProcess } from 'uc/mappers'
-import { useData } from './useData'
+import apiV2, { API_URL } from 'api/v2'
+import { useAuthState } from 'common/state/auth.state'
+import { DocumentType, PvRow } from 'common/types/documents.types'
+import useSWR from 'swr'
 import { useDataOnDemand } from './useDataOnDemand'
 
-export const fetchDocument = async (url: string): Promise<ArrayBuffer> => {
-  const response: AxiosResponse<ArrayBuffer> = await api.get<ArrayBuffer>(url, {
-    headers: {
-      Accept: 'application/pdf',
-    },
-    responseType: 'arraybuffer',
-  })
+const fetcher = <T>(url: string): Promise<T> => apiV2.get<T>(url).then((r) => r.data)
 
-  return response.data
-}
+// --------------------------------------------------------------------------- lists
 
-const fetcher = async (url: string): Promise<string> => {
-  const response = await fetchDocument(url)
-
-  const pdfBlob = new Blob([response], { type: 'application/pdf' })
-  return URL.createObjectURL(pdfBlob)
-}
-
-const fetchVerbalProces = async (url: string): Promise<DocumentsVerbalProcess[]> => {
-  const response: AxiosResponse<DocumentsVerbalProcessResponse[]> = await api.get<
-    DocumentsVerbalProcessResponse[]
-  >(url)
-
-  return toDocumentsVerbalProcess(response.data)
-}
-
-export const useGetDocument = (id: string, category: number) => {
-  const { data, trigger, isMutating } = useDataOnDemand(
-    `/recycle/process/${id}?category=${category}`,
+export const useGetVerbalProcesEntries = (tab: DocumentType) => {
+  const { data, isLoading, mutate } = useSWR<PvRow[]>(
+    `/api/v1/manage/documents?tab=${tab}`,
     fetcher,
   )
-
-  return { data, trigger, isMutating }
-}
-
-export const useGetVerbalProcesEntries = (type: DocumentType) => {
-  const { data, isLoading, mutate } = useData(`/documents/all?type=${type}`, fetchVerbalProces)
-
   return { data, isLoading, mutate }
 }
 
-export const useGetMonthlyRaport = (id: string, type: DocumentType) => {
-  const { trigger, data, isMutating } = useDataOnDemand(
-    `/documents/data/${id}?type=${type}`,
+export const useSharedPv = () => {
+  const { data, isLoading, mutate } = useSWR<PvRow[]>('/api/v1/manage/documents/shared', fetcher)
+  return { data, isLoading, mutate }
+}
+
+export const useRemovedPv = () => {
+  const { data, isLoading, mutate } = useSWR<PvRow[]>('/api/v1/manage/documents/removed', fetcher)
+  return { data, isLoading, mutate }
+}
+
+/** The derived start date for the next PV of a category (the caller only picks the end date). */
+export const usePvStartDate = (category?: number) => {
+  const { data, isLoading, error } = useSWR<{ startDate: string }>(
+    category ? `/api/v1/manage/documents/start-date?category=${category}` : null,
     fetcher,
   )
+  return { startDate: data?.startDate, isLoading, isError: !!error }
+}
 
+// --------------------------------------------------------------------------- mutations
+
+export const createPv = (category: number, endDate: string) =>
+  apiV2
+    .post<PvRow>(`/api/v1/manage/documents?category=${category}`, { endDate })
+    .then((r) => r.data)
+
+export const sharePv = (id: string) =>
+  apiV2.post<PvRow>(`/api/v1/manage/documents/${id}/share`).then((r) => r.data)
+
+export const deletePv = (id: string) =>
+  apiV2.delete<PvRow>(`/api/v1/manage/documents/${id}`).then((r) => r.data)
+
+export const restorePv = (id: string) =>
+  apiV2.post<PvRow>(`/api/v1/manage/documents/${id}/restore`).then((r) => r.data)
+
+// --------------------------------------------------------------------------- pdf
+
+/**
+ * The PV PDF: an `<img>`/`<iframe src>` can't carry the bearer token, so fetch as a blob. Shared
+ * PVs serve frozen R2 bytes; drafts render live.
+ */
+export const fetchDocument = async (id: string): Promise<ArrayBuffer> => {
+  const token = useAuthState.getState().token
+  const r = await fetch(`${API_URL}/api/v1/manage/documents/${id}/pdf`, {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+  if (!r.ok) throw new Error(`pv pdf ${r.status}`)
+  return r.arrayBuffer()
+}
+
+const objectUrlFetcher = async (id: string): Promise<string> => {
+  const bytes = await fetchDocument(id)
+  return URL.createObjectURL(new Blob([bytes], { type: 'application/pdf' }))
+}
+
+/** On-demand PV preview URL for the DocumentViewer dialog. */
+export const useGetMonthlyRaport = (id: string) => {
+  const { trigger, data, isMutating } = useDataOnDemand(`pv-view:${id}`, () => objectUrlFetcher(id))
   return { data, trigger, isMutating }
 }

@@ -1,8 +1,19 @@
-import { WDS_COLOR_BLUE_50, WDS_COLOR_BLUE_100, WDS_COLOR_BLUE_300, WDS_COLOR_GREY } from 'common/styles/colors'
+import {
+  WDS_COLOR_BLUE_50,
+  WDS_COLOR_BLUE_100,
+  WDS_COLOR_BLUE_300,
+  WDS_COLOR_GREY,
+} from 'common/styles/colors'
 import { border } from 'common/styles/mixins/border.mixin'
 import { flex } from 'common/styles/mixins/flex.mixin'
 import { textVariant } from 'common/styles/mixins/typography.mixin'
-import { WDS_SIZE_008_PX, WDS_SIZE_012_PX, WDS_SIZE_016_PX, WDS_SIZE_024_PX, WDS_SIZE_040_PX } from 'common/styles/size'
+import {
+  WDS_SIZE_008_PX,
+  WDS_SIZE_012_PX,
+  WDS_SIZE_016_PX,
+  WDS_SIZE_024_PX,
+  WDS_SIZE_040_PX,
+} from 'common/styles/size'
 import styled from 'styled-components'
 import { Text } from 'components/ui/Text/Text'
 
@@ -52,7 +63,12 @@ export const AccessRowHead = styled.div`
 /** Click-to-pick image drop zone for the simulate dialog. */
 export const UploadZone = styled.button`
   all: unset;
-  ${flex({ direction: 'column', alignItems: 'center', justifyContent: 'center', gap: WDS_SIZE_008_PX })};
+  ${flex({
+    direction: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: WDS_SIZE_008_PX,
+  })};
   box-sizing: border-box;
   width: 100%;
   padding: ${WDS_SIZE_040_PX} ${WDS_SIZE_016_PX};

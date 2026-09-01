@@ -1,32 +1,26 @@
-import { Dialog, DialogProps } from "components/ui/Dialog/Dialog";
-import { isUndefined } from "lodash-es";
-import React, { useCallback, useState } from "react";
+import { Dialog, DialogProps } from 'components/ui/Dialog/Dialog'
+import { isUndefined } from 'lodash-es'
+import React, { useCallback, useState } from 'react'
 
 export interface toggleDialog {
-  (isOpenOverride?: boolean): void;
+  (isOpenOverride?: boolean): void
 }
-type useDialogReturn = [
-  React.FC<DialogProps>,
-  DialogProps,
-  toggleDialog,
-  boolean,
-  () => void
-];
-type useDialogConfig = Pick<DialogProps, "heading" | "dismissIcon" | "zIndex">;
+type useDialogReturn = [React.FC<DialogProps>, DialogProps, toggleDialog, boolean, () => void]
+type useDialogConfig = Pick<DialogProps, 'heading' | 'dismissIcon' | 'zIndex'>
 
 const useDialog = (config?: useDialogConfig): useDialogReturn => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
 
   const toggleDialog: toggleDialog = useCallback(
     (isOpenOverride) => {
-      setIsOpen(isUndefined(isOpenOverride) ? !isOpen : isOpenOverride);
+      setIsOpen(isUndefined(isOpenOverride) ? !isOpen : isOpenOverride)
     },
-    [isOpen]
-  );
+    [isOpen],
+  )
 
   const closeDialog = useCallback(() => {
-    toggleDialog(false);
-  }, [toggleDialog]);
+    toggleDialog(false)
+  }, [toggleDialog])
 
   return [
     Dialog,
@@ -38,7 +32,7 @@ const useDialog = (config?: useDialogConfig): useDialogReturn => {
     toggleDialog,
     isOpen,
     closeDialog,
-  ];
-};
+  ]
+}
 
-export default useDialog;
+export default useDialog

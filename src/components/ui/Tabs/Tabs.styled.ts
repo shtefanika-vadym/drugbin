@@ -18,6 +18,7 @@ export const TabButton = styled.button<{ isActive: boolean }>`
   ${textVariant('subheading')};
   padding: ${WDS_SIZE_003_PX} ${WDS_SIZE_012_PX};
   margin-bottom: -1px;
-  border-bottom: ${WDS_SIZE_003_PX} solid ${({ isActive }) => (isActive ? WDS_COLOR_BLUE_300 : 'transparent')};
+  border-bottom: ${WDS_SIZE_003_PX} solid
+    ${({ isActive }) => (isActive ? WDS_COLOR_BLUE_300 : 'transparent')};
   color: ${({ isActive }) => (isActive ? WDS_COLOR_BLUE_300 : WDS_COLOR_GREY)};
 `

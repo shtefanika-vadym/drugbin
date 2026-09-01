@@ -12,7 +12,13 @@ interface Props {
 }
 
 /** Generic "are you sure" body for `useDialog`, mirroring components/ui/Dialog/ActionDialog. */
-export const ConfirmDialog: React.FC<Props> = ({ title, description, confirmLabel = 'Confirmă', onConfirm, close }) => {
+export const ConfirmDialog: React.FC<Props> = ({
+  title,
+  description,
+  confirmLabel = 'Confirmă',
+  onConfirm,
+  close,
+}) => {
   const [busy, setBusy] = useState(false)
 
   const handle = useCallback(async () => {

@@ -17,7 +17,14 @@ import { Text } from 'components/ui/Text/Text'
 import { ViewIcon } from 'components/ui/Icon'
 import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { useDebounce } from 'usehooks-ts'
-import { Container, HeaderActions, HeaderRow, InputWrapper, TableBody, TableHeader } from './list.styled'
+import {
+  Container,
+  HeaderActions,
+  HeaderRow,
+  InputWrapper,
+  TableBody,
+  TableHeader,
+} from './list.styled'
 import { PageControls } from './PageControls'
 import { RefreshButton } from './RefreshButton'
 import { HospitalFormDialog } from './HospitalFormDialog'
@@ -26,14 +33,19 @@ import { SecretDialog, Secret } from './SecretDialog'
 import { StatusTag } from './StatusTag'
 import { fmtDate, fmtTime } from './format'
 
-const GRID = 'minmax(0, 0.6fr) minmax(0, 2.4fr) minmax(0, 1fr) minmax(0, 2fr) minmax(0, 0.7fr) minmax(0, 1fr) minmax(0, 1.3fr)'
+const GRID =
+  'minmax(0, 0.6fr) minmax(0, 2.4fr) minmax(0, 1fr) minmax(0, 2fr) minmax(0, 0.7fr) minmax(0, 1fr) minmax(0, 1.3fr)'
 
 export const Hospitals = () => {
   const breakpoints = useBreakpoints()
   const { page, search, pageSize, setPage, setSearch, setPageSize } = useListQuery()
   const [term, setTerm] = useState(search)
   const debounced = useDebounce(term, 400)
-  const { hospitals, total, totalPages, isLoading, mutate } = useHospitals({ page, search, pageSize })
+  const { hospitals, total, totalPages, isLoading, mutate } = useHospitals({
+    page,
+    search,
+    pageSize,
+  })
 
   useEffect(() => {
     if (debounced !== search) setSearch(debounced)
@@ -47,7 +59,10 @@ export const Hospitals = () => {
   const [selected, setSelected] = useState<Hospital | null>(null)
   const [secret, setSecret] = useState<Secret | null>(null)
 
-  const handleSearch = useCallback((e: ChangeEvent<HTMLInputElement>) => setTerm(e.target.value), [])
+  const handleSearch = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => setTerm(e.target.value),
+    [],
+  )
 
   const showSecret = useCallback(
     (s: Secret) => {
@@ -67,7 +82,8 @@ export const Hospitals = () => {
   )
 
   const renderRows = () => {
-    if (!isLoading && hospitals.length === 0) return <Empty description='Niciun spital înregistrat.' />
+    if (!isLoading && hospitals.length === 0)
+      return <Empty description='Niciun spital înregistrat.' />
     return hospitals.map((h) => (
       <TableRow key={h.id}>
         <TableCell variant={CellVariant.ACTION}>
@@ -80,7 +96,11 @@ export const Hospitals = () => {
         <TableCell>{h.loginEmail}</TableCell>
         <TableCell>{h.machineCount}</TableCell>
         <TableCell>
-          {h.status === 'active' ? <StatusTag tone='ok'>Activ</StatusTag> : <StatusTag tone='danger'>Suspendat</StatusTag>}
+          {h.status === 'active' ? (
+            <StatusTag tone='ok'>Activ</StatusTag>
+          ) : (
+            <StatusTag tone='danger'>Suspendat</StatusTag>
+          )}
         </TableCell>
         <TableCell label={fmtTime(h.createdAt)}>{fmtDate(h.createdAt)}</TableCell>
       </TableRow>

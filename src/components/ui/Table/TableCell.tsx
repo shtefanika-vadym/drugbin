@@ -11,7 +11,6 @@ interface TableCellProps {
 }
 
 export const TableCell: FC<TableCellProps> = ({ children, label, variant, isCopy = false }) => {
-
   const renderLabel = () => {
     if (isCopy)
       return (
@@ -21,7 +20,7 @@ export const TableCell: FC<TableCellProps> = ({ children, label, variant, isCopy
       )
 
     return <Label>{label}</Label>
-  } 
+  }
 
   return (
     <StyledTableCell variant={variant}>
