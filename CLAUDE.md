@@ -24,11 +24,11 @@ system and UI kit; new code that reinvents them will be rejected.
 - **Admin list screens:** `useListQuery()` keeps `page` / `q` (search) / filters in the URL;
   `<PageControls>` is the count + 10/20/30 size picker + `<Pagination>` strip.
 - **Layout:** a page is `<PageWrapper>` (renders `TopBlock` nav + `Content` card). List pages
-  follow `src/components/management/Management.tsx` exactly: `<Text titleH4>` title → search `Input`
-  → `<Table configDesktop={{ itemGridCols }} breakpoints={useBreakpoints()}>` → `Pagination`.
-- **Data:** SWR through an axios instance. `src/api/index.ts` (`api`) → the legacy dashboard
-  backend (`REACT_APP_DRUGBIN_API_BASE_URL`, `/recycle`, `/documents`, `/statistics`).
-  `src/api/v2.ts` (`apiV2`) → the drugbin-cf Worker (`REACT_APP_API_URL`, `/api/v1/*`).
+  follow `src/components/admin/Classifications.tsx`: `<Text titleH4>` title → filters →
+  `<Table configDesktop={{ itemGridCols }} breakpoints={useBreakpoints()}>` → `<PageControls>`.
+- **Data:** SWR through **one** axios instance — `src/api/v2.ts` (`apiV2`) → the drugbin-cf Worker
+  (`REACT_APP_API_URL`, `/api/v1/*`). The old `src/api/index.ts` legacy-dashboard client is gone
+  (drugbin-cf docs/18): Statistici / Gestionare / Documente now run on `/api/v1/manage/*`.
 - **Hooks:** `useBreakpoints`, `usePagination`, `useDialog`, `useToggle`, `useData`.
 - **Absolute imports** from `src` (`baseUrl: src`). No `../../..`.
 - **Language:** all user-facing strings in Romanian, matching the tone of the existing screens.
@@ -41,8 +41,9 @@ Sign-in (`/login`, email + password) hits `POST /api/v1/auth/login` on the Worke
 - **admin** → `/admin/{spitale,roboti,clasificari}` — the admin console. Talks to the Worker
   (`apiV2` / `src/common/hooks/admin.ts`). Same chrome as the rest of the app: `PageWrapper` +
   a role-aware `TopBlock` nav.
-- **hospital** → the original dashboard: **Statistici** (`/`), **Gestionare** (`/gestionare`),
-  **Documente** (`/documents/*`) — served by the legacy backend (`api`).
+- **hospital** → **Statistici** (`/`), **Gestionare** (`/gestionare`, its own classifications
+  list), **Documente** (`/documents/*`, procese verbale) — all on the Worker (`apiV2`,
+  `/api/v1/manage/*`; hooks `dashboard.ts` / `documents.ts`), plus **Profil** (`/profil`).
 
 `TopBlock` (`src/components/layout/TopBlock/`) renders the admin nav or the hospital nav depending
 on `useAuthState().role`.

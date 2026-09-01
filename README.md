@@ -20,11 +20,10 @@ a session JWT in `localStorage` (`src/common/state/auth.state.ts`). The `role` d
 
 | Env var | Client | Serves |
 |---|---|---|
-| `REACT_APP_API_URL` | `src/api/v2.ts` | the `drugbin-cf` Worker — auth, `/api/v1/admin/*`, `/api/v1/manage/*` |
-| `REACT_APP_DRUGBIN_API_BASE_URL` | `src/api/index.ts` | the legacy dashboard backend — `/recycle`, `/documents`, `/statistics`, … |
+| `REACT_APP_API_URL` | `src/api/v2.ts` | the `drugbin-cf` Worker — the whole app: auth, `/api/v1/admin/*`, `/api/v1/manage/*` |
 
-The legacy backend is a separate project (see `drugbin-cf/docs/16` "What does not move here"). If
-you don't run it, the Statistici/Gestionare/Documente pages simply show empty states.
+The old NestJS dashboard backend (`REACT_APP_DRUGBIN_API_BASE_URL` / `src/api/index.ts`) is gone —
+Statistici / Gestionare / Documente moved onto the Worker's `/api/v1/manage/*` (drugbin-cf docs/18).
 
 ## Develop
 
