@@ -1,10 +1,9 @@
 import { changeHospitalPassword } from 'common/hooks/hospital'
-import { WDS_COLOR_GREEN, WDS_COLOR_RED } from 'common/styles/colors'
 import { Button } from 'components/ui/Button/Button'
+import { CheckIcon } from 'components/ui/Icon'
 import { LabeledInput } from 'components/ui/LabeledInput'
-import { Text } from 'components/ui/Text/Text'
-import { FormEvent, useCallback, useState } from 'react'
-import { FormColumn, Hint } from './profile.styled'
+import { FormEvent, useCallback, useMemo, useState } from 'react'
+import { FormColumn, Hint, MessageBox, ReqDot, ReqItem, ReqList } from './profile.styled'
 
 const MIN_LENGTH = 12
 
@@ -28,23 +27,27 @@ export const ChangePasswordForm = () => {
     setMsg(null)
   }
 
-  const localError = (): string | null => {
-    if (!form.current || !form.next) return 'Completează parola actuală și pe cea nouă.'
-    if (form.next.length < MIN_LENGTH)
-      return `Parola nouă trebuie să aibă cel puțin ${MIN_LENGTH} caractere.`
-    if (form.next === form.current) return 'Parola nouă trebuie să fie diferită de cea actuală.'
-    if (form.next !== form.confirm) return 'Confirmarea nu coincide cu parola nouă.'
-    return null
-  }
+  const reqs = useMemo(
+    () => [
+      { label: `Cel puțin ${MIN_LENGTH} caractere`, done: form.next.length >= MIN_LENGTH },
+      {
+        label: 'Diferită de parola actuală',
+        done: form.next.length > 0 && form.next !== form.current,
+      },
+      {
+        label: 'Confirmarea coincide',
+        done: form.confirm.length > 0 && form.next === form.confirm,
+      },
+    ],
+    [form],
+  )
+
+  const canSubmit = !busy && !!form.current && reqs.every((r) => r.done)
 
   const submit = useCallback(
     async (e: FormEvent) => {
       e.preventDefault()
-      const invalid = localError()
-      if (invalid) {
-        setMsg({ text: invalid, error: true })
-        return
-      }
+      if (!canSubmit) return
       setBusy(true)
       setMsg(null)
       try {
@@ -60,14 +63,13 @@ export const ChangePasswordForm = () => {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [form],
+    [form, canSubmit],
   )
 
   return (
     <FormColumn onSubmit={submit}>
       <Hint>
-        Parola inițială a fost emisă de administrator. O poți schimba oricând cu una aleasă de tine
-        (minimum {MIN_LENGTH} caractere).
+        Parola inițială a fost emisă de administrator. O poți schimba oricând cu una aleasă de tine.
       </Hint>
       <LabeledInput
         type='password'
@@ -93,13 +95,20 @@ export const ChangePasswordForm = () => {
         onChange={set('confirm')}
         required
       />
-      {msg && (
-        <Text variant='bodyXS' color={msg.error ? WDS_COLOR_RED : WDS_COLOR_GREEN}>
-          {msg.text}
-        </Text>
-      )}
+
+      <ReqList>
+        {reqs.map((r) => (
+          <ReqItem key={r.label} done={r.done}>
+            {r.done ? <CheckIcon /> : <ReqDot />}
+            {r.label}
+          </ReqItem>
+        ))}
+      </ReqList>
+
+      {msg && <MessageBox tone={msg.error ? 'error' : 'ok'}>{msg.text}</MessageBox>}
+
       <div>
-        <Button type='submit' size='XS' disabled={busy}>
+        <Button type='submit' size='XS' disabled={!canSubmit}>
           Schimbă parola
         </Button>
       </div>

@@ -1,12 +1,34 @@
 import { useHospitalProfile } from 'common/hooks/hospital'
-import { WDS_COLOR_GREY } from 'common/styles/colors'
-import { DashboardCard } from 'components/layout/DashboardCard/DashboardCard'
+import { WDS_COLOR_BLUE_400, WDS_COLOR_GREY } from 'common/styles/colors'
 import { StatusTag } from 'components/admin/StatusTag'
 import { fmtDate } from 'components/admin/format'
 import { Text } from 'components/ui/Text/Text'
 import { ChangePasswordForm } from './ChangePasswordForm'
 import { SignatureCard } from './SignatureCard'
-import { Cards, DefinitionList, Hint, Sections } from './profile.styled'
+import {
+  Card,
+  CardHeader,
+  Divider,
+  Field,
+  FieldList,
+  Hint,
+  IdentityName,
+  IdentityRail,
+  IdentityTop,
+  Monogram,
+  PageHead,
+  ProfileGrid,
+  RightColumn,
+  Sections,
+} from './profile.styled'
+
+const monogram = (name: string): string =>
+  name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join('')
 
 export const HospitalProfile = () => {
   const { profile, isLoading, isError, mutate } = useHospitalProfile()
@@ -21,45 +43,79 @@ export const HospitalProfile = () => {
 
   return (
     <Sections>
-      <Text variant='titleH4'>Profilul spitalului</Text>
+      <PageHead>
+        <Text variant='titleH4'>Profilul spitalului</Text>
+        <Text variant='bodyS' color={WDS_COLOR_GREY}>
+          Datele contului, parola și semnătura pentru procesele verbale.
+        </Text>
+      </PageHead>
 
-      <Cards>
-        <DashboardCard title='Detalii'>
-          <DefinitionList>
-            <dt>Nume</dt>
-            <dd>{profile.name}</dd>
-            <dt>Oraș</dt>
-            <dd>{profile.city || '—'}</dd>
-            <dt>Adresă</dt>
-            <dd>{profile.address || '—'}</dd>
-            <dt>Email autentificare</dt>
-            <dd>{profile.loginEmail}</dd>
-            <dt>Email de contact</dt>
-            <dd>{profile.contactEmail || '—'}</dd>
-            <dt>Status</dt>
-            <dd>
-              {profile.status === 'active' ? (
-                <StatusTag tone='ok'>Activ</StatusTag>
-              ) : (
-                <StatusTag tone='danger'>Suspendat</StatusTag>
-              )}
-            </dd>
-            <dt>Cont creat</dt>
-            <dd>{fmtDate(profile.createdAt)}</dd>
-          </DefinitionList>
+      <ProfileGrid>
+        <IdentityRail>
+          <IdentityTop>
+            <Monogram aria-hidden>{monogram(profile.name)}</Monogram>
+            <IdentityName>
+              <Text variant='subheading'>{profile.name}</Text>
+              <Text variant='bodyS' color={WDS_COLOR_GREY}>
+                {profile.city || 'Oraș nespecificat'}
+              </Text>
+            </IdentityName>
+          </IdentityTop>
+
+          {profile.status === 'active' ? (
+            <StatusTag tone='ok'>Activ</StatusTag>
+          ) : (
+            <StatusTag tone='danger'>Suspendat</StatusTag>
+          )}
+
+          <Divider />
+
+          <FieldList>
+            <Field>
+              <dt>Adresă</dt>
+              <dd>{profile.address || '—'}</dd>
+            </Field>
+            <Field>
+              <dt>Email autentificare</dt>
+              <dd>{profile.loginEmail}</dd>
+            </Field>
+            <Field>
+              <dt>Email de contact</dt>
+              <dd>{profile.contactEmail || '—'}</dd>
+            </Field>
+            <Field>
+              <dt>Cont creat</dt>
+              <dd>{fmtDate(profile.createdAt)}</dd>
+            </Field>
+          </FieldList>
+
+          <Divider />
+
           <Hint>
             Aceste date sunt gestionate de administrator. Pentru modificări, contactează-l.
           </Hint>
-        </DashboardCard>
+        </IdentityRail>
 
-        <DashboardCard title='Parolă'>
-          <ChangePasswordForm />
-        </DashboardCard>
+        <RightColumn>
+          <Card>
+            <CardHeader>
+              <Text variant='subheading' color={WDS_COLOR_BLUE_400}>
+                Parolă
+              </Text>
+            </CardHeader>
+            <ChangePasswordForm />
+          </Card>
 
-        <DashboardCard title='Semnătură pentru procese verbale'>
-          <SignatureCard signature={profile.signature} onChange={() => mutate()} />
-        </DashboardCard>
-      </Cards>
+          <Card>
+            <CardHeader>
+              <Text variant='subheading' color={WDS_COLOR_BLUE_400}>
+                Semnătură pentru procese verbale
+              </Text>
+            </CardHeader>
+            <SignatureCard signature={profile.signature} onChange={() => mutate()} />
+          </Card>
+        </RightColumn>
+      </ProfileGrid>
     </Sections>
   )
 }

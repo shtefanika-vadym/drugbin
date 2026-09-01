@@ -4,7 +4,7 @@ import {
   useSignatureBlob,
 } from 'common/hooks/hospital'
 import { SignatureMeta } from 'common/types/manage.types'
-import { WDS_COLOR_GREEN, WDS_COLOR_GREY, WDS_COLOR_RED } from 'common/styles/colors'
+import { WDS_COLOR_GREY } from 'common/styles/colors'
 import { Button } from 'components/ui/Button/Button'
 import { useConfirm } from 'components/ui/ConfirmProvider/ConfirmProvider'
 import { LabeledInput } from 'components/ui/LabeledInput'
@@ -17,6 +17,7 @@ import {
   HiddenFileInput,
   Hint,
   InlineActions,
+  MessageBox,
   SignatureEmpty,
   SignaturePreview,
 } from './profile.styled'
@@ -143,11 +144,7 @@ export const SignatureCard: React.FC<Props> = ({ signature, onChange }) => {
         onChange={(e) => setSignatoryName(e.target.value)}
       />
 
-      {msg && (
-        <Text variant='bodyXS' color={msg.error ? WDS_COLOR_RED : WDS_COLOR_GREEN}>
-          {msg.text}
-        </Text>
-      )}
+      {msg && <MessageBox tone={msg.error ? 'error' : 'ok'}>{msg.text}</MessageBox>}
 
       <InlineActions>
         <Button
@@ -155,10 +152,10 @@ export const SignatureCard: React.FC<Props> = ({ signature, onChange }) => {
           size='XS'
           disabled={busy}
           onClick={() => inputRef.current?.click()}>
-          {signature.present ? 'Înlocuiește imaginea' : 'Încarcă imaginea'}
+          {signature.present ? 'Înlocuiește imaginea' : 'Încarcă semnătura'}
         </Button>
-        {signature.present && nameDirty && (
-          <Button size='XS' disabled={busy} onClick={saveName}>
+        {signature.present && (
+          <Button size='XS' disabled={busy || !nameDirty} onClick={saveName}>
             Salvează numele
           </Button>
         )}
