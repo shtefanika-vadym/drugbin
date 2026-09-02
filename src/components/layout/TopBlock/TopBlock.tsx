@@ -28,6 +28,11 @@ const ADMIN_NAV: NavItem[] = [
   { label: 'Spitale', route: '/admin/spitale', isActive: (p) => last(p) === 'spitale' },
   { label: 'Roboți', route: '/admin/roboti', isActive: (p) => last(p) === 'roboti' },
   {
+    label: 'Colectări',
+    route: '/admin/colectari',
+    isActive: (p) => p.startsWith('/admin/colectari'),
+  },
+  {
     label: 'Clasificări',
     route: '/admin/clasificari',
     isActive: (p) => p.startsWith('/admin/clasificari'),

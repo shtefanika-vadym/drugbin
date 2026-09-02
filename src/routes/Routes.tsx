@@ -1,13 +1,14 @@
 import { AdminClassificationDetailPage } from 'pages/admin/ClassificationDetail'
 import { AdminClassificationsPage } from 'pages/admin/Classifications'
+import { AdminCollectionsPage } from 'pages/admin/Collections'
 import { AdminHospitalsPage } from 'pages/admin/Hospitals'
 import { AdminRobotsPage } from 'pages/admin/Robots'
 import { useAuthState } from 'common/state/auth.state'
+import { CollectionsPage } from 'pages/Collections'
 import { DocumentsNormalPage } from 'pages/DocumentsNormalPage'
 import { DocumentsPsychotropicPage } from 'pages/DocumentsPsychotropicPage'
 import { DocumentsSharedPage } from 'pages/DocumentsSharedPage'
 import { DocumentsTrashPage } from 'pages/DocumentsTrashPage'
-import { GestionarePage } from 'pages/Gestionare'
 import { GestionareDetailPage } from 'pages/GestionareDetail'
 import { HomePage } from 'pages/Home'
 import { HospitalProfilePage } from 'pages/HospitalProfile'
@@ -76,6 +77,14 @@ const router = createBrowserRouter([
       </AdminOnly>,
     ),
   },
+  {
+    path: '/admin/colectari',
+    ...protectedRoute(
+      <AdminOnly>
+        <AdminCollectionsPage />
+      </AdminOnly>,
+    ),
+  },
 
   {
     path: '/profil',
@@ -86,7 +95,7 @@ const router = createBrowserRouter([
     ),
   },
 
-  { path: '/colectari', ...protectedRoute(<GestionarePage />) },
+  { path: '/colectari', ...protectedRoute(<CollectionsPage />) },
   { path: '/colectari/:imageId', ...protectedRoute(<GestionareDetailPage />) },
   { path: '/gestionare', element: <Navigate to='/colectari' replace /> },
   { path: '/gestionare/:imageId', element: <Navigate to='/colectari' replace /> },
