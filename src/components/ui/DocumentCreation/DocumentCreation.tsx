@@ -3,7 +3,7 @@ import { WDS_COLOR_RED } from 'common/styles/colors'
 import { WDS_SIZE_040_PX } from 'common/styles/size'
 import { DocumentType } from 'common/types/documents.types'
 import { categoryLabels } from 'common/utils/utils'
-import { subDays } from 'date-fns'
+import { format, subDays } from 'date-fns'
 import React, { useCallback, useMemo, useState } from 'react'
 import { Button } from '../Button/Button'
 import { DatePicker } from '../DatePicker/DatePicker'
@@ -42,11 +42,17 @@ export const DocumentCreation: React.FC<DocumentCreationProps> = ({
   const { startDate, isLoading, isError } = usePvStartDate(category)
 
   const onChange = useCallback((value: any) => {
-    if (!value) return setDate('')
-    setDate(new Date(value).toISOString().split('T')[0])
+    const picked = Array.isArray(value) ? value[0] : value
+    if (!picked) return setDate('')
+    // Format from the local calendar day — `toISOString()` shifts to UTC and, east of
+    // Greenwich, rolls the picked day back to the previous one.
+    setDate(format(picked instanceof Date ? picked : new Date(picked), 'yyyy-MM-dd'))
   }, [])
 
-  const minDate = useMemo(() => (startDate ? new Date(startDate) : undefined), [startDate])
+  const minDate = useMemo(
+    () => (startDate ? new Date(`${startDate}T00:00:00`) : undefined),
+    [startDate],
+  )
 
   const handleGenerate = useCallback(async () => {
     setBusy(true)
@@ -83,7 +89,7 @@ export const DocumentCreation: React.FC<DocumentCreationProps> = ({
         dayPlaceholder='12'
         format='yyyy-MM-dd'
         onChange={onChange}
-        value={date}
+        value={date ? new Date(`${date}T00:00:00`) : null}
         maxDate={subDays(new Date(), 0)}
         minDate={minDate}
         clearIcon={null}
