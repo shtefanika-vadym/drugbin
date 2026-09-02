@@ -3,7 +3,7 @@ import { Button } from 'components/ui/Button/Button'
 import { CheckIcon } from 'components/ui/Icon'
 import { LabeledInput } from 'components/ui/LabeledInput'
 import { FormEvent, useCallback, useMemo, useState } from 'react'
-import { FormColumn, Hint, MessageBox, ReqDot, ReqItem, ReqList } from './profile.styled'
+import { FormColumn, MessageBox, ReqDot, ReqItem, ReqList } from './profile.styled'
 
 const MIN_LENGTH = 12
 
@@ -68,9 +68,6 @@ export const ChangePasswordForm = () => {
 
   return (
     <FormColumn onSubmit={submit}>
-      <Hint>
-        Parola inițială a fost emisă de administrator. O poți schimba oricând cu una aleasă de tine.
-      </Hint>
       <LabeledInput
         type='password'
         label='Parola actuală'

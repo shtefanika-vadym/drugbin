@@ -102,6 +102,10 @@ export const HospitalProfile = () => {
               <Text variant='subheading' color={WDS_COLOR_BLUE_400}>
                 Parolă
               </Text>
+              <Text variant='bodyXS' color={WDS_COLOR_GREY}>
+                Parola inițială a fost emisă de administrator. O poți schimba oricând cu una aleasă
+                de tine.
+              </Text>
             </CardHeader>
             <ChangePasswordForm />
           </Card>
@@ -110,6 +114,10 @@ export const HospitalProfile = () => {
             <CardHeader>
               <Text variant='subheading' color={WDS_COLOR_BLUE_400}>
                 Semnătură pentru procese verbale
+              </Text>
+              <Text variant='bodyXS' color={WDS_COLOR_GREY}>
+                Se adaugă automat în procesul verbal, la „Am predat”. Fără ea, PV-ul are un câmp gol
+                pe care îl semnezi de mână.
               </Text>
             </CardHeader>
             <SignatureCard signature={profile.signature} onChange={() => mutate()} />

@@ -4,28 +4,43 @@ import {
   useSignatureBlob,
 } from 'common/hooks/hospital'
 import { SignatureMeta } from 'common/types/manage.types'
-import { WDS_COLOR_GREY } from 'common/styles/colors'
+import { WDS_COLOR_BLUE_500, WDS_COLOR_GREY } from 'common/styles/colors'
 import { Button } from 'components/ui/Button/Button'
 import { useConfirm } from 'components/ui/ConfirmProvider/ConfirmProvider'
-import { LabeledInput } from 'components/ui/LabeledInput'
 import { Text } from 'components/ui/Text/Text'
 import { fmtDateTime } from 'components/admin/format'
-import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import SignatureCanvas from 'react-signature-canvas'
 import {
   Column,
   DisclaimerBox,
+  DrawPadFrame,
   HiddenFileInput,
-  Hint,
   InlineActions,
+  LinkButton,
   MessageBox,
-  SignatureEmpty,
   SignaturePreview,
 } from './profile.styled'
 
 const MAX_BYTES = 256 * 1024
 const ACCEPTED = ['image/png', 'image/jpeg']
+const PAD_HEIGHT = 180
 
 const apiMsg = (e: any, fallback: string) => e?.response?.data?.message || fallback
+
+/** Flatten the transparent pen strokes onto white so the preview and the PV read cleanly. */
+const onWhite = (src: HTMLCanvasElement): HTMLCanvasElement => {
+  const out = document.createElement('canvas')
+  out.width = src.width
+  out.height = src.height
+  const ctx = out.getContext('2d')
+  if (ctx) {
+    ctx.fillStyle = '#ffffff'
+    ctx.fillRect(0, 0, out.width, out.height)
+    ctx.drawImage(src, 0, 0)
+  }
+  return out
+}
 
 interface Props {
   signature: SignatureMeta
@@ -35,69 +50,101 @@ interface Props {
 export const SignatureCard: React.FC<Props> = ({ signature, onChange }) => {
   const confirm = useConfirm()
   const inputRef = useRef<HTMLInputElement>(null)
+  const padRef = useRef<SignatureCanvas>(null)
+  const frameRef = useRef<HTMLDivElement>(null)
 
+  const [mode, setMode] = useState<'view' | 'edit'>(signature.present ? 'view' : 'edit')
   const [version, setVersion] = useState(0)
-  const [signatoryName, setSignatoryName] = useState(signature.signatoryName ?? '')
+  const [padWidth, setPadWidth] = useState(0)
+  const [padEmpty, setPadEmpty] = useState(true)
   const [busy, setBusy] = useState(false)
   const [msg, setMsg] = useState<{ text: string; error?: boolean } | null>(null)
 
-  useEffect(() => {
-    setSignatoryName(signature.signatoryName ?? '')
-  }, [signature.signatoryName, signature.updatedAt])
-
   const previewUrl = useSignatureBlob(signature.present, version)
 
-  const upload = useCallback(
+  // Size the canvas backing store to its CSS box so pen coordinates line up (signature_pad maps
+  // clientX/Y straight onto canvas pixels). Re-measure on container resize.
+  useLayoutEffect(() => {
+    if (mode !== 'edit') return
+    const el = frameRef.current
+    if (!el || typeof ResizeObserver === 'undefined') {
+      if (el) setPadWidth(el.clientWidth)
+      return
+    }
+    const ro = new ResizeObserver(() => setPadWidth(el.clientWidth))
+    ro.observe(el)
+    setPadWidth(el.clientWidth)
+    return () => ro.disconnect()
+  }, [mode])
+
+  const startEdit = useCallback(() => {
+    setMsg(null)
+    setPadEmpty(true)
+    setMode('edit')
+  }, [])
+
+  const clearPad = useCallback(() => {
+    padRef.current?.clear()
+    setPadEmpty(true)
+  }, [])
+
+  const save = useCallback(async () => {
+    const pad = padRef.current
+    if (!pad || pad.isEmpty()) return
+    setBusy(true)
+    setMsg(null)
+    try {
+      const blob: Blob | null = await new Promise((resolve) =>
+        onWhite(pad.getCanvas()).toBlob(resolve, 'image/png'),
+      )
+      if (!blob) throw new Error('toBlob failed')
+      await putHospitalSignature(blob)
+      setVersion((v) => v + 1)
+      onChange()
+      setMsg({ text: 'Semnătura a fost salvată.' })
+      setMode('view')
+    } catch (e) {
+      setMsg({ text: apiMsg(e, 'Salvarea semnăturii a eșuat.'), error: true })
+    } finally {
+      setBusy(false)
+    }
+  }, [onChange])
+
+  const uploadFile = useCallback(
     async (file: File) => {
       if (!ACCEPTED.includes(file.type)) {
-        setMsg({ text: 'Semnătura trebuie să fie o imagine PNG sau JPEG.', error: true })
+        setMsg({ text: 'Imaginea trebuie să fie PNG sau JPEG.', error: true })
         return
       }
       if (file.size > MAX_BYTES) {
-        setMsg({ text: 'Imaginea semnăturii nu poate depăși 256 KB.', error: true })
+        setMsg({ text: 'Imaginea nu poate depăși 256 KB.', error: true })
         return
       }
       setBusy(true)
       setMsg(null)
       try {
-        await putHospitalSignature(file, signatoryName.trim())
+        await putHospitalSignature(file)
         setVersion((v) => v + 1)
         onChange()
         setMsg({ text: 'Semnătura a fost salvată.' })
+        setMode('view')
       } catch (e) {
-        setMsg({ text: apiMsg(e, 'Încărcarea semnăturii a eșuat.'), error: true })
+        setMsg({ text: apiMsg(e, 'Încărcarea imaginii a eșuat.'), error: true })
       } finally {
         setBusy(false)
       }
     },
-    [onChange, signatoryName],
+    [onChange],
   )
 
   const onPick = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       const file = e.currentTarget.files?.[0]
       e.currentTarget.value = ''
-      if (file) upload(file)
+      if (file) uploadFile(file)
     },
-    [upload],
+    [uploadFile],
   )
-
-  const saveName = useCallback(async () => {
-    if (!previewUrl) return
-    setBusy(true)
-    setMsg(null)
-    try {
-      const blob = await (await fetch(previewUrl)).blob()
-      await putHospitalSignature(blob, signatoryName.trim())
-      setVersion((v) => v + 1)
-      onChange()
-      setMsg({ text: 'Numele semnatarului a fost actualizat.' })
-    } catch (e) {
-      setMsg({ text: apiMsg(e, 'Actualizarea a eșuat.'), error: true })
-    } finally {
-      setBusy(false)
-    }
-  }, [onChange, previewUrl, signatoryName])
 
   const remove = useCallback(async () => {
     const ok = await confirm({
@@ -113,60 +160,82 @@ export const SignatureCard: React.FC<Props> = ({ signature, onChange }) => {
       setVersion((v) => v + 1)
       onChange()
       setMsg({ text: 'Semnătura a fost ștearsă.' })
+      setMode('edit')
+      setPadEmpty(true)
     }
   }, [confirm, onChange])
 
-  const nameDirty = signatoryName.trim() !== (signature.signatoryName ?? '')
+  // A fresh mount with no signature should already be in edit mode; keep them in sync if the
+  // signature disappears from under us (e.g. deleted in another tab and revalidated).
+  useEffect(() => {
+    if (!signature.present) setMode('edit')
+  }, [signature.present])
 
   return (
     <Column>
-      <Hint>
-        Se adaugă automat în procesul verbal, la „Am predat”. Dacă nu este setată, PV-ul are un câmp
-        gol pe care îl semnezi de mână.
-      </Hint>
-
-      {signature.present && previewUrl ? (
-        <SignaturePreview src={previewUrl} alt='Semnătura curentă' />
+      {mode === 'view' && signature.present ? (
+        <>
+          {previewUrl && <SignaturePreview src={previewUrl} alt='Semnătura curentă' />}
+          {signature.updatedAt && (
+            <Text variant='bodyXS' color={WDS_COLOR_GREY}>
+              Actualizată la {fmtDateTime(signature.updatedAt)}
+            </Text>
+          )}
+          {msg && <MessageBox tone={msg.error ? 'error' : 'ok'}>{msg.text}</MessageBox>}
+          <InlineActions>
+            <Button variant='secondary' size='XS' disabled={busy} onClick={startEdit}>
+              Schimbă semnătura
+            </Button>
+            <Button variant='danger' size='XS' disabled={busy} onClick={remove}>
+              Șterge semnătura
+            </Button>
+          </InlineActions>
+        </>
       ) : (
-        <SignatureEmpty>Nicio semnătură încărcată</SignatureEmpty>
+        <>
+          <DrawPadFrame ref={frameRef}>
+            {padWidth > 0 && (
+              <SignatureCanvas
+                key={padWidth}
+                ref={padRef}
+                penColor={WDS_COLOR_BLUE_500}
+                clearOnResize={false}
+                canvasProps={{ width: padWidth, height: PAD_HEIGHT }}
+                onEnd={() => setPadEmpty(padRef.current?.isEmpty() ?? true)}
+              />
+            )}
+          </DrawPadFrame>
+          <Text variant='bodyXS' color={WDS_COLOR_GREY}>
+            Desenează semnătura cu mouse-ul sau cu degetul.
+          </Text>
+
+          {msg && <MessageBox tone={msg.error ? 'error' : 'ok'}>{msg.text}</MessageBox>}
+
+          <InlineActions>
+            <Button size='XS' disabled={busy || padEmpty} onClick={save}>
+              Salvează semnătura
+            </Button>
+            <Button variant='secondary' size='XS' disabled={busy} onClick={clearPad}>
+              Șterge
+            </Button>
+            {signature.present && (
+              <Button variant='secondary' size='XS' disabled={busy} onClick={() => setMode('view')}>
+                Renunță
+              </Button>
+            )}
+          </InlineActions>
+
+          <LinkButton disabled={busy} onClick={() => inputRef.current?.click()}>
+            Încarcă o imagine în loc
+          </LinkButton>
+          <HiddenFileInput
+            ref={inputRef}
+            type='file'
+            accept='image/png,image/jpeg'
+            onChange={onPick}
+          />
+        </>
       )}
-
-      {signature.present && signature.updatedAt && (
-        <Text variant='bodyXS' color={WDS_COLOR_GREY}>
-          Actualizată la {fmtDateTime(signature.updatedAt)}
-        </Text>
-      )}
-
-      <LabeledInput
-        label='Nume semnatar (opțional)'
-        placeholder='Ex: Farm. Ionescu Maria'
-        value={signatoryName}
-        onChange={(e) => setSignatoryName(e.target.value)}
-      />
-
-      {msg && <MessageBox tone={msg.error ? 'error' : 'ok'}>{msg.text}</MessageBox>}
-
-      <InlineActions>
-        <Button
-          variant='secondary'
-          size='XS'
-          disabled={busy}
-          onClick={() => inputRef.current?.click()}>
-          {signature.present ? 'Înlocuiește imaginea' : 'Încarcă semnătura'}
-        </Button>
-        {signature.present && (
-          <Button size='XS' disabled={busy || !nameDirty} onClick={saveName}>
-            Salvează numele
-          </Button>
-        )}
-        {signature.present && (
-          <Button variant='danger' size='XS' disabled={busy} onClick={remove}>
-            Șterge semnătura
-          </Button>
-        )}
-      </InlineActions>
-
-      <HiddenFileInput ref={inputRef} type='file' accept='image/png,image/jpeg' onChange={onPick} />
 
       <DisclaimerBox>
         Imaginea este un facsimil, nu o semnătură electronică calificată. Dacă ai nevoie de o

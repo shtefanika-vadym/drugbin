@@ -23,10 +23,9 @@ export const useHospitalProfile = () => {
 export const changeHospitalPassword = (currentPassword: string, newPassword: string) =>
   apiV2.post('/api/v1/hospital/password', { currentPassword, newPassword }).then((r) => r.data)
 
-export const putHospitalSignature = (image: Blob, signatoryName?: string) => {
+export const putHospitalSignature = (image: Blob) => {
   const form = new FormData()
   form.append('image', image, 'signature.png')
-  if (signatoryName !== undefined) form.append('signatoryName', signatoryName)
   return apiV2.put<SignatureMeta>('/api/v1/hospital/signature', form).then((r) => r.data)
 }
 

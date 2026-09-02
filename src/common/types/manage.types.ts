@@ -4,7 +4,6 @@
 export interface SignatureMeta {
   present: boolean
   updatedAt: number | null
-  signatoryName: string | null
 }
 
 export interface Hospital {
