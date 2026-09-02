@@ -37,9 +37,10 @@ export const usePvStartDate = (category?: number) => {
 
 // --------------------------------------------------------------------------- mutations
 
-export const createPv = (category: number, endDate: string) =>
+/** `startDate` is optional server-side — omit it to fall back to the derived start. */
+export const createPv = (category: number, startDate: string, endDate: string) =>
   apiV2
-    .post<PvRow>(`/api/v1/manage/documents?category=${category}`, { endDate })
+    .post<PvRow>(`/api/v1/manage/documents?category=${category}`, { startDate, endDate })
     .then((r) => r.data)
 
 export const sharePv = (id: string) =>

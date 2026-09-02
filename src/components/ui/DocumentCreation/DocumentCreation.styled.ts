@@ -25,6 +25,14 @@ export const ButtonWrapper = styled.div`
 `
 
 export const RangePickerContainer = styled.div`
-  display: block;
+  ${flex({ direction: 'column', gap: WDS_SIZE_016_PX })};
   margin-top: ${WDS_SIZE_016_PX};
+`
+
+export const Field = styled.div`
+  ${flex({ direction: 'column', gap: WDS_SIZE_008_PX })};
+`
+
+export const FieldLabel = styled(Text).attrs({ variant: 'bodyXS' })`
+  color: ${WDS_COLOR_GREY};
 `
