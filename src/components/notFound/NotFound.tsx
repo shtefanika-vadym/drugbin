@@ -15,7 +15,7 @@ export const NotFound = () => {
 
   return (
     <Container>
-      <Image src={notFoundBackground} alt='not-found-background' />
+      <Image src={notFoundBackground} alt='' />
       <Content>
         <Text variant='titleH3'>Ne pare rău, dar pagina pe care o cauți nu a fost găsită.</Text>
         <Text variant='bodyM' color={WDS_COLOR_GREY}>

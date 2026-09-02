@@ -25,7 +25,7 @@ import { PageControls } from './PageControls'
 import { RefreshButton } from './RefreshButton'
 import { SimulateDialog } from './SimulateDialog'
 import { StatusTag } from './StatusTag'
-import { CONFIDENCE_TONE, categoryLabel, fmtDate, fmtMs, fmtTime } from './format'
+import { CONFIDENCE_TONE, categoryLabel, confidenceLabel, fmtDate, fmtMs, fmtTime } from './format'
 
 const GRID =
   'minmax(0, 1.4fr) minmax(0, 0.6fr) minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1.6fr) minmax(0, 1fr)'
@@ -64,7 +64,9 @@ export const Classifications: React.FC<ClassificationsProps> = ({
         <TableCell label={fmtTime(c.createdAt)}>{fmtDate(c.createdAt)}</TableCell>
         <TableCell>{c.tier}</TableCell>
         <TableCell>
-          <StatusTag tone={CONFIDENCE_TONE[c.confidence] ?? 'muted'}>{c.confidence}</StatusTag>
+          <StatusTag tone={CONFIDENCE_TONE[c.confidence] ?? 'muted'}>
+            {confidenceLabel(c.confidence)}
+          </StatusTag>
         </TableCell>
         <TableCell label={c.drugAtc || undefined}>{c.drugName || '—'}</TableCell>
         <TableCell>{categoryLabel(c.drugCategory)}</TableCell>
@@ -86,12 +88,12 @@ export const Classifications: React.FC<ClassificationsProps> = ({
       <Filters>
         <FilterBox>
           <Select
-            label='Tier'
+            label='Nivel'
             value={filters.tier ?? ''}
             onChange={(e) => setFilter('tier', e.target.value)}>
-            <option value=''>toate</option>
+            <option value=''>Toate</option>
             <option value='1'>1 — vector</option>
-            <option value='2'>2 — vision</option>
+            <option value='2'>2 — viziune</option>
           </Select>
         </FilterBox>
         <FilterBox>
@@ -99,10 +101,10 @@ export const Classifications: React.FC<ClassificationsProps> = ({
             label='Încredere'
             value={filters.confidence ?? ''}
             onChange={(e) => setFilter('confidence', e.target.value)}>
-            <option value=''>toate</option>
-            <option value='high'>high</option>
-            <option value='low'>low</option>
-            <option value='none'>none</option>
+            <option value=''>Toate</option>
+            <option value='high'>Ridicată</option>
+            <option value='low'>Scăzută</option>
+            <option value='none'>Fără scor</option>
           </Select>
         </FilterBox>
       </Filters>
@@ -111,7 +113,7 @@ export const Classifications: React.FC<ClassificationsProps> = ({
         <TableHeader>
           <TableHeaderRow>
             <TableHeaderCell>Data</TableHeaderCell>
-            <TableHeaderCell>Tier</TableHeaderCell>
+            <TableHeaderCell>Nivel</TableHeaderCell>
             <TableHeaderCell>Încredere</TableHeaderCell>
             <TableHeaderCell>Medicament</TableHeaderCell>
             <TableHeaderCell>Categorie</TableHeaderCell>

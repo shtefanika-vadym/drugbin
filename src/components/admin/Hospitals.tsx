@@ -134,7 +134,7 @@ export const Hospitals = () => {
             <TableHeaderCell>Oraș</TableHeaderCell>
             <TableHeaderCell>Email</TableHeaderCell>
             <TableHeaderCell>Roboți</TableHeaderCell>
-            <TableHeaderCell>Status</TableHeaderCell>
+            <TableHeaderCell>Stare</TableHeaderCell>
             <TableHeaderCell>Creat</TableHeaderCell>
           </TableHeaderRow>
         </TableHeader>

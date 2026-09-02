@@ -79,7 +79,7 @@ export const DocumentsActionCell: React.FC<DocumentsActionCellProps> = ({
       <DocumentViewerDialog {...dialogProps} isDocumentLayout>
         <DocumentViewer documentURL={data} />
       </DocumentViewerDialog>
-      <iframe ref={iframeRef} title='print' style={{ display: 'none' }} />
+      <iframe ref={iframeRef} title='Tipărire' style={{ display: 'none' }} />
 
       <Button variant='square' size='S-square' onClick={handleView} disabled={isMutating}>
         <Loader isLoading={isMutating} justify='center'>

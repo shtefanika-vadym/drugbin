@@ -18,7 +18,7 @@ import { CorrectionForm } from './CorrectionForm'
 import { DefinitionList } from './dialog.styled'
 import { BackRow, Image, Layout, Sections } from './detail.styled'
 import { TimingBreakdown } from './TimingBreakdown'
-import { categoryLabel, fmtDateTime } from './format'
+import { categoryLabel, confidenceLabel, fmtDateTime } from './format'
 
 const num = (n: number | null | undefined) => (n == null ? '—' : n.toFixed(3))
 
@@ -111,10 +111,10 @@ export const ClassificationDetail: React.FC<ClassificationDetailProps> = ({
             <>
               <DashboardCard title='Rezultat'>
                 <DefinitionList>
-                  <dt>Tier</dt>
+                  <dt>Nivel</dt>
                   <dd>{c.tier}</dd>
                   <dt>Încredere</dt>
-                  <dd>{c.confidence}</dd>
+                  <dd>{confidenceLabel(c.confidence)}</dd>
                   <dt>Nume</dt>
                   <dd>{c.drugName || '—'}</dd>
                   <dt>Ambalaj</dt>
@@ -158,7 +158,7 @@ export const ClassificationDetail: React.FC<ClassificationDetailProps> = ({
 
               <DashboardCard title='Reclasificare'>
                 <Text variant='bodyS' color={WDS_COLOR_GREY}>
-                  Rulează din nou tier 1 + 2 pe imaginea stocată. Nu suprascrie înregistrarea.
+                  Rulează din nou nivelul 1 + 2 pe imaginea stocată. Nu suprascrie înregistrarea.
                 </Text>
                 <div>
                   <Button variant='secondary' disabled={busy} onClick={reclassify}>
@@ -173,17 +173,17 @@ export const ClassificationDetail: React.FC<ClassificationDetailProps> = ({
                 {rerun && (
                   <>
                     <DefinitionList>
-                      <dt>Original</dt>
-                      <dd>{rerun.original.confidence}</dd>
-                      <dt>Tier 1</dt>
+                      <dt>Inițial</dt>
+                      <dd>{confidenceLabel(rerun.original.confidence)}</dd>
+                      <dt>Nivelul 1</dt>
                       <dd>
                         {rerun.rerun.tier1.hit
                           ? `potrivire (scor ${num(rerun.rerun.tier1.score)})`
                           : 'fără potrivire'}
                       </dd>
-                      <dt>Tier 2</dt>
+                      <dt>Nivelul 2</dt>
                       <dd>
-                        {rerun.rerun.tier2.model} · {rerun.rerun.tier2.confidence}
+                        {rerun.rerun.tier2.model} · {confidenceLabel(rerun.rerun.tier2.confidence)}
                       </dd>
                     </DefinitionList>
                     <TimingBreakdown steps={rerun.rerun.steps} />

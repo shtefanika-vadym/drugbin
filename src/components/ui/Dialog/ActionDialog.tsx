@@ -38,7 +38,7 @@ export const ActionDialog: React.FC<ActionDialogProps> = ({
           <Button variant='secondary' onClick={close}>
             Anulare
           </Button>
-          <Button onClick={confirm}>Confirm</Button>
+          <Button onClick={confirm}>Confirmă</Button>
         </ButtonWrapper>
       </RightSection>
     </Container>

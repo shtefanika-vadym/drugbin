@@ -40,3 +40,12 @@ export const CONFIDENCE_TONE: Record<string, StatusTone> = {
   low: 'warn',
   none: 'muted',
 }
+
+const CONFIDENCE_LABELS: Record<string, string> = {
+  high: 'Ridicată',
+  low: 'Scăzută',
+  none: 'Fără scor',
+}
+
+export const confidenceLabel = (c: string | null | undefined): string =>
+  !c ? '—' : CONFIDENCE_LABELS[c] ?? c

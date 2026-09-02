@@ -77,7 +77,7 @@ export const LoginPage = () => {
           </ButtonWrapper>
         </FormWrapper>
       </LeftSide>
-      <RightSide src={loginImage} alt='login' />
+      <RightSide src={loginImage} alt='' />
     </Container>
   )
 }

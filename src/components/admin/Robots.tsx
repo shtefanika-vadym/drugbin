@@ -128,7 +128,7 @@ export const Robots = () => {
             <TableHeaderCell>Etichetă</TableHeaderCell>
             <TableHeaderCell>Locație</TableHeaderCell>
             <TableHeaderCell>Spital</TableHeaderCell>
-            <TableHeaderCell>Status</TableHeaderCell>
+            <TableHeaderCell>Stare</TableHeaderCell>
             <TableHeaderCell>Ultima activitate</TableHeaderCell>
             <TableHeaderCell>Creat</TableHeaderCell>
           </TableHeaderRow>

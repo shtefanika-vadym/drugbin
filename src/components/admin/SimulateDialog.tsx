@@ -68,7 +68,7 @@ export const SimulateDialog: React.FC<Props> = ({ close, onDone }) => {
       close()
       navigate(`/admin/clasificari/${id}`)
     } catch (e) {
-      setError(apiMsg(e, 'Simularea a eșuat. Cheile providerilor pot lipsi (tier 1–2).'))
+      setError(apiMsg(e, 'Simularea a eșuat. Cheile providerilor pot lipsi (nivelul 1–2).'))
       setBusy(false)
     }
   }, [file, machineId, onDone, close, navigate])
@@ -78,7 +78,7 @@ export const SimulateDialog: React.FC<Props> = ({ close, onDone }) => {
       <Text variant='titleH4'>Simulează o clasificare</Text>
       <Description>
         Încarcă o poză ca și cum ar fi trimisă de un robot din farmacie. Rulează pipeline-ul real
-        (tiers, arhivare, audit) și se deschide pagina cu detaliile.
+        (niveluri, arhivare, audit) și se deschide pagina cu detaliile.
       </Description>
 
       <Select
