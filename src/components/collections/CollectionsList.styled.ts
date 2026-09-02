@@ -11,3 +11,8 @@ export const FilterBox = styled.div`
   width: ${WDS_SIZE_300_PX};
   max-width: 100%;
 `
+
+/** Keeps a wide row grid from pushing the page body sideways at 390px / 1440px. */
+export const TableScroll = styled.div`
+  overflow-x: auto;
+`

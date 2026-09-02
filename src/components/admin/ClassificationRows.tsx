@@ -29,6 +29,8 @@ interface Props {
   linkPrefix: string
   isLoading?: boolean
   emptyDescription?: string
+  /** Opt-in: make rows keyboard-focusable + Enter/Space activatable. Off for the admin list. */
+  keyboardActivatable?: boolean
 }
 
 /**
@@ -40,13 +42,17 @@ export const ClassificationRows: React.FC<Props> = ({
   linkPrefix,
   isLoading = false,
   emptyDescription = 'Nicio clasificare.',
+  keyboardActivatable = false,
 }) => {
   const navigate = useNavigate()
   if (!isLoading && items.length === 0) return <Empty description={emptyDescription} />
   return (
     <>
       {items.map((c) => (
-        <TableRow key={c.imageId} onClick={() => navigate(`${linkPrefix}/${c.imageId}`)}>
+        <TableRow
+          key={c.imageId}
+          keyboardActivatable={keyboardActivatable}
+          onClick={() => navigate(`${linkPrefix}/${c.imageId}`)}>
           <TableCell label={fmtTime(c.createdAt)}>{fmtDate(c.createdAt)}</TableCell>
           <TableCell>{c.tier}</TableCell>
           <TableCell>

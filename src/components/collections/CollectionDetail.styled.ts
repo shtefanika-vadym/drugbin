@@ -1,4 +1,4 @@
-import { WDS_COLOR_GREY, WDS_COLOR_WHITE } from 'common/styles/colors'
+import { WDS_COLOR_WHITE } from 'common/styles/colors'
 import { flex } from 'common/styles/mixins/flex.mixin'
 import { textVariant } from 'common/styles/mixins/typography.mixin'
 import {
@@ -36,7 +36,7 @@ export const CardHead = styled.div`
 `
 
 export const CardTitle = styled.span`
-  ${textVariant('bodyL')};
+  ${textVariant('bodyM')};
   font-weight: 700;
   color: #01102e;
   word-break: break-all;
@@ -58,7 +58,7 @@ export const DefItem = styled.div`
     font-weight: 600;
     letter-spacing: 0.02em;
     text-transform: uppercase;
-    color: ${WDS_COLOR_GREY};
+    color: #6b7280;
   }
 
   dd {
@@ -69,14 +69,7 @@ export const DefItem = styled.div`
   }
 `
 
-export const TableHeader = styled.thead`
-  display: block;
-`
-
-export const TableBody = styled.tbody`
-  display: block;
-`
-
 export const TableWrap = styled.div`
   ${flex({ direction: 'column', gap: WDS_SIZE_008_PX })};
+  overflow-x: auto;
 `

@@ -8,6 +8,7 @@ import {
   ClassificationRows,
 } from 'components/admin/ClassificationRows'
 import { fmtDateTime } from 'components/admin/format'
+import { TableBody, TableHeader } from 'components/admin/list.styled'
 import { Button } from 'components/ui/Button/Button'
 import { Table } from 'components/ui/Table/Table'
 import { TableHeaderRow } from 'components/ui/Table/TableHeaderRow'
@@ -21,8 +22,6 @@ import {
   DefItem,
   IdentityCard,
   Sections,
-  TableBody,
-  TableHeader,
   TableWrap,
 } from './CollectionDetail.styled'
 import { CollectionStatusPill } from './CollectionStatusPill'
@@ -101,8 +100,8 @@ export const CollectionDetail: React.FC<Props> = ({ basePath }) => {
           <TableBody>
             <ClassificationRows
               items={items}
-              isLoading={isLoading}
-              emptyDescription='Nicio identificare în această colectare.'
+              keyboardActivatable
+              emptyDescription='Colectarea nu are încă identificări.'
               linkPrefix={`${basePath}/${collectionId}`}
             />
           </TableBody>
