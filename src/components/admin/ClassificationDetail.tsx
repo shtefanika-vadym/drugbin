@@ -10,6 +10,7 @@ import { WDS_COLOR_GREY, WDS_COLOR_RED } from 'common/styles/colors'
 import { DashboardCard } from 'components/layout/DashboardCard/DashboardCard'
 import { Button } from 'components/ui/Button/Button'
 import { useConfirm } from 'components/ui/ConfirmProvider/ConfirmProvider'
+import { CopyText } from 'components/ui/CopyText/CopyText'
 import { Tabs } from 'components/ui/Tabs/Tabs'
 import { Text } from 'components/ui/Text/Text'
 import { useCallback, useState } from 'react'
@@ -21,6 +22,10 @@ import { TimingBreakdown } from './TimingBreakdown'
 import { categoryLabel, confidenceLabel, fmtDateTime } from './format'
 
 const num = (n: number | null | undefined) => (n == null ? '—' : n.toFixed(3))
+
+/** An identifier cell: click-to-copy when present, em dash when not. */
+const idCell = (value: string | null | undefined) =>
+  value ? <CopyText value={value}>{value}</CopyText> : '—'
 
 const TABS = [
   { id: 'detalii' as const, label: 'Detalii' },
@@ -135,8 +140,12 @@ export const ClassificationDetail: React.FC<ClassificationDetailProps> = ({
                   <dd>{num(c.matchScore)}</dd>
                   <dt>Marjă</dt>
                   <dd>{num(c.matchMargin)}</dd>
+                  <dt>Request ID</dt>
+                  <dd>{idCell(c.requestId)}</dd>
+                  <dt>Cloudflare Ray ID</dt>
+                  <dd>{idCell(c.cfRayId)}</dd>
                   <dt>Gateway log</dt>
-                  <dd>{c.gatewayLogId || '—'}</dd>
+                  <dd>{idCell(c.gatewayLogId)}</dd>
                 </DefinitionList>
               </DashboardCard>
 

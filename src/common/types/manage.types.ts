@@ -94,6 +94,7 @@ export interface ClassificationRow {
   promptVersion: string | null
   imagesVersion: string | null
   gatewayLogId: string | null
+  cfRayId: string | null
   latencyTotalMs: number | null
   latencyNormalizeMs: number | null
   latencyEmbedMs: number | null
