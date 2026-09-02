@@ -39,13 +39,13 @@ export interface CollectionList extends Page {
   items: CollectionRow[]
 }
 
-export interface CollectionDetail {
+export interface CollectionDetailResponse {
   collection: CollectionRow
   items: ClassificationRow[]
 }
 
 export interface CollectionFilters {
-  status?: string
+  status?: 'open' | 'finalized'
   machineId?: string
   hospitalId?: string
   since?: number
@@ -71,7 +71,7 @@ export const useCollections = (filters: CollectionFilters, page = 1, pageSize = 
 }
 
 export const useCollection = (id?: string) => {
-  const { data, error, isLoading, mutate } = useSWR<CollectionDetail>(
+  const { data, error, isLoading, mutate } = useSWR<CollectionDetailResponse>(
     id ? `/api/v1/manage/collections/${id}` : null,
     fetcher,
     {

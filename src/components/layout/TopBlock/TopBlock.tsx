@@ -18,6 +18,11 @@ const HOSPITAL_NAV: NavItem[] = [
   { label: 'Statistici', route: '/', isActive: (p) => p === '/' },
   { label: 'Colectări', route: '/colectari', isActive: (p) => p.startsWith('/colectari') },
   {
+    label: 'Identificări',
+    route: '/clasificari',
+    isActive: (p) => p.startsWith('/clasificari'),
+  },
+  {
     label: 'Documente',
     route: '/documente/proces-verbal',
     isActive: (p) => p.startsWith('/documente'),

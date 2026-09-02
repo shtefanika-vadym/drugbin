@@ -5,6 +5,7 @@ import {
   WDS_COLOR_BLUE_300,
   WDS_COLOR_BLUE_700,
   WDS_COLOR_GREY,
+  WDS_COLOR_HAIRLINE,
   WDS_COLOR_RED,
   WDS_COLOR_RED_100,
   WDS_COLOR_WHITE,
@@ -19,8 +20,6 @@ import {
   WDS_SIZE_010_PX,
   WDS_SIZE_012_PX,
 } from 'common/styles/size'
-
-const LINE = '#EEF0F4'
 
 export const Container = styled.div`
   position: relative;
@@ -51,7 +50,7 @@ export const Menu = styled.div`
   width: 264px;
   padding: ${WDS_SIZE_008_PX};
   background: ${WDS_COLOR_WHITE};
-  border: 1px solid ${LINE};
+  border: 1px solid ${WDS_COLOR_HAIRLINE};
   border-radius: ${WDS_SIZE_012_PX};
   box-shadow: 0px 2px 8px rgba(1, 16, 46, 0.06), 0px 14px 34px rgba(1, 16, 46, 0.13);
   ${flex({ direction: 'column' })};
@@ -151,7 +150,7 @@ export const GroupLabel = styled.div`
 export const Separator = styled.div`
   height: 1px;
   margin: ${WDS_SIZE_006_PX} 0;
-  background: ${LINE};
+  background: ${WDS_COLOR_HAIRLINE};
 `
 
 export const MenuItem = styled.button<{ danger?: boolean }>`

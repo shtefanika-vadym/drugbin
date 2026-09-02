@@ -1,4 +1,9 @@
-import { WDS_COLOR_WHITE } from 'common/styles/colors'
+import {
+  WDS_COLOR_BLUE_700,
+  WDS_COLOR_GREY_500,
+  WDS_COLOR_HAIRLINE,
+  WDS_COLOR_WHITE,
+} from 'common/styles/colors'
 import { flex } from 'common/styles/mixins/flex.mixin'
 import { textVariant } from 'common/styles/mixins/typography.mixin'
 import {
@@ -10,8 +15,6 @@ import {
   WDS_SIZE_024_PX,
 } from 'common/styles/size'
 import styled from 'styled-components'
-
-const LINE = '#EEF0F4'
 
 export const Sections = styled.div`
   ${flex({ direction: 'column', gap: WDS_SIZE_024_PX })};
@@ -26,7 +29,7 @@ export const IdentityCard = styled.div`
   ${flex({ direction: 'column', gap: WDS_SIZE_016_PX })};
   padding: ${WDS_SIZE_020_PX};
   background: ${WDS_COLOR_WHITE};
-  border: 1px solid ${LINE};
+  border: 1px solid ${WDS_COLOR_HAIRLINE};
   border-radius: ${WDS_SIZE_012_PX};
   box-shadow: 0px 2px 8px rgba(1, 16, 46, 0.06), 0px 14px 34px rgba(1, 16, 46, 0.13);
 `
@@ -38,7 +41,7 @@ export const CardHead = styled.div`
 export const CardTitle = styled.span`
   ${textVariant('bodyM')};
   font-weight: 700;
-  color: #01102e;
+  color: ${WDS_COLOR_BLUE_700};
   word-break: break-all;
 `
 
@@ -58,13 +61,13 @@ export const DefItem = styled.div`
     font-weight: 600;
     letter-spacing: 0.02em;
     text-transform: uppercase;
-    color: #6b7280;
+    color: ${WDS_COLOR_GREY_500};
   }
 
   dd {
     margin: 0;
     ${textVariant('bodyM')};
-    color: #01102e;
+    color: ${WDS_COLOR_BLUE_700};
     word-break: break-word;
   }
 `

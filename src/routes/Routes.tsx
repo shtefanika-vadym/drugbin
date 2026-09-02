@@ -8,6 +8,8 @@ import { AdminCollectionsPage } from 'pages/admin/Collections'
 import { AdminHospitalsPage } from 'pages/admin/Hospitals'
 import { AdminRobotsPage } from 'pages/admin/Robots'
 import { useAuthState } from 'common/state/auth.state'
+import { ClassificationItemDetailPage } from 'pages/ClassificationItemDetail'
+import { ClassificationsPage } from 'pages/Classifications'
 import { CollectionDetailPage, CollectionItemDetailPage } from 'pages/CollectionDetail'
 import { CollectionsPage } from 'pages/Collections'
 import { DocumentsNormalPage } from 'pages/DocumentsNormalPage'
@@ -19,7 +21,7 @@ import { HospitalProfilePage } from 'pages/HospitalProfile'
 import { Login } from 'pages/Login'
 import { NotFoundPage } from 'pages/NotFound'
 import { StrictMode } from 'react'
-import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, Navigate, RouterProvider, useParams } from 'react-router-dom'
 import { ProtectedRoutes } from './ProtectedRoutes'
 import { PublicRoutes } from './PublicRoutes'
 
@@ -39,6 +41,15 @@ const HospitalOnly: React.FC<{ children: React.ReactNode }> = ({ children }) => 
 const RootRoute: React.FC = () => {
   const role = useAuthState((s) => s.role)
   return role === 'admin' ? <Navigate to='/admin/spitale' replace /> : <HomePage />
+}
+
+/**
+ * Legacy `/gestionare/:imageId` deep link. `<Navigate>` does not interpolate route params, so the
+ * id is read here and carried over to the flat identifications view.
+ */
+const LegacyClassificationRedirect: React.FC = () => {
+  const { imageId } = useParams()
+  return <Navigate to={imageId ? `/clasificari/${imageId}` : '/clasificari'} replace />
 }
 
 const protectedRoute = (element: React.ReactNode) => ({
@@ -121,8 +132,11 @@ const router = createBrowserRouter([
     path: '/colectari/:collectionId/:imageId',
     ...protectedRoute(<CollectionItemDetailPage />),
   },
+  { path: '/clasificari', ...protectedRoute(<ClassificationsPage />) },
+  { path: '/clasificari/:imageId', ...protectedRoute(<ClassificationItemDetailPage />) },
+
   { path: '/gestionare', element: <Navigate to='/colectari' replace /> },
-  { path: '/gestionare/:imageId', element: <Navigate to='/colectari' replace /> },
+  { path: '/gestionare/:imageId', element: <LegacyClassificationRedirect /> },
 
   { path: '/documente/proces-verbal', ...protectedRoute(<DocumentsNormalPage />) },
   { path: '/documente/psihotropice', ...protectedRoute(<DocumentsPsychotropicPage />) },

@@ -88,10 +88,7 @@ export const CollectionDetail: React.FC<Props> = ({ basePath }) => {
 
       <TableWrap>
         <Text variant='titleH4'>Identificări</Text>
-        <Table
-          configDesktop={{ itemGridCols: CLASSIFICATION_GRID }}
-          isLoading={isLoading}
-          breakpoints={breakpoints}>
+        <Table configDesktop={{ itemGridCols: CLASSIFICATION_GRID }} breakpoints={breakpoints}>
           <TableHeader>
             <TableHeaderRow>
               <ClassificationHeaderCells />
