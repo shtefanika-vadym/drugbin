@@ -1,15 +1,19 @@
 import { AdminClassificationDetailPage } from 'pages/admin/ClassificationDetail'
 import { AdminClassificationsPage } from 'pages/admin/Classifications'
+import {
+  AdminCollectionDetailPage,
+  AdminCollectionItemDetailPage,
+} from 'pages/admin/CollectionDetail'
 import { AdminCollectionsPage } from 'pages/admin/Collections'
 import { AdminHospitalsPage } from 'pages/admin/Hospitals'
 import { AdminRobotsPage } from 'pages/admin/Robots'
 import { useAuthState } from 'common/state/auth.state'
+import { CollectionDetailPage, CollectionItemDetailPage } from 'pages/CollectionDetail'
 import { CollectionsPage } from 'pages/Collections'
 import { DocumentsNormalPage } from 'pages/DocumentsNormalPage'
 import { DocumentsPsychotropicPage } from 'pages/DocumentsPsychotropicPage'
 import { DocumentsSharedPage } from 'pages/DocumentsSharedPage'
 import { DocumentsTrashPage } from 'pages/DocumentsTrashPage'
-import { GestionareDetailPage } from 'pages/GestionareDetail'
 import { HomePage } from 'pages/Home'
 import { HospitalProfilePage } from 'pages/HospitalProfile'
 import { Login } from 'pages/Login'
@@ -85,6 +89,22 @@ const router = createBrowserRouter([
       </AdminOnly>,
     ),
   },
+  {
+    path: '/admin/colectari/:collectionId',
+    ...protectedRoute(
+      <AdminOnly>
+        <AdminCollectionDetailPage />
+      </AdminOnly>,
+    ),
+  },
+  {
+    path: '/admin/colectari/:collectionId/:imageId',
+    ...protectedRoute(
+      <AdminOnly>
+        <AdminCollectionItemDetailPage />
+      </AdminOnly>,
+    ),
+  },
 
   {
     path: '/profil',
@@ -96,7 +116,11 @@ const router = createBrowserRouter([
   },
 
   { path: '/colectari', ...protectedRoute(<CollectionsPage />) },
-  { path: '/colectari/:imageId', ...protectedRoute(<GestionareDetailPage />) },
+  { path: '/colectari/:collectionId', ...protectedRoute(<CollectionDetailPage />) },
+  {
+    path: '/colectari/:collectionId/:imageId',
+    ...protectedRoute(<CollectionItemDetailPage />),
+  },
   { path: '/gestionare', element: <Navigate to='/colectari' replace /> },
   { path: '/gestionare/:imageId', element: <Navigate to='/colectari' replace /> },
 

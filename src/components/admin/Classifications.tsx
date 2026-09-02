@@ -3,15 +3,15 @@ import useDialog from 'common/hooks/useDialog'
 import { useListQuery } from 'common/hooks/useListQuery'
 import { useClassifications } from 'common/hooks/admin'
 import { Button } from 'components/ui/Button/Button'
-import { Empty } from 'components/ui/Empty/Empty'
 import { Select } from 'components/ui/Select/Select'
 import { Table } from 'components/ui/Table/Table'
-import { TableCell } from 'components/ui/Table/TableCell'
-import { TableHeaderCell } from 'components/ui/Table/TableHeaderCell'
 import { TableHeaderRow } from 'components/ui/Table/TableHeaderRow'
-import { TableRow } from 'components/ui/Table/TableRow'
 import { Text } from 'components/ui/Text/Text'
-import { useNavigate } from 'react-router-dom'
+import {
+  CLASSIFICATION_GRID,
+  ClassificationHeaderCells,
+  ClassificationRows,
+} from './ClassificationRows'
 import {
   Container,
   FilterBox,
@@ -24,14 +24,9 @@ import {
 import { PageControls } from './PageControls'
 import { RefreshButton } from './RefreshButton'
 import { SimulateDialog } from './SimulateDialog'
-import { StatusTag } from './StatusTag'
-import { CONFIDENCE_TONE, categoryLabel, confidenceLabel, fmtDate, fmtMs, fmtTime } from './format'
-
-const GRID =
-  'minmax(0, 1.4fr) minmax(0, 0.6fr) minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1.6fr) minmax(0, 1fr)'
 
 interface ClassificationsProps {
-  /** Route prefix for the detail link. `/admin/clasificari` (admin) or `/gestionare` (hospital). */
+  /** Route prefix for the detail link — the admin console mounts this at `/admin/clasificari`. */
   basePath?: string
   /** The "Simulează" button — admin console only. */
   showSimulate?: boolean
@@ -54,26 +49,7 @@ export const Classifications: React.FC<ClassificationsProps> = ({
     page,
     pageSize,
   )
-  const navigate = useNavigate()
   const [SimulateDlg, simulateProps, toggleSimulate] = useDialog()
-
-  const renderRows = () => {
-    if (!isLoading && items.length === 0) return <Empty description='Nicio clasificare.' />
-    return items.map((c) => (
-      <TableRow key={c.imageId} onClick={() => navigate(`${basePath}/${c.imageId}`)}>
-        <TableCell label={fmtTime(c.createdAt)}>{fmtDate(c.createdAt)}</TableCell>
-        <TableCell>{c.tier}</TableCell>
-        <TableCell>
-          <StatusTag tone={CONFIDENCE_TONE[c.confidence] ?? 'muted'}>
-            {confidenceLabel(c.confidence)}
-          </StatusTag>
-        </TableCell>
-        <TableCell label={c.drugAtc || undefined}>{c.drugName || '—'}</TableCell>
-        <TableCell>{categoryLabel(c.drugCategory)}</TableCell>
-        <TableCell>{fmtMs(c.latencyTotalMs)}</TableCell>
-      </TableRow>
-    ))
-  }
 
   return (
     <Container>
@@ -109,18 +85,18 @@ export const Classifications: React.FC<ClassificationsProps> = ({
         </FilterBox>
       </Filters>
 
-      <Table configDesktop={{ itemGridCols: GRID }} isLoading={isLoading} breakpoints={breakpoints}>
+      <Table
+        configDesktop={{ itemGridCols: CLASSIFICATION_GRID }}
+        isLoading={isLoading}
+        breakpoints={breakpoints}>
         <TableHeader>
           <TableHeaderRow>
-            <TableHeaderCell>Data</TableHeaderCell>
-            <TableHeaderCell>Nivel</TableHeaderCell>
-            <TableHeaderCell>Încredere</TableHeaderCell>
-            <TableHeaderCell>Medicament</TableHeaderCell>
-            <TableHeaderCell>Categorie</TableHeaderCell>
-            <TableHeaderCell>Durată</TableHeaderCell>
+            <ClassificationHeaderCells />
           </TableHeaderRow>
         </TableHeader>
-        <TableBody>{renderRows()}</TableBody>
+        <TableBody>
+          <ClassificationRows items={items} isLoading={isLoading} linkPrefix={basePath} />
+        </TableBody>
       </Table>
 
       <PageControls
