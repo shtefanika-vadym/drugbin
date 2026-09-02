@@ -86,12 +86,19 @@ const router = createBrowserRouter([
     ),
   },
 
-  { path: '/gestionare', ...protectedRoute(<GestionarePage />) },
-  { path: '/gestionare/:imageId', ...protectedRoute(<GestionareDetailPage />) },
-  { path: '/documents/verbal-process', ...protectedRoute(<DocumentsNormalPage />) },
-  { path: '/documents/psychotropic', ...protectedRoute(<DocumentsPsychotropicPage />) },
-  { path: '/documents/shared', ...protectedRoute(<DocumentsSharedPage />) },
-  { path: '/documents/trash', ...protectedRoute(<DocumentsTrashPage />) },
+  { path: '/colectari', ...protectedRoute(<GestionarePage />) },
+  { path: '/colectari/:imageId', ...protectedRoute(<GestionareDetailPage />) },
+  { path: '/gestionare', element: <Navigate to='/colectari' replace /> },
+  { path: '/gestionare/:imageId', element: <Navigate to='/colectari' replace /> },
+
+  { path: '/documente/proces-verbal', ...protectedRoute(<DocumentsNormalPage />) },
+  { path: '/documente/psihotropice', ...protectedRoute(<DocumentsPsychotropicPage />) },
+  { path: '/documente/trimise', ...protectedRoute(<DocumentsSharedPage />) },
+  { path: '/documente/sterse', ...protectedRoute(<DocumentsTrashPage />) },
+  { path: '/documents/verbal-process', element: <Navigate to='/documente/proces-verbal' replace /> },
+  { path: '/documents/psychotropic', element: <Navigate to='/documente/psihotropice' replace /> },
+  { path: '/documents/shared', element: <Navigate to='/documente/trimise' replace /> },
+  { path: '/documents/trash', element: <Navigate to='/documente/sterse' replace /> },
 
   {
     path: '/login',

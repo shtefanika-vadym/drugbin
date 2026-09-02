@@ -16,12 +16,11 @@ const last = (path: string) => getLastElement(path)
 
 const HOSPITAL_NAV: NavItem[] = [
   { label: 'Statistici', route: '/', isActive: (p) => p === '/' },
-  { label: 'Gestionare', route: '/gestionare', isActive: (p) => last(p) === 'gestionare' },
+  { label: 'Colectări', route: '/colectari', isActive: (p) => p.startsWith('/colectari') },
   {
     label: 'Documente',
-    route: '/documents/verbal-process',
-    isActive: (p) =>
-      ['verbal-process', 'psychotropic', 'shared', 'trash'].includes(last(p) as string),
+    route: '/documente/proces-verbal',
+    isActive: (p) => p.startsWith('/documente'),
   },
 ]
 

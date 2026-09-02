@@ -6,10 +6,10 @@ import { NavigateList } from 'components/ui/NavigateList/NavigateList'
 import { Content, Title, TitleWrapper } from './DocumentsHeader.styled'
 
 const DOCUMENTS_LIST_NAVIGATION = [
-  { name: 'Proces Verbal', route: '/documents/verbal-process' },
-  { name: 'Psihotropice', route: '/documents/psychotropic' },
-  { name: 'Trimise', route: '/documents/shared' },
-  { name: 'Șterse', route: '/documents/trash' },
+  { name: 'Proces Verbal', route: '/documente/proces-verbal' },
+  { name: 'Psihotropice', route: '/documente/psihotropice' },
+  { name: 'Trimise', route: '/documente/trimise' },
+  { name: 'Șterse', route: '/documente/sterse' },
 ]
 
 interface DocumentsHeaderProps {
