@@ -12,7 +12,6 @@ export interface Hospital {
   slug: string
   city: string | null
   address: string | null
-  contactEmail: string | null
   loginEmail: string
   status: 'active' | 'suspended'
   createdAt: number
@@ -28,7 +27,6 @@ export interface HospitalProfile {
   name: string
   city: string | null
   address: string | null
-  contactEmail: string | null
   loginEmail: string
   status: 'active' | 'suspended'
   createdAt: number

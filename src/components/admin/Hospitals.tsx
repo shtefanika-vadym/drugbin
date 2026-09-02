@@ -132,7 +132,7 @@ export const Hospitals = () => {
             <EmptyCell />
             <TableHeaderCell>Nume</TableHeaderCell>
             <TableHeaderCell>Oraș</TableHeaderCell>
-            <TableHeaderCell>Email autentificare</TableHeaderCell>
+            <TableHeaderCell>Email</TableHeaderCell>
             <TableHeaderCell>Roboți</TableHeaderCell>
             <TableHeaderCell>Status</TableHeaderCell>
             <TableHeaderCell>Creat</TableHeaderCell>

@@ -76,12 +76,8 @@ export const HospitalProfile = () => {
               <dd>{profile.address || '—'}</dd>
             </Field>
             <Field>
-              <dt>Email autentificare</dt>
+              <dt>Email</dt>
               <dd>{profile.loginEmail}</dd>
-            </Field>
-            <Field>
-              <dt>Email de contact</dt>
-              <dd>{profile.contactEmail || '—'}</dd>
             </Field>
             <Field>
               <dt>Cont creat</dt>

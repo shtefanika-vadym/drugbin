@@ -47,7 +47,6 @@ export const HospitalDetailDialog: React.FC<Props> = ({
     loginEmail: hospital.loginEmail,
     city: hospital.city ?? '',
     address: hospital.address ?? '',
-    contactEmail: hospital.contactEmail ?? '',
   })
   const [busy, setBusy] = useState(false)
   const [msg, setMsg] = useState<{ text: string; error?: boolean } | null>(null)
@@ -59,8 +58,7 @@ export const HospitalDetailDialog: React.FC<Props> = ({
     form.name !== hospital.name ||
     form.loginEmail !== hospital.loginEmail ||
     form.city !== (hospital.city ?? '') ||
-    form.address !== (hospital.address ?? '') ||
-    form.contactEmail !== (hospital.contactEmail ?? '')
+    form.address !== (hospital.address ?? '')
 
   const save = useCallback(async () => {
     setBusy(true)
@@ -72,7 +70,6 @@ export const HospitalDetailDialog: React.FC<Props> = ({
           loginEmail: form.loginEmail.trim(),
           city: form.city.trim() || null,
           address: form.address.trim() || null,
-          contactEmail: form.contactEmail.trim() || null,
         }),
       )
       setMsg({ text: 'Modificări salvate.' })
@@ -161,12 +158,6 @@ export const HospitalDetailDialog: React.FC<Props> = ({
           />
           <CityField value={form.city} onChange={(v) => setForm((f) => ({ ...f, city: v }))} />
           <LabeledInput label='Adresă' value={form.address} onChange={set('address')} />
-          <LabeledInput
-            label='Email de contact'
-            type='email'
-            value={form.contactEmail}
-            onChange={set('contactEmail')}
-          />
           {msg && (
             <Text variant='bodyXS' color={msg.error ? WDS_COLOR_RED : WDS_COLOR_GREEN}>
               {msg.text}
