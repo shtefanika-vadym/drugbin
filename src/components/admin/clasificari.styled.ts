@@ -1,4 +1,9 @@
-import { WDS_COLOR_GREY_100, WDS_COLOR_WHITE, WDS_COLOR_WHITE_100 } from 'common/styles/colors'
+import {
+  WDS_COLOR_GREY,
+  WDS_COLOR_GREY_100,
+  WDS_COLOR_WHITE,
+  WDS_COLOR_WHITE_100,
+} from 'common/styles/colors'
 import { border } from 'common/styles/mixins/border.mixin'
 import { ellipsis } from 'common/styles/mixins/elipsis.mixin'
 import { flex } from 'common/styles/mixins/flex.mixin'
@@ -71,4 +76,40 @@ export const GalleryActions = styled.div`
   & > * {
     flex: 1;
   }
+`
+
+/** Bulk-selection bar shown above the dense "Tabel" view when rows are selected. */
+export const BulkBar = styled.div`
+  ${flex({ alignItems: 'center', gap: WDS_SIZE_012_PX, flexWrap: 'wrap' })};
+  padding: ${WDS_SIZE_008_PX} ${WDS_SIZE_012_PX};
+  ${border({ width: WDS_SIZE_001_PX, type: 'solid', color: WDS_COLOR_GREY_100 })};
+  border-radius: ${WDS_SIZE_008_PX};
+  background: ${WDS_COLOR_WHITE_100};
+`
+
+/** Pushes the "Anulează" / feedback text to the far end of the bulk bar. */
+export const BulkSpacer = styled.div`
+  margin-left: auto;
+`
+
+/** Checkbox wrapper inside the leading table cell — click here must not navigate the row. */
+export const CheckCell = styled.label`
+  ${flex({ alignItems: 'center', justifyContent: 'center' })};
+  cursor: pointer;
+`
+
+/** The "Durată" column header rendered as a sort control. */
+export const SortTh = styled.button`
+  ${flex({ alignItems: 'center', gap: WDS_SIZE_004_PX })};
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+`
+
+/** Transient "N aprobate, M eșuate" feedback line in the bulk bar. */
+export const BulkNote = styled.span`
+  color: ${WDS_COLOR_GREY};
 `
