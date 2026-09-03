@@ -18,8 +18,9 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { CorrectionForm } from './CorrectionForm'
 import { DefinitionList } from './dialog.styled'
 import { BackRow, Image, Layout, Sections } from './detail.styled'
+import { StatusTag } from './StatusTag'
 import { TimingBreakdown } from './TimingBreakdown'
-import { categoryLabel, confidenceLabel, fmtDateTime } from './format'
+import { STATUS_TONE, categoryLabel, confidenceLabel, fmtDateTime, statusLabel } from './format'
 
 const num = (n: number | null | undefined) => (n == null ? '—' : n.toFixed(3))
 
@@ -96,6 +97,7 @@ export const ClassificationDetail: React.FC<ClassificationDetailProps> = ({
         <Text variant='bodyS' color={WDS_COLOR_GREY}>
           {fmtDateTime(c.createdAt)} · {c.machineId}
         </Text>
+        <StatusTag tone={STATUS_TONE[c.status] ?? 'muted'}>{statusLabel(c.status)}</StatusTag>
       </BackRow>
 
       <Layout>
@@ -132,6 +134,12 @@ export const ClassificationDetail: React.FC<ClassificationDetailProps> = ({
                   <dd>{c.drugAtc || '—'}</dd>
                   <dt>Categorie</dt>
                   <dd>{categoryLabel(c.drugCategory)}</dd>
+                  <dt>Stare</dt>
+                  <dd>{statusLabel(c.status)}</dd>
+                  <dt>Aprobat de</dt>
+                  <dd>{c.approvedBy || '—'}</dd>
+                  <dt>Aprobat la</dt>
+                  <dd>{fmtDateTime(c.approvedAt)}</dd>
                   <dt>Model embed</dt>
                   <dd>{c.embedModel || '—'}</dd>
                   <dt>Model vision</dt>
@@ -159,7 +167,9 @@ export const ClassificationDetail: React.FC<ClassificationDetailProps> = ({
                 <CorrectionForm
                   imageId={imageId}
                   corrections={detail.corrections}
+                  status={c.status}
                   onSaved={mutate}
+                  onApproved={mutate}
                 />
               </DashboardCard>
 
