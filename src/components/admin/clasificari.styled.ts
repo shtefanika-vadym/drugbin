@@ -8,6 +8,7 @@ import { border } from 'common/styles/mixins/border.mixin'
 import { ellipsis } from 'common/styles/mixins/elipsis.mixin'
 import { flex } from 'common/styles/mixins/flex.mixin'
 import { grid } from 'common/styles/mixins/grid.mixin'
+import { textVariant } from 'common/styles/mixins/typography.mixin'
 import {
   WDS_SIZE_001_PX,
   WDS_SIZE_004_PX,
@@ -112,4 +113,60 @@ export const SortTh = styled.button`
 /** Transient "N aprobate, M eșuate" feedback line in the bulk bar. */
 export const BulkNote = styled.span`
   color: ${WDS_COLOR_GREY};
+`
+
+/* ------------------------------------------------------------------ header + toolbar */
+
+/** "Sincronizat" freshness label sitting next to the refresh control in the header. */
+export const SyncedText = styled.span`
+  ${textVariant('bodyXS')};
+  color: ${WDS_COLOR_GREY};
+`
+
+/** Right-hand header group: freshness label, refresh, divider, "Simulează". */
+export const UtilityCluster = styled.div`
+  ${flex({ alignItems: 'center', gap: WDS_SIZE_012_PX, flexWrap: 'wrap' })};
+`
+
+/** Thin separator between the refresh control and the "Simulează" action. */
+export const VDivider = styled.div`
+  width: ${WDS_SIZE_001_PX};
+  align-self: stretch;
+  min-height: ${WDS_SIZE_016_PX};
+  background: ${WDS_COLOR_GREY_100};
+`
+
+/** The filter row — a card visually detached from the header. */
+export const Toolbar = styled.div`
+  ${flex({
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: WDS_SIZE_012_PX,
+    flexWrap: 'wrap',
+  })};
+  padding: ${WDS_SIZE_012_PX};
+  ${border({ width: WDS_SIZE_001_PX, type: 'solid', color: WDS_COLOR_GREY_100 })};
+  border-radius: ${WDS_SIZE_012_PX};
+  background: ${WDS_COLOR_WHITE_100};
+`
+
+/** Category / confidence selects, sort control and the view toggle, right-aligned in the toolbar. */
+export const FilterCluster = styled.div`
+  ${flex({ alignItems: 'center', gap: WDS_SIZE_008_PX, flexWrap: 'wrap' })};
+`
+
+/** "Galerie" / "Tabel" button pair. */
+export const ViewToggle = styled.div`
+  ${flex({ gap: WDS_SIZE_004_PX })};
+`
+
+/** "Durată ↑/↓/—" sort toggle rendered as a bordered button. */
+export const SortButton = styled.button`
+  ${flex({ alignItems: 'center', gap: WDS_SIZE_004_PX })};
+  ${textVariant('bodyXS')};
+  background: ${WDS_COLOR_WHITE};
+  ${border({ width: WDS_SIZE_001_PX, type: 'solid', color: WDS_COLOR_GREY_100 })};
+  border-radius: ${WDS_SIZE_008_PX};
+  padding: ${WDS_SIZE_008_PX} ${WDS_SIZE_012_PX};
+  cursor: pointer;
 `

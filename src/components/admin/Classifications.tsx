@@ -1,26 +1,25 @@
-import useBreakpoints from 'common/hooks/useBreakpoints'
 import useDialog from 'common/hooks/useDialog'
-import { useListQuery } from 'common/hooks/useListQuery'
 import { useClassifications } from 'common/hooks/admin'
+import { useListQuery } from 'common/hooks/useListQuery'
+import { useAuthState } from 'common/state/auth.state'
+import { WDS_COLOR_GREY } from 'common/styles/colors'
 import { Button } from 'components/ui/Button/Button'
 import { Select } from 'components/ui/Select/Select'
-import { Table } from 'components/ui/Table/Table'
-import { TableHeaderRow } from 'components/ui/Table/TableHeaderRow'
+import { Tabs } from 'components/ui/Tabs/Tabs'
 import { Text } from 'components/ui/Text/Text'
+import { ClassificationGallery } from './ClassificationGallery'
+import { ClassificationTable } from './ClassificationTable'
 import {
-  CLASSIFICATION_GRID,
-  ClassificationHeaderCells,
-  ClassificationRows,
-} from './ClassificationRows'
-import {
-  Container,
-  FilterBox,
-  Filters,
-  HeaderActions,
-  HeaderRow,
-  TableBody,
-  TableHeader,
-} from './list.styled'
+  FilterCluster,
+  SortButton,
+  SyncedText,
+  Toolbar,
+  UtilityCluster,
+  VDivider,
+  ViewToggle,
+} from './clasificari.styled'
+import { categoryLabel } from './format'
+import { Container, HeaderRow } from './list.styled'
 import { PageControls } from './PageControls'
 import { RefreshButton } from './RefreshButton'
 import { SimulateDialog } from './SimulateDialog'
@@ -33,71 +32,174 @@ interface ClassificationsProps {
   title?: string
 }
 
+const STATUS_TABS = [
+  { id: '', label: 'Toate' },
+  { id: 'pending', label: 'Neaprobate' },
+  { id: 'approved', label: 'Aprobate' },
+]
+const CATEGORIES = [1, 2, 3, 4, 5, 6, 7]
+const VIEW_KEY = 'clasificari.view'
+
+/** localStorage can throw (private mode, disabled storage) — never let a preference read break the screen. */
+const safeGet = (key: string): string | null => {
+  try {
+    return window.localStorage.getItem(key)
+  } catch {
+    return null
+  }
+}
+const safeSet = (key: string, value: string): void => {
+  try {
+    window.localStorage.setItem(key, value)
+  } catch {
+    /* ignore */
+  }
+}
+
 export const Classifications: React.FC<ClassificationsProps> = ({
   basePath = '/admin/clasificari',
   showSimulate = true,
   title = 'Clasificări',
 }) => {
-  const breakpoints = useBreakpoints()
+  const role = useAuthState((s) => s.role)
+  const canApprove = role === 'admin'
   const { page, pageSize, setPage, setPageSize, getFilter, setFilter } = useListQuery()
-  const filters = {
-    tier: getFilter('tier') || undefined,
-    confidence: getFilter('confidence') || undefined,
+
+  const view = getFilter('view') || (safeGet(VIEW_KEY) ?? 'galerie')
+  const setView = (next: string) => {
+    setFilter('view', next)
+    safeSet(VIEW_KEY, next)
   }
-  const { items, total, totalPages, isLoading, refresh } = useClassifications(
+
+  const status = getFilter('status')
+  const category = getFilter('category')
+  const confidence = getFilter('confidence')
+  const sortField: 'created' | 'duration' =
+    getFilter('sort') === 'duration' ? 'duration' : 'created'
+  const dir: 'asc' | 'desc' = getFilter('dir') === 'asc' ? 'asc' : 'desc'
+
+  const filters = {
+    status: status || undefined,
+    category: category || undefined,
+    confidence: confidence || undefined,
+    sort: sortField === 'duration' ? 'duration' : undefined,
+    dir: sortField === 'duration' ? dir : undefined,
+  }
+  const { items, total, totalPages, counts, isLoading, refresh } = useClassifications(
     filters,
     page,
     pageSize,
   )
   const [SimulateDlg, simulateProps, toggleSimulate] = useDialog()
 
+  /** Cycle: created → duration ascending → duration descending → created. */
+  const cycleSort = () => {
+    if (sortField !== 'duration') {
+      setFilter('sort', 'duration')
+      setFilter('dir', 'asc')
+      return
+    }
+    if (dir === 'asc') {
+      setFilter('dir', 'desc')
+      return
+    }
+    setFilter('sort', '')
+    setFilter('dir', '')
+  }
+  const sortArrow = sortField === 'duration' ? (dir === 'asc' ? '↑' : '↓') : '—'
+
+  const tabCount = (id: string) =>
+    id === 'pending' ? counts.pending : id === 'approved' ? counts.approved : counts.total
+
   return (
     <Container>
       <HeaderRow>
-        <Text variant='titleH4'>{title}</Text>
-        <HeaderActions>
+        <div>
+          <Text variant='titleH4'>{title}</Text>
+          <Text variant='bodyS' color={WDS_COLOR_GREY}>
+            Rezultatele AI așteaptă revizuirea unui farmacist înainte de a intra în index.
+          </Text>
+        </div>
+        <UtilityCluster>
+          <SyncedText>Sincronizat</SyncedText>
           <RefreshButton onRefresh={refresh} />
-          {showSimulate && <Button onClick={() => toggleSimulate(true)}>Simulează</Button>}
-        </HeaderActions>
+          {showSimulate && (
+            <>
+              <VDivider />
+              <Button variant='secondary' onClick={() => toggleSimulate(true)}>
+                Simulează o clasificare
+              </Button>
+            </>
+          )}
+        </UtilityCluster>
       </HeaderRow>
 
-      <Filters>
-        <FilterBox>
+      <Toolbar>
+        <Tabs
+          items={STATUS_TABS.map((t) => ({ id: t.id, label: `${t.label} ${tabCount(t.id)}` }))}
+          active={status}
+          onChange={(id) => setFilter('status', id)}
+        />
+        <FilterCluster>
           <Select
-            label='Nivel'
-            value={filters.tier ?? ''}
-            onChange={(e) => setFilter('tier', e.target.value)}>
-            <option value=''>Toate</option>
-            <option value='1'>1 — vector</option>
-            <option value='2'>2 — viziune</option>
+            aria-label='Categorie'
+            value={category}
+            onChange={(e) => setFilter('category', e.target.value)}>
+            <option value=''>Toate categoriile</option>
+            {CATEGORIES.map((n) => (
+              <option key={n} value={n}>
+                {categoryLabel(n)}
+              </option>
+            ))}
           </Select>
-        </FilterBox>
-        <FilterBox>
           <Select
-            label='Încredere'
-            value={filters.confidence ?? ''}
+            aria-label='Încredere'
+            value={confidence}
             onChange={(e) => setFilter('confidence', e.target.value)}>
-            <option value=''>Toate</option>
+            <option value=''>Orice încredere</option>
             <option value='high'>Ridicată</option>
             <option value='low'>Scăzută</option>
             <option value='none'>Fără scor</option>
           </Select>
-        </FilterBox>
-      </Filters>
+          <SortButton type='button' onClick={cycleSort}>
+            Durată {sortArrow}
+          </SortButton>
+          <ViewToggle>
+            <Button
+              variant={view === 'galerie' ? 'primary' : 'secondary'}
+              size='XS'
+              onClick={() => setView('galerie')}>
+              Galerie
+            </Button>
+            <Button
+              variant={view === 'tabel' ? 'primary' : 'secondary'}
+              size='XS'
+              onClick={() => setView('tabel')}>
+              Tabel
+            </Button>
+          </ViewToggle>
+        </FilterCluster>
+      </Toolbar>
 
-      <Table
-        configDesktop={{ itemGridCols: CLASSIFICATION_GRID }}
-        isLoading={isLoading}
-        breakpoints={breakpoints}>
-        <TableHeader>
-          <TableHeaderRow>
-            <ClassificationHeaderCells />
-          </TableHeaderRow>
-        </TableHeader>
-        <TableBody>
-          <ClassificationRows items={items} isLoading={isLoading} linkPrefix={basePath} />
-        </TableBody>
-      </Table>
+      {view === 'tabel' ? (
+        <ClassificationTable
+          items={items}
+          linkPrefix={basePath}
+          canApprove={canApprove}
+          isLoading={isLoading}
+          sort={{ field: sortField, dir }}
+          onSort={cycleSort}
+          onChanged={refresh}
+        />
+      ) : (
+        <ClassificationGallery
+          items={items}
+          linkPrefix={basePath}
+          canApprove={canApprove}
+          isLoading={isLoading}
+          onChanged={refresh}
+        />
+      )}
 
       <PageControls
         total={total}
