@@ -140,8 +140,6 @@ export const ClassificationDetail: React.FC<ClassificationDetailProps> = ({
                   <dd>{num(c.matchScore)}</dd>
                   <dt>Marjă</dt>
                   <dd>{num(c.matchMargin)}</dd>
-                  <dt>Request ID</dt>
-                  <dd>{idCell(c.requestId)}</dd>
                   <dt>Cloudflare Ray ID</dt>
                   <dd>{idCell(c.cfRayId)}</dd>
                   <dt>Gateway log</dt>

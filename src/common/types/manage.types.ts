@@ -76,7 +76,6 @@ export interface ClassificationRow {
   imageId: string
   createdAt: number
   machineId: string
-  requestId: string
   hospitalId: string | null
   tier: number
   confidence: 'high' | 'low' | 'none'
