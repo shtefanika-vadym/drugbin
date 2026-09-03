@@ -151,15 +151,19 @@ export const useClassifications = (
   page = 1,
   pageSize = PAGE_SIZE,
 ) => {
-  const { data, error, isLoading, mutate } = useSWR<ClassificationList>(
+  const { data, error, isLoading, isValidating, mutate } = useSWR<ClassificationList>(
     `/api/v1/manage/classifications${qs({ ...filters, page, pageSize })}`,
     fetcher,
   )
-  /** Wall-clock of the last successful fetch — drives the "Sincronizat acum …" label. */
+  /**
+   * Wall-clock of the last completed fetch — drives the "Sincronizat acum …" label. Keyed on
+   * `isValidating` falling, not on `data` changing, so a manual refresh that returns identical
+   * rows still resets the counter.
+   */
   const [syncedAt, setSyncedAt] = useState(() => Date.now())
   useEffect(() => {
-    if (data) setSyncedAt(Date.now())
-  }, [data])
+    if (!isValidating && data !== undefined) setSyncedAt(Date.now())
+  }, [isValidating, data])
   return {
     items: data?.items ?? [],
     total: data?.total ?? 0,

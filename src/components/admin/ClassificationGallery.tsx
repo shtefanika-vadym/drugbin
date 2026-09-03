@@ -75,14 +75,17 @@ const GalleryItem: React.FC<CardProps> = ({ c, linkPrefix, canApprove, onChanged
   const [imgBroken, setImgBroken] = useState(false)
   const approved = c.status === 'approved'
 
-  const approve = async () => {
+  const open = () => navigate(`${linkPrefix}/${c.imageId}`)
+
+  const approve = async (e: React.MouseEvent) => {
+    e.stopPropagation()
     setBusy(true)
     setError('')
     try {
       await postApprove(c.imageId)
       onChanged()
-    } catch (e: any) {
-      setError(e?.response?.data?.message || 'Aprobarea a eșuat.')
+    } catch (err: any) {
+      setError(err?.response?.data?.message || 'Aprobarea a eșuat.')
     } finally {
       setBusy(false)
     }
@@ -91,7 +94,16 @@ const GalleryItem: React.FC<CardProps> = ({ c, linkPrefix, canApprove, onChanged
   const showImg = url && !imgBroken
 
   return (
-    <GalleryCard>
+    <GalleryCard
+      role='button'
+      tabIndex={0}
+      onClick={open}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          open()
+        }
+      }}>
       <GalleryPhoto>
         {showImg ? (
           <img src={url} alt='' loading='lazy' onError={() => setImgBroken(true)} />
@@ -125,19 +137,13 @@ const GalleryItem: React.FC<CardProps> = ({ c, linkPrefix, canApprove, onChanged
           {fmtDate(c.createdAt)} · {fmtTime(c.createdAt)}
         </GalleryWhen>
       </GalleryBody>
-      <GalleryActions>
-        <Button
-          variant='secondary'
-          size='XS'
-          onClick={() => navigate(`${linkPrefix}/${c.imageId}`)}>
-          Revizuiește
-        </Button>
-        {canApprove && !approved && (
+      {canApprove && !approved && (
+        <GalleryActions>
           <Button size='XS' disabled={busy} onClick={approve}>
             Aprobă
           </Button>
-        )}
-      </GalleryActions>
+        </GalleryActions>
+      )}
       {error && (
         <GalleryError>
           <Text variant='bodyXS' color={WDS_COLOR_RED}>

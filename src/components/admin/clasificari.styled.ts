@@ -95,9 +95,16 @@ export const FilterCluster = styled.div`
   ${flex({ alignItems: 'center', gap: WDS_SIZE_008_PX, flexWrap: 'wrap' })};
 `
 
-/** Width cap for a toolbar <Select> (its own container is width:100%). */
+/** Width cap for a toolbar <Select> (its own container is width:100%). The `all: unset` on the
+ *  UI-kit select drops the native single-line clamp, so re-assert it here or a long option wraps. */
 export const FilterSelect = styled.div`
   width: ${WDS_SIZE_192_PX};
+
+  select {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `
 
 /** Compact segmented toggle for "Galerie" / "Tabel" — same language as the status filter. */
@@ -179,13 +186,18 @@ export const GalleryCard = styled.article`
   ${flex({ direction: 'column' })};
   position: relative;
   overflow: hidden;
+  cursor: pointer;
   ${border({ width: WDS_SIZE_001_PX, type: 'solid', color: WDS_COLOR_GREY_100 })};
   border-radius: ${WDS_SIZE_012_PX};
   background: ${WDS_COLOR_WHITE};
 
   &:hover,
-  &:focus-within {
+  &:focus-visible {
     border-color: ${WDS_COLOR_BLUE_300};
+  }
+
+  &:focus-visible {
+    outline: none;
   }
 `
 

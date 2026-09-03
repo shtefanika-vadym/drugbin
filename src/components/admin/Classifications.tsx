@@ -46,8 +46,8 @@ const CATEGORIES = [1, 2, 3, 4, 5, 6, 7]
 const SORTS = [
   { id: '', label: 'Cele mai noi' },
   { id: 'vechi', label: 'Cele mai vechi' },
-  { id: 'lente', label: 'Durată: mare → mică' },
-  { id: 'rapide', label: 'Durată: mică → mare' },
+  { id: 'lente', label: 'Cele mai lente' },
+  { id: 'rapide', label: 'Cele mai rapide' },
 ]
 const SORT_API: Record<string, { sort?: string; dir?: string }> = {
   '': {},
@@ -130,7 +130,7 @@ export const Classifications: React.FC<ClassificationsProps> = ({
         <div>
           <Text variant='titleH4'>{title}</Text>
           <Text variant='bodyS' color={WDS_COLOR_GREY}>
-            Rezultatele AI așteaptă revizuirea unui farmacist înainte de a intra în index.
+            Rezultatele AI așteaptă revizuirea administratorului înainte de a intra în index.
           </Text>
         </div>
         <UtilityCluster>
