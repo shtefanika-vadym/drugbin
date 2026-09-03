@@ -62,3 +62,14 @@ const STATUS_LABELS: Record<string, string> = {
 
 export const statusLabel = (s: string | null | undefined): string =>
   !s ? '—' : STATUS_LABELS[s] ?? s
+
+const PACKAGE_LABELS: Record<string, string> = {
+  syringe: 'Seringă',
+  injectable: 'Injectabil',
+  box: 'Cutie',
+  entity: 'Unitate',
+}
+
+/** Human label for the coarse `drugPackage` enum. Empty string when absent. */
+export const packageLabel = (p: string | null | undefined): string =>
+  !p ? '' : PACKAGE_LABELS[p] ?? p

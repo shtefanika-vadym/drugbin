@@ -7,9 +7,20 @@ import { Skeleton } from 'components/ui/Skeleton/Skeleton'
 import { Text } from 'components/ui/Text/Text'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { STATUS_TONE, categoryLabel, confidenceLabel, fmtMs, statusLabel } from './format'
+import {
+  CONFIDENCE_TONE,
+  STATUS_TONE,
+  categoryLabel,
+  confidenceLabel,
+  fmtMs,
+  packageLabel,
+  statusLabel,
+} from './format'
 import { StatusTag } from './StatusTag'
 import {
+  CatChip,
+  ConfDot,
+  Confidence,
   GalleryActions,
   GalleryBadge,
   GalleryBody,
@@ -17,9 +28,23 @@ import {
   GalleryError,
   GalleryFoot,
   GalleryGrid,
+  GalleryMeta,
   GalleryName,
   GalleryPhoto,
 } from './clasificari.styled'
+
+/** Faint blister-pack mark shown when a card has no archived photo (or it failed to load). */
+const PhotoGlyph = () => (
+  <svg width='40' height='40' viewBox='0 0 48 48' fill='none' aria-hidden='true'>
+    <rect x='6' y='11' width='36' height='26' rx='4' stroke='currentColor' strokeWidth='2' />
+    <circle cx='16' cy='20' r='3' fill='currentColor' />
+    <circle cx='24' cy='20' r='3' fill='currentColor' />
+    <circle cx='32' cy='20' r='3' fill='currentColor' />
+    <circle cx='16' cy='28' r='3' fill='currentColor' />
+    <circle cx='24' cy='28' r='3' fill='currentColor' />
+    <circle cx='32' cy='28' r='3' fill='currentColor' />
+  </svg>
+)
 
 interface Props {
   items: ClassificationRow[]
@@ -44,6 +69,7 @@ const GalleryItem: React.FC<CardProps> = ({ c, linkPrefix, canApprove, onChanged
   const { url } = useImageBlob(c.imageId)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
+  const [imgBroken, setImgBroken] = useState(false)
   const approved = c.status === 'approved'
 
   const toggle = async () => {
@@ -63,9 +89,17 @@ const GalleryItem: React.FC<CardProps> = ({ c, linkPrefix, canApprove, onChanged
     }
   }
 
+  const showImg = url && !imgBroken
+
   return (
     <GalleryCard>
-      <GalleryPhoto>{url ? <img src={url} alt='' loading='lazy' /> : null}</GalleryPhoto>
+      <GalleryPhoto>
+        {showImg ? (
+          <img src={url} alt='' loading='lazy' onError={() => setImgBroken(true)} />
+        ) : (
+          <PhotoGlyph />
+        )}
+      </GalleryPhoto>
       <GalleryBadge>
         <StatusTag tone={STATUS_TONE[c.status] ?? 'muted'}>{statusLabel(c.status)}</StatusTag>
       </GalleryBadge>
@@ -73,13 +107,17 @@ const GalleryItem: React.FC<CardProps> = ({ c, linkPrefix, canApprove, onChanged
         <GalleryName>
           <Text variant='bodyM'>{c.drugName || '—'}</Text>
         </GalleryName>
-        <Text variant='bodyXS' color={WDS_COLOR_GREY}>
-          {`${c.drugAtc || '—'} · ${categoryLabel(c.drugCategory)}`}
-        </Text>
-        <GalleryFoot>
+        <GalleryMeta>
           <Text variant='bodyXS' color={WDS_COLOR_GREY}>
-            {confidenceLabel(c.confidence)}
+            {[c.drugAtc, packageLabel(c.drugPackage)].filter(Boolean).join(' · ') || '—'}
           </Text>
+        </GalleryMeta>
+        <CatChip>{categoryLabel(c.drugCategory)}</CatChip>
+        <GalleryFoot>
+          <Confidence>
+            <ConfDot $tone={CONFIDENCE_TONE[c.confidence] ?? 'muted'} />
+            {confidenceLabel(c.confidence)}
+          </Confidence>
           <Text variant='bodyXS' color={WDS_COLOR_GREY}>
             {fmtMs(c.latencyTotalMs)}
           </Text>

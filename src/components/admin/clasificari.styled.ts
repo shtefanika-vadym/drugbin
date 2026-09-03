@@ -1,6 +1,11 @@
 import {
+  WDS_COLOR_BLACK,
+  WDS_COLOR_BLUE_50,
+  WDS_COLOR_BLUE_300,
+  WDS_COLOR_GREEN,
   WDS_COLOR_GREY,
   WDS_COLOR_GREY_100,
+  WDS_COLOR_ORANGE,
   WDS_COLOR_WHITE,
   WDS_COLOR_WHITE_100,
 } from 'common/styles/colors'
@@ -9,120 +14,22 @@ import { ellipsis } from 'common/styles/mixins/elipsis.mixin'
 import { flex } from 'common/styles/mixins/flex.mixin'
 import { grid } from 'common/styles/mixins/grid.mixin'
 import { textVariant } from 'common/styles/mixins/typography.mixin'
+import { StatusTone } from 'components/admin/StatusTag.styled'
 import {
   WDS_SIZE_001_PX,
+  WDS_SIZE_002_PX,
   WDS_SIZE_004_PX,
+  WDS_SIZE_006_PX,
   WDS_SIZE_008_PX,
+  WDS_SIZE_010_PX,
   WDS_SIZE_012_PX,
   WDS_SIZE_016_PX,
+  WDS_SIZE_040_PX,
+  WDS_SIZE_192_PX,
   WDS_SIZE_224_PX,
 } from 'common/styles/size'
 import { WDS_Z_INDEX_OVER_CONTENT } from 'common/styles/tokens/layers'
 import styled from 'styled-components'
-
-/** Layout for the image-forward "Galerie" view of the Clasificări screen. */
-
-export const GalleryGrid = styled.div`
-  ${grid({
-    gridTemplateColumns: `repeat(auto-fill, minmax(${WDS_SIZE_224_PX}, 1fr))`,
-    columnGap: WDS_SIZE_016_PX,
-    rowGap: WDS_SIZE_016_PX,
-  })};
-`
-
-export const GalleryCard = styled.article`
-  ${flex({ direction: 'column' })};
-  position: relative;
-  ${border({ width: WDS_SIZE_001_PX, type: 'solid', color: WDS_COLOR_GREY_100 })};
-  border-radius: ${WDS_SIZE_012_PX};
-  overflow: hidden;
-  background: ${WDS_COLOR_WHITE};
-`
-
-export const GalleryPhoto = styled.div`
-  ${flex({ alignItems: 'center', justifyContent: 'center' })};
-  aspect-ratio: 16 / 10;
-  background: ${WDS_COLOR_WHITE_100};
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-`
-
-export const GalleryBadge = styled.div`
-  position: absolute;
-  top: ${WDS_SIZE_008_PX};
-  left: ${WDS_SIZE_008_PX};
-`
-
-export const GalleryBody = styled.div`
-  ${flex({ direction: 'column', gap: WDS_SIZE_004_PX })};
-  padding: ${WDS_SIZE_012_PX};
-`
-
-export const GalleryName = styled.div`
-  ${ellipsis({ webkitLineClamp: 1, whiteSpace: 'nowrap' })};
-`
-
-export const GalleryFoot = styled.div`
-  ${flex({ alignItems: 'center', justifyContent: 'space-between', gap: WDS_SIZE_008_PX })};
-  margin-top: ${WDS_SIZE_004_PX};
-`
-
-export const GalleryActions = styled.div`
-  ${flex({ gap: WDS_SIZE_008_PX })};
-  padding: ${WDS_SIZE_008_PX} ${WDS_SIZE_012_PX} ${WDS_SIZE_012_PX};
-
-  & > * {
-    flex: 1;
-  }
-`
-
-/** Inline failure line under a gallery card's action bar (approve / withdraw error). */
-export const GalleryError = styled.div`
-  padding: 0 ${WDS_SIZE_012_PX} ${WDS_SIZE_012_PX};
-`
-
-/** Bulk-selection bar shown above the dense "Tabel" view when rows are selected. */
-export const BulkBar = styled.div`
-  ${flex({ alignItems: 'center', gap: WDS_SIZE_012_PX, flexWrap: 'wrap' })};
-  position: sticky;
-  top: 0;
-  z-index: ${WDS_Z_INDEX_OVER_CONTENT};
-  padding: ${WDS_SIZE_008_PX} ${WDS_SIZE_012_PX};
-  ${border({ width: WDS_SIZE_001_PX, type: 'solid', color: WDS_COLOR_GREY_100 })};
-  border-radius: ${WDS_SIZE_008_PX};
-  background: ${WDS_COLOR_WHITE_100};
-`
-
-/** Pushes the "Anulează" / feedback text to the far end of the bulk bar. */
-export const BulkSpacer = styled.div`
-  margin-left: auto;
-`
-
-/** Checkbox wrapper inside the leading table cell — click here must not navigate the row. */
-export const CheckCell = styled.label`
-  ${flex({ alignItems: 'center', justifyContent: 'center' })};
-  cursor: pointer;
-`
-
-/** The "Durată" column header rendered as a sort control. */
-export const SortTh = styled.button`
-  ${flex({ alignItems: 'center', gap: WDS_SIZE_004_PX })};
-  background: none;
-  border: none;
-  padding: 0;
-  font: inherit;
-  color: inherit;
-  cursor: pointer;
-`
-
-/** Transient "N aprobate, M eșuate" feedback line in the bulk bar. */
-export const BulkNote = styled.span`
-  color: ${WDS_COLOR_GREY};
-`
 
 /* ------------------------------------------------------------------ header + toolbar */
 
@@ -145,7 +52,7 @@ export const VDivider = styled.div`
   background: ${WDS_COLOR_GREY_100};
 `
 
-/** The filter row — a card visually detached from the header. */
+/** The filter row — one horizontal strip, visually detached from the header. */
 export const Toolbar = styled.div`
   ${flex({
     alignItems: 'center',
@@ -153,10 +60,39 @@ export const Toolbar = styled.div`
     gap: WDS_SIZE_012_PX,
     flexWrap: 'wrap',
   })};
-  padding: ${WDS_SIZE_012_PX};
+  padding: ${WDS_SIZE_008_PX} ${WDS_SIZE_012_PX};
   ${border({ width: WDS_SIZE_001_PX, type: 'solid', color: WDS_COLOR_GREY_100 })};
   border-radius: ${WDS_SIZE_012_PX};
   background: ${WDS_COLOR_WHITE_100};
+`
+
+/** Segmented status filter — Toate / Neaprobate / Aprobate, each with a count. */
+export const Segmented = styled.div`
+  ${flex({ alignItems: 'center', gap: WDS_SIZE_002_PX })};
+  padding: ${WDS_SIZE_004_PX};
+  background: ${WDS_COLOR_WHITE};
+  ${border({ width: WDS_SIZE_001_PX, type: 'solid', color: WDS_COLOR_GREY_100 })};
+  border-radius: ${WDS_SIZE_010_PX};
+`
+
+export const SegmentedItem = styled.button<{ $active: boolean }>`
+  ${flex({ alignItems: 'center', gap: WDS_SIZE_006_PX })};
+  ${textVariant('bodyXS')};
+  cursor: pointer;
+  padding: ${WDS_SIZE_006_PX} ${WDS_SIZE_012_PX};
+  border-radius: ${WDS_SIZE_008_PX};
+  ${border({ width: WDS_SIZE_001_PX, type: 'solid', color: 'transparent' })};
+  background: ${({ $active }) => ($active ? WDS_COLOR_WHITE_100 : 'transparent')};
+  border-color: ${({ $active }) => ($active ? WDS_COLOR_GREY_100 : 'transparent')};
+  color: ${({ $active }) => ($active ? WDS_COLOR_BLACK : WDS_COLOR_GREY)};
+`
+
+export const SegCount = styled.span<{ $active: boolean }>`
+  ${textVariant('bodyXS')};
+  padding: 0 ${WDS_SIZE_006_PX};
+  border-radius: ${WDS_SIZE_006_PX};
+  background: ${({ $active }) => ($active ? WDS_COLOR_BLUE_50 : WDS_COLOR_WHITE_100)};
+  color: ${({ $active }) => ($active ? WDS_COLOR_BLUE_300 : WDS_COLOR_GREY)};
 `
 
 /** Category / confidence selects, sort control and the view toggle, right-aligned in the toolbar. */
@@ -164,12 +100,17 @@ export const FilterCluster = styled.div`
   ${flex({ alignItems: 'center', gap: WDS_SIZE_008_PX, flexWrap: 'wrap' })};
 `
 
+/** Width cap for a toolbar <Select> (its own container is width:100%). */
+export const FilterSelect = styled.div`
+  width: ${WDS_SIZE_192_PX};
+`
+
 /** "Galerie" / "Tabel" button pair. */
 export const ViewToggle = styled.div`
   ${flex({ gap: WDS_SIZE_004_PX })};
 `
 
-/** "Durată ↑/↓/—" sort toggle rendered as a bordered button. */
+/** "Durată ↑/↓/↕" sort toggle rendered as a bordered button. */
 export const SortButton = styled.button`
   ${flex({ alignItems: 'center', gap: WDS_SIZE_004_PX })};
   ${textVariant('bodyXS')};
@@ -177,5 +118,178 @@ export const SortButton = styled.button`
   ${border({ width: WDS_SIZE_001_PX, type: 'solid', color: WDS_COLOR_GREY_100 })};
   border-radius: ${WDS_SIZE_008_PX};
   padding: ${WDS_SIZE_008_PX} ${WDS_SIZE_012_PX};
+  cursor: pointer;
+`
+
+/* ------------------------------------------------------------------ shared cells */
+
+/** Small bordered pill for the disposal category, used in both views. */
+export const CatChip = styled.span`
+  width: max-content;
+  ${textVariant('bodyXS')};
+  color: ${WDS_COLOR_GREY};
+  background: ${WDS_COLOR_WHITE_100};
+  ${border({ width: WDS_SIZE_001_PX, type: 'solid', color: WDS_COLOR_GREY_100 })};
+  border-radius: ${WDS_SIZE_006_PX};
+  padding: ${WDS_SIZE_002_PX} ${WDS_SIZE_008_PX};
+`
+
+/** Confidence as a coloured dot + label (table + gallery foot). */
+export const Confidence = styled.span`
+  ${flex({ alignItems: 'center', gap: WDS_SIZE_006_PX })};
+  ${textVariant('bodyXS')};
+  color: ${WDS_COLOR_GREY};
+`
+
+const CONF_DOT_COLOR: Record<StatusTone, string> = {
+  ok: WDS_COLOR_GREEN,
+  warn: WDS_COLOR_ORANGE,
+  danger: WDS_COLOR_ORANGE,
+  muted: WDS_COLOR_GREY_100,
+}
+
+export const ConfDot = styled.span<{ $tone: StatusTone }>`
+  width: ${WDS_SIZE_006_PX};
+  height: ${WDS_SIZE_006_PX};
+  border-radius: 50%;
+  background: ${({ $tone }) => CONF_DOT_COLOR[$tone]};
+`
+
+/** Monospace-aligned numeric (duration, timings) so columns line up. */
+export const Numeric = styled.span`
+  font-variant-numeric: tabular-nums;
+`
+
+/* ------------------------------------------------------------------ Galerie view */
+
+export const GalleryGrid = styled.div`
+  ${grid({
+    gridTemplateColumns: `repeat(auto-fill, minmax(${WDS_SIZE_224_PX}, 1fr))`,
+    columnGap: WDS_SIZE_016_PX,
+    rowGap: WDS_SIZE_016_PX,
+  })};
+`
+
+export const GalleryCard = styled.article`
+  ${flex({ direction: 'column' })};
+  position: relative;
+  overflow: hidden;
+  ${border({ width: WDS_SIZE_001_PX, type: 'solid', color: WDS_COLOR_GREY_100 })};
+  border-radius: ${WDS_SIZE_012_PX};
+  background: ${WDS_COLOR_WHITE};
+`
+
+export const GalleryPhoto = styled.div`
+  ${flex({ alignItems: 'center', justifyContent: 'center' })};
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: ${WDS_COLOR_WHITE_100};
+  color: ${WDS_COLOR_GREY_100};
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+`
+
+export const GalleryBadge = styled.div`
+  position: absolute;
+  top: ${WDS_SIZE_008_PX};
+  left: ${WDS_SIZE_008_PX};
+`
+
+export const GalleryBody = styled.div`
+  ${flex({ direction: 'column', alignItems: 'flex-start', gap: WDS_SIZE_006_PX })};
+  flex: 1;
+  padding: ${WDS_SIZE_012_PX};
+`
+
+/** Two-line clamped drug name — reserves the height so cards align whatever the name length. */
+export const GalleryName = styled.div`
+  min-height: ${WDS_SIZE_040_PX};
+
+  & > * {
+    ${ellipsis({ display: '-webkit-box', webkitBoxOrient: 'vertical', webkitLineClamp: 2 })};
+  }
+`
+
+/** ATC + package, one muted line under the name. */
+export const GalleryMeta = styled.div`
+  ${ellipsis({ webkitLineClamp: 1, whiteSpace: 'nowrap' })};
+  width: 100%;
+`
+
+export const GalleryFoot = styled.div`
+  ${flex({ alignItems: 'center', justifyContent: 'space-between', gap: WDS_SIZE_008_PX })};
+  width: 100%;
+  margin-top: auto;
+  padding-top: ${WDS_SIZE_006_PX};
+`
+
+export const GalleryActions = styled.div`
+  ${flex({ gap: WDS_SIZE_008_PX })};
+  padding: ${WDS_SIZE_008_PX} ${WDS_SIZE_012_PX} ${WDS_SIZE_012_PX};
+  ${border({ width: WDS_SIZE_001_PX, type: 'solid', color: WDS_COLOR_GREY_100, variant: 'top' })};
+
+  & > * {
+    flex: 1;
+  }
+`
+
+/** Inline failure line under a gallery card's action bar (approve / withdraw error). */
+export const GalleryError = styled.div`
+  padding: 0 ${WDS_SIZE_012_PX} ${WDS_SIZE_012_PX};
+`
+
+/* ------------------------------------------------------------------ Tabel view */
+
+/** Bulk-selection bar shown above the dense "Tabel" view when rows are selected. */
+export const BulkBar = styled.div`
+  ${flex({ alignItems: 'center', gap: WDS_SIZE_012_PX, flexWrap: 'wrap' })};
+  position: sticky;
+  top: 0;
+  z-index: ${WDS_Z_INDEX_OVER_CONTENT};
+  padding: ${WDS_SIZE_008_PX} ${WDS_SIZE_012_PX};
+  ${border({ width: WDS_SIZE_001_PX, type: 'solid', color: WDS_COLOR_BLUE_300 })};
+  border-radius: ${WDS_SIZE_008_PX};
+  background: ${WDS_COLOR_BLUE_50};
+`
+
+/** Pushes the "Anulează" / feedback text to the far end of the bulk bar. */
+export const BulkSpacer = styled.div`
+  margin-left: auto;
+`
+
+/** Transient "N aprobate, M eșuate" feedback line in the bulk bar. */
+export const BulkNote = styled.span`
+  ${textVariant('bodyXS')};
+  color: ${WDS_COLOR_GREY};
+`
+
+/** Checkbox wrapper inside the leading table cell — click here must not navigate the row. */
+export const CheckCell = styled.label`
+  ${flex({ alignItems: 'center', justifyContent: 'center' })};
+  cursor: pointer;
+`
+
+/** Drug name + ATC stacked in the "Medicament" cell. */
+export const DrugCell = styled.div`
+  ${flex({ direction: 'column', gap: WDS_SIZE_002_PX })};
+  min-width: 0;
+`
+
+/** The "Durată" column header rendered as a sort control. */
+export const SortTh = styled.button`
+  ${flex({ alignItems: 'center', gap: WDS_SIZE_004_PX })};
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
   cursor: pointer;
 `

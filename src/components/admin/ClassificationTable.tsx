@@ -1,6 +1,6 @@
 import useBreakpoints from 'common/hooks/useBreakpoints'
 import { postBulkApprove } from 'common/hooks/admin'
-import { WDS_COLOR_RED } from 'common/styles/colors'
+import { WDS_COLOR_GREY, WDS_COLOR_RED } from 'common/styles/colors'
 import { ClassificationRow } from 'common/types/manage.types'
 import { Button } from 'components/ui/Button/Button'
 import { Empty } from 'components/ui/Empty/Empty'
@@ -22,7 +22,18 @@ import {
   fmtTime,
   statusLabel,
 } from './format'
-import { BulkBar, BulkNote, BulkSpacer, CheckCell, SortTh } from './clasificari.styled'
+import {
+  BulkBar,
+  BulkNote,
+  BulkSpacer,
+  CatChip,
+  CheckCell,
+  ConfDot,
+  Confidence,
+  DrugCell,
+  Numeric,
+  SortTh,
+} from './clasificari.styled'
 import { TableBody, TableHeader } from './list.styled'
 import { StatusTag } from './StatusTag'
 
@@ -101,7 +112,11 @@ export const ClassificationTable: React.FC<Props> = ({
     }
   }
 
-  const sortArrow = sort.field === 'duration' ? (sort.dir === 'asc' ? '↑' : '↓') : ''
+  const sortArrow = sort.field === 'duration' ? (sort.dir === 'asc' ? '↑' : '↓') : '↑↓'
+
+  const allSelected = items.length > 0 && items.every((c) => selected.has(c.imageId))
+  const toggleAll = () =>
+    setSelected(allSelected ? new Set() : new Set(items.map((c) => c.imageId)))
 
   if (!isLoading && items.length === 0) return <Empty description='Nicio clasificare.' />
 
@@ -137,7 +152,18 @@ export const ClassificationTable: React.FC<Props> = ({
         breakpoints={breakpoints}>
         <TableHeader>
           <TableHeaderRow>
-            <TableHeaderCell />
+            <TableHeaderCell>
+              {canApprove && (
+                <CheckCell onClick={(e: React.MouseEvent) => e.stopPropagation()}>
+                  <input
+                    type='checkbox'
+                    aria-label='Selectează toate rândurile'
+                    checked={allSelected}
+                    onChange={toggleAll}
+                  />
+                </CheckCell>
+              )}
+            </TableHeaderCell>
             <TableHeaderCell>Ora</TableHeaderCell>
             <TableHeaderCell>Medicament</TableHeaderCell>
             <TableHeaderCell>Categorie</TableHeaderCell>
@@ -168,15 +194,31 @@ export const ClassificationTable: React.FC<Props> = ({
                   </CheckCell>
                 ) : null}
               </TableCell>
-              <TableCell label={fmtTime(c.createdAt)}>{fmtDate(c.createdAt)}</TableCell>
-              <TableCell label={c.drugAtc || undefined}>{c.drugName || '—'}</TableCell>
-              <TableCell>{categoryLabel(c.drugCategory)}</TableCell>
-              <TableCell>
-                <StatusTag tone={CONFIDENCE_TONE[c.confidence] ?? 'muted'}>
-                  {confidenceLabel(c.confidence)}
-                </StatusTag>
+              <TableCell label={fmtTime(c.createdAt)}>
+                <Numeric>{fmtDate(c.createdAt)}</Numeric>
               </TableCell>
-              <TableCell>{fmtMs(c.latencyTotalMs)}</TableCell>
+              <TableCell>
+                <DrugCell>
+                  <Text variant='bodyS'>{c.drugName || '—'}</Text>
+                  {c.drugAtc && (
+                    <Text variant='bodyXS' color={WDS_COLOR_GREY}>
+                      {c.drugAtc}
+                    </Text>
+                  )}
+                </DrugCell>
+              </TableCell>
+              <TableCell>
+                <CatChip>{categoryLabel(c.drugCategory)}</CatChip>
+              </TableCell>
+              <TableCell>
+                <Confidence>
+                  <ConfDot $tone={CONFIDENCE_TONE[c.confidence] ?? 'muted'} />
+                  {confidenceLabel(c.confidence)}
+                </Confidence>
+              </TableCell>
+              <TableCell>
+                <Numeric>{fmtMs(c.latencyTotalMs)}</Numeric>
+              </TableCell>
               <TableCell>
                 <StatusTag tone={STATUS_TONE[c.status] ?? 'muted'}>
                   {statusLabel(c.status)}

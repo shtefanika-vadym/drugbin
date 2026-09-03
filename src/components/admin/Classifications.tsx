@@ -5,12 +5,15 @@ import { useAuthState } from 'common/state/auth.state'
 import { WDS_COLOR_GREY } from 'common/styles/colors'
 import { Button } from 'components/ui/Button/Button'
 import { Select } from 'components/ui/Select/Select'
-import { Tabs } from 'components/ui/Tabs/Tabs'
 import { Text } from 'components/ui/Text/Text'
 import { ClassificationGallery } from './ClassificationGallery'
 import { ClassificationTable } from './ClassificationTable'
 import {
   FilterCluster,
+  FilterSelect,
+  SegCount,
+  Segmented,
+  SegmentedItem,
   SortButton,
   SyncedText,
   Toolbar,
@@ -106,7 +109,7 @@ export const Classifications: React.FC<ClassificationsProps> = ({
     setFilter('sort', '')
     setFilter('dir', '')
   }
-  const sortArrow = sortField === 'duration' ? (dir === 'asc' ? '↑' : '↓') : '—'
+  const sortArrow = sortField === 'duration' ? (dir === 'asc' ? '↑' : '↓') : '↑↓'
 
   const tabCount = (id: string) =>
     id === 'pending' ? counts.pending : id === 'approved' ? counts.approved : counts.total
@@ -135,32 +138,48 @@ export const Classifications: React.FC<ClassificationsProps> = ({
       </HeaderRow>
 
       <Toolbar>
-        <Tabs
-          items={STATUS_TABS.map((t) => ({ id: t.id, label: `${t.label} ${tabCount(t.id)}` }))}
-          active={status}
-          onChange={(id) => setFilter('status', id)}
-        />
+        <Segmented role='tablist' aria-label='Stare'>
+          {STATUS_TABS.map((t) => {
+            const active = status === t.id
+            return (
+              <SegmentedItem
+                key={t.id || 'all'}
+                type='button'
+                role='tab'
+                aria-selected={active}
+                $active={active}
+                onClick={() => setFilter('status', t.id)}>
+                {t.label}
+                <SegCount $active={active}>{tabCount(t.id)}</SegCount>
+              </SegmentedItem>
+            )
+          })}
+        </Segmented>
         <FilterCluster>
-          <Select
-            aria-label='Categorie'
-            value={category}
-            onChange={(e) => setFilter('category', e.target.value)}>
-            <option value=''>Toate categoriile</option>
-            {CATEGORIES.map((n) => (
-              <option key={n} value={n}>
-                {categoryLabel(n)}
-              </option>
-            ))}
-          </Select>
-          <Select
-            aria-label='Încredere'
-            value={confidence}
-            onChange={(e) => setFilter('confidence', e.target.value)}>
-            <option value=''>Orice încredere</option>
-            <option value='high'>Ridicată</option>
-            <option value='low'>Scăzută</option>
-            <option value='none'>Fără scor</option>
-          </Select>
+          <FilterSelect>
+            <Select
+              aria-label='Categorie'
+              value={category}
+              onChange={(e) => setFilter('category', e.target.value)}>
+              <option value=''>Toate categoriile</option>
+              {CATEGORIES.map((n) => (
+                <option key={n} value={n}>
+                  {categoryLabel(n)}
+                </option>
+              ))}
+            </Select>
+          </FilterSelect>
+          <FilterSelect>
+            <Select
+              aria-label='Încredere'
+              value={confidence}
+              onChange={(e) => setFilter('confidence', e.target.value)}>
+              <option value=''>Orice încredere</option>
+              <option value='high'>Ridicată</option>
+              <option value='low'>Scăzută</option>
+              <option value='none'>Fără scor</option>
+            </Select>
+          </FilterSelect>
           <SortButton type='button' onClick={cycleSort}>
             Durată {sortArrow}
           </SortButton>
