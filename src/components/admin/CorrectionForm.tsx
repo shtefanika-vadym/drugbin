@@ -1,4 +1,4 @@
-import { postApprove, postUnapprove } from 'common/hooks/admin'
+import { postApprove } from 'common/hooks/admin'
 import { ClassificationRow, CorrectionRow } from 'common/types/manage.types'
 import { WDS_COLOR_GREEN, WDS_COLOR_GREY, WDS_COLOR_RED } from 'common/styles/colors'
 import { Button } from 'components/ui/Button/Button'
@@ -11,18 +11,20 @@ import { categoryLabel } from './format'
 
 const CATEGORIES = [1, 2, 3, 4, 5, 6, 7]
 
+/**
+ * Review + approve a pending classification. The reviewer confirms (or corrects) the category and
+ * name, then approves — approval is final, so this form is only rendered for `pending` rows.
+ */
 export const CorrectionForm: React.FC<{
   imageId: string
   classification: ClassificationRow
   corrections: CorrectionRow[]
-  status: 'pending' | 'approved'
   onApproved: () => void
-}> = ({ imageId, classification, corrections, status, onApproved }) => {
+}> = ({ imageId, classification, corrections, onApproved }) => {
   const [category, setCategory] = useState<number | ''>(classification.drugCategory ?? '')
   const [name, setName] = useState(classification.drugName ?? '')
   const [note, setNote] = useState('')
   const [busy, setBusy] = useState(false)
-  const [withdrawing, setWithdrawing] = useState(false)
   const [msg, setMsg] = useState<{ text: string; error?: boolean } | null>(null)
 
   const submit = useCallback(async () => {
@@ -44,20 +46,6 @@ export const CorrectionForm: React.FC<{
       setBusy(false)
     }
   }, [imageId, category, name, note, onApproved])
-
-  const withdraw = useCallback(async () => {
-    setWithdrawing(true)
-    setMsg(null)
-    try {
-      await postUnapprove(imageId)
-      setMsg({ text: 'Aprobare retrasă.' })
-      onApproved()
-    } catch (e: any) {
-      setMsg({ text: e?.response?.data?.message || 'Eroare la salvare.', error: true })
-    } finally {
-      setWithdrawing(false)
-    }
-  }, [imageId, onApproved])
 
   return (
     <Form>
@@ -85,20 +73,14 @@ export const CorrectionForm: React.FC<{
         </Text>
       )}
       <Actions>
-        <Button disabled={busy || withdrawing || category === ''} onClick={submit}>
-          {status === 'approved' ? 'Re-aprobă cu aceste valori' : 'Aprobă și indexează'}
+        <Button disabled={busy || category === ''} onClick={submit}>
+          Aprobă și indexează
         </Button>
-        {status === 'approved' && (
-          <Button variant='secondary' disabled={busy || withdrawing} onClick={withdraw}>
-            Retrage aprobarea
-          </Button>
-        )}
       </Actions>
-      {corrections.length > 0 && (
-        <Text variant='bodyXS' color={WDS_COLOR_GREY}>
-          {corrections.length} corecție(i) anterioară(e).
-        </Text>
-      )}
+      <Text variant='bodyXS' color={WDS_COLOR_GREY}>
+        Aprobarea este definitivă — nu poate fi retrasă.
+        {corrections.length > 0 && ` ${corrections.length} corecție(i) anterioară(e).`}
+      </Text>
     </Form>
   )
 }

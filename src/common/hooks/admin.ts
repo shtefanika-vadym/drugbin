@@ -155,11 +155,17 @@ export const useClassifications = (
     `/api/v1/manage/classifications${qs({ ...filters, page, pageSize })}`,
     fetcher,
   )
+  /** Wall-clock of the last successful fetch — drives the "Sincronizat acum …" label. */
+  const [syncedAt, setSyncedAt] = useState(() => Date.now())
+  useEffect(() => {
+    if (data) setSyncedAt(Date.now())
+  }, [data])
   return {
     items: data?.items ?? [],
     total: data?.total ?? 0,
     counts: data?.counts ?? { pending: 0, approved: 0, total: 0 },
     totalPages: pageCount(data),
+    syncedAt,
     isLoading,
     isError: !!error,
     /** Manual re-fetch for the refresh button. */
@@ -190,11 +196,6 @@ export const postApprove = (imageId: string, body?: Record<string, unknown>) =>
       `/api/v1/manage/classifications/${imageId}/approve`,
       body ?? {},
     )
-    .then((r) => r.data)
-
-export const postUnapprove = (imageId: string) =>
-  apiV2
-    .post<{ success: true }>(`/api/v1/manage/classifications/${imageId}/unapprove`)
     .then((r) => r.data)
 
 export const postBulkApprove = (imageIds: string[]) =>

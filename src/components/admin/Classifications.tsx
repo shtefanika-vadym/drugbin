@@ -14,18 +14,18 @@ import {
   SegCount,
   Segmented,
   SegmentedItem,
-  SortButton,
-  SyncedText,
   Toolbar,
   UtilityCluster,
   VDivider,
   ViewToggle,
+  ViewToggleItem,
 } from './clasificari.styled'
 import { categoryLabel } from './format'
 import { Container, HeaderRow } from './list.styled'
 import { PageControls } from './PageControls'
 import { RefreshButton } from './RefreshButton'
 import { SimulateDialog } from './SimulateDialog'
+import { SyncedAgo } from './SyncedAgo'
 
 interface ClassificationsProps {
   /** Route prefix for the detail link — the admin console mounts this at `/admin/clasificari`. */
@@ -41,6 +41,21 @@ const STATUS_TABS = [
   { id: 'approved', label: 'Aprobate' },
 ]
 const CATEGORIES = [1, 2, 3, 4, 5, 6, 7]
+
+/** Sort options — date first (a review queue is worked oldest- or newest-first); duration is secondary. */
+const SORTS = [
+  { id: '', label: 'Cele mai noi' },
+  { id: 'vechi', label: 'Cele mai vechi' },
+  { id: 'lente', label: 'Durată: mare → mică' },
+  { id: 'rapide', label: 'Durată: mică → mare' },
+]
+const SORT_API: Record<string, { sort?: string; dir?: string }> = {
+  '': {},
+  vechi: { sort: 'created', dir: 'asc' },
+  lente: { sort: 'duration', dir: 'desc' },
+  rapide: { sort: 'duration', dir: 'asc' },
+}
+
 const VIEW_KEY = 'clasificari.view'
 
 /** localStorage can throw (private mode, disabled storage) — never let a preference read break the screen. */
@@ -58,6 +73,20 @@ const safeSet = (key: string, value: string): void => {
     /* ignore */
   }
 }
+
+const GridIcon = () => (
+  <svg viewBox='0 0 16 16' fill='currentColor' aria-hidden='true'>
+    <rect x='1' y='1' width='6' height='6' rx='1.5' />
+    <rect x='9' y='1' width='6' height='6' rx='1.5' />
+    <rect x='1' y='9' width='6' height='6' rx='1.5' />
+    <rect x='9' y='9' width='6' height='6' rx='1.5' />
+  </svg>
+)
+const ListIcon = () => (
+  <svg viewBox='0 0 16 16' fill='none' stroke='currentColor' strokeWidth='1.7' aria-hidden='true'>
+    <path d='M2 4h12M2 8h12M2 12h12' strokeLinecap='round' />
+  </svg>
+)
 
 export const Classifications: React.FC<ClassificationsProps> = ({
   basePath = '/admin/clasificari',
@@ -77,39 +106,20 @@ export const Classifications: React.FC<ClassificationsProps> = ({
   const status = getFilter('status')
   const category = getFilter('category')
   const confidence = getFilter('confidence')
-  const sortField: 'created' | 'duration' =
-    getFilter('sort') === 'duration' ? 'duration' : 'created'
-  const dir: 'asc' | 'desc' = getFilter('dir') === 'asc' ? 'asc' : 'desc'
+  const ord = SORT_API[getFilter('ord')] ? getFilter('ord') : ''
 
   const filters = {
     status: status || undefined,
     category: category || undefined,
     confidence: confidence || undefined,
-    sort: sortField === 'duration' ? 'duration' : undefined,
-    dir: sortField === 'duration' ? dir : undefined,
+    ...SORT_API[ord],
   }
-  const { items, total, totalPages, counts, isLoading, refresh } = useClassifications(
+  const { items, total, totalPages, counts, syncedAt, isLoading, refresh } = useClassifications(
     filters,
     page,
     pageSize,
   )
   const [SimulateDlg, simulateProps, toggleSimulate] = useDialog()
-
-  /** Cycle: created → duration ascending → duration descending → created. */
-  const cycleSort = () => {
-    if (sortField !== 'duration') {
-      setFilter('sort', 'duration')
-      setFilter('dir', 'asc')
-      return
-    }
-    if (dir === 'asc') {
-      setFilter('dir', 'desc')
-      return
-    }
-    setFilter('sort', '')
-    setFilter('dir', '')
-  }
-  const sortArrow = sortField === 'duration' ? (dir === 'asc' ? '↑' : '↓') : '↑↓'
 
   const tabCount = (id: string) =>
     id === 'pending' ? counts.pending : id === 'approved' ? counts.approved : counts.total
@@ -124,7 +134,7 @@ export const Classifications: React.FC<ClassificationsProps> = ({
           </Text>
         </div>
         <UtilityCluster>
-          <SyncedText>Sincronizat</SyncedText>
+          <SyncedAgo at={syncedAt} />
           <RefreshButton onRefresh={refresh} />
           {showSimulate && (
             <>
@@ -180,22 +190,39 @@ export const Classifications: React.FC<ClassificationsProps> = ({
               <option value='none'>Fără scor</option>
             </Select>
           </FilterSelect>
-          <SortButton type='button' onClick={cycleSort}>
-            Durată {sortArrow}
-          </SortButton>
-          <ViewToggle>
-            <Button
-              variant={view === 'galerie' ? 'primary' : 'secondary'}
-              size='XS'
+          <FilterSelect>
+            <Select
+              aria-label='Sortare'
+              value={ord}
+              onChange={(e) => setFilter('ord', e.target.value)}>
+              {SORTS.map((s) => (
+                <option key={s.id || 'new'} value={s.id}>
+                  {s.label}
+                </option>
+              ))}
+            </Select>
+          </FilterSelect>
+          <ViewToggle role='tablist' aria-label='Vizualizare'>
+            <ViewToggleItem
+              type='button'
+              role='tab'
+              aria-selected={view === 'galerie'}
+              aria-label='Galerie'
+              $active={view === 'galerie'}
               onClick={() => setView('galerie')}>
+              <GridIcon />
               Galerie
-            </Button>
-            <Button
-              variant={view === 'tabel' ? 'primary' : 'secondary'}
-              size='XS'
+            </ViewToggleItem>
+            <ViewToggleItem
+              type='button'
+              role='tab'
+              aria-selected={view === 'tabel'}
+              aria-label='Tabel'
+              $active={view === 'tabel'}
               onClick={() => setView('tabel')}>
+              <ListIcon />
               Tabel
-            </Button>
+            </ViewToggleItem>
           </ViewToggle>
         </FilterCluster>
       </Toolbar>
@@ -206,8 +233,6 @@ export const Classifications: React.FC<ClassificationsProps> = ({
           linkPrefix={basePath}
           canApprove={canApprove}
           isLoading={isLoading}
-          sort={{ field: sortField, dir }}
-          onSort={cycleSort}
           onChanged={refresh}
         />
       ) : (

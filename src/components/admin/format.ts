@@ -35,6 +35,25 @@ export const fmtRelative = (ms: number | null | undefined): string => {
 export const categoryLabel = (c: number | null | undefined): string =>
   c == null ? '—' : DRUG_CATEGORY_LABELS[c] ?? `#${c}`
 
+/**
+ * Fine-grained "time since" for the sync freshness label: seconds up to a minute, then
+ * `Xm Ys`, then `Xh Ym`. Meant to be re-rendered every second.
+ */
+export const fmtAgo = (ms: number | null | undefined): string => {
+  if (!ms) return '—'
+  const sec = Math.max(0, Math.round((Date.now() - ms) / 1000))
+  if (sec < 3) return 'chiar acum'
+  if (sec < 60) return `acum ${sec} sec`
+  const min = Math.floor(sec / 60)
+  if (min < 60) {
+    const rem = sec % 60
+    return rem ? `acum ${min} min ${rem} sec` : `acum ${min} min`
+  }
+  const h = Math.floor(min / 60)
+  const remMin = min % 60
+  return remMin ? `acum ${h} h ${remMin} min` : `acum ${h} h`
+}
+
 export const CONFIDENCE_TONE: Record<string, StatusTone> = {
   high: 'ok',
   low: 'warn',

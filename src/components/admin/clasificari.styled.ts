@@ -23,6 +23,7 @@ import {
   WDS_SIZE_008_PX,
   WDS_SIZE_010_PX,
   WDS_SIZE_012_PX,
+  WDS_SIZE_014_PX,
   WDS_SIZE_016_PX,
   WDS_SIZE_040_PX,
   WDS_SIZE_192_PX,
@@ -32,12 +33,6 @@ import { WDS_Z_INDEX_OVER_CONTENT } from 'common/styles/tokens/layers'
 import styled from 'styled-components'
 
 /* ------------------------------------------------------------------ header + toolbar */
-
-/** "Sincronizat" freshness label sitting next to the refresh control in the header. */
-export const SyncedText = styled.span`
-  ${textVariant('bodyXS')};
-  color: ${WDS_COLOR_GREY};
-`
 
 /** Right-hand header group: freshness label, refresh, divider, "Simulează". */
 export const UtilityCluster = styled.div`
@@ -105,20 +100,30 @@ export const FilterSelect = styled.div`
   width: ${WDS_SIZE_192_PX};
 `
 
-/** "Galerie" / "Tabel" button pair. */
+/** Compact segmented toggle for "Galerie" / "Tabel" — same language as the status filter. */
 export const ViewToggle = styled.div`
-  ${flex({ gap: WDS_SIZE_004_PX })};
-`
-
-/** "Durată ↑/↓/↕" sort toggle rendered as a bordered button. */
-export const SortButton = styled.button`
-  ${flex({ alignItems: 'center', gap: WDS_SIZE_004_PX })};
-  ${textVariant('bodyXS')};
+  ${flex({ alignItems: 'center', gap: WDS_SIZE_002_PX })};
+  padding: ${WDS_SIZE_004_PX};
   background: ${WDS_COLOR_WHITE};
   ${border({ width: WDS_SIZE_001_PX, type: 'solid', color: WDS_COLOR_GREY_100 })};
-  border-radius: ${WDS_SIZE_008_PX};
-  padding: ${WDS_SIZE_008_PX} ${WDS_SIZE_012_PX};
+  border-radius: ${WDS_SIZE_010_PX};
+`
+
+export const ViewToggleItem = styled.button<{ $active: boolean }>`
+  ${flex({ alignItems: 'center', gap: WDS_SIZE_004_PX })};
+  ${textVariant('bodyXS')};
   cursor: pointer;
+  padding: ${WDS_SIZE_006_PX} ${WDS_SIZE_010_PX};
+  border-radius: ${WDS_SIZE_008_PX};
+  ${border({ width: WDS_SIZE_001_PX, type: 'solid', color: 'transparent' })};
+  background: ${({ $active }) => ($active ? WDS_COLOR_WHITE_100 : 'transparent')};
+  border-color: ${({ $active }) => ($active ? WDS_COLOR_GREY_100 : 'transparent')};
+  color: ${({ $active }) => ($active ? WDS_COLOR_BLACK : WDS_COLOR_GREY)};
+
+  svg {
+    width: ${WDS_SIZE_014_PX};
+    height: ${WDS_SIZE_014_PX};
+  }
 `
 
 /* ------------------------------------------------------------------ shared cells */
@@ -177,20 +182,31 @@ export const GalleryCard = styled.article`
   ${border({ width: WDS_SIZE_001_PX, type: 'solid', color: WDS_COLOR_GREY_100 })};
   border-radius: ${WDS_SIZE_012_PX};
   background: ${WDS_COLOR_WHITE};
+
+  &:hover,
+  &:focus-within {
+    border-color: ${WDS_COLOR_BLUE_300};
+  }
 `
 
 export const GalleryPhoto = styled.div`
-  ${flex({ alignItems: 'center', justifyContent: 'center' })};
   position: relative;
+  flex: none;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  /* 10 / 16 — bulletproof fixed ratio so every card's photo is identical height. */
+  padding-top: 62.5%;
   overflow: hidden;
   background: ${WDS_COLOR_WHITE_100};
   color: ${WDS_COLOR_GREY_100};
 
-  img {
+  img,
+  svg {
     position: absolute;
     inset: 0;
+    margin: auto;
+  }
+
+  img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -231,17 +247,43 @@ export const GalleryFoot = styled.div`
   padding-top: ${WDS_SIZE_006_PX};
 `
 
+export const GalleryWhen = styled.span`
+  ${textVariant('bodyXS')};
+  color: ${WDS_COLOR_GREY};
+  white-space: nowrap;
+`
+
+/**
+ * Review / approve actions — hidden at rest, slid up over the card foot on hover or keyboard
+ * focus, as in the approved design pitch.
+ */
 export const GalleryActions = styled.div`
   ${flex({ gap: WDS_SIZE_008_PX })};
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
   padding: ${WDS_SIZE_008_PX} ${WDS_SIZE_012_PX} ${WDS_SIZE_012_PX};
+  background: ${WDS_COLOR_WHITE};
   ${border({ width: WDS_SIZE_001_PX, type: 'solid', color: WDS_COLOR_GREY_100, variant: 'top' })};
+  transform: translateY(100%);
+  transition: transform 0.16s ease;
+
+  ${GalleryCard}:hover &,
+  ${GalleryCard}:focus-within & {
+    transform: translateY(0);
+  }
 
   & > * {
     flex: 1;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 `
 
-/** Inline failure line under a gallery card's action bar (approve / withdraw error). */
+/** Inline failure line under a gallery card's action bar (approve error). */
 export const GalleryError = styled.div`
   padding: 0 ${WDS_SIZE_012_PX} ${WDS_SIZE_012_PX};
 `
@@ -281,15 +323,4 @@ export const CheckCell = styled.label`
 export const DrugCell = styled.div`
   ${flex({ direction: 'column', gap: WDS_SIZE_002_PX })};
   min-width: 0;
-`
-
-/** The "Durată" column header rendered as a sort control. */
-export const SortTh = styled.button`
-  ${flex({ alignItems: 'center', gap: WDS_SIZE_004_PX })};
-  background: none;
-  border: none;
-  padding: 0;
-  font: inherit;
-  color: inherit;
-  cursor: pointer;
 `

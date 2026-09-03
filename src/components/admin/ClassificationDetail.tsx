@@ -163,15 +163,24 @@ export const ClassificationDetail: React.FC<ClassificationDetailProps> = ({
 
           {tab === 'actiuni' && (
             <>
-              {role === 'admin' && (
-                <DashboardCard title='Corecție'>
+              {role === 'admin' && c.status === 'pending' && (
+                <DashboardCard title='Revizuire și aprobare'>
                   <CorrectionForm
                     imageId={imageId}
                     classification={c}
                     corrections={detail.corrections}
-                    status={c.status}
                     onApproved={mutate}
                   />
+                </DashboardCard>
+              )}
+
+              {role === 'admin' && c.status === 'approved' && (
+                <DashboardCard title='Revizuire și aprobare'>
+                  <Text variant='bodyS' color={WDS_COLOR_GREY}>
+                    Aprobată{c.approvedBy ? ` de ${c.approvedBy}` : ''}
+                    {c.approvedAt ? ` la ${fmtDateTime(c.approvedAt)}` : ''}. Aprobarea este
+                    definitivă și nu poate fi retrasă.
+                  </Text>
                 </DashboardCard>
               )}
 

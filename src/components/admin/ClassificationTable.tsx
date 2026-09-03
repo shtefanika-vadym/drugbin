@@ -32,7 +32,6 @@ import {
   Confidence,
   DrugCell,
   Numeric,
-  SortTh,
 } from './clasificari.styled'
 import { TableBody, TableHeader } from './list.styled'
 import { StatusTag } from './StatusTag'
@@ -51,23 +50,20 @@ interface Props {
   /** `admin` principals only — hospital principals see the table without selection / bulk approve. */
   canApprove: boolean
   isLoading?: boolean
-  sort: { field: 'created' | 'duration'; dir: 'asc' | 'desc' }
-  onSort: (field: 'duration') => void
   /** Called after a bulk approve succeeds so the list can re-fetch. */
   onChanged: () => void
 }
 
 /**
  * Dense table view for the Clasificări list: one row per classification, a leading checkbox column
- * for `admin` principals, and a bulk-approve bar when rows are selected.
+ * for `admin` principals, and a bulk-approve bar when rows are selected. Sorting is driven by the
+ * toolbar's sort control, not the column headers.
  */
 export const ClassificationTable: React.FC<Props> = ({
   items,
   linkPrefix,
   canApprove,
   isLoading,
-  sort,
-  onSort,
   onChanged,
 }) => {
   const navigate = useNavigate()
@@ -111,8 +107,6 @@ export const ClassificationTable: React.FC<Props> = ({
       setBusy(false)
     }
   }
-
-  const sortArrow = sort.field === 'duration' ? (sort.dir === 'asc' ? '↑' : '↓') : '↑↓'
 
   const allSelected = items.length > 0 && items.every((c) => selected.has(c.imageId))
   const toggleAll = () =>
@@ -168,11 +162,7 @@ export const ClassificationTable: React.FC<Props> = ({
             <TableHeaderCell>Medicament</TableHeaderCell>
             <TableHeaderCell>Categorie</TableHeaderCell>
             <TableHeaderCell>Încredere</TableHeaderCell>
-            <TableHeaderCell>
-              <SortTh type='button' onClick={() => onSort('duration')}>
-                Durată {sortArrow}
-              </SortTh>
-            </TableHeaderCell>
+            <TableHeaderCell>Durată</TableHeaderCell>
             <TableHeaderCell>Stare</TableHeaderCell>
           </TableHeaderRow>
         </TableHeader>

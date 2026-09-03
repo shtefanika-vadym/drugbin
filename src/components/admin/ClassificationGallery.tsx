@@ -1,4 +1,4 @@
-import { postApprove, postUnapprove, useImageBlob } from 'common/hooks/admin'
+import { postApprove, useImageBlob } from 'common/hooks/admin'
 import { WDS_COLOR_GREY, WDS_COLOR_RED } from 'common/styles/colors'
 import { ClassificationRow } from 'common/types/manage.types'
 import { Button } from 'components/ui/Button/Button'
@@ -12,7 +12,9 @@ import {
   STATUS_TONE,
   categoryLabel,
   confidenceLabel,
+  fmtDate,
   fmtMs,
+  fmtTime,
   packageLabel,
   statusLabel,
 } from './format'
@@ -31,6 +33,7 @@ import {
   GalleryMeta,
   GalleryName,
   GalleryPhoto,
+  GalleryWhen,
 } from './clasificari.styled'
 
 /** Faint blister-pack mark shown when a card has no archived photo (or it failed to load). */
@@ -53,7 +56,7 @@ interface Props {
   /** `admin` principals only — hospital principals see the cards without approve controls. */
   canApprove: boolean
   isLoading?: boolean
-  /** Called after an approve / unapprove succeeds so the list can re-fetch. */
+  /** Called after an approve succeeds so the list can re-fetch. */
   onChanged: () => void
 }
 
@@ -72,18 +75,14 @@ const GalleryItem: React.FC<CardProps> = ({ c, linkPrefix, canApprove, onChanged
   const [imgBroken, setImgBroken] = useState(false)
   const approved = c.status === 'approved'
 
-  const toggle = async () => {
+  const approve = async () => {
     setBusy(true)
     setError('')
     try {
-      if (approved) await postUnapprove(c.imageId)
-      else await postApprove(c.imageId)
+      await postApprove(c.imageId)
       onChanged()
     } catch (e: any) {
-      setError(
-        e?.response?.data?.message ||
-          (approved ? 'Retragerea aprobării a eșuat.' : 'Aprobarea a eșuat.'),
-      )
+      setError(e?.response?.data?.message || 'Aprobarea a eșuat.')
     } finally {
       setBusy(false)
     }
@@ -122,6 +121,9 @@ const GalleryItem: React.FC<CardProps> = ({ c, linkPrefix, canApprove, onChanged
             {fmtMs(c.latencyTotalMs)}
           </Text>
         </GalleryFoot>
+        <GalleryWhen>
+          {fmtDate(c.createdAt)} · {fmtTime(c.createdAt)}
+        </GalleryWhen>
       </GalleryBody>
       <GalleryActions>
         <Button
@@ -130,9 +132,9 @@ const GalleryItem: React.FC<CardProps> = ({ c, linkPrefix, canApprove, onChanged
           onClick={() => navigate(`${linkPrefix}/${c.imageId}`)}>
           Revizuiește
         </Button>
-        {canApprove && (
-          <Button size='XS' disabled={busy} onClick={toggle}>
-            {approved ? 'Retrage' : 'Aprobă'}
+        {canApprove && !approved && (
+          <Button size='XS' disabled={busy} onClick={approve}>
+            Aprobă
           </Button>
         )}
       </GalleryActions>
