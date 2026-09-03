@@ -25,12 +25,11 @@ import {
   WDS_SIZE_012_PX,
   WDS_SIZE_014_PX,
   WDS_SIZE_016_PX,
-  WDS_SIZE_028_PX,
   WDS_SIZE_040_PX,
   WDS_SIZE_176_PX,
   WDS_SIZE_224_PX,
 } from 'common/styles/size'
-import { WDS_Z_INDEX_OVER_CONTENT } from 'common/styles/tokens/layers'
+import { WDS_Z_INDEX_DROPDOWN, WDS_Z_INDEX_OVER_CONTENT } from 'common/styles/tokens/layers'
 import styled from 'styled-components'
 
 /* ------------------------------------------------------------------ header + toolbar */
@@ -96,18 +95,85 @@ export const FilterCluster = styled.div`
   ${flex({ alignItems: 'center', gap: WDS_SIZE_008_PX, flexWrap: 'wrap' })};
 `
 
-/** A toolbar <Select> — narrower and shorter than the form-sized UI-kit default, to sit level
- *  with the segmented control and the view toggle. Also re-asserts the single-line clamp that the
- *  UI-kit select's `all: unset` drops. */
-export const FilterSelect = styled.div`
-  width: ${WDS_SIZE_176_PX};
+/* --- FilterMenu: a compact custom dropdown for the toolbar filters --- */
 
-  select {
-    ${textVariant('bodyXS')};
-    padding: ${WDS_SIZE_006_PX} ${WDS_SIZE_028_PX} ${WDS_SIZE_006_PX} ${WDS_SIZE_010_PX};
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+export const FilterMenuRoot = styled.div`
+  position: relative;
+  width: ${WDS_SIZE_176_PX};
+`
+
+export const FilterTrigger = styled.button<{ $open: boolean }>`
+  ${flex({ alignItems: 'center', justifyContent: 'space-between', gap: WDS_SIZE_006_PX })};
+  ${textVariant('bodyXS')};
+  width: 100%;
+  cursor: pointer;
+  padding: ${WDS_SIZE_006_PX} ${WDS_SIZE_010_PX};
+  border-radius: ${WDS_SIZE_008_PX};
+  background: ${WDS_COLOR_WHITE};
+  color: ${WDS_COLOR_BLACK};
+  ${border({ width: WDS_SIZE_001_PX, type: 'solid', color: WDS_COLOR_GREY_100 })};
+  transition: border-color 0.15s ease;
+
+  &:hover {
+    border-color: ${WDS_COLOR_GREY};
+  }
+  ${({ $open }) => $open && `border-color: ${WDS_COLOR_BLUE_300};`}
+
+  span {
+    ${ellipsis({ webkitLineClamp: 1, whiteSpace: 'nowrap' })};
+  }
+
+  svg {
+    flex: none;
+    width: ${WDS_SIZE_012_PX};
+    height: ${WDS_SIZE_012_PX};
+    color: ${WDS_COLOR_GREY};
+    transition: transform 0.15s ease;
+    transform: rotate(${({ $open }) => ($open ? '180deg' : '0deg')});
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    svg {
+      transition: none;
+    }
+  }
+`
+
+export const FilterPopover = styled.ul`
+  position: absolute;
+  top: calc(100% + ${WDS_SIZE_004_PX});
+  left: 0;
+  z-index: ${WDS_Z_INDEX_DROPDOWN};
+  min-width: 100%;
+  max-height: ${WDS_SIZE_224_PX};
+  overflow-y: auto;
+  margin: 0;
+  padding: ${WDS_SIZE_004_PX};
+  list-style: none;
+  background: ${WDS_COLOR_WHITE};
+  border-radius: ${WDS_SIZE_008_PX};
+  ${border({ width: WDS_SIZE_001_PX, type: 'solid', color: WDS_COLOR_GREY_100 })};
+  box-shadow: 0 6px 20px -8px rgba(1, 22, 64, 0.25);
+`
+
+export const FilterOption = styled.li<{ $selected: boolean; $active: boolean }>`
+  ${flex({ alignItems: 'center', gap: WDS_SIZE_006_PX })};
+  ${textVariant('bodyXS')};
+  cursor: pointer;
+  padding: ${WDS_SIZE_006_PX} ${WDS_SIZE_008_PX};
+  border-radius: ${WDS_SIZE_006_PX};
+  color: ${({ $selected }) => ($selected ? WDS_COLOR_BLUE_300 : WDS_COLOR_BLACK)};
+  background: ${({ $active }) => ($active ? WDS_COLOR_WHITE_100 : 'transparent')};
+
+  &:hover {
+    background: ${WDS_COLOR_WHITE_100};
+  }
+
+  svg {
+    flex: none;
+    width: ${WDS_SIZE_012_PX};
+    height: ${WDS_SIZE_012_PX};
+    opacity: ${({ $selected }) => ($selected ? 1 : 0)};
   }
 `
 

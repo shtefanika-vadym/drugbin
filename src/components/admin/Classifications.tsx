@@ -4,13 +4,12 @@ import { useListQuery } from 'common/hooks/useListQuery'
 import { useAuthState } from 'common/state/auth.state'
 import { WDS_COLOR_GREY } from 'common/styles/colors'
 import { Button } from 'components/ui/Button/Button'
-import { Select } from 'components/ui/Select/Select'
 import { Text } from 'components/ui/Text/Text'
 import { ClassificationGallery } from './ClassificationGallery'
 import { ClassificationTable } from './ClassificationTable'
+import { FilterMenu } from './FilterMenu'
 import {
   FilterCluster,
-  FilterSelect,
   SegCount,
   Segmented,
   SegmentedItem,
@@ -40,14 +39,24 @@ const STATUS_TABS = [
   { id: 'pending', label: 'Neaprobate' },
   { id: 'approved', label: 'Aprobate' },
 ]
-const CATEGORIES = [1, 2, 3, 4, 5, 6, 7]
+const CATEGORY_OPTIONS = [
+  { value: '', label: 'Toate categoriile' },
+  ...[1, 2, 3, 4, 5, 6, 7].map((n) => ({ value: String(n), label: categoryLabel(n) })),
+]
+
+const CONFIDENCE_OPTIONS = [
+  { value: '', label: 'Orice încredere' },
+  { value: 'high', label: 'Ridicată' },
+  { value: 'low', label: 'Scăzută' },
+  { value: 'none', label: 'Fără scor' },
+]
 
 /** Sort options — date first (a review queue is worked oldest- or newest-first); duration is secondary. */
-const SORTS = [
-  { id: '', label: 'Cele mai noi' },
-  { id: 'vechi', label: 'Cele mai vechi' },
-  { id: 'lente', label: 'Cele mai lente' },
-  { id: 'rapide', label: 'Cele mai rapide' },
+const SORT_OPTIONS = [
+  { value: '', label: 'Cele mai noi' },
+  { value: 'vechi', label: 'Cele mai vechi' },
+  { value: 'lente', label: 'Cele mai lente' },
+  { value: 'rapide', label: 'Cele mai rapide' },
 ]
 const SORT_API: Record<string, { sort?: string; dir?: string }> = {
   '': {},
@@ -166,42 +175,24 @@ export const Classifications: React.FC<ClassificationsProps> = ({
           })}
         </Segmented>
         <FilterCluster>
-          <FilterSelect>
-            <Select
-              aria-label='Categorie'
-              value={category}
-              onChange={(e) => setFilter('category', e.target.value)}>
-              <option value=''>Toate categoriile</option>
-              {CATEGORIES.map((n) => (
-                <option key={n} value={n}>
-                  {categoryLabel(n)}
-                </option>
-              ))}
-            </Select>
-          </FilterSelect>
-          <FilterSelect>
-            <Select
-              aria-label='Încredere'
-              value={confidence}
-              onChange={(e) => setFilter('confidence', e.target.value)}>
-              <option value=''>Orice încredere</option>
-              <option value='high'>Ridicată</option>
-              <option value='low'>Scăzută</option>
-              <option value='none'>Fără scor</option>
-            </Select>
-          </FilterSelect>
-          <FilterSelect>
-            <Select
-              aria-label='Sortare'
-              value={ord}
-              onChange={(e) => setFilter('ord', e.target.value)}>
-              {SORTS.map((s) => (
-                <option key={s.id || 'new'} value={s.id}>
-                  {s.label}
-                </option>
-              ))}
-            </Select>
-          </FilterSelect>
+          <FilterMenu
+            ariaLabel='Categorie'
+            value={category}
+            options={CATEGORY_OPTIONS}
+            onChange={(v) => setFilter('category', v)}
+          />
+          <FilterMenu
+            ariaLabel='Încredere'
+            value={confidence}
+            options={CONFIDENCE_OPTIONS}
+            onChange={(v) => setFilter('confidence', v)}
+          />
+          <FilterMenu
+            ariaLabel='Sortare'
+            value={ord}
+            options={SORT_OPTIONS}
+            onChange={(v) => setFilter('ord', v)}
+          />
           <ViewToggle role='tablist' aria-label='Vizualizare'>
             <ViewToggleItem
               type='button'
