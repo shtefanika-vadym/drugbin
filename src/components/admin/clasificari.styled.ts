@@ -25,8 +25,9 @@ import {
   WDS_SIZE_012_PX,
   WDS_SIZE_014_PX,
   WDS_SIZE_016_PX,
+  WDS_SIZE_028_PX,
   WDS_SIZE_040_PX,
-  WDS_SIZE_192_PX,
+  WDS_SIZE_176_PX,
   WDS_SIZE_224_PX,
 } from 'common/styles/size'
 import { WDS_Z_INDEX_OVER_CONTENT } from 'common/styles/tokens/layers'
@@ -95,12 +96,15 @@ export const FilterCluster = styled.div`
   ${flex({ alignItems: 'center', gap: WDS_SIZE_008_PX, flexWrap: 'wrap' })};
 `
 
-/** Width cap for a toolbar <Select> (its own container is width:100%). The `all: unset` on the
- *  UI-kit select drops the native single-line clamp, so re-assert it here or a long option wraps. */
+/** A toolbar <Select> — narrower and shorter than the form-sized UI-kit default, to sit level
+ *  with the segmented control and the view toggle. Also re-asserts the single-line clamp that the
+ *  UI-kit select's `all: unset` drops. */
 export const FilterSelect = styled.div`
-  width: ${WDS_SIZE_192_PX};
+  width: ${WDS_SIZE_176_PX};
 
   select {
+    ${textVariant('bodyXS')};
+    padding: ${WDS_SIZE_006_PX} ${WDS_SIZE_028_PX} ${WDS_SIZE_006_PX} ${WDS_SIZE_010_PX};
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
