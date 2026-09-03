@@ -49,3 +49,16 @@ const CONFIDENCE_LABELS: Record<string, string> = {
 
 export const confidenceLabel = (c: string | null | undefined): string =>
   !c ? '—' : CONFIDENCE_LABELS[c] ?? c
+
+export const STATUS_TONE: Record<string, StatusTone> = {
+  pending: 'warn',
+  approved: 'ok',
+}
+
+const STATUS_LABELS: Record<string, string> = {
+  pending: 'Neaprobat',
+  approved: 'Aprobat',
+}
+
+export const statusLabel = (s: string | null | undefined): string =>
+  !s ? '—' : STATUS_LABELS[s] ?? s

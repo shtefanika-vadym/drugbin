@@ -102,6 +102,9 @@ export interface ClassificationRow {
   rawKey: string | null
   rawMissing: number
   indexedAt: number | null
+  status: 'pending' | 'approved'
+  approvedAt: number | null
+  approvedBy: string | null
 }
 
 export interface StepTiming {
@@ -127,6 +130,7 @@ export interface CorrectionRow {
 
 export interface ClassificationList extends Page {
   items: ClassificationRow[]
+  counts?: { pending: number; approved: number; total: number }
 }
 
 export interface ClassificationDetail {

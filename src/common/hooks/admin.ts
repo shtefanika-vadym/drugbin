@@ -136,7 +136,11 @@ export const simulateClassification = (image: File, machineId?: string) => {
 
 export interface ClassificationFilters {
   tier?: string
+  status?: string
+  category?: string
   confidence?: string
+  sort?: string
+  dir?: string
   machineId?: string
   since?: number
   until?: number
@@ -154,6 +158,7 @@ export const useClassifications = (
   return {
     items: data?.items ?? [],
     total: data?.total ?? 0,
+    counts: data?.counts ?? { pending: 0, approved: 0, total: 0 },
     totalPages: pageCount(data),
     isLoading,
     isError: !!error,
@@ -181,6 +186,27 @@ export const useClassification = (imageId?: string) => {
 
 export const postCorrection = (imageId: string, body: Record<string, unknown>) =>
   apiV2.post(`/api/v1/manage/classifications/${imageId}/correction`, body).then((r) => r.data)
+
+export const postApprove = (imageId: string, body?: Record<string, unknown>) =>
+  apiV2
+    .post<{ success: true; corrected: boolean; indexed: boolean }>(
+      `/api/v1/manage/classifications/${imageId}/approve`,
+      body ?? {},
+    )
+    .then((r) => r.data)
+
+export const postUnapprove = (imageId: string) =>
+  apiV2
+    .post<{ success: true }>(`/api/v1/manage/classifications/${imageId}/unapprove`)
+    .then((r) => r.data)
+
+export const postBulkApprove = (imageIds: string[]) =>
+  apiV2
+    .post<{ results: { imageId: string; ok: boolean; indexed?: boolean; error?: string }[] }>(
+      '/api/v1/manage/classifications/bulk-approve',
+      { imageIds },
+    )
+    .then((r) => r.data)
 
 /** Hard delete: the row, its corrections, both R2 images, the vector and the tier-0 cache key. */
 export const deleteClassification = (imageId: string) =>
