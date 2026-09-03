@@ -71,6 +71,17 @@ component, one screen section, one fix), not in one large batch at the end. The 
 hook is broken (expects yarn); run `npm run types-check` yourself, then
 `git commit --no-verify`.
 
+**A UI piece is not done until it looks like the design the user picked.** When you believe a UI
+piece is finished, actually look at it running — start the app (`npm start`, then drive it in the
+browser via the Claude Code extension) or `npm run shots` — and compare the rendered screen to the
+**design direction the user selected** (the 5-variant pitch → their choice; e.g. the Clasificări
+approval artifact
+<https://claude.ai/code/artifact/0c68076e-42c1-4219-9eef-5090750b87ae>, where the user picked a
+combination of direction 2 for the table and direction 4 for the gallery). If it doesn't match —
+spacing, hierarchy, card/toolbar composition, the toggle, the header cluster, colours, states —
+keep iterating on the styling until it does. `types-check` passing and "the components exist" is
+**not** done for UI work. Do not hand it back or move on until the screen matches the selection.
+
 ## Two roles
 
 Sign-in (`/login`, email + password) hits `POST /api/v1/auth/login` on the Worker and returns a
