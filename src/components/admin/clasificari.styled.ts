@@ -15,6 +15,8 @@ import { flex } from 'common/styles/mixins/flex.mixin'
 import { grid } from 'common/styles/mixins/grid.mixin'
 import { textVariant } from 'common/styles/mixins/typography.mixin'
 import { StatusTone } from 'components/admin/StatusTag.styled'
+import { SelectMenu } from 'components/ui/SelectMenu/SelectMenu'
+import { SELECT_MENU_HEIGHT } from 'components/ui/SelectMenu/SelectMenu.styled'
 import {
   WDS_SIZE_001_PX,
   WDS_SIZE_002_PX,
@@ -29,7 +31,7 @@ import {
   WDS_SIZE_176_PX,
   WDS_SIZE_224_PX,
 } from 'common/styles/size'
-import { WDS_Z_INDEX_DROPDOWN, WDS_Z_INDEX_OVER_CONTENT } from 'common/styles/tokens/layers'
+import { WDS_Z_INDEX_OVER_CONTENT } from 'common/styles/tokens/layers'
 import styled from 'styled-components'
 
 /* ------------------------------------------------------------------ header + toolbar */
@@ -64,7 +66,8 @@ export const Toolbar = styled.div`
 /** Segmented status filter — Toate / Neaprobate / Aprobate, each with a count. */
 export const Segmented = styled.div`
   ${flex({ alignItems: 'center', gap: WDS_SIZE_002_PX })};
-  padding: ${WDS_SIZE_004_PX};
+  height: ${SELECT_MENU_HEIGHT};
+  padding: 0 ${WDS_SIZE_002_PX};
   background: ${WDS_COLOR_WHITE};
   ${border({ width: WDS_SIZE_001_PX, type: 'solid', color: WDS_COLOR_GREY_100 })};
   border-radius: ${WDS_SIZE_010_PX};
@@ -74,8 +77,9 @@ export const SegmentedItem = styled.button<{ $active: boolean }>`
   ${flex({ alignItems: 'center', gap: WDS_SIZE_006_PX })};
   ${textVariant('bodyXS')};
   cursor: pointer;
-  padding: ${WDS_SIZE_006_PX} ${WDS_SIZE_012_PX};
-  border-radius: ${WDS_SIZE_008_PX};
+  height: calc(${SELECT_MENU_HEIGHT} - ${WDS_SIZE_008_PX});
+  padding: 0 ${WDS_SIZE_010_PX};
+  border-radius: ${WDS_SIZE_006_PX};
   ${border({ width: WDS_SIZE_001_PX, type: 'solid', color: 'transparent' })};
   background: ${({ $active }) => ($active ? WDS_COLOR_WHITE_100 : 'transparent')};
   border-color: ${({ $active }) => ($active ? WDS_COLOR_GREY_100 : 'transparent')};
@@ -95,92 +99,16 @@ export const FilterCluster = styled.div`
   ${flex({ alignItems: 'center', gap: WDS_SIZE_008_PX, flexWrap: 'wrap' })};
 `
 
-/* --- FilterMenu: a compact custom dropdown for the toolbar filters --- */
-
-export const FilterMenuRoot = styled.div`
-  position: relative;
+/** A toolbar filter dropdown — the shared `SelectMenu`, width-capped for the toolbar. */
+export const ToolbarFilter = styled(SelectMenu)`
   width: ${WDS_SIZE_176_PX};
-`
-
-export const FilterTrigger = styled.button<{ $open: boolean }>`
-  ${flex({ alignItems: 'center', justifyContent: 'space-between', gap: WDS_SIZE_006_PX })};
-  ${textVariant('bodyXS')};
-  width: 100%;
-  cursor: pointer;
-  padding: ${WDS_SIZE_006_PX} ${WDS_SIZE_010_PX};
-  border-radius: ${WDS_SIZE_008_PX};
-  background: ${WDS_COLOR_WHITE};
-  color: ${WDS_COLOR_BLACK};
-  ${border({ width: WDS_SIZE_001_PX, type: 'solid', color: WDS_COLOR_GREY_100 })};
-  transition: border-color 0.15s ease;
-
-  &:hover {
-    border-color: ${WDS_COLOR_GREY};
-  }
-  ${({ $open }) => $open && `border-color: ${WDS_COLOR_BLUE_300};`}
-
-  span {
-    ${ellipsis({ webkitLineClamp: 1, whiteSpace: 'nowrap' })};
-  }
-
-  svg {
-    flex: none;
-    width: ${WDS_SIZE_012_PX};
-    height: ${WDS_SIZE_012_PX};
-    color: ${WDS_COLOR_GREY};
-    transition: transform 0.15s ease;
-    transform: rotate(${({ $open }) => ($open ? '180deg' : '0deg')});
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    svg {
-      transition: none;
-    }
-  }
-`
-
-export const FilterPopover = styled.ul`
-  position: absolute;
-  top: calc(100% + ${WDS_SIZE_004_PX});
-  left: 0;
-  z-index: ${WDS_Z_INDEX_DROPDOWN};
-  min-width: 100%;
-  max-height: ${WDS_SIZE_224_PX};
-  overflow-y: auto;
-  margin: 0;
-  padding: ${WDS_SIZE_004_PX};
-  list-style: none;
-  background: ${WDS_COLOR_WHITE};
-  border-radius: ${WDS_SIZE_008_PX};
-  ${border({ width: WDS_SIZE_001_PX, type: 'solid', color: WDS_COLOR_GREY_100 })};
-  box-shadow: 0 6px 20px -8px rgba(1, 22, 64, 0.25);
-`
-
-export const FilterOption = styled.li<{ $selected: boolean; $active: boolean }>`
-  ${flex({ alignItems: 'center', gap: WDS_SIZE_006_PX })};
-  ${textVariant('bodyXS')};
-  cursor: pointer;
-  padding: ${WDS_SIZE_006_PX} ${WDS_SIZE_008_PX};
-  border-radius: ${WDS_SIZE_006_PX};
-  color: ${({ $selected }) => ($selected ? WDS_COLOR_BLUE_300 : WDS_COLOR_BLACK)};
-  background: ${({ $active }) => ($active ? WDS_COLOR_WHITE_100 : 'transparent')};
-
-  &:hover {
-    background: ${WDS_COLOR_WHITE_100};
-  }
-
-  svg {
-    flex: none;
-    width: ${WDS_SIZE_012_PX};
-    height: ${WDS_SIZE_012_PX};
-    opacity: ${({ $selected }) => ($selected ? 1 : 0)};
-  }
 `
 
 /** Compact segmented toggle for "Galerie" / "Tabel" — same language as the status filter. */
 export const ViewToggle = styled.div`
   ${flex({ alignItems: 'center', gap: WDS_SIZE_002_PX })};
-  padding: ${WDS_SIZE_004_PX};
+  height: ${SELECT_MENU_HEIGHT};
+  padding: 0 ${WDS_SIZE_002_PX};
   background: ${WDS_COLOR_WHITE};
   ${border({ width: WDS_SIZE_001_PX, type: 'solid', color: WDS_COLOR_GREY_100 })};
   border-radius: ${WDS_SIZE_010_PX};
@@ -190,8 +118,9 @@ export const ViewToggleItem = styled.button<{ $active: boolean }>`
   ${flex({ alignItems: 'center', gap: WDS_SIZE_004_PX })};
   ${textVariant('bodyXS')};
   cursor: pointer;
-  padding: ${WDS_SIZE_006_PX} ${WDS_SIZE_010_PX};
-  border-radius: ${WDS_SIZE_008_PX};
+  height: calc(${SELECT_MENU_HEIGHT} - ${WDS_SIZE_008_PX});
+  padding: 0 ${WDS_SIZE_010_PX};
+  border-radius: ${WDS_SIZE_006_PX};
   ${border({ width: WDS_SIZE_001_PX, type: 'solid', color: 'transparent' })};
   background: ${({ $active }) => ($active ? WDS_COLOR_WHITE_100 : 'transparent')};
   border-color: ${({ $active }) => ($active ? WDS_COLOR_GREY_100 : 'transparent')};

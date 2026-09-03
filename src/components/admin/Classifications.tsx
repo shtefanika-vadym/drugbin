@@ -7,13 +7,13 @@ import { Button } from 'components/ui/Button/Button'
 import { Text } from 'components/ui/Text/Text'
 import { ClassificationGallery } from './ClassificationGallery'
 import { ClassificationTable } from './ClassificationTable'
-import { FilterMenu } from './FilterMenu'
 import {
   FilterCluster,
   SegCount,
   Segmented,
   SegmentedItem,
   Toolbar,
+  ToolbarFilter,
   UtilityCluster,
   VDivider,
   ViewToggle,
@@ -175,19 +175,19 @@ export const Classifications: React.FC<ClassificationsProps> = ({
           })}
         </Segmented>
         <FilterCluster>
-          <FilterMenu
+          <ToolbarFilter
             ariaLabel='Categorie'
             value={category}
             options={CATEGORY_OPTIONS}
             onChange={(v) => setFilter('category', v)}
           />
-          <FilterMenu
+          <ToolbarFilter
             ariaLabel='Încredere'
             value={confidence}
             options={CONFIDENCE_OPTIONS}
             onChange={(v) => setFilter('confidence', v)}
           />
-          <FilterMenu
+          <ToolbarFilter
             ariaLabel='Sortare'
             value={ord}
             options={SORT_OPTIONS}

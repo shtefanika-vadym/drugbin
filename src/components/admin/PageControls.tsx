@@ -1,10 +1,11 @@
 import { WDS_COLOR_GREY } from 'common/styles/colors'
 import { Pagination } from 'components/ui/Pagination/Pagination'
-import { Select } from 'components/ui/Select/Select'
+import { SelectMenu } from 'components/ui/SelectMenu/SelectMenu'
 import { Text } from 'components/ui/Text/Text'
-import { PageSizeBox, PaginationMeta, PaginationRow } from './list.styled'
+import { PaginationMeta, PaginationRow } from './list.styled'
 
 export const PAGE_SIZE_OPTIONS = [10, 20, 30]
+const PAGE_SIZE_MENU = PAGE_SIZE_OPTIONS.map((n) => ({ value: String(n), label: `${n} / pagină` }))
 
 interface Props {
   total: number
@@ -32,18 +33,12 @@ export const PageControls: React.FC<Props> = ({
       <Text variant='bodyS' color={WDS_COLOR_GREY}>
         {total} {total === 1 ? noun[0] : noun[1]}
       </Text>
-      <PageSizeBox>
-        <Select
-          aria-label='Rânduri pe pagină'
-          value={String(pageSize)}
-          onChange={(e) => onPageSize(Number(e.target.value))}>
-          {PAGE_SIZE_OPTIONS.map((n) => (
-            <option key={n} value={n}>
-              {n} / pagină
-            </option>
-          ))}
-        </Select>
-      </PageSizeBox>
+      <SelectMenu
+        ariaLabel='Rânduri pe pagină'
+        value={String(pageSize)}
+        options={PAGE_SIZE_MENU}
+        onChange={(v) => onPageSize(Number(v))}
+      />
     </PaginationMeta>
     <Pagination current={page} total={totalPages + 1} maxVisible={7} onChange={onPage} />
   </PaginationRow>
