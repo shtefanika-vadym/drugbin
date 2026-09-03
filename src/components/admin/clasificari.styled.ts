@@ -17,6 +17,7 @@ import {
   WDS_SIZE_016_PX,
   WDS_SIZE_224_PX,
 } from 'common/styles/size'
+import { WDS_Z_INDEX_OVER_CONTENT } from 'common/styles/tokens/layers'
 import styled from 'styled-components'
 
 /** Layout for the image-forward "Galerie" view of the Clasificări screen. */
@@ -79,9 +80,17 @@ export const GalleryActions = styled.div`
   }
 `
 
+/** Inline failure line under a gallery card's action bar (approve / withdraw error). */
+export const GalleryError = styled.div`
+  padding: 0 ${WDS_SIZE_012_PX} ${WDS_SIZE_012_PX};
+`
+
 /** Bulk-selection bar shown above the dense "Tabel" view when rows are selected. */
 export const BulkBar = styled.div`
   ${flex({ alignItems: 'center', gap: WDS_SIZE_012_PX, flexWrap: 'wrap' })};
+  position: sticky;
+  top: 0;
+  z-index: ${WDS_Z_INDEX_OVER_CONTENT};
   padding: ${WDS_SIZE_008_PX} ${WDS_SIZE_012_PX};
   ${border({ width: WDS_SIZE_001_PX, type: 'solid', color: WDS_COLOR_GREY_100 })};
   border-radius: ${WDS_SIZE_008_PX};

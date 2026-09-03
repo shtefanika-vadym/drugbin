@@ -1,5 +1,5 @@
 import { postApprove, postUnapprove } from 'common/hooks/admin'
-import { CorrectionRow } from 'common/types/manage.types'
+import { ClassificationRow, CorrectionRow } from 'common/types/manage.types'
 import { WDS_COLOR_GREEN, WDS_COLOR_GREY, WDS_COLOR_RED } from 'common/styles/colors'
 import { Button } from 'components/ui/Button/Button'
 import { LabeledInput } from 'components/ui/LabeledInput'
@@ -13,13 +13,13 @@ const CATEGORIES = [1, 2, 3, 4, 5, 6, 7]
 
 export const CorrectionForm: React.FC<{
   imageId: string
+  classification: ClassificationRow
   corrections: CorrectionRow[]
   status: 'pending' | 'approved'
-  onSaved: () => void
   onApproved: () => void
-}> = ({ imageId, corrections, status, onApproved }) => {
-  const [category, setCategory] = useState<number | ''>('')
-  const [name, setName] = useState('')
+}> = ({ imageId, classification, corrections, status, onApproved }) => {
+  const [category, setCategory] = useState<number | ''>(classification.drugCategory ?? '')
+  const [name, setName] = useState(classification.drugName ?? '')
   const [note, setNote] = useState('')
   const [busy, setBusy] = useState(false)
   const [withdrawing, setWithdrawing] = useState(false)
@@ -30,14 +30,12 @@ export const CorrectionForm: React.FC<{
     setBusy(true)
     setMsg(null)
     try {
-      await postApprove(imageId, {
+      const { indexed } = await postApprove(imageId, {
         category,
         name: name.trim() || undefined,
         note: note.trim() || undefined,
       })
-      setMsg({ text: 'Clasificare aprobată și indexată.' })
-      setCategory('')
-      setName('')
+      setMsg({ text: indexed ? 'Clasificare aprobată și indexată.' : 'Clasificare aprobată.' })
       setNote('')
       onApproved()
     } catch (e: any) {
@@ -52,6 +50,7 @@ export const CorrectionForm: React.FC<{
     setMsg(null)
     try {
       await postUnapprove(imageId)
+      setMsg({ text: 'Aprobare retrasă.' })
       onApproved()
     } catch (e: any) {
       setMsg({ text: e?.response?.data?.message || 'Eroare la salvare.', error: true })

@@ -1,8 +1,9 @@
 import { postApprove, postUnapprove, useImageBlob } from 'common/hooks/admin'
-import { WDS_COLOR_GREY } from 'common/styles/colors'
+import { WDS_COLOR_GREY, WDS_COLOR_RED } from 'common/styles/colors'
 import { ClassificationRow } from 'common/types/manage.types'
 import { Button } from 'components/ui/Button/Button'
 import { Empty } from 'components/ui/Empty/Empty'
+import { Skeleton } from 'components/ui/Skeleton/Skeleton'
 import { Text } from 'components/ui/Text/Text'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -13,6 +14,7 @@ import {
   GalleryBadge,
   GalleryBody,
   GalleryCard,
+  GalleryError,
   GalleryFoot,
   GalleryGrid,
   GalleryName,
@@ -41,14 +43,21 @@ const GalleryItem: React.FC<CardProps> = ({ c, linkPrefix, canApprove, onChanged
   const navigate = useNavigate()
   const { url } = useImageBlob(c.imageId)
   const [busy, setBusy] = useState(false)
+  const [error, setError] = useState('')
   const approved = c.status === 'approved'
 
   const toggle = async () => {
     setBusy(true)
+    setError('')
     try {
       if (approved) await postUnapprove(c.imageId)
       else await postApprove(c.imageId)
       onChanged()
+    } catch (e: any) {
+      setError(
+        e?.response?.data?.message ||
+          (approved ? 'Retragerea aprobării a eșuat.' : 'Aprobarea a eșuat.'),
+      )
     } finally {
       setBusy(false)
     }
@@ -89,6 +98,13 @@ const GalleryItem: React.FC<CardProps> = ({ c, linkPrefix, canApprove, onChanged
           </Button>
         )}
       </GalleryActions>
+      {error && (
+        <GalleryError>
+          <Text variant='bodyXS' color={WDS_COLOR_RED}>
+            {error}
+          </Text>
+        </GalleryError>
+      )}
     </GalleryCard>
   )
 }
@@ -104,6 +120,22 @@ export const ClassificationGallery: React.FC<Props> = ({
   isLoading,
   onChanged,
 }) => {
+  if (isLoading && items.length === 0) {
+    return (
+      <GalleryGrid>
+        {Array.from({ length: 8 }).map((_, i) => (
+          <GalleryCard key={i}>
+            <GalleryPhoto />
+            <GalleryBody>
+              <Skeleton height='20px' width='70%' />
+              <Skeleton height='16px' width='45%' />
+              <Skeleton height='16px' width='60%' />
+            </GalleryBody>
+          </GalleryCard>
+        ))}
+      </GalleryGrid>
+    )
+  }
   if (!isLoading && items.length === 0) return <Empty description='Nicio clasificare.' />
   return (
     <GalleryGrid>

@@ -32,10 +32,6 @@ export const InputWrapper = styled.div`
   max-width: 100%;
 `
 
-export const Filters = styled.div`
-  ${flex({ alignItems: 'flex-end', gap: WDS_SIZE_016_PX, flexWrap: 'wrap' })};
-`
-
 export const FilterBox = styled.div`
   width: ${WDS_SIZE_300_PX};
   max-width: 100%;

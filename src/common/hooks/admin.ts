@@ -184,9 +184,6 @@ export const useClassification = (imageId?: string) => {
   return { detail: data, isLoading, isError: !!error, mutate }
 }
 
-export const postCorrection = (imageId: string, body: Record<string, unknown>) =>
-  apiV2.post(`/api/v1/manage/classifications/${imageId}/correction`, body).then((r) => r.data)
-
 export const postApprove = (imageId: string, body?: Record<string, unknown>) =>
   apiV2
     .post<{ success: true; corrected: boolean; indexed: boolean }>(

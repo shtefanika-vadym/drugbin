@@ -1,7 +1,6 @@
 import { WDS_COLOR_GREY_100, WDS_COLOR_WHITE_100 } from 'common/styles/colors'
 import { flex } from 'common/styles/mixins/flex.mixin'
 import {
-  WDS_SIZE_008_PX,
   WDS_SIZE_012_PX,
   WDS_SIZE_016_PX,
   WDS_SIZE_024_PX,
@@ -36,9 +35,4 @@ export const Image = styled.img`
   border: 1px solid ${WDS_COLOR_GREY_100};
   background: ${WDS_COLOR_WHITE_100};
   display: block;
-`
-
-export const CheckboxRow = styled.label`
-  ${flex({ alignItems: 'center', gap: WDS_SIZE_008_PX })};
-  cursor: pointer;
 `

@@ -1,5 +1,6 @@
 import useBreakpoints from 'common/hooks/useBreakpoints'
 import { postBulkApprove } from 'common/hooks/admin'
+import { WDS_COLOR_RED } from 'common/styles/colors'
 import { ClassificationRow } from 'common/types/manage.types'
 import { Button } from 'components/ui/Button/Button'
 import { Empty } from 'components/ui/Empty/Empty'
@@ -63,23 +64,29 @@ export const ClassificationTable: React.FC<Props> = ({
   const [selected, setSelected] = useState<Set<string>>(new Set())
   const [busy, setBusy] = useState(false)
   const [note, setNote] = useState('')
+  const [error, setError] = useState('')
 
   const clear = () => {
     setSelected(new Set())
     setNote('')
+    setError('')
   }
 
-  const toggle = (id: string) =>
+  const toggle = (id: string) => {
+    setNote('')
+    setError('')
     setSelected((prev) => {
       const next = new Set(prev)
       if (next.has(id)) next.delete(id)
       else next.add(id)
       return next
     })
+  }
 
   const approveSelected = async () => {
     setBusy(true)
     setNote('')
+    setError('')
     try {
       const { results } = await postBulkApprove(Array.from(selected))
       const ok = results.filter((r) => r.ok).length
@@ -87,6 +94,8 @@ export const ClassificationTable: React.FC<Props> = ({
       setSelected(new Set())
       setNote(`${ok} aprobate, ${fail} eșuate`)
       onChanged()
+    } catch (e: any) {
+      setError(e?.response?.data?.message || 'Aprobarea în bloc a eșuat.')
     } finally {
       setBusy(false)
     }
@@ -98,7 +107,7 @@ export const ClassificationTable: React.FC<Props> = ({
 
   return (
     <>
-      {canApprove && (selected.size > 0 || note) && (
+      {canApprove && (selected.size > 0 || note || error) && (
         <BulkBar>
           {selected.size > 0 && <Text variant='bodyS'>{selected.size} selectate</Text>}
           {selected.size > 0 && (
@@ -107,7 +116,13 @@ export const ClassificationTable: React.FC<Props> = ({
             </Button>
           )}
           <BulkSpacer />
-          {note && <BulkNote>{note}</BulkNote>}
+          {error ? (
+            <Text variant='bodyXS' color={WDS_COLOR_RED}>
+              {error}
+            </Text>
+          ) : (
+            note && <BulkNote>{note}</BulkNote>
+          )}
           {selected.size > 0 && (
             <Button variant='secondary' size='XS' disabled={busy} onClick={clear}>
               Anulează
@@ -146,6 +161,7 @@ export const ClassificationTable: React.FC<Props> = ({
                     onClick={(e: React.MouseEvent) => e.stopPropagation()}>
                     <input
                       type='checkbox'
+                      aria-label='Selectează rândul'
                       checked={selected.has(c.imageId)}
                       onChange={() => toggle(c.imageId)}
                     />

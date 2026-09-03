@@ -163,15 +163,17 @@ export const ClassificationDetail: React.FC<ClassificationDetailProps> = ({
 
           {tab === 'actiuni' && (
             <>
-              <DashboardCard title='Corecție'>
-                <CorrectionForm
-                  imageId={imageId}
-                  corrections={detail.corrections}
-                  status={c.status}
-                  onSaved={mutate}
-                  onApproved={mutate}
-                />
-              </DashboardCard>
+              {role === 'admin' && (
+                <DashboardCard title='Corecție'>
+                  <CorrectionForm
+                    imageId={imageId}
+                    classification={c}
+                    corrections={detail.corrections}
+                    status={c.status}
+                    onApproved={mutate}
+                  />
+                </DashboardCard>
+              )}
 
               <DashboardCard title='Reclasificare'>
                 <Text variant='bodyS' color={WDS_COLOR_GREY}>
