@@ -33,6 +33,44 @@ system and UI kit; new code that reinvents them will be rejected.
 - **Absolute imports** from `src` (`baseUrl: src`). No `../../..`.
 - **Language:** all user-facing strings in Romanian, matching the tone of the existing screens.
 
+## How to work on this repo
+
+**Skills — invoke before touching UI, not after:**
+
+- `superpowers:brainstorming` — before **any** feature, behaviour change, or new screen. Explore
+  intent and requirements first; do not go straight to code.
+- `impeccable:impeccable` and the `taste-skill:*` family — for visual direction, redesigns, polish,
+  and "make this feel like a real product" work. They set the aesthetic POV.
+- `web-design-guidelines` — review the UI code for accessibility / UX / responsive correctness
+  before calling a piece of work done.
+- `artifact-design` — whenever the deliverable is a design pitch, mockup, or comparison artifact.
+- `superpowers:writing-plans` + `superpowers:subagent-driven-development` — for multi-step work;
+  spec → plan → task-by-task execution with review between tasks. (The Clasificări approval
+  rework was built this way — spec + plan live in the `drugbin-cf` repo under
+  `docs/superpowers/`.)
+- This is a **CRA 5 + React 18** SPA, **not Next.js** — Next.js-specific guideline skills do not
+  apply; use the React / frontend / design skills above.
+
+**Follow the app's own system design.** The existing UI kit (`src/components/ui/`), the
+`src/common/styles/` tokens, the `TopBlock` / `PageWrapper` chrome, and the list-screen pattern in
+`src/components/admin/Classifications.tsx` are the source of truth. Extend that system; never
+reinvent it or drop in a look that ignores it. Match the incumbent screens' density, spacing, and
+tone.
+
+**This is a SaaS product.** When proposing any in-app solution or screen, frame the options as
+recognised SaaS design patterns — data-grid with bulk actions, review queue, status board, card
+gallery, dashboard + side drawer, segmented status filters, sticky action bars, empty/loading
+states — not bespoke one-off layouts.
+
+**Refactoring / redesign requests → propose 5 variants first.** Never jump straight to code for a
+"redesign this" or "refactor this screen" ask. Present **5 distinct directions** (each a real SaaS
+design direction, with trade-offs and a recommendation), get a pick, then plan and implement.
+
+**Commit per unit of work.** Commit — and push — each time a coherent piece is finished (one
+component, one screen section, one fix), not in one large batch at the end. The husky pre-commit
+hook is broken (expects yarn); run `npm run types-check` yourself, then
+`git commit --no-verify`.
+
 ## Two roles
 
 Sign-in (`/login`, email + password) hits `POST /api/v1/auth/login` on the Worker and returns a
