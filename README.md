@@ -1,4 +1,10 @@
-# drugbin
+# drugbin  — ARCHIVED (superseded 2026-09-06)
+
+> **This repo is no longer deployed.** The DrugBin admin console was re-platformed to
+> **`~/projects/drugbin-app`** (Vite + React 19 + Tailwind v4 + shadcn + Feature-Sliced Design +
+> @tanstack/react-query). That repo now serves both `app.drugbin.ro` and `app.dev.drugbin.ro`.
+> This CRA 5 codebase is kept only for history — its final state is tagged **`final-cra`**
+> (tip of `feat/admin-console`, the branch the port was taken from).
 
 The DrugBin dashboard SPA — CRA 5 + React 18, styled-components, MUI (charts), zustand, SWR.
 Conventions: **`CLAUDE.md`**.
